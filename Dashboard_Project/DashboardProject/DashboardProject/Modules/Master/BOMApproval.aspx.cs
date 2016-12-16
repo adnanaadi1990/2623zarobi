@@ -402,7 +402,7 @@ namespace DashboardProject.Modules.Master
 
         protected void btnApproved_Click(object sender, EventArgs e)
         {
-            //Approve
+            //Approve Fahad
         }
 
         protected void btnReject_Click(object sender, EventArgs e)
