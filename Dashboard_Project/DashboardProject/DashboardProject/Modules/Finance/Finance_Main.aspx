@@ -188,7 +188,7 @@
                         </a>
                     </div>
 
-                    <div class="col-lg-4 col-sm-6">
+                    <div class="col-lg-4 col-sm-6">     
                         <a href="#" class="portfolio-box">
                             <asp:ImageButton ID="btnSMR" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/SMR.jpg" CausesValidation="False" OnClick="btnSMR_Click" />
                             <%-- <img src="../../img/portfolio/invoice.jpg" class="img-responsive" alt="">--%>
