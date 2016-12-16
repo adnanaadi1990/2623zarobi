@@ -41,26 +41,32 @@
         }
         function DivClickedCM() {
             var btnHiddenbCM = $('#<%= btnCM.ClientID %>');
-              if (btnHiddenbCM != null) {
-                  btnHiddenbCM.click();
-              }
-          }
-          function DivClickedPettyCash() {
-              var btnHiddenPC = $('#<%= btnPettyCash.ClientID %>');
-              if (btnHiddenPC != null) {
-                  btnHiddenPC.click();
-              }
-          }
-          function DivClickedDeliveryChallanWorkflow() {
-              var btnHiddenbtnClickedDeliveryChallanWorkflow = $('#<%= btnClickedDeliveryChallanWorkflow.ClientID %>');
+            if (btnHiddenbCM != null) {
+                btnHiddenbCM.click();
+            }
+        }
+        function DivClickedPettyCash() {
+            var btnHiddenPC = $('#<%= btnPettyCash.ClientID %>');
+            if (btnHiddenPC != null) {
+                btnHiddenPC.click();
+            }
+        }
+        function DivClickedDeliveryChallanWorkflow() {
+            var btnHiddenbtnClickedDeliveryChallanWorkflow = $('#<%= btnClickedDeliveryChallanWorkflow.ClientID %>');
               if (btnHiddenbtnClickedDeliveryChallanWorkflow != null) {
                   btnHiddenbtnClickedDeliveryChallanWorkflow.click();
               }
           }
           function DivClickedDeliveryInvoiceWorkFlow() {
               var btnHiddenbtnClickedInvoiceWorkFlow = $('#<%= btnIWF.ClientID %>');
-            if (btnHiddenbtnClickedInvoiceWorkFlow != null) {
-                btnHiddenbtnClickedInvoiceWorkFlow.click();
+              if (btnHiddenbtnClickedInvoiceWorkFlow != null) {
+                  btnHiddenbtnClickedInvoiceWorkFlow.click();
+              }
+          }
+          function DivClickedServiceMasterRequestForm() {
+              var btnHiddenbtnClickedServiceMasterRequestForm = $('#<%= btnSMR.ClientID %>');
+            if (btnHiddenbtnClickedServiceMasterRequestForm != null) {
+                btnHiddenbtnClickedServiceMasterRequestForm.click();
             }
         }
 
@@ -95,8 +101,8 @@
 
                     </a>
                 </li>
-                 <li>
-                        <a class="page-scroll" href="../../Main.aspx" style="width: 112px;">Main Page</a>
+                <li>
+                    <a class="page-scroll" href="../../Main.aspx" style="width: 112px;">Main Page</a>
                 </li>
                 <li>
                     <a class="page-scroll" href="../../Logout.aspx" style="width: 112px;">Logout</a>
@@ -120,11 +126,11 @@
             <div class="container-fluid">
                 <div class="row no-gutter">
                     <div class="col-lg-4 col-sm-6">
-                      <a href="#" class="portfolio-box">
+                        <a href="#" class="portfolio-box">
                             <asp:ImageButton ID="btnVM" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/VMC.png" CausesValidation="False" OnClick="btnVM_Click" />
                             <%--<img src="../../img/portfolio/VMC.png" class="img-responsive" alt="">--%>
                             <div class="portfolio-box-caption" onclick="javascript:DivClickedVM(); return true;">
-                                <div class="portfolio-box-caption-content" >
+                                <div class="portfolio-box-caption-content">
                                     <div class="project-category text-faded">Form</div>
                                     <div class="project-name">
                                         Vendor Master
@@ -138,7 +144,7 @@
                             <asp:ImageButton ID="btnCM" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/CM.jpg" CausesValidation="False" OnClick="btnCM_Click" />
                             <%--<img src="../../img/portfolio/CM.jpg" class="img-responsive" alt="">--%>
                             <div class="portfolio-box-caption" onclick="javascript:DivClickedCM(); return true;">
-                               <div class="portfolio-box-caption-content" >
+                                <div class="portfolio-box-caption-content">
                                     <div class="project-category text-faded">Form</div>
                                     <div class="project-name">Customer Master</div>
                                 </div>
@@ -149,7 +155,7 @@
                         <a href="#" class="portfolio-box">
                             <%--<img src="../../img/portfolio/PettyCash.png" class="img-responsive" alt="">--%>
                             <asp:ImageButton ID="btnPettyCash" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/PettyCash.png" CausesValidation="False" OnClick="btnPettyCash_Click" />
-                            <div class="portfolio-box-caption"  onclick="javascript:DivClickedPettyCash(); return true;">
+                            <div class="portfolio-box-caption" onclick="javascript:DivClickedPettyCash(); return true;">
                                 <div class="portfolio-box-caption-content">
                                     <div class="project-category text-faded">Form</div>
                                     <div class="project-name">Petty Cash</div>
@@ -171,8 +177,8 @@
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <a href="#" class="portfolio-box">
-                              <asp:ImageButton ID="btnIWF" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/invoice.jpg" CausesValidation="False" OnClick="btnIWF_Click" />
-                           <%-- <img src="../../img/portfolio/invoice.jpg" class="img-responsive" alt="">--%>
+                            <asp:ImageButton ID="btnIWF" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/invoice.jpg" CausesValidation="False" OnClick="btnIWF_Click" />
+                            <%-- <img src="../../img/portfolio/invoice.jpg" class="img-responsive" alt="">--%>
                             <div class="portfolio-box-caption" onclick="javascript:DivClickedDeliveryInvoiceWorkFlow(); return true;">
                                 <div class="portfolio-box-caption-content">
                                     <div class="project-category text-faded">Form</div>
@@ -181,15 +187,15 @@
                             </div>
                         </a>
                     </div>
-                   
-                   
+
                     <div class="col-lg-4 col-sm-6">
                         <a href="#" class="portfolio-box">
-                            <img src="../../img/portfolio/UNDERPROCESS.png" class="img-responsive" alt="">
-                            <div class="portfolio-box-caption">
-                             <div class="portfolio-box-caption-content">
+                            <asp:ImageButton ID="btnSMR" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/SMR.jpg" CausesValidation="False" OnClick="btnSMR_Click" />
+                            <%-- <img src="../../img/portfolio/invoice.jpg" class="img-responsive" alt="">--%>
+                            <div class="portfolio-box-caption" onclick="javascript:DivClickedServiceMasterRequestForm(); return true;">
+                                <div class="portfolio-box-caption-content">
                                     <div class="project-category text-faded">Form</div>
-                                    <div class="project-name">TOLET</div>
+                                    <div class="project-name">Service Master</div>
                                 </div>
                             </div>
                         </a>
