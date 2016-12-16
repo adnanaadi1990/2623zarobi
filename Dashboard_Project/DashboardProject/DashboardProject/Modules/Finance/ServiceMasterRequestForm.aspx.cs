@@ -640,7 +640,7 @@ namespace DashboardProject.Modules.Finance
         protected void getUser()
         {
             cmd.CommandText = "";
-            cmd.CommandText = "Select user_name,DisplayName from tblusermodulecategory where Category like '%SAP Basis Consultant%'";
+            cmd.CommandText = "select * from tbluserMDA where FormName = 'SMRF'";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
             conn.Open();
