@@ -1,0 +1,10 @@
+D:\DashboardLocal\-2934-8947-7068-\Dashboard_Project\DashboardProject\DashboardProject\bin\DashboardProject.dll
+D:\DashboardLocal\-2934-8947-7068-\Dashboard_Project\DashboardProject\DashboardProject\bin\DashboardProject.pdb
+D:\DashboardLocal\-2934-8947-7068-\Dashboard_Project\DashboardProject\DashboardProject\bin\AjaxControlToolkit.pdb
+D:\DashboardLocal\-2934-8947-7068-\Dashboard_Project\DashboardProject\DashboardProject\bin\itextsharp.xml
+D:\DashboardLocal\-2934-8947-7068-\Dashboard_Project\DashboardProject\DashboardProject\obj\Release\DashboardProject.csprojResolveAssemblyReference.cache
+D:\DashboardLocal\-2934-8947-7068-\Dashboard_Project\DashboardProject\DashboardProject\obj\Release\DashboardProject.csproj.ResolveComReference.cache
+D:\DashboardLocal\-2934-8947-7068-\Dashboard_Project\DashboardProject\DashboardProject\obj\Release\RdlCompile.cache
+D:\DashboardLocal\-2934-8947-7068-\Dashboard_Project\DashboardProject\DashboardProject\obj\Release\RdlCompile.compiled
+D:\DashboardLocal\-2934-8947-7068-\Dashboard_Project\DashboardProject\DashboardProject\obj\Release\DashboardProject.dll
+D:\DashboardLocal\-2934-8947-7068-\Dashboard_Project\DashboardProject\DashboardProject\obj\Release\DashboardProject.pdb
