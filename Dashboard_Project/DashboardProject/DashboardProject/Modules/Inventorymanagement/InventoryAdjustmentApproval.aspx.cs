@@ -231,10 +231,17 @@ namespace DashboardProject.Modules.Inventorymanagement
         }
         private void GetSockDetail()
         {
+            try
+            {
             ds = objAD.getDeadStock(lblMaxTransactionID.Text.ToString());
             grdDetail.DataSource = ds.Tables["getDeadStock"];
             grdDetail.DataBind();
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "GetSockDetail" + ex.ToString();
+                dvemaillbl.Visible = true;
+            }
         }
         private void BindsysApplicationStatus()
         {
@@ -303,11 +310,11 @@ namespace DashboardProject.Modules.Inventorymanagement
         }
         private void BindUser()
         {
-            cmd.CommandText = "SELECT * FROM tblEmailSequanceWise where FormID = '" + FormID.ToString() + "' order by Sequance asc";
+            cmd.CommandText = "SP_getFormID";
             //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";
-            cmd.CommandType = CommandType.Text;
+            cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = conn;
-
+            cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
             conn.Open();
             ddlNotification.DataSource = cmd.ExecuteReader();
             ddlNotification.DataTextField = "DisplayName";
@@ -610,7 +617,7 @@ namespace DashboardProject.Modules.Inventorymanagement
             }
             catch (Exception ex)
             {
-                lblError.Text = "";
+                lblError.Text = "MDA Working" + ex.ToString();
             }
         }
 

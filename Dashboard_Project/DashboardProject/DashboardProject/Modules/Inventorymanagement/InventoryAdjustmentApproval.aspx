@@ -125,7 +125,7 @@
 
             <div class="row">
 
-                <div class="col-sm-7" id="pnlHD">
+                <div class="col-sm-12" id="pnlHD">
                     <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Inventory Adjustment Approval</p>
                 </div>
             </div>
