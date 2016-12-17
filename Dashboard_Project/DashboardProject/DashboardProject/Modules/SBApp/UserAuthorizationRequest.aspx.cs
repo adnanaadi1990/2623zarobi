@@ -200,7 +200,8 @@ namespace ITLDashboard.Modules.SBApp
                 }
                 catch (Exception ex)
                 {
-                    ex.ToString();
+                 lblError.Text =  ex.ToString();
+                    
                 }
             }
         }

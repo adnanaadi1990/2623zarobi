@@ -50,45 +50,59 @@ namespace ITLDashboard.Classes
             }
             public DataSet getUserDetail(string UserNameID)
             {
-                try
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
                 {
-                    ds.Clear();
-                    cmd.CommandText = "";
-                    cmd.CommandText = "select DisplayName,Department,Designation from tbluser where user_name = '" + UserNameID.ToString() + "'";
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Connection = conn;
-                    adp.SelectCommand = cmd;
-                    adp.Fill(ds, "tbluser_DisplayName");
+                    using (SqlCommand cmdData = new SqlCommand())//
+                    {
+                        try
+                        {
+                            ds.Clear();
+                            cmdData.CommandText = "";
+                            cmdData.CommandText = "SP_getUserDetail";
+                            cmdData.CommandType = CommandType.StoredProcedure;
+                            cmdData.Connection = connection;
+                            cmdData.Parameters.AddWithValue("@User_Name", UserNameID.ToString());
+                            adp.SelectCommand = cmdData;
+                            adp.Fill(ds, "tbluser_DisplayName");
+                        }
+                        catch (Exception ex)
+                        { ex.ToString(); }
+                        finally
+                        { conn.Close(); }
+                        return ds;
+                    }
                 }
-                catch (Exception ex)
-                { ex.ToString(); }
-                finally
-                { conn.Close(); }
-                return ds;
             }
 
             public DataSet getUserHOD(string UserName)
             {
-                try
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
                 {
-                    ds.Clear();
-                    cmd.CommandText = "";
-                    cmd.CommandText = @"SP_getHOD";
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Connection = conn;
-                    cmd.Parameters.AddWithValue("@username", UserName.ToString());
-                    adp.SelectCommand = cmd;
-                    adp.Fill(ds, "getUserHOD");
+                    using (SqlCommand cmdData = new SqlCommand())//
+                    {
+                        try
+                        {
+                            ds.Clear();
+                            cmdData.CommandText = "";
+                            cmdData.CommandText = @"SP_getHOD";
+                            cmdData.CommandType = CommandType.StoredProcedure;
+                            cmdData.Connection = connection;
+                            cmdData.Parameters.AddWithValue("@username", UserName.ToString());
+                            adp.SelectCommand = cmdData;
+                            adp.Fill(ds, "getUserHOD");
+                        }
+                        catch (Exception ex)
+                        { ex.ToString(); }
+                        finally
+                        { conn.Close(); }
+                        return ds;
+                    }
                 }
-                catch (Exception ex)
-                { ex.ToString(); }
-                finally
-                { conn.Close(); }
-                return ds;
             }
 
             public DataSet getPlantDistinct()
             {
+
                 try
                 {
 
@@ -196,45 +210,58 @@ namespace ITLDashboard.Classes
 
             public DataSet CheckSapID(string username)
             {
-                try
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
                 {
+                    using (SqlCommand cmdData = new SqlCommand())//
+                    {
+                        try
+                        {
 
-                    ds.Clear();
-                    cmd.CommandText = "";
-                    cmd.CommandText = "select SAPID from tbluser where user_name like '%" + username.ToString() + "%'";
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Connection = conn;
-                    adp.SelectCommand = cmd;
-                    adp.Fill(ds, "SAPID");
+                            ds.Clear();
+                            cmdData.CommandText = "";
+                            cmdData.CommandText = "SP_Check_SAPID";
+                            cmdData.CommandType = CommandType.StoredProcedure;
+                            cmdData.Connection = connection;
+                            cmdData.Parameters.AddWithValue("@User_Name", "%" + username.ToString() + "%");
+                            adp.SelectCommand = cmdData;
+                            adp.Fill(ds, "SAPID");
+                        }
+                        catch (Exception ex)
+                        { ex.ToString(); }
+                        finally
+                        { conn.Close(); }
+                        return ds;
+                    }
                 }
-                catch (Exception ex)
-                { ex.ToString(); }
-                finally
-                { conn.Close(); }
-                return ds;
             }
 
 
             public DataSet GetTransactionMaxPettyCash(string FORMID)
             {
-                //Changes
-                try
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
                 {
-
-                    ds.Clear();
-                    cmd.CommandText = "";
-                    //cmd.CommandText = "SELECT COALESCE(MAX(MeterialNo), 0) +1 as TransactionID from tbl_SYS_MaterialMaster";
-                    cmd.CommandText = "EXEC [SP_MaintainTrans]" + "@FormID='" + FORMID.ToString() + "'";
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Connection = conn;
-                    adp.SelectCommand = cmd;
-                    adp.Fill(ds, "MaterialMaxID");
+                    using (SqlCommand cmdData = new SqlCommand())//
+                    {
+                        //Changes
+                        try
+                        {
+                            ds.Clear();
+                            cmdData.CommandText = "";
+                            //cmd.CommandText = "SELECT COALESCE(MAX(MeterialNo), 0) +1 as TransactionID from tbl_SYS_MaterialMaster";
+                            cmdData.CommandText = "SP_MaintainTrans";
+                            cmdData.CommandType = CommandType.StoredProcedure;
+                            cmdData.Connection = connection;
+                            cmdData.Parameters.AddWithValue("@FormID", FORMID.ToString());
+                            adp.SelectCommand = cmdData;
+                            adp.Fill(ds, "MaterialMaxID");
+                        }
+                        catch (Exception ex)
+                        { ex.ToString(); }
+                        finally
+                        { conn.Close(); }
+                        return ds;
+                    }
                 }
-                catch (Exception ex)
-                { ex.ToString(); }
-                finally
-                { conn.Close(); }
-                return ds;
             }
             public DataSet GetTransactionMax()
             {
@@ -295,36 +322,7 @@ namespace ITLDashboard.Classes
                 { conn.Close(); }
                 return ds;
             }
-            public DataSet createuser(string UserId, string username, string pass, string email, string designation, string dept)
-            {
-                try
-                {
-                    //string query = "Exec SP_signup" + " @user_name='" + username + "', " +
-                    //     " @user_password='" + pass + "', " +
-                    //      " @user_email='" + email + "', " +
-                    //       " @designation='" + designation + "', " +
-                    //        " @department_id='" + dept + "', " + "'";
-                    cmd.CommandText = "Exec SP_signup" + " @user_id='" + UserId + "', " +
-                        " @user_name='" + username + "', " +
-                         " @user_password='" + pass + "', " +
-                          " @user_email='" + email + "', " +
-                           " @designation='" + designation + "', " +
-                            " @department_id='" + dept + "'";
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Connection = conn;
-
-                    adp.SelectCommand = cmd;
-                    adp.Fill(ds, "Message");
-
-
-                }
-                catch (Exception ex)
-                { ex.ToString(); }
-                finally
-                { conn.Close(); }
-                return ds;
-            }
-
+            
             public DataSet BindDropDownDept()
             {
 
@@ -363,24 +361,6 @@ namespace ITLDashboard.Classes
                 finally
                 { conn.Close(); }
                 return ds;
-            }
-            public DataTable Userlogin(string user_id, string passcode)
-            {
-                try
-                {
-                    cmd.CommandText = "";
-                    cmd.CommandText = "Exec SP_userlogin" + " @user_id='" + user_id + "', " +
-                            " @passcode='" + passcode + "'";
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Connection = conn;
-                    adp.SelectCommand = cmd;
-                    adp.Fill(dt);
-                }
-                catch (Exception ex)
-                { ex.ToString(); }
-                finally
-                { conn.Close(); }
-                return dt;
             }
             // MASTER DETAIL METERIAL COMBO//
             public DataSet BindMaterialType()
@@ -457,24 +437,31 @@ namespace ITLDashboard.Classes
                 { conn.Close(); }
                 return ds;
             }
-            public DataSet BindPlantMtype(string MaterialTypePlant)
+            public DataSet BindPlantMtype(string _MaterialTypePlant)
             {
-                try
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
                 {
+                    using (SqlCommand cmdData = new SqlCommand())//
+                    {
+                        try
+                        {
 
-                    ds.Clear();
-                    cmd.CommandText = "";
-                    cmd.CommandText = "SELECT PlantId ,PlantId + ' ' + Description as Description FROM tblPlants where MaterialType LIKE '%" + MaterialTypePlant.ToString() + "%'";
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Connection = conn;
-                    adp.SelectCommand = cmd;
-                    adp.Fill(ds, "BindPlantMtype");
+                            ds.Clear();
+                            cmdData.CommandText = "";
+                            cmdData.CommandText = "SP_getPlantMaterialTypeWise";
+                            cmdData.CommandType = CommandType.StoredProcedure;
+                            cmdData.Connection = connection;
+                            cmdData.Parameters.AddWithValue("@MaterialTypePlant", "%" + _MaterialTypePlant.ToString() + "%");
+                            adp.SelectCommand = cmdData;
+                            adp.Fill(ds, "BindPlantMtype");
+                        }
+                        catch (Exception ex)
+                        { ex.ToString(); }
+                        finally
+                        { conn.Close(); }
+                        return ds;
+                    }
                 }
-                catch (Exception ex)
-                { ex.ToString(); }
-                finally
-                { conn.Close(); }
-                return ds;
             }
             public DataSet BindMaterialgroup()
             {
@@ -494,23 +481,30 @@ namespace ITLDashboard.Classes
                 { conn.Close(); }
                 return ds;
             }
-            public DataSet BindMaterialgroupMtype(string MaterialType)
+            public DataSet BindMaterialgroupMtype(string _MaterialType)
             {
-                try
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
                 {
-                    ds.Clear();
-                    cmd.CommandText = "";
-                    cmd.CommandText = "SELECT Materialgrpcode,[Materialgrpcode] + ' ' + Description as Description FROM [dbo].[tblMaterialgrp] where MaterialType  like '%" + MaterialType.ToString() + "%'";
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Connection = conn;
-                    adp.SelectCommand = cmd;
-                    adp.Fill(ds, "BindMaterialgroupMtype");
+                    using (SqlCommand cmdData = new SqlCommand())//
+                    {
+                        try
+                        {
+                            ds.Clear();
+                            cmdData.CommandText = "";
+                            cmdData.CommandText = "SP_getMaterialGroupMaterialTypeWise";
+                            cmdData.CommandType = CommandType.StoredProcedure;
+                            cmdData.Connection = connection;
+                            cmdData.Parameters.AddWithValue("@MaterialTypePlant", "%" + _MaterialType.ToString() + "%");
+                            adp.SelectCommand = cmdData;
+                            adp.Fill(ds, "BindMaterialgroupMtype");
+                        }
+                        catch (Exception ex)
+                        { ex.ToString(); }
+                        finally
+                        { conn.Close(); }
+                        return ds;
+                    }
                 }
-                catch (Exception ex)
-                { ex.ToString(); }
-                finally
-                { conn.Close(); }
-                return ds;
             }
             public DataSet BindBaseUnitOfMeasure()
             {
@@ -530,23 +524,30 @@ namespace ITLDashboard.Classes
                 { conn.Close(); }
                 return ds;
             }
-            public DataSet BindBaseUnitOfMeasureMTYPE(string MTYPEBOM)
+            public DataSet BindBaseUnitOfMeasureMTYPE(string _MTYPEBOM)
             {
-                try
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
                 {
-                    ds.Clear();
-                    cmd.CommandText = "";
-                    cmd.CommandText = "SELECT BaseuomSNo ,Baseuom FROM tblBaseunitofmeasure where MaterialType like '%" + MTYPEBOM.ToString() + "%'";
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Connection = conn;
-                    adp.SelectCommand = cmd;
-                    adp.Fill(ds, "BindBaseUnitOfMeasureMTYPE");
+                    using (SqlCommand cmdData = new SqlCommand())//
+                    {
+                        try
+                        {
+                            ds.Clear();
+                            cmdData.CommandText = "";
+                            cmdData.CommandText = "SP_getBaseUnitOfMeasure";
+                            cmdData.CommandType = CommandType.StoredProcedure;
+                            cmdData.Connection = connection;
+                            cmdData.Parameters.AddWithValue("@MaterialType", "%" + _MTYPEBOM.ToString() + "%");
+                            adp.SelectCommand = cmdData;
+                            adp.Fill(ds, "BindBaseUnitOfMeasureMTYPE");
+                        }
+                        catch (Exception ex)
+                        { ex.ToString(); }
+                        finally
+                        { conn.Close(); }
+                        return ds;
+                    }
                 }
-                catch (Exception ex)
-                { ex.ToString(); }
-                finally
-                { conn.Close(); }
-                return ds;
             }
             public DataSet BindLenght()
             {
@@ -639,15 +640,16 @@ namespace ITLDashboard.Classes
                 return ds;
             }
 
-            public DataSet BindMRPtypeMTYPE(string MaterialType)
+            public DataSet BindMRPtypeMTYPE(string _MaterialType)
             {
                 try
                 {
                     ds.Clear();
                     cmd.CommandText = "";
-                    cmd.CommandText = "SELECT mrptypecode ,mrptypecode + ' ' + Description as Description FROM tblmrptype where MaterialTypecode like '%" + MaterialType.ToString() + "%' ";
-                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "SP_getMRPTypeMaterialWise";
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = conn;
+                    cmd.Parameters.AddWithValue("@MaterialType", "%" + _MaterialType.ToString() + "%");
                     adp.SelectCommand = cmd;
                     adp.Fill(ds, "BindMRPtypeMTYPE");
                 }
