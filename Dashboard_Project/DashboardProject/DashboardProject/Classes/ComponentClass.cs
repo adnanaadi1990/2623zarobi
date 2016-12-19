@@ -48,17 +48,18 @@ namespace ITLDashboard.Classes
                 { conn.Close(); }
                 return ds;
             }
-            public DataSet getUserDetail(string UserNameID)
+            public DataSet getUserDetail(string _UserNameID)
             {
                 try
                 {
                     ds.Clear();
                     cmd.CommandText = "";
-                    cmd.CommandText = "select DisplayName,Department,Designation from tbluser where user_name = '" + UserNameID.ToString() + "'";
+                    cmd.CommandText = @"select DisplayName,Department,Designation from tbluser where user_name = @UserID";
                     cmd.CommandType = CommandType.Text;
                     cmd.Connection = conn;
                     adp.SelectCommand = cmd;
-                    adp.Fill(ds, "tbluser_DisplayName");
+                    cmd.Parameters.AddWithValue("@UserID", _UserNameID.ToString());
+                        adp.Fill(ds, "tbluser_DisplayName");
                 }
                 catch (Exception ex)
                 { ex.ToString(); }
