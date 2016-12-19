@@ -3038,6 +3038,7 @@
     <Folder Include="css\Classes\" />
     <Folder Include="css\Code\" />
     <Folder Include="css\Content\" />
+    <Folder Include="DashboardDocument\InventoryAdjustment\" />
     <Folder Include="js\bin\" />
     <Folder Include="js\bower_components\" />
     <Folder Include="js\Classes\" />

@@ -230,10 +230,18 @@ namespace ITLDashboard.Modules.Inventorymanagement
         }
         private void GetSockDetail()
         {
-            ds = objAD.getDeadStock(lblMaxTransactionID.Text.ToString());
-            grdDetail.DataSource = ds.Tables["getDeadStock"];
-            grdDetail.DataBind();
+            try
+            {
+                ds = objAD.getDeadStock(lblMaxTransactionID.Text.ToString());
+                grdDetail.DataSource = ds.Tables["getDeadStock"];
+                grdDetail.DataBind();
 
+            }
+            catch (Exception ex) 
+            {
+
+                lblError.Text = "GetSockDetail" + ex.ToString();
+            }
         }
         private void BindsysApplicationStatus()
         {
