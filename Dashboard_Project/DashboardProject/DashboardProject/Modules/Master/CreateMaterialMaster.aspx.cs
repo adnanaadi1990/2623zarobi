@@ -225,6 +225,7 @@ namespace ITLDashboard.Modules.Master
                 catch (Exception ex)
                 {
                     lblError.Text = ex.ToString();
+                    error.Visible = true;
                 }
             }
 

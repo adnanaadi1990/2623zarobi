@@ -253,7 +253,7 @@ namespace ITLDashboard.Modules.Master
                                 ddlLotsize.Enabled = true;
                                 TxtSchedMarginkey.Enabled = true;
                                 ddlPeriodIndicator.Enabled = true;
-                              //  DisableControls(Page, false);
+                                //  DisableControls(Page, false);
                                 ////////////BTN//////////////
                                 btnReject.Visible = false;
                                 btnUpdate.Visible = true;
@@ -265,7 +265,7 @@ namespace ITLDashboard.Modules.Master
                                 btnTransfer.Visible = false;
                                 controlForwardHide();
                             }
-                             if ((((string)ViewState["Designation"]) == "Manager Operation") && (((string)ViewState["Department"]) == "Merchandising"))
+                            if ((((string)ViewState["Designation"]) == "Manager Operation") && (((string)ViewState["Department"]) == "Merchandising"))
                             {
                                 BD.Visible = true;
                                 Prod.Visible = true;
@@ -407,12 +407,12 @@ namespace ITLDashboard.Modules.Master
                                 QM.Visible = true;
                                 MRP.Visible = true;
                                 Account.Visible = true;
-                
+
                                 ddlValuationClass.Enabled = true;
                                 ddlValuationCategory.Enabled = true;
                                 ddlValuationType.Enabled = true;
-                                txtStandardPrice.Enabled = true;     
-                               // DisableControls(Page, false);
+                                txtStandardPrice.Enabled = true;
+                                // DisableControls(Page, false);
                                 ////////////BTN//////////////
                                 btnReject.Visible = false;
                                 btnFUpdate.Visible = true;
@@ -424,8 +424,8 @@ namespace ITLDashboard.Modules.Master
                                 btnApprover.Visible = false;
                                 btnEdit.Visible = false;
                                 btnForward.Visible = false;
-                                btnTransfer.Visible = false;            
-                               // btnFUpdate.Visible = false;
+                                btnTransfer.Visible = false;
+                                // btnFUpdate.Visible = false;
                                 controlForwardHide();
                             }
                             else if (((string)ViewState["Department"]) == "MIS")
@@ -518,54 +518,65 @@ namespace ITLDashboard.Modules.Master
 
         private void BindPageLoad()
         {
-            //GetActiceDriectory();
-            //  BindPlant();
-            BindStorageLocation();
-            // BindMaterialgroup();
-            BindProductHierarchy();
-            BindProductHierarchy2();
-            BindProductHierarchy3();
-            //  BindBaseUnitOfMeasure();
-            //BindSplitValueation();
-            BindProfitCenter();
-            // BindValuationCategory();
-            // BindPurchasingGroup();
-            BindMRPController();
-            BindMaterialSubGroup();
-            // BindMRPType();
-            BindLotSize();
-            BindPeriodIndicator();
-            BindStrategygroup();
-            BindQMControlKey();
-            BindAvailabilitycheck();
-            BindRebateCategoryRate();
-            BindRate();
-            BindDistributionChannel();
-            BindLoadingGroup();
-            BindSalesTax();
-            //BindValuationClass();
-            BindProdnsupervisor();
-            BindProdSchedProfile();
-            BindTasklistusage();
-            BindVolumeunit();
-            Bindweightunit();
-            BindItemCateguoryGroup();
-            BindDivision();
-            BindLoomType();
-            BindRoomReady();
-            BindSubDivision();
-            BindNOS();
-            BindTransportionGroup();
-            BindPackagingMaterialCateguory();
-            BindMrpGroup();
-            BindBackFlush();
-            BindPackagingMaterialType();
-            BindLenght();
+            try
+            {
+                //GetActiceDriectory();
+                //  BindPlant();
+                BindStorageLocation();
+                // BindMaterialgroup();
+                BindProductHierarchy();
+                BindProductHierarchy2();
+                BindProductHierarchy3();
+                //  BindBaseUnitOfMeasure();
+                //BindSplitValueation();
+                BindProfitCenter();
+                // BindValuationCategory();
+                // BindPurchasingGroup();
+                BindMRPController();
+                BindMaterialSubGroup();
+                // BindMRPType();
+                BindLotSize();
+                BindPeriodIndicator();
+                BindStrategygroup();
+                BindQMControlKey();
+                BindAvailabilitycheck();
+                BindRebateCategoryRate();
+                BindRate();
+                BindDistributionChannel();
+                BindLoadingGroup();
+                BindSalesTax();
+                //BindValuationClass();
+                BindProdnsupervisor();
+                BindProdSchedProfile();
+                BindTasklistusage();
+                BindVolumeunit();
+                Bindweightunit();
+                BindItemCateguoryGroup();
+                BindDivision();
+                BindLoomType();
+                BindRoomReady();
+                BindSubDivision();
+                BindNOS();
+                BindTransportionGroup();
+                BindPackagingMaterialCateguory();
+                BindMrpGroup();
+                BindBackFlush();
+                BindPackagingMaterialType();
+                BindLenght();
+
+            }
+
+            catch (Exception ex)
+            {
+
+            }
+
 
         }
 
         private void BindGrid()
         {
+
             cmd.CommandText = "SP_AltUnitOfMeasureGrid" + " @TransactionID='" + lblMaxTransactionID.Text.ToString() + "'";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
@@ -989,7 +1000,7 @@ namespace ITLDashboard.Modules.Master
                                 break;
                             }
                         }
-  
+
                         txtStandardPrice.Text = reader["StandardPrice"].ToString();
                         RadioButtonList2.SelectedValue = reader["ClosedBox"].ToString();
                         string MatLock = "";
@@ -1836,7 +1847,7 @@ namespace ITLDashboard.Modules.Master
                 BindBaseUnitOfMeasureMTYPR();
                 BindMaterialgroup();
                 BindMRPTypeMTYPE();
-                
+
             }
             else if (ddlMaterialType.SelectedValue == "0")
             {
@@ -1845,7 +1856,7 @@ namespace ITLDashboard.Modules.Master
                 divEmail.Visible = false;
             }
 
-            
+
 
         }
 
@@ -2275,7 +2286,7 @@ namespace ITLDashboard.Modules.Master
             Page.MaintainScrollPositionOnPostBack = false;
             refreshpage();
             BD.Visible = false;
-            CF.Visible = false; 
+            CF.Visible = false;
             Prod.Visible = false;
             Account.Visible = false;
             Pack.Visible = false;
@@ -2890,7 +2901,7 @@ namespace ITLDashboard.Modules.Master
                         error.Visible = false;
                         Page.MaintainScrollPositionOnPostBack = false;
                         btnReject.Visible = true;
-                        btnFUpdate.Visible = false;                    
+                        btnFUpdate.Visible = false;
                         btnTUpdate.Visible = false;
                         btnUpdate.Visible = false;
                         txtRemarksReview.Visible = true;
@@ -3007,7 +3018,7 @@ namespace ITLDashboard.Modules.Master
                 while (reader.Read())
                 {
                     url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
-                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";                    
+                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
                     TransactionID = reader["TransactionID"].ToString();
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();
@@ -3151,7 +3162,7 @@ namespace ITLDashboard.Modules.Master
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
 
-                  
+
                     lblEmail.Text = "*New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
                     ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
                     lblEmail.Focus();
