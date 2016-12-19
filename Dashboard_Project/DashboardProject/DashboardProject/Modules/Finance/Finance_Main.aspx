@@ -190,7 +190,7 @@
 
                     <div class="col-lg-4 col-sm-6">     
                         <a href="#" class="portfolio-box">
-                            <asp:ImageButton ID="btnSMR" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/SMR.jpg" CausesValidation="False" OnClick="btnSMR_Click" />
+                            <asp:ImageButton ID="btnSMR" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/SMR.jpg" CausesValidation="False"  />
                             <%-- <img src="../../img/portfolio/invoice.jpg" class="img-responsive" alt="">--%>
                             <div class="portfolio-box-caption" onclick="javascript:DivClickedServiceMasterRequestForm(); return true;">
                                 <div class="portfolio-box-caption-content">
