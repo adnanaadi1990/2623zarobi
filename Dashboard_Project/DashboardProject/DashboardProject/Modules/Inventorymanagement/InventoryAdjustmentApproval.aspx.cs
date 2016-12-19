@@ -57,6 +57,7 @@ namespace DashboardProject.Modules.Inventorymanagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!IsPostBack)
             {
                 if (Session["User_Name"] == null)
@@ -220,7 +221,8 @@ namespace DashboardProject.Modules.Inventorymanagement
                 }
                 catch (Exception ex)
                 {
-
+                    lblError.Text = ex.ToString();
+                    dvemaillbl.Visible = true;
                 }
             }
             for (int i = 0; i < ddlNotification.Items.Count; i++)
@@ -229,13 +231,14 @@ namespace DashboardProject.Modules.Inventorymanagement
                 ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
             }
         }
+
         private void GetSockDetail()
         {
             try
             {
-            ds = objAD.getDeadStock(lblMaxTransactionID.Text.ToString());
-            grdDetail.DataSource = ds.Tables["getDeadStock"];
-            grdDetail.DataBind();
+                ds = objAD.getDeadStock(lblMaxTransactionID.Text.ToString());
+                grdDetail.DataSource = ds.Tables["getDeadStock"];
+                grdDetail.DataBind();
             }
             catch (Exception ex)
             {
@@ -243,33 +246,50 @@ namespace DashboardProject.Modules.Inventorymanagement
                 dvemaillbl.Visible = true;
             }
         }
+
         private void BindsysApplicationStatus()
         {
-            ds = obj.BindsysApplicationStatus(lblMaxTransactionID.Text, FormID.ToString());
-            grdWStatus.DataSource = ds.Tables["BindsysApplicationStatus"];
-            grdWStatus.DataBind();
-            grdWStatus.Visible = true;
+            try
+            {
+                ds = obj.BindsysApplicationStatus(lblMaxTransactionID.Text, FormID.ToString());
+                grdWStatus.DataSource = ds.Tables["BindsysApplicationStatus"];
+                grdWStatus.DataBind();
+                grdWStatus.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "BindsysApplicationStatus" + ex.ToString();
+            }
         }
+
         private void GetStatusHierachyCategoryControls()
         {
-            ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString(), ViewState["SerialNo"].ToString(), ViewState["Status"].ToString());
-            if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
+            try
             {
-                ViewState["StatusHierachyCategory"] = ds.Tables["tbl_SysHierarchyControl"].Rows[0]["Status"].ToString();
-            }
-            if (((string)ViewState["StatusHierachyCategory"]) == "01" || ((string)ViewState["StatusHierachyCategory"]) == "02" || ((string)ViewState["StatusHierachyCategory"]) == "03" || ((string)ViewState["StatusHierachyCategory"]) == "04" || ((string)ViewState["StatusHierachyCategory"]) == "00" || ((string)ViewState["StatusHierachyCategory"]) == "06")
-            {
-                btnSave.Enabled = false;
-                btnReject.Attributes.Add("disabled", "true");
-                btnApproved.Enabled = false;
-                btnMDA.Enabled = false;
-                btnCancel.Enabled = false;
-                btnSaveSubmit.Enabled = false;
-                txtRemarksReview.Enabled = false;
-                txtDocNo.Enabled = false;
+                ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString(), ViewState["SerialNo"].ToString(), ViewState["Status"].ToString());
+                if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
+                {
+                    ViewState["StatusHierachyCategory"] = ds.Tables["tbl_SysHierarchyControl"].Rows[0]["Status"].ToString();
+                }
+                if (((string)ViewState["StatusHierachyCategory"]) == "01" || ((string)ViewState["StatusHierachyCategory"]) == "02" || ((string)ViewState["StatusHierachyCategory"]) == "03" || ((string)ViewState["StatusHierachyCategory"]) == "04" || ((string)ViewState["StatusHierachyCategory"]) == "00" || ((string)ViewState["StatusHierachyCategory"]) == "06")
+                {
+                    btnSave.Enabled = false;
+                    btnReject.Attributes.Add("disabled", "true");
+                    btnApproved.Enabled = false;
+                    btnMDA.Enabled = false;
+                    btnCancel.Enabled = false;
+                    btnSaveSubmit.Enabled = false;
+                    txtRemarksReview.Enabled = false;
+                    txtDocNo.Enabled = false;
 
+                }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "GetStatusHierachyCategoryControls" + ex.ToString();
             }
         }
+
         private void getUserDetail()
         {
             try
@@ -289,56 +309,72 @@ namespace DashboardProject.Modules.Inventorymanagement
                 lblError.Text = "User Detail" + ex.ToString();
             }
         }
+
         private void GetHarcheyID()
         {
-            ds = obj.GetHarachyCustomerMaster(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
-            dt = ds.Tables["HID"];
-            ViewState["HIDDataSet"] = dt;
-
-            if (ds.Tables["HID"].Rows.Count > 0)
+            try
             {
-                lblMaxTransactionID.Text = ds.Tables["HID"].Rows[0]["TransactionID"].ToString();
-                ViewState["HID"] = ds.Tables["HID"].Rows[0]["HierachyCategory"].ToString();
-                ViewState["RoughtingUserID"] = ds.Tables["HID"].Rows[0]["RoughtingUserID"].ToString();
-                ViewState["Sequance"] = ds.Tables["HID"].Rows[0]["Sequance"].ToString();
-                ViewState["FormCreatedBy"] = ds.Tables["HID"].Rows[0]["CreatedBy"].ToString();
-                ViewState["SerialNo"] = ds.Tables["HID"].Rows[0]["SerialNo"].ToString();
 
-                ViewState["Status"] = ds.Tables["HID"].Rows[0]["Status"].ToString();
+                ds = obj.GetHarachyCustomerMaster(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
+                dt = ds.Tables["HID"];
+                ViewState["HIDDataSet"] = dt;
 
+                if (ds.Tables["HID"].Rows.Count > 0)
+                {
+                    lblMaxTransactionID.Text = ds.Tables["HID"].Rows[0]["TransactionID"].ToString();
+                    ViewState["HID"] = ds.Tables["HID"].Rows[0]["HierachyCategory"].ToString();
+                    ViewState["RoughtingUserID"] = ds.Tables["HID"].Rows[0]["RoughtingUserID"].ToString();
+                    ViewState["Sequance"] = ds.Tables["HID"].Rows[0]["Sequance"].ToString();
+                    ViewState["FormCreatedBy"] = ds.Tables["HID"].Rows[0]["CreatedBy"].ToString();
+                    ViewState["SerialNo"] = ds.Tables["HID"].Rows[0]["SerialNo"].ToString();
+
+                    ViewState["Status"] = ds.Tables["HID"].Rows[0]["Status"].ToString();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "GetHarcheyID" + ex.ToString();
             }
         }
+
         private void BindUser()
         {
-            cmd.CommandText = "SP_getFormID";
-            //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Connection = conn;
-            cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
-            conn.Open();
-            ddlNotification.DataSource = cmd.ExecuteReader();
-            ddlNotification.DataTextField = "DisplayName";
-            ddlNotification.DataValueField = "user_name";
-            ddlNotification.DataBind();
-            conn.Close();
-            for (int i = 0; i < ddlNotification.Items.Count; i++)
+            try
             {
-                ddlNotification.Items[i].Selected = true;
-                ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
+                cmd.CommandText = "SP_getFormID";
+                //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
+                conn.Open();
+                ddlNotification.DataSource = cmd.ExecuteReader();
+                ddlNotification.DataTextField = "DisplayName";
+                ddlNotification.DataValueField = "user_name";
+                ddlNotification.DataBind();
+                conn.Close();
+                for (int i = 0; i < ddlNotification.Items.Count; i++)
+                {
+                    ddlNotification.Items[i].Selected = true;
+                    ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
+                }
+
+                cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'IAA'";
+                //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                conn.Open();
+                ddlEmailMDA.DataSource = cmd.ExecuteReader();
+                ddlEmailMDA.DataTextField = "DisplayName";
+                ddlEmailMDA.DataValueField = "user_name";
+                ddlEmailMDA.DataBind();
+                conn.Close();
+                ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
             }
-
-            cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'IAA'";
-            //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = conn;
-            conn.Open();
-            ddlEmailMDA.DataSource = cmd.ExecuteReader();
-            ddlEmailMDA.DataTextField = "DisplayName";
-            ddlEmailMDA.DataValueField = "user_name";
-            ddlEmailMDA.DataBind();
-            conn.Close();
-            ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            catch (Exception ex)
+            {
+                lblError.Text = "BindUser" + ex.ToString();
+            }
         }
 
         protected void getUserHOD()
@@ -379,98 +415,121 @@ namespace DashboardProject.Modules.Inventorymanagement
                 lblError.Text = "Transaction ID" + ex.ToString();
             }
         }
+
         protected void btnUpload_Click(object sender, EventArgs e)
         {
+            try
+            {
 
-            lblmessage.Text = "";
-            error.Visible = false;
-            sucess.Visible = false;
-            lblError.Text = "";
-            lblUpError.Text = "";
-            bool hasfile = fleUpload.HasFile;
-            filename = Path.GetFileName(fleUpload.PostedFile.FileName);
-            if (fleUpload.FileName == "")
-            {
-                lblError.Text = "Please select file.";
-            }
-            else
-            {
-                string fileExt = Path.GetExtension(fleUpload.PostedFile.FileName);
-                if (fileExt != ".pdf")
+                lblmessage.Text = "";
+                error.Visible = false;
+                sucess.Visible = false;
+                lblError.Text = "";
+                lblUpError.Text = "";
+                bool hasfile = fleUpload.HasFile;
+                filename = Path.GetFileName(fleUpload.PostedFile.FileName);
+                if (fleUpload.FileName == "")
                 {
-                    lblError.Text = "Please select only PDF file.";
+                    lblError.Text = "Please select file.";
                 }
                 else
                 {
-                    string character = Guid.NewGuid().ToString().Substring(0, Guid.NewGuid().ToString().IndexOf("-"));
-                    fleUpload.PostedFile.SaveAs(Server.MapPath("~/DashboardDocument/InventoryAdjustment/" + character.ToString() + "_" + filename));
-                    lblFileName.Text = character.ToString() + "_" + filename.ToString();
-                    lblmessage.Text = "File uploaded successfully!";
+                    string fileExt = Path.GetExtension(fleUpload.PostedFile.FileName);
+                    if (fileExt != ".pdf")
+                    {
+                        lblError.Text = "Please select only PDF file.";
+                    }
+                    else
+                    {
+                        string character = Guid.NewGuid().ToString().Substring(0, Guid.NewGuid().ToString().IndexOf("-"));
+                        fleUpload.PostedFile.SaveAs(Server.MapPath("~/DashboardDocument/InventoryAdjustment/" + character.ToString() + "_" + filename));
+                        lblFileName.Text = character.ToString() + "_" + filename.ToString();
+                        lblmessage.Text = "File uploaded successfully!";
 
 
-                    lblmessage.Focus();
-                    error.Visible = false;
-                    lblmessage.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    sucess.Visible = true;
-                    btnShowFile.Visible = true;
-                    btnUpload.Visible = false;
-                    btnDelete.Visible = true;
+                        lblmessage.Focus();
+                        error.Visible = false;
+                        lblmessage.Focus();
+                        Page.MaintainScrollPositionOnPostBack = false;
+                        sucess.Visible = true;
+                        btnShowFile.Visible = true;
+                        btnUpload.Visible = false;
+                        btnDelete.Visible = true;
 
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "btnUpload_Click" + ex.ToString();
             }
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            FilePath = "~/DashboardDocument/InventoryAdjustment/" + lblFileName.Text.ToString();
-            string pathDelete = Server.MapPath(FilePath.ToString());
-            FileInfo file = new FileInfo(pathDelete);
-            if (file.Exists)
+
+            try
             {
-                file.Delete();
-                lblmessage.Text = lblFileName.Text + "  has deleted successfully!";
-                sucess.Visible = true;
-                lblFileName.Text = "";
-                btnDelete.Visible = false;
-                btnUpload.Visible = true;
-                btnDelete.Visible = false;
+                FilePath = "~/DashboardDocument/InventoryAdjustment/" + lblFileName.Text.ToString();
+                string pathDelete = Server.MapPath(FilePath.ToString());
+                FileInfo file = new FileInfo(pathDelete);
+                if (file.Exists)
+                {
+                    file.Delete();
+                    lblmessage.Text = lblFileName.Text + "  has deleted successfully!";
+                    sucess.Visible = true;
+                    lblFileName.Text = "";
+                    btnDelete.Visible = false;
+                    btnUpload.Visible = true;
+                    btnDelete.Visible = false;
+                }
+                else
+                {
+                    lblError.Text = "File does not exists";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                lblError.Text = "File does not exists";
+                lblError.Text = "btnDelete_Click" + ex.ToString();
             }
         }
 
         protected void btnShowFile_Click(object sender, EventArgs e)
         {
-            lblError.Text = "";
-            string pdfFileToDisplay = "../../DashboardDocument/InventoryAdjustment/" + lblFileName.Text;
-            string pdfFileToDisplay1 = "DashboardDocument/InventoryAdjustment/" + lblFileName.Text;
-            // Create the fully qualified file path...
-            string fileName = this.Server.MapPath(pdfFileToDisplay.ToString());
-
-            if (System.IO.File.Exists(fileName))
+            try
             {
-                // Convert the filename into a URL...
-                fileName = this.Request.Url.GetLeftPart(UriPartial.Authority) +
-                 this.Request.ApplicationPath + "/" + pdfFileToDisplay1;
+                lblError.Text = "";
+                string pdfFileToDisplay = "../../DashboardDocument/InventoryAdjustment/" + lblFileName.Text;
+                string pdfFileToDisplay1 = "DashboardDocument/InventoryAdjustment/" + lblFileName.Text;
+                // Create the fully qualified file path...
+                string fileName = this.Server.MapPath(pdfFileToDisplay.ToString());
 
-                System.Text.StringBuilder javaScript = new System.Text.StringBuilder();
+                if (System.IO.File.Exists(fileName))
+                {
+                    // Convert the filename into a URL...
+                    fileName = this.Request.Url.GetLeftPart(UriPartial.Authority) +
+                     this.Request.ApplicationPath + "/" + pdfFileToDisplay1;
 
-                javaScript.Append("<script language=JavaScript>\n");
-                // winFeatures could = position, menubars, etc. Google for more info...
-                javaScript.Append("var winFeatures = '';\n");
-                javaScript.Append("pdfReportWindow = window.open('" + fileName + "', 'PDFReport', winFeatures);\n");
-                javaScript.Append("pdfReportWindow.focus();\n");
-                javaScript.Append("\n");
-                javaScript.Append("</script>\n");
+                    System.Text.StringBuilder javaScript = new System.Text.StringBuilder();
 
-                this.RegisterStartupScript("PdfReportScript", javaScript.ToString());
+                    javaScript.Append("<script language=JavaScript>\n");
+                    // winFeatures could = position, menubars, etc. Google for more info...
+                    javaScript.Append("var winFeatures = '';\n");
+                    javaScript.Append("pdfReportWindow = window.open('" + fileName + "', 'PDFReport', winFeatures);\n");
+                    javaScript.Append("pdfReportWindow.focus();\n");
+                    javaScript.Append("\n");
+                    javaScript.Append("</script>\n");
+
+                    this.RegisterStartupScript("PdfReportScript", javaScript.ToString());
+                }
+                else
+                {
+                    lblError.Text = "File Cannot display or may be deleted.";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                lblError.Text = "File Cannot display or may be deleted.";
+                lblError.Text = "btnShowFile_Click" + ex.ToString();
             }
         }
 
@@ -585,7 +644,7 @@ namespace DashboardProject.Modules.Inventorymanagement
             finally
             {
             }
-            
+
         }
 
         protected void btnMDA_Click(object sender, EventArgs e)
@@ -710,34 +769,42 @@ namespace DashboardProject.Modules.Inventorymanagement
 
         private void UpdateWorking()
         {
-            cmd.CommandText = @"update tbl_Inventoryadjustment set DocumentNo = @DocumentNo 
-                               where TransactionID = @TransID ";
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = conn;
-            cmd.Parameters.AddWithValue("@DocumentNo", txtDocNo.Text);
-            cmd.Parameters.AddWithValue("@TransID", lblMaxTransactionID.Text);
-            conn.Open();
-            int a = cmd.ExecuteNonQuery();
-            if (a == 1)
+            try
             {
-                EmailWorkSendMDA();
-                ApplicationStatus();
-                BindsysApplicationStatus();
-                InsertEmailHOD();
-                GetStatusHierachyCategoryControls();
+                cmd.CommandText = @"update tbl_Inventoryadjustment set DocumentNo = @DocumentNo 
+                               where TransactionID = @TransID ";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@DocumentNo", txtDocNo.Text);
+                cmd.Parameters.AddWithValue("@TransID", lblMaxTransactionID.Text);
+                conn.Open();
+                int a = cmd.ExecuteNonQuery();
+                if (a == 1)
+                {
+                    EmailWorkSendMDA();
+                    ApplicationStatus();
+                    BindsysApplicationStatus();
+                    InsertEmailHOD();
+                    GetStatusHierachyCategoryControls();
 
 
-                lblmessage.Text = "Documnet No " + txtDocNo.Text + " has been issued against  New Petty Cash Request Form ID #  " + lblMaxTransactionID.Text + " ";
-                lblmessage.ForeColor = System.Drawing.Color.Green;
-                conn.Close();
-                sucess.Visible = true;
-                error.Visible = false;
-                lblmessage.Focus();
-                Page.MaintainScrollPositionOnPostBack = false;
-                btnPrint.Visible = true;
-                dvCheque.Visible = true;
-                GetSockDetail();
+                    lblmessage.Text = "Documnet No " + txtDocNo.Text + " has been issued against  New Petty Cash Request Form ID #  " + lblMaxTransactionID.Text + " ";
+                    lblmessage.ForeColor = System.Drawing.Color.Green;
+                    conn.Close();
+                    sucess.Visible = true;
+                    error.Visible = false;
+                    lblmessage.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    btnPrint.Visible = true;
+                    dvCheque.Visible = true;
+                    GetSockDetail();
+                }
             }
+            catch (Exception ex)
+            {
+                lblError.Text = "UpdateWorking" + ex.ToString();
+            }
+
         }
 
         #region methodEmailWorks
@@ -783,6 +850,7 @@ namespace DashboardProject.Modules.Inventorymanagement
             }
 
         }
+
         private void EmailWorkSendFirstApproval()
         {
 
@@ -795,7 +863,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                 {
                     url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
                     urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
-                    TransactionIDEmail = reader["TransactionID"].ToString();	
+                    TransactionIDEmail = reader["TransactionID"].ToString();
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
@@ -944,7 +1012,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                     EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + ",<br> <br> Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + " has been disapproved by  " + ViewState["SessionUser"].ToString() + " <br><br> The reason of rejection is given below you can review your form on following url: " +
                     "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                     "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
-                    "<br> <br> <br><b>Reject Remarks: " + txtRemarksReview.Text + 
+                    "<br> <br> <br><b>Reject Remarks: " + txtRemarksReview.Text +
                     "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
                         "<br>Inventory Management Application  <br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
@@ -999,6 +1067,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                 lblError.Text = "Email MDA" + ex.ToString();
             }
         }
+
         private void ApplicationStatus()
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
