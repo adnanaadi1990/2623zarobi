@@ -131,50 +131,31 @@ namespace ITLDashboard
                     con.Request.Url.ToString();
                     Session["Test"] = con.Request.Url.ToString();
                     lblUSerName.Text = "Welcome:  " + ds.Tables["tbluser_DisplayName"].Rows[0]["DisplayName"].ToString();
-                }
-                //  BindToDataSet(RadTreeView1);
-                lnkMain.Visible = true;
-                btnTcodeSearch.Visible = false;
-                txtSearch.Visible = false;
-                dvSearchbtn.Visible = false;
-                RadTreeView1.Visible = false;
-                if (Request.QueryString["TransactionNo"] != null || Request.QueryString["TransactionNo"] != null || Request.QueryString["User"] != null)
-                {
-                    getUserDetail();
+                    //  BindToDataSet(RadTreeView1);
                     lnkMain.Visible = true;
                     btnTcodeSearch.Visible = false;
                     txtSearch.Visible = false;
                     dvSearchbtn.Visible = false;
                     RadTreeView1.Visible = false;
+                    if (Request.QueryString["TransactionNo"] != null || Request.QueryString["TransactionNo"] != null || Request.QueryString["User"] != null)
+                    {
+                        getUserDetail();
+                        lnkMain.Visible = true;
+                        btnTcodeSearch.Visible = false;
+                        txtSearch.Visible = false;
+                        dvSearchbtn.Visible = false;
+                        RadTreeView1.Visible = false;
+                    }
+                    else
+                    {
+                        btnTcodeSearch.Visible = true;
+                        txtSearch.Visible = true;
+                        lnkMain.Visible = true;
+                        dvSearchbtn.Visible = true;
+                        RadTreeView1.Visible = true;
+                    }
+
                 }
-                else
-                {
-                    btnTcodeSearch.Visible = true;
-                    txtSearch.Visible = true;
-                    lnkMain.Visible = true;
-                    dvSearchbtn.Visible = true;
-                    RadTreeView1.Visible = true;
-                }
-
-
-
-
-
-
-                //if (Session["User_Name"] == null)
-                //{
-                //    HttpContext con = HttpContext.Current;
-                //    con.Request.Url.ToString();
-
-                //    Session["Test"] = con.Request.Url.ToString();
-
-                //   //  Response.Redirect("~/SingleLogin.aspx");
-                //}
-                //else
-                //{
-                //    lblUSerName.Text = "Welcome:  " + Session["User_Name"].ToString();
-                //}
-
             }
         }
         private void getUserDetail()

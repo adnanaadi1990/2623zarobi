@@ -229,6 +229,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                 ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
             }
         }
+
         private void GetSockDetail()
         {
             ds = objAD.getDeadStock(lblMaxTransactionID.Text.ToString());
@@ -236,6 +237,7 @@ namespace DashboardProject.Modules.Inventorymanagement
             grdDetail.DataBind();
 
         }
+
         private void BindsysApplicationStatus()
         {
             ds = obj.BindsysApplicationStatus(lblMaxTransactionID.Text, FormID.ToString());
@@ -243,6 +245,7 @@ namespace DashboardProject.Modules.Inventorymanagement
             grdWStatus.DataBind();
             grdWStatus.Visible = true;
         }
+
         private void GetStatusHierachyCategoryControls()
         {
             ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString(), ViewState["SerialNo"].ToString(), ViewState["Status"].ToString());
@@ -263,6 +266,7 @@ namespace DashboardProject.Modules.Inventorymanagement
 
             }
         }
+
         private void getUserDetail()
         {
             try
@@ -282,6 +286,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                 lblError.Text = "User Detail" + ex.ToString();
             }
         }
+
         private void GetHarcheyID()
         {
             ds = obj.GetHarachyCustomerMaster(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
@@ -301,15 +306,17 @@ namespace DashboardProject.Modules.Inventorymanagement
 
             }
         }
+
         private void BindUser()
         {
-            cmd.CommandText = "SELECT * FROM tblEmailSequanceWise where FormID = '" + FormID.ToString() + "' order by Sequance asc";
+            cmd.CommandText = "SELECT * FROM tblEmailSequanceWise where FormID = @FormID order by Sequance asc";
             //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
 
             conn.Open();
             ddlNotification.DataSource = cmd.ExecuteReader();
+            cmd.Parameters.AddWithValue("@FormID",FormID.ToString());
             ddlNotification.DataTextField = "DisplayName";
             ddlNotification.DataValueField = "user_name";
             ddlNotification.DataBind();
