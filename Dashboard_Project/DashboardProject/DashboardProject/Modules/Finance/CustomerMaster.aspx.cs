@@ -1914,13 +1914,18 @@ namespace ITLDashboard.Modules.Finance
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                using (SqlCommand cmdInsertEmail = new SqlCommand())
+  
+                using (SqlCommand cmdInsertEmail = new SqlCommand("SP_InsertEmailAddress"))
                 {
                     cmdInsertEmail.Connection = connection;
-                    cmdInsertEmail.CommandType = CommandType.Text;
-                    cmdInsertEmail.CommandText = @"INSERT INTO tblEmailContentSending
-           (TransactionID,FormCode,UserName,UserEmail,EmailSubject,EmailBody,DateTime,SessionUser) VALUES ('" + TransactionID.ToString() + "','" + FormCode.ToString() + "','" + UserName.ToString() + "','" + UserEmail.ToString() + "','" + EmailSubject.ToString() + "','" + EmailBody.ToString() + "','" + DateTimeNow.ToString() + "','" + SessionUser.ToString() + "')";
-
+                    cmdInsertEmail.CommandType = CommandType.StoredProcedure;
+                    cmdInsertEmail.Parameters.AddWithValue("@TransactionID", TransactionID.ToString());
+                    cmdInsertEmail.Parameters.AddWithValue("@FormCode", FormCode.ToString());
+                    cmdInsertEmail.Parameters.AddWithValue("@UserName",UserName.ToString() );
+                    cmdInsertEmail.Parameters.AddWithValue("@UserEmail", UserEmail.ToString());
+                    cmdInsertEmail.Parameters.AddWithValue("@EmailSubject",EmailSubject.ToString() );
+                    cmdInsertEmail.Parameters.AddWithValue("@EmailBody", EmailBody.ToString());
+                    cmdInsertEmail.Parameters.AddWithValue("@SessionUser", SessionUser.ToString() );
                     try
                     {
                         connection.Open();

@@ -2,17 +2,12 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectView>ShowAllFiles</ProjectView>
-    <NameOfLastUsedPublishProfile>PublishDashboard</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-<<<<<<< HEAD
-          <StartPageUrl>Modules/HR/MonthlyAttendance.aspx</StartPageUrl>
-=======
-          <StartPageUrl>Modules/Inventorymanagement/InventoryAdjustmentApproval.aspx</StartPageUrl>
->>>>>>> refs/remotes/origin/Development
+          <StartPageUrl>Modules/Finance/CustomerMaster.aspx</StartPageUrl>
           <StartAction>SpecificPage</StartAction>
           <AspNetDebugging>True</AspNetDebugging>
           <SilverlightDebugging>False</SilverlightDebugging>
