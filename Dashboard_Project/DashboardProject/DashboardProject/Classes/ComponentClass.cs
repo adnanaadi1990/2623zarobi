@@ -229,6 +229,7 @@ namespace ITLDashboard.Classes
                     cmd.CommandType = CommandType.Text;
                     cmd.Connection = conn;
                     adp.SelectCommand = cmd;
+
                     adp.Fill(ds, "MaterialMaxID");
                 }
                 catch (Exception ex)
@@ -1740,11 +1741,13 @@ namespace ITLDashboard.Classes
                 try
                 {
                     ds.Clear();
-                    string com = @"SELECT top(1)[FormID],TransactionID,[CreatedBy],Replace(isnull(a.DisplayName,b.RoughtingUserID), '.' ,' ') as user_name,a.user_email,[HierachyCategory],[RoughtingUserID],[Sequance] 
-        FROM [dbo].[sysWorkFlow] b left outer  join tbluser a on a.user_name=b.RoughtingUserID where  b.HierachyCategory = 2 and FormId= '" + FormID.ToString() + "'" +
-           "and TransactionID= '" + TransactionNo.ToString() + "' order by b.HierachyCategory asc,b.Sequance asc";
-                    SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
-                    adpt.Fill(ds, "MailForwardUserToApprover");
+                    cmd.CommandText = "";
+                    cmd.CommandText = "Exec SP_MailForwardUserToApprover" + " @TransactionID ='" + TransactionNo + "', " +
+                            " @FormID ='" + FormID + "'";
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Connection = conn;
+                    adp.SelectCommand = cmd;
+                    adp.Fill(ds, "MailForwardUserToApprover");
                 }
                 catch (Exception ex)
                 { ex.ToString(); }
@@ -1757,30 +1760,27 @@ namespace ITLDashboard.Classes
             {
                 try
                 {
-                    string cmd = @"SELECT top(1)[FormID],TransactionID,[CreatedBy],Replace(isnull(a.DisplayName,b.RoughtingUserID), '.' ,' ') as user_name,a.user_email,[HierachyCategory],[RoughtingUserID],[Sequance] 
-                        FROM [dbo].[sysWorkFlow] b left outer  join tbluser a on a.user_name=b.RoughtingUserID 
-                        where b.Sequance > (select max(Sequance)  from [sysWorkFlow] where RoughtingUserID ='" + UserID.ToString() + "'  and TransactionID = '" + TransactionNo.ToString() + "' and  FormId= '" + FormID.ToString() + "' ) and  b.FormId= '" + FormID.ToString() + "' and b.HierachyCategory = 2" +
-        " and b.TransactionID= '" + TransactionNo.ToString() + "' order by b.HierachyCategory asc, Sequance asc";
-
-                    //                string cmd = @"SELECT top(1)[FormID],TransactionID,[CreatedBy],Replace(isnull(a.DisplayName,b.RoughtingUserID), '.' ,' ') as user_name,a.user_email,
-                    //                                [HierachyCategory],[RoughtingUserID],[Sequance] 
-                    //                                FROM [dbo].[sysWorkFlow] b left outer  join tbluser a on a.user_name=b.RoughtingUserID 
-                    //                                where  RoughtingUserID > '" + UserID.ToString() + "'  and TransactionID = '" + TransactionNo.ToString() + "'" +
-                    //                                " and  FormId= '" + FormID.ToString() + "' and b.HierachyCategory = 2  order by b.HierachyCategory asc, Sequance asc";
-
-
-                    SqlDataAdapter adpt = new SqlDataAdapter(cmd, conn);
-                    adpt.Fill(ds, "MailForwardFormApprover");
+                    cmd.CommandText = "";
+                    cmd.CommandText = "Exec SP_MailForwardFormApprover" + " @TransactionID ='" + TransactionNo + "', " +
+                            " @UserName ='" + UserID + "', " +
+                            " @FormID ='" + FormID + "'";
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Connection = conn;
+                    adp.SelectCommand = cmd;
+                    adp.Fill(ds, "MailForwardFormApprover");
                     if (ds.Tables["MailForwardFormApprover"].Rows.Count > 0)
                     {
                         return ds;
                     }
                     else
                     {
-                        string comtRM = @"SELECT [FormID],TransactionID,[CreatedBy],Replace(isnull(a.DisplayName,b.RoughtingUserID), '.' ,' ') as user_name,a.user_email,[HierachyCategory],[RoughtingUserID],[Sequance]FROM [dbo].[sysWorkFlow] b 
-                left outer  join tbluser a on a.user_name=b.RoughtingUserID where  b.HierachyCategory in ('3','4')  and  FormId= '" + FormID.ToString() + "' and  TransactionID= '" + TransactionNo.ToString() + "' order by b.HierachyCategory asc,b.Sequance asc";
-                        SqlDataAdapter adpt1 = new SqlDataAdapter(comtRM, conn);
-                        adpt1.Fill(ds, "MailForwardFormApprover");
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_MailForwardFormApproverToMDAOrOthers" + " @TransactionID ='" + TransactionNo + "', " +
+                                " @FormID ='" + FormID + "'";
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "MailForwardFormApprover");
                     }
                 }
                 catch (Exception ex)
@@ -2267,24 +2267,32 @@ namespace ITLDashboard.Classes
                 return ds;
             }
 
-            public DataSet GetHarachyCustomerMaster(string user_name, string HID, string FormID)
+            public DataSet GetHarachyCustomerMaster(string _user_name, string _HID, string _FormID)
             {
-                try
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
                 {
-                    cmd.CommandText = "";
-                    cmd.CommandText = @"select top(1) SerialNo,Status,TransactionID,RoughtingUserID, HierachyCategory,Sequance,CreatedBy from [sysWorkFlow]
-                RoughtingUserID where RoughtingUserID like '" + user_name + "%' and TransactionID = '" + HID + "' and FormID = '" + FormID + "'   order by  HierachyCategory asc,SerialNo desc";
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Connection = conn;
-                    adp.SelectCommand = cmd;
-                    adp.Fill(ds, "HID");
+                    using (SqlCommand cmdgetData = new SqlCommand())//
+                    {
+                        try
+                        {
+                            cmdgetData.CommandText = "";
+                            cmdgetData.CommandText = "SP_Get_HarcheyID";
+                            cmdgetData.CommandType = CommandType.StoredProcedure;
+                            cmdgetData.Connection = connection;
+                            cmdgetData.Parameters.AddWithValue("@User_Name", _user_name.ToString());
+                            cmdgetData.Parameters.AddWithValue("@TransactionID", _HID.ToString());
+                            cmdgetData.Parameters.AddWithValue("@FormID", _FormID.ToString());
+                            adp.SelectCommand = cmdgetData;
+                            adp.Fill(ds, "HID");
 
+                        }
+                        catch (Exception ex)
+                        { ex.ToString(); }
+                        finally
+                        { conn.Close(); }
+                        return ds;
+                    }
                 }
-                catch (Exception ex)
-                { ex.ToString(); }
-                finally
-                { conn.Close(); }
-                return ds;
             }
             public DataSet controlFowardControl(string FormID, string TID, string HirCtg, string Status, string UserName)
             {

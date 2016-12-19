@@ -655,19 +655,26 @@ namespace ITLDashboard.Modules.Master
 
         private void DummyGrid()
         {
-            DataTable dt = new DataTable();
-            dt.Columns.AddRange(new DataColumn[8] { new DataColumn("TransactionID"), new DataColumn("AltUnitOfMeasureCode"), new DataColumn("Numerator"), new DataColumn("Denominator"), new DataColumn("Lenght"), new DataColumn("Width"), new DataColumn("height"), new DataColumn("UOM") });
-            DataColumn c = new DataColumn("sno", typeof(int));
-            c.AutoIncrement = true;
-            c.AutoIncrementSeed = 1;
-            c.AutoIncrementStep = 1;
-            dt.Columns.Add(c);
-            ViewState["ConvertionFacter"] = dt;
-            GridView1.DataSource = (DataTable)ViewState["ConvertionFacter"];
-            GridView1.DataBind();
-            GridView1.Columns[0].Visible = true;
-        }
+            try
+            {
+                DataTable dt = new DataTable();
+                dt.Columns.AddRange(new DataColumn[8] { new DataColumn("TransactionID"), new DataColumn("AltUnitOfMeasureCode"), new DataColumn("Numerator"), new DataColumn("Denominator"), new DataColumn("Lenght"), new DataColumn("Width"), new DataColumn("height"), new DataColumn("UOM") });
+                DataColumn c = new DataColumn("sno", typeof(int));
+                c.AutoIncrement = true;
+                c.AutoIncrementSeed = 1;
+                c.AutoIncrementStep = 1;
+                dt.Columns.Add(c);
+                ViewState["ConvertionFacter"] = dt;
+                GridView1.DataSource = (DataTable)ViewState["ConvertionFacter"];
+                GridView1.DataBind();
+                GridView1.Columns[0].Visible = true;
 
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
 
         protected void getUserHOD()
         {

@@ -225,7 +225,7 @@ namespace ITLDashboard.Modules.Master
                 catch (Exception ex)
                 {
                     lblError.Text = ex.ToString();
-                    error.Visible = true;
+                    dvemaillbl.Visible = true;
                 }
             }
 
@@ -233,57 +233,55 @@ namespace ITLDashboard.Modules.Master
 
         private int CheckRequiredFields(ref int p)
         {
+            
+                error.Visible = false;
+                lblUpError.Text = "";
+                Pack.Visible = false;
+                BD.Visible = false;
+                SD.Visible = false;
+                CF.Visible = false;
+                Prod.Visible = false;
+                Account.Visible = false;
+                Purch.Visible = false;
+                MRP.Visible = false;
+                QM.Visible = false;
+                divEmail.Visible = false;
 
-            error.Visible = false;
-            lblUpError.Text = "";
-            Pack.Visible = false;
-            BD.Visible = false;
-            SD.Visible = false;
-            CF.Visible = false;
-            Prod.Visible = false;
-            Account.Visible = false;
-            Purch.Visible = false;
-            MRP.Visible = false;
-            QM.Visible = false;
-            divEmail.Visible = false;
-
-            FieldValidationCode FIELDV = new FieldValidationCode();
-            //FOR GROUP PANELS POPULATE
-            DataTable table1 = new DataTable();
-            ds = FIELDV.GROUPVALIDATIONDATABASE(ddlMaterialType.SelectedValue.ToString());
-            table1 = ds.Tables["sys_MType_MM_GroupValidation"];
-            ContentPlaceHolder MainContent = Page.Master.FindControl("ContentPlaceHolder1") as ContentPlaceHolder;
-            for (int i = 0; i < table1.Rows.Count; i++)
-            {
-                string COLNAME = table1.Rows[i]["PanelName"].ToString();
-                HtmlControl Panel = (HtmlControl)MainContent.FindControl(COLNAME);
-                Panel.Visible = true;
-
-            }
-            //END FOR GROUP PANELS POPULATE
-            ClearInputss(Page.Controls);
-            //FOR REQUIRED FIELDS VALIDATION
-            DataTable table = new DataTable();
-            table.Clear();
-            ds = FIELDV.FieldVALIDATIONDATABASE(ddlMaterialType.SelectedValue.ToString());
-            table = ds.Tables["SYS_FIELDLISTINGRequired"];
-            for (int i = 0; i < table.Rows.Count; i++)
-            {
-                string COLNAME = table.Rows[i]["DBID"].ToString();
-                if (COLNAME.StartsWith("txt"))
+                FieldValidationCode FIELDV = new FieldValidationCode();
+                //FOR GROUP PANELS POPULATE
+                DataTable table1 = new DataTable();
+                ds = FIELDV.GROUPVALIDATIONDATABASE(ddlMaterialType.SelectedValue.ToString());
+                table1 = ds.Tables["sys_MType_MM_GroupValidation"];
+                ContentPlaceHolder MainContent = Page.Master.FindControl("ContentPlaceHolder1") as ContentPlaceHolder;
+                for (int i = 0; i < table1.Rows.Count; i++)
                 {
-                    TextBox AgeTextBox = MainContent.FindControl(COLNAME) as TextBox;
-                    AgeTextBox.BackColor = System.Drawing.Color.AliceBlue;
-                }
-                else if (COLNAME.StartsWith("ddl"))
-                {
-                    DropDownList DD = MainContent.FindControl(COLNAME) as DropDownList;
-                    DD.BackColor = System.Drawing.Color.AliceBlue;
+                    string COLNAME = table1.Rows[i]["PanelName"].ToString();
+                    HtmlControl Panel = (HtmlControl)MainContent.FindControl(COLNAME);
+                    Panel.Visible = true;
 
                 }
-
-            }
-            return p = 1;
+                //END FOR GROUP PANELS POPULATE
+                ClearInputss(Page.Controls);
+                //FOR REQUIRED FIELDS VALIDATION
+                DataTable table = new DataTable();
+                table.Clear();
+                ds = FIELDV.FieldVALIDATIONDATABASE(ddlMaterialType.SelectedValue.ToString());
+                table = ds.Tables["SYS_FIELDLISTINGRequired"];
+                for (int i = 0; i < table.Rows.Count; i++)
+                {
+                    string COLNAME = table.Rows[i]["DBID"].ToString();
+                    if (COLNAME.StartsWith("txt"))
+                    {
+                        TextBox AgeTextBox = MainContent.FindControl(COLNAME) as TextBox;
+                        AgeTextBox.BackColor = System.Drawing.Color.AliceBlue;
+                    }
+                    else if (COLNAME.StartsWith("ddl"))
+                    {
+                        DropDownList DD = MainContent.FindControl(COLNAME) as DropDownList;
+                        DD.BackColor = System.Drawing.Color.AliceBlue;
+                    }
+                }
+                return p = 1;          
         }
 
         //-------------------------------------BUTTON EVENTS-------------------------------------------
@@ -481,12 +479,13 @@ namespace ITLDashboard.Modules.Master
             {
 
                 lblError.Text = ex.ToString();
+                dvemaillbl.Visible = true;
             }
         }
 
 
         protected void btnSaveSubmit_Click(object sender, EventArgs e)
-        {
+        {        
             Page.MaintainScrollPositionOnPostBack = false;
             txtSMC.BackColor = System.Drawing.Color.White;
             lblError.Text = "";

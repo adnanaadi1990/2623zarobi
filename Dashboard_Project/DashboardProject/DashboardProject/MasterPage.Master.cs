@@ -121,16 +121,9 @@ namespace ITLDashboard
                 }
                 else
                 {
-                    ds = obj.getUserDetail(Session["User_Name"].ToString());
-                    if (ds.Tables["tbluser_DisplayName"].Rows.Count > 0)
-                    {
-                        lblUSerName.Text = "Welcome:  " + ds.Tables["tbluser_DisplayName"].Rows[0]["DisplayName"].ToString();
-                        //ViewState["HID"] = ds.Tables["HID"].Rows[0]["HierachyCategory"].ToString();
-                    }
                     HttpContext con = HttpContext.Current;
                     con.Request.Url.ToString();
                     Session["Test"] = con.Request.Url.ToString();
-                    lblUSerName.Text = "Welcome:  " + ds.Tables["tbluser_DisplayName"].Rows[0]["DisplayName"].ToString();
                     //  BindToDataSet(RadTreeView1);
                     lnkMain.Visible = true;
                     btnTcodeSearch.Visible = false;
@@ -139,7 +132,7 @@ namespace ITLDashboard
                     RadTreeView1.Visible = false;
                     if (Request.QueryString["TransactionNo"] != null || Request.QueryString["TransactionNo"] != null || Request.QueryString["User"] != null)
                     {
-                        getUserDetail();
+                        
                         lnkMain.Visible = true;
                         btnTcodeSearch.Visible = false;
                         txtSearch.Visible = false;
@@ -148,6 +141,7 @@ namespace ITLDashboard
                     }
                     else
                     {
+                        getUserDetail();
                         btnTcodeSearch.Visible = true;
                         txtSearch.Visible = true;
                         lnkMain.Visible = true;
