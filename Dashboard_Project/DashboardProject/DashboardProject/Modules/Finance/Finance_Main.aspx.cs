@@ -170,6 +170,11 @@ namespace ITLDashboard.Modules.Finance
             Response.Redirect("~/AccessDenied.aspx");
         }
     }
+
+    protected void btnSMR_Click(object sender, ImageClickEventArgs e)
+    {
+
+    }
 }
 
 }

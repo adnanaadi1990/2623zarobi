@@ -107,7 +107,7 @@ namespace ITLDashboard.Modules.HR
                     Adapter.Fill(ds, "Result");
                     if (ds.Tables["Result"].Rows.Count > 0)
                     {
-                        ReportViewer1.Visible = true;
+                      //  ReportViewer1.Visible = true;
                         ReportDataSource datasource = new ReportDataSource("DataSet1", ds.Tables["Result"]);
                         ReportViewer1.LocalReport.DataSources.Clear();
                         ReportViewer1.LocalReport.DataSources.Add(datasource);
