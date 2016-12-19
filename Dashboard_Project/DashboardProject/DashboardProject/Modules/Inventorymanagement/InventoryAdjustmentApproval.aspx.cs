@@ -119,7 +119,6 @@ namespace DashboardProject.Modules.Inventorymanagement
                         getUserDetail();
                         GetStatusHierachyCategoryControls();
                         DVERROR.Visible = true;
-                        getUserDetail();
                         txtDescription.BackColor = System.Drawing.Color.AliceBlue;
                         if (((string)ViewState["HID"]) == "1")
                         {
