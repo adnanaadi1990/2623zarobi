@@ -48,10 +48,11 @@ namespace ITLDashboard.Classes
                 { conn.Close(); }
                 return ds;
             }
-            public DataSet getUserDetail(string UserNameID)
+            public DataSet getUserDetail(string _UserNameID)
             {
                 using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
                 {
+<<<<<<< HEAD
                     using (SqlCommand cmdData = new SqlCommand())//
                     {
                         try
@@ -71,6 +72,16 @@ namespace ITLDashboard.Classes
                         { conn.Close(); }
                         return ds;
                     }
+=======
+                    ds.Clear();
+                    cmd.CommandText = "";
+                    cmd.CommandText = @"select DisplayName,Department,Designation from tbluser where user_name = @UserID";
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Connection = conn;
+                    adp.SelectCommand = cmd;
+                    cmd.Parameters.AddWithValue("@UserID", _UserNameID.ToString());
+                        adp.Fill(ds, "tbluser_DisplayName");
+>>>>>>> refs/remotes/origin/Development
                 }
             }
 

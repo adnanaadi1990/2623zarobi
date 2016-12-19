@@ -340,7 +340,23 @@ namespace DashboardProject.Modules.Inventorymanagement
 
         private void BindUser()
         {
+<<<<<<< HEAD
             try
+=======
+            cmd.CommandText = "SELECT * FROM tblEmailSequanceWise where FormID = @FormID order by Sequance asc";
+            //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = conn;
+
+            conn.Open();
+            ddlNotification.DataSource = cmd.ExecuteReader();
+            cmd.Parameters.AddWithValue("@FormID",FormID.ToString());
+            ddlNotification.DataTextField = "DisplayName";
+            ddlNotification.DataValueField = "user_name";
+            ddlNotification.DataBind();
+            conn.Close();
+            for (int i = 0; i < ddlNotification.Items.Count; i++)
+>>>>>>> refs/remotes/origin/Development
             {
                 cmd.CommandText = "SP_getFormID";
                 //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";

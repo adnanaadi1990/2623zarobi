@@ -153,8 +153,40 @@ namespace ITLDashboard
                             RadTreeView1.Visible = true;
                         }
                     }
+<<<<<<< HEAD
                 }
 
+=======
+                    HttpContext con = HttpContext.Current;
+                    con.Request.Url.ToString();
+                    Session["Test"] = con.Request.Url.ToString();
+                    lblUSerName.Text = "Welcome:  " + ds.Tables["tbluser_DisplayName"].Rows[0]["DisplayName"].ToString();
+                    //  BindToDataSet(RadTreeView1);
+                    lnkMain.Visible = true;
+                    btnTcodeSearch.Visible = false;
+                    txtSearch.Visible = false;
+                    dvSearchbtn.Visible = false;
+                    RadTreeView1.Visible = false;
+                    if (Request.QueryString["TransactionNo"] != null || Request.QueryString["TransactionNo"] != null || Request.QueryString["User"] != null)
+                    {
+                        getUserDetail();
+                        lnkMain.Visible = true;
+                        btnTcodeSearch.Visible = false;
+                        txtSearch.Visible = false;
+                        dvSearchbtn.Visible = false;
+                        RadTreeView1.Visible = false;
+                    }
+                    else
+                    {
+                        btnTcodeSearch.Visible = true;
+                        txtSearch.Visible = true;
+                        lnkMain.Visible = true;
+                        dvSearchbtn.Visible = true;
+                        RadTreeView1.Visible = true;
+                    }
+
+                }
+>>>>>>> refs/remotes/origin/Development
             }
         }
         private void getUserDetail()
