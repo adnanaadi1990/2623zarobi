@@ -233,53 +233,61 @@ namespace ITLDashboard.Modules.Master
 
         private int CheckRequiredFields(ref int p)
         {
-
-            error.Visible = false;
-            lblUpError.Text = "";
-            Pack.Visible = false;
-            BD.Visible = false;
-            SD.Visible = false;
-            CF.Visible = false;
-            Prod.Visible = false;
-            Account.Visible = false;
-            Purch.Visible = false;
-            MRP.Visible = false;
-            QM.Visible = false;
-            divEmail.Visible = false;
-
-            FieldValidationCode FIELDV = new FieldValidationCode();
-            //FOR GROUP PANELS POPULATE
-            DataTable table1 = new DataTable();
-            ds = FIELDV.GROUPVALIDATIONDATABASE(ddlMaterialType.SelectedValue.ToString());
-            table1 = ds.Tables["sys_MType_MM_GroupValidation"];
-            ContentPlaceHolder MainContent = Page.Master.FindControl("ContentPlaceHolder1") as ContentPlaceHolder;
-            for (int i = 0; i < table1.Rows.Count; i++)
+            try
             {
-                string COLNAME = table1.Rows[i]["PanelName"].ToString();
-                HtmlControl Panel = (HtmlControl)MainContent.FindControl(COLNAME);
-                Panel.Visible = true;
+                error.Visible = false;
+                lblUpError.Text = "";
+                Pack.Visible = false;
+                BD.Visible = false;
+                SD.Visible = false;
+                CF.Visible = false;
+                Prod.Visible = false;
+                Account.Visible = false;
+                Purch.Visible = false;
+                MRP.Visible = false;
+                QM.Visible = false;
+                divEmail.Visible = false;
 
+                FieldValidationCode FIELDV = new FieldValidationCode();
+                //FOR GROUP PANELS POPULATE
+                DataTable table1 = new DataTable();
+                ds = FIELDV.GROUPVALIDATIONDATABASE(ddlMaterialType.SelectedValue.ToString());
+                table1 = ds.Tables["sys_MType_MM_GroupValidation"];
+                ContentPlaceHolder MainContent = Page.Master.FindControl("ContentPlaceHolder1") as ContentPlaceHolder;
+                for (int i = 0; i < table1.Rows.Count; i++)
+                {
+                    string COLNAME = table1.Rows[i]["PanelName"].ToString();
+                    HtmlControl Panel = (HtmlControl)MainContent.FindControl(COLNAME);
+                    Panel.Visible = true;
+
+                }
+                //END FOR GROUP PANELS POPULATE
+                ClearInputss(Page.Controls);
+                //FOR REQUIRED FIELDS VALIDATION
+                DataTable table = new DataTable();
+                table.Clear();
+                ds = FIELDV.FieldVALIDATIONDATABASE(ddlMaterialType.SelectedValue.ToString());
+                table = ds.Tables["SYS_FIELDLISTINGRequired"];
+                for (int i = 0; i < table.Rows.Count; i++)
+                {
+                    string COLNAME = table.Rows[i]["DBID"].ToString();
+                    if (COLNAME.StartsWith("txt"))
+                    {
+                        TextBox AgeTextBox = MainContent.FindControl(COLNAME) as TextBox;
+                        AgeTextBox.BackColor = System.Drawing.Color.AliceBlue;
+                    }
+                    else if (COLNAME.StartsWith("ddl"))
+                    {
+                        DropDownList DD = MainContent.FindControl(COLNAME) as DropDownList;
+                        DD.BackColor = System.Drawing.Color.AliceBlue;
+                    }
+                }
             }
-            //END FOR GROUP PANELS POPULATE
-            ClearInputss(Page.Controls);
-            //FOR REQUIRED FIELDS VALIDATION
-            DataTable table = new DataTable();
-            table.Clear();
-            ds = FIELDV.FieldVALIDATIONDATABASE(ddlMaterialType.SelectedValue.ToString());
-            table = ds.Tables["SYS_FIELDLISTINGRequired"];
-            for (int i = 0; i < table.Rows.Count; i++)
+            catch (Exception ex)
             {
-                string COLNAME = table.Rows[i]["DBID"].ToString();
-                if (COLNAME.StartsWith("txt"))
-                {
-                    TextBox AgeTextBox = MainContent.FindControl(COLNAME) as TextBox;
-                    AgeTextBox.BackColor = System.Drawing.Color.AliceBlue;
-                }
-                else if (COLNAME.StartsWith("ddl"))
-                {
-                    DropDownList DD = MainContent.FindControl(COLNAME) as DropDownList;
-                    DD.BackColor = System.Drawing.Color.AliceBlue;
-                }
+
+                lblError.Text = ex.ToString();
+                dvemaillbl.Visible = true;
             }
             return p = 1;
         }
@@ -947,7 +955,7 @@ namespace ITLDashboard.Modules.Master
         }
 
         protected void getTransferUser()
-        {//SELECT user_name,DisplayName FROM tbluser where user_name not in ('" + Session["User_Name"].ToString() + "')
+        {
             try
             {
                 using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
@@ -1772,7 +1780,7 @@ namespace ITLDashboard.Modules.Master
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     ds.Clear();
-                    cmd.CommandText = "SELECT distinct [H1ID],[H1ID]+ ' ' + [H1Desc] as [H1Desc] FROM [dbo].[TBL_ProductHierarchy]";
+                    cmd.CommandText = "SP_BindProductHierarchy";
                     cmd.CommandType = CommandType.Text;
                     cmd.Connection = conn;
                     adp.SelectCommand = cmd;
@@ -1798,7 +1806,7 @@ namespace ITLDashboard.Modules.Master
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     ds.Clear();
-                    cmd.CommandText = "SELECT distinct [H2ID],[H2ID]+ ' ' + [H2Desc] as [H2Desc] FROM [dbo].[TBL_ProductHierarchy]";
+                    cmd.CommandText = "SP_BindProductHierarchy2";
                     cmd.CommandType = CommandType.Text;
                     cmd.Connection = conn;
                     adp.SelectCommand = cmd;
@@ -1825,9 +1833,10 @@ namespace ITLDashboard.Modules.Master
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     ds.Clear();
-                    cmd.CommandText = "SELECT distinct [H3ID],[H3ID]+ ' ' + [H3Desc] as [H3Desc] FROM [dbo].[TBL_ProductHierarchy]";
+                    cmd.CommandText = "SP_BindProductHierarchy3";
                     cmd.CommandType = CommandType.Text;
                     cmd.Connection = conn;
+                    //// cmd.Parameters.AddWithValue("@Materialtypcode", "%" + ProductHierarchyH3.ToString() + "%");
                     adp.SelectCommand = cmd;
 
                     adp.Fill(ds, "ProductHierarchyH3");
@@ -2436,13 +2445,14 @@ namespace ITLDashboard.Modules.Master
             }
         }
 
-        private void BindMrpGroupMtype()
+        private void BindMrpGroupMtype(string MrpGroupMtype)
         {
             try
             {
-                cmd.CommandText = "select MrpGrpcode, MrpGrpcode + ' '+ Description as Description from tblMrpGrp where MaterialTypecode = '" + ddlMaterialType.SelectedValue + "'";
+                cmd.CommandText = "SP_BindMrpGroupMtype";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@Materialtypcode", "%" + MrpGroupMtype.ToString() + "%");
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "BindMrpGroupMtype");
                 ddlMRPGroup.DataTextField = ds.Tables["BindMrpGroupMtype"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
@@ -2457,13 +2467,15 @@ namespace ITLDashboard.Modules.Master
                 lblError.Text = ex.ToString();
             }
         }
-        private void BindMRPControllerMtype()
+
+        private void BindMRPControllerMtype(string mrpControllercode)
         {
             try
             {
-                cmd.CommandText = "SELECT mrpControllercode ,mrpControllercode+ ' ' + Description as Description FROM [dbo].tblmrpController   where MaterialTypecode  = '" + ddlMaterialType.SelectedValue + "'";
+                cmd.CommandText = "SP_BindMRPControllerMtype";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@Materialtypcode", "%" + mrpControllercode.ToString() + "%");
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "BindMRPControllerMtype");
                 ddlMRPController.DataTextField = ds.Tables["BindMRPControllerMtype"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
@@ -3077,12 +3089,6 @@ namespace ITLDashboard.Modules.Master
                         }
                     }
                 }
-                //else
-                //{
-                //    GridView1.DataSource = table;
-                //    GridView1.DataMember = "data";
-                //    GridView1.DataBind();
-                //}
             }
             catch (SqlException ex)
             {
