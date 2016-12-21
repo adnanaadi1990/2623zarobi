@@ -1496,8 +1496,7 @@ namespace ITLDashboard.Classes
             try
             {
                 cmd.CommandText = "";
-                cmd.CommandText = @"select top(1) TransactionID,RoughtingUserID, HierachyCategory from [sysWorkFlow]
-                RoughtingUserID where RoughtingUserID like '" + user_name + "%' and TransactionID = '" + HID + "'  order by  HierachyCategory asc";
+                cmd.CommandText ="SP_GetHarachy";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
@@ -1515,10 +1514,12 @@ namespace ITLDashboard.Classes
             try
             {
                 cmd.CommandText = "";
-                cmd.CommandText = @"select top(1) TransactionID,RoughtingUserID, HierachyCategory from [sysWorkFlow]
-                RoughtingUserID where RoughtingUserID like '" + user_name + "%' and TransactionID = '" + HID + "' and FormID = '" + FormID + "'   order by  HierachyCategory asc";
+                cmd.CommandText = @"SP_GetHarachyPettyCash";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@RoughtingUserID", "%" + user_name.ToString() + "%");
+                cmd.Parameters.AddWithValue("@ransactionID", "%" + HID.ToString() + "%");
+                cmd.Parameters.AddWithValue("@FormID", "%" + FormID.ToString() + "%");
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "HID");
             }
