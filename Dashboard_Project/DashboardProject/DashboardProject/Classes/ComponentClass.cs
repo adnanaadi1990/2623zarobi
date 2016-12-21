@@ -708,9 +708,10 @@ namespace ITLDashboard.Classes
             {
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = "SELECT ValuationCategorySNo ,ValuationCategorycode ,ValuationCategorycode + ' ' + Description as Description FROM tblValuationCategory where MaterialTypecode like '%" + MaterialTypePlant.ToString() + "%'";
+                cmd.CommandText = "SP_BindValuationCategoryMTYPE";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@MaterialTypecode", "%" + MaterialTypePlant.ToString() + "%");
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "ValuationCategoryMTYPE");
             }
@@ -746,9 +747,10 @@ namespace ITLDashboard.Classes
             {
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = "SELECT [PurchasingGroupSNo] ,[PurchasingGroupcode] ,[PurchasingGroupcode]+ ' ' + Description as Description FROM [dbo].[tblPurchasingGroup]   where MaterialTypecode like '%" + MaterialTypePG.ToString() + "%'";
+                cmd.CommandText = "SP_BindPurchasingGroupMTYPE";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@MaterialTypecode", "%" + MaterialTypePG.ToString() + "%");
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "BindPurchasingGroupMTYPE");
             }
@@ -822,9 +824,10 @@ namespace ITLDashboard.Classes
             {
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = "SELECT [mrptypecode] ,[mrptypecode]+ ' ' + Description as Description FROM [dbo].[tblmrptype] where MaterialTypecode like '%" + MaterialType.ToString() + "%'";
+                cmd.CommandText = "SP_BindMRPtypeMTYPE";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@MaterialTypecode", "%" + MaterialType.ToString() + "%");
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "BindMRPTypeMtype");
             }
@@ -1493,8 +1496,7 @@ namespace ITLDashboard.Classes
             try
             {
                 cmd.CommandText = "";
-                cmd.CommandText = @"select top(1) TransactionID,RoughtingUserID, HierachyCategory from [sysWorkFlow]
-                RoughtingUserID where RoughtingUserID like '" + user_name + "%' and TransactionID = '" + HID + "'  order by  HierachyCategory asc";
+                cmd.CommandText ="SP_GetHarachy";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
@@ -1512,10 +1514,12 @@ namespace ITLDashboard.Classes
             try
             {
                 cmd.CommandText = "";
-                cmd.CommandText = @"select top(1) TransactionID,RoughtingUserID, HierachyCategory from [sysWorkFlow]
-                RoughtingUserID where RoughtingUserID like '" + user_name + "%' and TransactionID = '" + HID + "' and FormID = '" + FormID + "'   order by  HierachyCategory asc";
+                cmd.CommandText = @"SP_GetHarachyPettyCash";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@RoughtingUserID", "%" + user_name.ToString() + "%");
+                cmd.Parameters.AddWithValue("@ransactionID", "%" + HID.ToString() + "%");
+                cmd.Parameters.AddWithValue("@FormID", "%" + FormID.ToString() + "%");
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "HID");
             }
@@ -1566,6 +1570,7 @@ namespace ITLDashboard.Classes
         }
 
         //////////////////////////////////////////////////////////Vendor Master///////////////////////////////////////////////////////////////////////////////////////
+
         public DataSet BindShortKey()
         {
             try
@@ -1573,7 +1578,7 @@ namespace ITLDashboard.Classes
                 ds.Clear();
                 cmd.CommandText = "";
                 // cmd.CommandText = "SELECT SortKeyNo,SortKeyDescription as Description FROM tblVMSortKey";
-                cmd.CommandText = "SELECT SortKeyNo,Convert(varchar,SortKeyNo)+ ' ' + SortKeyDescription  AS Description  FROM tblVMSortKey";
+                cmd.CommandText = "SP_BindShortKey";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
@@ -1592,7 +1597,7 @@ namespace ITLDashboard.Classes
             {
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = "SELECT ReconAccountNo,Convert(varchar,ReconAccountNo)+ ' ' + ReconAccountDescription  AS Description  FROM tblVMReconAccount";
+                cmd.CommandText = "SP_BindReconAccount";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
@@ -1611,7 +1616,7 @@ namespace ITLDashboard.Classes
             {
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = "SELECT Termsofpayment,Termsofpayment + ' ' + TermsofpaymentDes as  Description FROM tblVMTermsofpayment";
+                cmd.CommandText = "SP_BindTermsofpayment";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
@@ -1630,7 +1635,7 @@ namespace ITLDashboard.Classes
             {
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = "SELECT WHTaxType,WHTaxType + ' ' + WHTaxTypeDes as  Description FROM tblVMWHTaxType";
+                cmd.CommandText = "SP_BindWHTaxType";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
@@ -1649,7 +1654,7 @@ namespace ITLDashboard.Classes
             {
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = "SELECT Accountgroup,Accountgroup + ' ' + Accountgroupdescription as  Description FROM tblVMAccountGroup";
+                cmd.CommandText = "SP_BindAccountGroup";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
@@ -1668,7 +1673,7 @@ namespace ITLDashboard.Classes
             {
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = "SELECT PurchasingOrganization,PurchasingOrganization + ' ' + PurchasingOrganizationDes as  Description FROM tblVMPurchasingOrganization";
+                cmd.CommandText = "SP_BindPurchasingOrg";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
@@ -1687,10 +1692,10 @@ namespace ITLDashboard.Classes
             {
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = @"SELECT TransactionID as [Form ID] ,ChequeNo as [Cheque No],convert(varchar,cast(Amount as money),1) as Amount,Description,FileName as [File Name] ,Replace(CreatedBy, '.' ,' ')  as [Created By]
-,CONVERT(VARCHAR(10),CreatedDateTime,103) as Date FROM tbl_FI_PettyCash  where TransactionID =  '" + TransID.ToString() + "'";
+                cmd.CommandText = @"SP_getPettyCashDetail";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@TransactionID", "%" + TransID.ToString() + "%");
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "tblPettyCash");
             }
