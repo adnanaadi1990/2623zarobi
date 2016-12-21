@@ -350,7 +350,7 @@ namespace DashboardProject.Modules.Inventorymanagement
         {
             try
             {
-                cmd.CommandText = "SELECT * FROM tblEmailSequanceWise where FormID = @FormID order by Sequance asc";
+                cmd.CommandText = "SELECT * FROM tblEmailSequenceWise where FormID = @FormID order by Sequance asc";
                 //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
