@@ -29,6 +29,7 @@ namespace ITLDashboard.Classes
         DataSet ds = new DataSet();
         SqlDataAdapter adp = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
+
         public DataSet GetTransactionID()
         {
             try
@@ -55,7 +56,7 @@ namespace ITLDashboard.Classes
             {
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = @"select DisplayName,Department,Designation from tbluser where user_name = @UserID";
+                cmd.CommandText = @"SP_getUserDetail";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
@@ -96,7 +97,7 @@ namespace ITLDashboard.Classes
 
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = "select Distinct PlantId, PlantId + ' ' + Description as Description from tblPlants where PlantId != '000'";
+                cmd.CommandText = "SP_getPlantDistinct";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
@@ -116,7 +117,7 @@ namespace ITLDashboard.Classes
 
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = "select TCode, TCode + ' ' + Description as Description from tbl_TCode";
+                cmd.CommandText = "SP_BindTCode";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
@@ -164,9 +165,9 @@ namespace ITLDashboard.Classes
             {
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = "SELECT Movementtypecode,Movementtypecode + ' ' + Movementtypedescription as  Description FROM tbl_Movementtype";
+                cmd.CommandText = "SP_BindMovementtype";
                 cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
+                cmd.Connection = conn;                
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "tbl_Movementtype");
             }
@@ -183,7 +184,7 @@ namespace ITLDashboard.Classes
             {
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = "SELECT Ordertypecode,Ordertypecode + ' ' + OrdertypeDescription as  Description FROM tbl_OrderType";
+                cmd.CommandText = "SP_BindOrdertype";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
@@ -203,9 +204,10 @@ namespace ITLDashboard.Classes
 
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = "select SAPID from tbluser where user_name like '%" + username.ToString() + "%'";
+                cmd.CommandText = "SP_CheckSapID";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@user_name", "%" + username.ToString() + "%");
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "SAPID");
             }
@@ -286,9 +288,8 @@ namespace ITLDashboard.Classes
             {
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = @"select SAPMaterialCode, isnull(SAPMaterialCode +'  | '+ Description,SAPMaterialCode) as Description from tbl_SYS_MaterialMaster
-                                    where SAPMaterialCode is not null and SAPMaterialCode != '' and Status = 'N'";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = @"SP_getSAPMaterialCode";
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "SAPMaterialCode");
@@ -476,9 +477,10 @@ namespace ITLDashboard.Classes
 
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = "SELECT PlantId ,PlantId + ' ' + Description as Description FROM tblPlants where MaterialType LIKE '%" + MaterialTypePlant.ToString() + "%'";
+                cmd.CommandText = "SP_BindPlantMtype";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@MaterialType", "%" + MaterialTypePlant.ToString() + "%"); 
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "BindPlantMtype");
             }
