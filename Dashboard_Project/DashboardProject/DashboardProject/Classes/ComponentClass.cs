@@ -29,6 +29,7 @@ namespace ITLDashboard.Classes
         DataSet ds = new DataSet();
         SqlDataAdapter adp = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
+
         public DataSet GetTransactionID()
         {
             try
@@ -51,22 +52,29 @@ namespace ITLDashboard.Classes
 
         public DataSet getUserDetail(string _UserNameID)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = @"select DisplayName,Department,Designation from tbluser where user_name = @UserID";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                cmd.Parameters.AddWithValue("@UserID", _UserNameID.ToString());
-                adp.Fill(ds, "tbluser_DisplayName");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = @"SP_getUserDetail";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        adp.SelectCommand = cmd;
+                        cmd.Parameters.AddWithValue("@User_Name", _UserNameID.ToString());
+                        adp.Fill(ds, "tbluser_DisplayName");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet getUserHOD(string UserName)
@@ -96,7 +104,7 @@ namespace ITLDashboard.Classes
 
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = "select Distinct PlantId, PlantId + ' ' + Description as Description from tblPlants where PlantId != '000'";
+                cmd.CommandText = "SP_getPlantDistinct";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
@@ -111,22 +119,28 @@ namespace ITLDashboard.Classes
 
         public DataSet BindTCode()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
 
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "select TCode, TCode + ' ' + Description as Description from tbl_TCode";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "TCode");
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_BindTCode";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "TCode");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet GetStatusHierachyCategoryControl(string user_name, string TransID, string FormID, string HierarchyCateguory)
@@ -160,40 +174,52 @@ namespace ITLDashboard.Classes
 
         public DataSet BindMovementtype()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "SELECT Movementtypecode,Movementtypecode + ' ' + Movementtypedescription as  Description FROM tbl_Movementtype";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "tbl_Movementtype");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_BindMovementtype";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "tbl_Movementtype");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindOrdertype()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "SELECT Ordertypecode,Ordertypecode + ' ' + OrdertypeDescription as  Description FROM tbl_OrderType";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "tbl_OrderType");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_BindOrdertype";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "tbl_OrderType");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet CheckSapID(string username)
@@ -203,9 +229,10 @@ namespace ITLDashboard.Classes
 
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = "select SAPID from tbluser where user_name like '%" + username.ToString() + "%'";
+                cmd.CommandText = "SP_CheckSapID";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@user_name", "%" + username.ToString() + "%");
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "SAPID");
             }
@@ -282,22 +309,27 @@ namespace ITLDashboard.Classes
 
         public DataSet getSAPMaterialCode()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = @"select SAPMaterialCode, isnull(SAPMaterialCode +'  | '+ Description,SAPMaterialCode) as Description from tbl_SYS_MaterialMaster
-                                    where SAPMaterialCode is not null and SAPMaterialCode != '' and Status = 'N'";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "SAPMaterialCode");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = @"SP_getSAPMaterialCode";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "SAPMaterialCode");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet createuser(string UserId, string username, string pass, string email, string designation, string dept)
@@ -332,796 +364,1041 @@ namespace ITLDashboard.Classes
 
         public DataSet BindDropDownDept()
         {
-
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_BindGridDept";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                conn.Open();
-                adp.SelectCommand = cmd;
-                adp.Fill(ds);
-
-
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_BindGridDept";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        conn.Open();
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds);
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindDropDownDesignation()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_BindGridDesignation";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds);
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_BindGridDesignation";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds);
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataTable Userlogin(string user_id, string passcode)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_userlogin" + " @user_id='" + user_id + "', " +
-                        " @passcode='" + passcode + "'";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(dt);
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_userlogin" + " @user_id='" + user_id + "', " +
+                                " @passcode='" + passcode + "'";
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(dt);
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return dt;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return dt;
         }
 
         // MASTER DETAIL METERIAL COMBO//
         public DataSet BindMaterialType()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_BindMaterialType";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "MaterialType");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_BindMaterialType";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "MaterialType");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataTable BindMaterialMaster()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                dt.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_BindMaterialMaster";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(dt);
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        dt.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_BindMaterialMaster";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(dt);
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return dt;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return dt;
         }
 
         public DataSet BindStorageLocation()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
 
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_StorageLocation";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "StorageLocation");
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_StorageLocation";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "StorageLocation");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindPlant()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
 
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_BindPlant";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "Plant");
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_BindPlant";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "Plant");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindPlantMtype(string MaterialTypePlant)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
 
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "SELECT PlantId ,PlantId + ' ' + Description as Description FROM tblPlants where MaterialType LIKE '%" + MaterialTypePlant.ToString() + "%'";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "BindPlantMtype");
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_BindPlantMtype";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        cmd.Parameters.AddWithValue("@MaterialType", "%" + MaterialTypePlant.ToString() + "%");
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "BindPlantMtype");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindMaterialgroup()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "EXEC SP_Materialgroup";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "Materialgroup");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "EXEC SP_Materialgroup";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "Materialgroup");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindMaterialgroupMtype(string MaterialType)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "SP_BindMaterialgroupMtype";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                cmd.Parameters.AddWithValue("@MaterialType", "%" + MaterialType.ToString() + "%");
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "BindMaterialgroupMtype");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_BindMaterialgroupMtype";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        cmd.Parameters.AddWithValue("@MaterialType", "%" + MaterialType.ToString() + "%");
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "BindMaterialgroupMtype");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindBaseUnitOfMeasure()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_BaseUnitOfMeasure";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "BaseUnitOfMeasure");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_BaseUnitOfMeasure";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "BaseUnitOfMeasure");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindBaseUnitOfMeasureMTYPE(string MTYPEBOM)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "SP_BindBaseUnitOfMeasureMTYPE";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                cmd.Parameters.AddWithValue("@MaterialType", "%" + MTYPEBOM.ToString() + "%");
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "BindBaseUnitOfMeasureMTYPE");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_BindBaseUnitOfMeasureMTYPE";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        cmd.Parameters.AddWithValue("@MaterialType", "%" + MTYPEBOM.ToString() + "%");
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "BindBaseUnitOfMeasureMTYPE");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindLenght()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "SP_BindLenght";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "Lenght");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_BindLenght";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "Lenght");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindUser()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "SP_BindUser";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "tblUser");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_BindUser";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "tblUser");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindSplitValueation()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_ValuationType";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "ValuationType");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_ValuationType";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "ValuationType");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindProfitCenter()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_tblProfitCenter";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "ProfitCenter");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_tblProfitCenter";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "ProfitCenter");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindValuationCategory()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_ValuationCategory";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "ValuationCategory");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_ValuationCategory";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "ValuationCategory");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindMRPtypeMTYPE(string MaterialType)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "SP_BindMRPtypeMTYPE";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                cmd.Parameters.AddWithValue("@MaterialTypecode", "%" + MaterialType.ToString() + "%");
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "BindMRPtypeMTYPE");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_BindMRPtypeMTYPE";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@MaterialTypecode", "%" + MaterialType.ToString() + "%");
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "BindMRPtypeMTYPE");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindSplitValueation(string ValuationCatg)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "SP_BindSplitValueation";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                cmd.Parameters.AddWithValue("@ValuationCatg", "%" + ValuationCatg.ToString() + "%");
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "BindSplitValueation");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_BindSplitValueation";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@ValuationCatg", "%" + ValuationCatg.ToString() + "%");
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "BindSplitValueation");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindValuationCategoryMTYPE(string MaterialTypePlant)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "SP_BindValuationCategoryMTYPE";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                cmd.Parameters.AddWithValue("@MaterialTypecode", "%" + MaterialTypePlant.ToString() + "%");
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "ValuationCategoryMTYPE");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_BindValuationCategoryMTYPE";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@MaterialTypecode", "%" + MaterialTypePlant.ToString() + "%");
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "ValuationCategoryMTYPE");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindPurchasingGroup()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_PurchasingGroup";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "PurchasingGroup");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_PurchasingGroup";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "PurchasingGroup");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindPurchasingGroupMTYPE(string MaterialTypePG)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "SP_BindPurchasingGroupMTYPE";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                cmd.Parameters.AddWithValue("@MaterialTypecode", "%" + MaterialTypePG.ToString() + "%");
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "BindPurchasingGroupMTYPE");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_BindPurchasingGroupMTYPE";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@MaterialTypecode", "%" + MaterialTypePG.ToString() + "%");
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "BindPurchasingGroupMTYPE");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindMRPController()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_mrpController";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "mrpController");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_mrpController";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "mrpController");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindLotSize()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_LotSize";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "LotSize");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_LotSize";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "LotSize");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindMRPType()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_MRPType";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "MRPType");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_MRPType";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "MRPType");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindMRPTypeMtype(string MaterialType)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "SP_BindMRPtypeMTYPE";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                cmd.Parameters.AddWithValue("@MaterialTypecode", "%" + MaterialType.ToString() + "%");
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "BindMRPTypeMtype");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_BindMRPtypeMTYPE";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@MaterialTypecode", "%" + MaterialType.ToString() + "%");
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "BindMRPTypeMtype");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindAvailabilitycheck()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_Availabilitycheck";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "Availabilitycheck");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_Availabilitycheck";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "Availabilitycheck");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindRebateCategoryRate()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_RebateCategoryRate";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "RebateCategoryRate");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_RebateCategoryRate";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "RebateCategoryRate");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
+
 
         public DataSet BindPeriodIndicator()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_PeriodIndicator";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "PeriodIndicator");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_PeriodIndicator";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "PeriodIndicator");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindStrategygroup()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_Strategygroup";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "Strategygroup");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_Strategygroup";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "Strategygroup");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindQMControlKey()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_QMControlKey";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "QMControlKey");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_QMControlKey";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "QMControlKey");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindRate()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_Rate";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "Rate");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_Rate";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "Rate");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindDistributionChannel()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_DistributionChannel";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "DistributionChannel");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_DistributionChannel";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "DistributionChannel");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindDeliveringplant()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_Deliveringplant";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "Deliveringplant");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_Deliveringplant";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "Deliveringplant");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindLoadingGroup()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_LoadingGroup";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "LoadingGroup");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_LoadingGroup";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "LoadingGroup");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindSalesTax()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_SalesTax";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "SalesTax");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_SalesTax";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "SalesTax");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindValuationClass()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_ValuationClass";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "ValuationClass");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_ValuationClass";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "ValuationClass");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindValuationClassMtype(string ValuationClassMtype)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "SP_BindValuationClassMtype";
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = conn;
-                cmd.Parameters.AddWithValue("@Materialtypcode", "%" + ValuationClassMtype.ToString() + "%");
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "BindValuationClassMtype");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_BindValuationClassMtype";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@Materialtypcode", "%" + ValuationClassMtype.ToString() + "%");
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "BindValuationClassMtype");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindProdnsupervisor()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_Prodnsupervisor";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "Prodnsupervisor");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_Prodnsupervisor";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "Prodnsupervisor");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindProdSchedProfile()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_ProdSchedProfile";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "ProdSchedProfile");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_ProdSchedProfile";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "ProdSchedProfile");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindTasklistusage()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_Tasklistusage";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "Tasklistusage");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_Tasklistusage";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "Tasklistusage");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         // MASTER DETAIL METERIAL COMBO//
@@ -1496,7 +1773,7 @@ namespace ITLDashboard.Classes
             try
             {
                 cmd.CommandText = "";
-                cmd.CommandText ="SP_GetHarachy";
+                cmd.CommandText = "SP_GetHarachy";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
