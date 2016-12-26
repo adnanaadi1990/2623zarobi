@@ -32,22 +32,28 @@ namespace ITLDashboard.Classes
 
         public DataSet GetTransactionID()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                //cmd.CommandText = "SELECT COALESCE(MAX(MeterialNo), 0) +1 as TransactionID from tbl_SYS_MaterialMaster";
-                cmd.CommandText = "EXEC [SP_MaintainTrans]";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "MaterialMaxID");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        //cmd.CommandText = "SELECT COALESCE(MAX(MeterialNo), 0) +1 as TransactionID from tbl_SYS_MaterialMaster";
+                        cmd.CommandText = "EXEC [SP_MaintainTrans]";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "MaterialMaxID");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet getUserDetail(string _UserNameID)
@@ -58,7 +64,6 @@ namespace ITLDashboard.Classes
                 {
                     try
                     {
-
                         ds.Clear();
                         cmd.CommandText = "";
                         cmd.CommandText = @"SP_getUserDetail";
@@ -79,42 +84,54 @@ namespace ITLDashboard.Classes
 
         public DataSet getUserHOD(string UserName)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = @"SP_getHOD";
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = conn;
-                cmd.Parameters.AddWithValue("@username", UserName.ToString());
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "getUserHOD");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = @"SP_getHOD";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@username", UserName.ToString());
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "getUserHOD");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet getPlantDistinct()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
 
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "SP_getPlantDistinct";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "getPlantDistinct");
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_getPlantDistinct";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "getPlantDistinct");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindTCode()
@@ -224,68 +241,84 @@ namespace ITLDashboard.Classes
 
         public DataSet CheckSapID(string username)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
 
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "SP_CheckSapID";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                cmd.Parameters.AddWithValue("@user_name", "%" + username.ToString() + "%");
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "SAPID");
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_CheckSapID";
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@user_name", "%" + username.ToString() + "%");
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "SAPID");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet GetTransactionMaxPettyCash(string FORMID)
         {
-            //Changes
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
+                using (SqlCommand cmd = new SqlCommand())//
+                { //Changes
+                    try
+                    {
 
-                ds.Clear();
-                cmd.CommandText = "";
-                //cmd.CommandText = "SELECT COALESCE(MAX(MeterialNo), 0) +1 as TransactionID from tbl_SYS_MaterialMaster";
-                cmd.CommandText = "EXEC [SP_MaintainTrans]" + "@FormID='" + FORMID.ToString() + "'";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        //cmd.CommandText = "SELECT COALESCE(MAX(MeterialNo), 0) +1 as TransactionID from tbl_SYS_MaterialMaster";
+                        cmd.CommandText = "EXEC [SP_MaintainTrans]" + "@FormID='" + FORMID.ToString() + "'";
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
 
-                adp.Fill(ds, "MaterialMaxID");
+                        adp.Fill(ds, "MaterialMaxID");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet GetTransactionMax()
         {
-            //Changes
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
+                using (SqlCommand cmd = new SqlCommand())//
+                { //Changes
+                    try
+                    {
 
-                ds.Clear();
-                cmd.CommandText = "";
-                //cmd.CommandText = "SELECT COALESCE(MAX(MeterialNo), 0) +1 as TransactionID from tbl_SYS_MaterialMaster";
-                cmd.CommandText = "SELECT COALESCE(MAX(TransactionID), 0)  +1 as TransactionID from tbl_SYS_MaterialMaster";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "MaterialMasterTrID");
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        //cmd.CommandText = "SELECT COALESCE(MAX(MeterialNo), 0) +1 as TransactionID from tbl_SYS_MaterialMaster";
+                        cmd.CommandText = "SELECT COALESCE(MAX(TransactionID), 0)  +1 as TransactionID from tbl_SYS_MaterialMaster";
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "MaterialMasterTrID");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindTransactionID()
@@ -334,32 +367,38 @@ namespace ITLDashboard.Classes
 
         public DataSet createuser(string UserId, string username, string pass, string email, string designation, string dept)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                //string query = "Exec SP_signup" + " @user_name='" + username + "', " +
-                //     " @user_password='" + pass + "', " +
-                //      " @user_email='" + email + "', " +
-                //       " @designation='" + designation + "', " +
-                //        " @department_id='" + dept + "', " + "'";
-                cmd.CommandText = "Exec SP_signup" + " @user_id='" + UserId + "', " +
-                    " @user_name='" + username + "', " +
-                     " @user_password='" + pass + "', " +
-                      " @user_email='" + email + "', " +
-                       " @designation='" + designation + "', " +
-                        " @department_id='" + dept + "'";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        //string query = "Exec SP_signup" + " @user_name='" + username + "', " +
+                        //     " @user_password='" + pass + "', " +
+                        //      " @user_email='" + email + "', " +
+                        //       " @designation='" + designation + "', " +
+                        //        " @department_id='" + dept + "', " + "'";
+                        cmd.CommandText = "Exec SP_signup" + " @user_id='" + UserId + "', " +
+                            " @user_name='" + username + "', " +
+                             " @user_password='" + pass + "', " +
+                              " @user_email='" + email + "', " +
+                               " @designation='" + designation + "', " +
+                                " @department_id='" + dept + "'";
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Connection = conn;
 
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "Message");
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "Message");
 
 
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindDropDownDept()
@@ -1652,7 +1691,7 @@ namespace ITLDashboard.Classes
                 cmd.CommandText = "EXEC SP_UpdateMaterial" + " @TransactionID  ='" + MetrialNo.ToString() + "', " +
                        " @Materiallock ='" + MLock.ToString() + "', " +
                        " @SAPCode ='" + SAPCode.ToString() + "'";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
 
                 adp.SelectCommand = cmd;
@@ -1669,358 +1708,451 @@ namespace ITLDashboard.Classes
 
         string RoughtingUserID, string Status, string Remarks)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
 
-                cmd.CommandText = "";
-                cmd.CommandText = "SP_InsertsysApplicationStatus";
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = conn;
-                cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
-                cmd.Parameters.AddWithValue("@TransactionID", TransactionID.ToString());
-                cmd.Parameters.AddWithValue("@HierachyCategory", HierachyCategory.ToString());
-                cmd.Parameters.AddWithValue("@RoughtingUserID", RoughtingUserID.ToString());
-                cmd.Parameters.AddWithValue("@Status", Status.ToString());
-                cmd.Parameters.AddWithValue("@Remarks", Remarks.ToString());
-                conn.Open();
-                cmd.ExecuteNonQuery();
-                conn.Close();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_InsertsysApplicationStatus";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
+                        cmd.Parameters.AddWithValue("@TransactionID", TransactionID.ToString());
+                        cmd.Parameters.AddWithValue("@HierachyCategory", HierachyCategory.ToString());
+                        cmd.Parameters.AddWithValue("@RoughtingUserID", RoughtingUserID.ToString());
+                        cmd.Parameters.AddWithValue("@Status", Status.ToString());
+                        cmd.Parameters.AddWithValue("@Remarks", Remarks.ToString());
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                        conn.Close();
 
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet UpdatesysApplicationStatus(string FormID, string TransactionID, string HierachyCategory,
-
         string RoughtingUserID, string Status, string Remarks, string TransferredTo, string SerialNo, string Sequance)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
 
-                cmd.CommandText = "";
-                cmd.CommandText = @"update sysworkflow set Status = @Status, StatusDateTime = @StatusDateTime ,TransferredTo = @TransferredTo
+                        cmd.CommandText = "";
+                        cmd.CommandText = @"update sysworkflow set Status = @Status, StatusDateTime = @StatusDateTime ,TransferredTo = @TransferredTo
                  where FormID = @FormID and TransactionID = @TransactionID  and SerialNo = @SerialNo and RoughtingUserID like @RoughtingUserID and Sequance = @Sequance";//SP_InsertsysApplicationStatus
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
-                cmd.Parameters.AddWithValue("@TransactionID", TransactionID.ToString());
-                cmd.Parameters.AddWithValue("@HierachyCategory", HierachyCategory.ToString());
-                cmd.Parameters.AddWithValue("@RoughtingUserID", RoughtingUserID.ToString() + '%');
-                cmd.Parameters.AddWithValue("@Status", Status.ToString());
-                cmd.Parameters.AddWithValue("@Remarks", Remarks.ToString());
-                cmd.Parameters.AddWithValue("@StatusDateTime", DateTime.Now);
-                cmd.Parameters.AddWithValue("@TransferredTo", TransferredTo.ToString());
-                cmd.Parameters.AddWithValue("@SerialNo", TransferredTo.ToString());
-                cmd.Parameters.AddWithValue("@Sequance", Sequance.ToString());
-                conn.Open();
-                cmd.ExecuteNonQuery();
-                conn.Close();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
+                        cmd.Parameters.AddWithValue("@TransactionID", TransactionID.ToString());
+                        cmd.Parameters.AddWithValue("@HierachyCategory", HierachyCategory.ToString());
+                        cmd.Parameters.AddWithValue("@RoughtingUserID", RoughtingUserID.ToString() + '%');
+                        cmd.Parameters.AddWithValue("@Status", Status.ToString());
+                        cmd.Parameters.AddWithValue("@Remarks", Remarks.ToString());
+                        cmd.Parameters.AddWithValue("@StatusDateTime", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@TransferredTo", TransferredTo.ToString());
+                        cmd.Parameters.AddWithValue("@SerialNo", TransferredTo.ToString());
+                        cmd.Parameters.AddWithValue("@Sequance", Sequance.ToString());
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                        conn.Close();
 
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
 
         public DataSet InsertsysApplicationStatusSpecificPerson(string FormID, string TransactionID, string HierachyCategory,
-
         string RoughtingUserID, string Status, string Remarks)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
 
-                cmd.CommandText = "";
-                cmd.CommandText = @"INSERT INTO sysApplicationStatus (FormID,TransactionID,HierachyCategory,RoughtingUserID,DateTime,Status,Remarks) VALUES
+                        cmd.CommandText = "";
+                        cmd.CommandText = @"INSERT INTO sysApplicationStatus (FormID,TransactionID,HierachyCategory,RoughtingUserID,DateTime,Status,Remarks) VALUES
                                      (@FormID1, @TransactionID1,@HierachyCategory1,@RoughtingUserID1,@Date1,@Status1,@Remarks1)";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                cmd.Parameters.AddWithValue("@FormID1", FormID.ToString());
-                cmd.Parameters.AddWithValue("@TransactionID1", TransactionID.ToString());
-                cmd.Parameters.AddWithValue("@HierachyCategory1", HierachyCategory.ToString());
-                cmd.Parameters.AddWithValue("@RoughtingUserID1", RoughtingUserID.ToString());
-                cmd.Parameters.AddWithValue("@Date1", DateTime.Now.ToString());
-                cmd.Parameters.AddWithValue("@Status1", Status.ToString());
-                cmd.Parameters.AddWithValue("@Remarks1", Remarks.ToString());
-                conn.Open();
-                cmd.ExecuteNonQuery();
-                conn.Close();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@FormID1", FormID.ToString());
+                        cmd.Parameters.AddWithValue("@TransactionID1", TransactionID.ToString());
+                        cmd.Parameters.AddWithValue("@HierachyCategory1", HierachyCategory.ToString());
+                        cmd.Parameters.AddWithValue("@RoughtingUserID1", RoughtingUserID.ToString());
+                        cmd.Parameters.AddWithValue("@Date1", DateTime.Now.ToString());
+                        cmd.Parameters.AddWithValue("@Status1", Status.ToString());
+                        cmd.Parameters.AddWithValue("@Remarks1", Remarks.ToString());
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                        conn.Close();
 
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         //////////////////////////////////////////////////////////////Meterial Master Insertion End////////////////////////////////////////////////////
 
         public DataSet GetHarachy(string user_name, string HID)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                cmd.CommandText = "";
-                cmd.CommandText = "SP_GetHarachy";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "HID");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_GetHarachy";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "HID");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet GetHarachyPettyCash(string user_name, string HID, string FormID)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                cmd.CommandText = "";
-                cmd.CommandText = @"SP_GetHarachyPettyCash";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                cmd.Parameters.AddWithValue("@RoughtingUserID", "%" + user_name.ToString() + "%");
-                cmd.Parameters.AddWithValue("@ransactionID", "%" + HID.ToString() + "%");
-                cmd.Parameters.AddWithValue("@FormID", "%" + FormID.ToString() + "%");
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "HID");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        cmd.CommandText = "";
+                        cmd.CommandText = @"SP_GetHarachyPettyCash";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@RoughtingUserID", "%" + user_name.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@ransactionID", "%" + HID.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@FormID", "%" + FormID.ToString() + "%");
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "HID");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindgetDeleteList(string TransactionId)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec getDeleteList" + " @TransactionID ='" + TransactionId + "'";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "BindgetDeleteList");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec getDeleteList" + " @TransactionID ='" + TransactionId + "'";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "BindgetDeleteList");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindsysApplicationStatus(string TransactionId, string FormId)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_BindsysApplicationStatus" + " @TransactionID ='" + TransactionId + "', " +
-                     " @FormID='" + FormId + "'";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "BindsysApplicationStatus");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_BindsysApplicationStatus" + " @TransactionID ='" + TransactionId + "', " +
+                             " @FormID='" + FormId + "'";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "BindsysApplicationStatus");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
-
         //////////////////////////////////////////////////////////Vendor Master///////////////////////////////////////////////////////////////////////////////////////
 
         public DataSet BindShortKey()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                // cmd.CommandText = "SELECT SortKeyNo,SortKeyDescription as Description FROM tblVMSortKey";
-                cmd.CommandText = "SP_BindShortKey";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "tblVMSortKey");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        // cmd.CommandText = "SELECT SortKeyNo,SortKeyDescription as Description FROM tblVMSortKey";
+                        cmd.CommandText = "SP_BindShortKey";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "tblVMSortKey");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindReconAccount()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "SP_BindReconAccount";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "tblVMReconAccount");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_BindReconAccount";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "tblVMReconAccount");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
-
         public DataSet BindTermsofpayment()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "SP_BindTermsofpayment";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "tblVMTermsofpayment");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_BindTermsofpayment";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "tblVMTermsofpayment");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindWHTaxType()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "SP_BindWHTaxType";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "tblVMWHTaxType");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_BindWHTaxType";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "tblVMWHTaxType");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindAccountGroup()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "SP_BindAccountGroup";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "tblVMAccountGroup");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_BindAccountGroup";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "tblVMAccountGroup");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindPurchasingOrg()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "SP_BindPurchasingOrg";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "tblVMPurchasingOrganization");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_BindPurchasingOrg";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "tblVMPurchasingOrganization");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet getPettyCashDetail(string TransID)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = @"SP_getPettyCashDetail";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                cmd.Parameters.AddWithValue("@TransactionID", "%" + TransID.ToString() + "%");
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "tblPettyCash");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = @"SP_getPettyCashDetail";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@TransactionID", "%" + TransID.ToString() + "%");
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "tblPettyCash");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet getDCWDetail(string TransID)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = @"SELECT TransactionID as [Form ID],FileName as [File Name],Description,CreatedBy as [Created By],CreatedDateTime As [Created Date]
-  FROM tbl_FI_DeliveryChallanWorkflow where TransactionID = '" + TransID.ToString() + "'";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "tbl_FI_DeliveryChallanWorkflow");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = @"SP_getDCWDetail";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@TransactionID", "%" + TransID.ToString() + "%");
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "tbl_FI_DeliveryChallanWorkflow");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet getIWFDetail(string TransID)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = @"SELECT TransactionID as [Form ID],FileName,CreatedBy,CreatedDateTime As [Created Date]
-  FROM tbl_FI_InvoiceWorkflow where TransactionID  = '" + TransID.ToString() + "'";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "tbl_FI_InvoiceWorkflow");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = @"SP_getIWFDetail";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@TransactionID", "%" + TransID.ToString() + "%");
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "tbl_FI_InvoiceWorkflow");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         /////////////////////////////////////////////////////Vendor Master///////////////////////////////////////////////////////////////////////////////////////
@@ -2029,21 +2161,27 @@ namespace ITLDashboard.Classes
 
         public DataSet AllowForms(string UserName, string FormName)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_AllowForms" + " @User_Name ='" + UserName + "', " +
-                        " @Form_Name ='" + FormName + "'";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "AllowForm");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_AllowForms" + " @User_Name ='" + UserName + "', " +
+                                " @Form_Name ='" + FormName + "'";
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "AllowForm");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         /////////////////////////////////////////////////////////////Secuirty/////////////////////////////////////////////////////////
@@ -2052,197 +2190,256 @@ namespace ITLDashboard.Classes
 
         public DataSet MailForwardUserToReviwer(string TransactionNo, string FormID)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                string com = @"SELECT top(1)[FormID],TransactionID,[CreatedBy],Replace(isnull(a.DisplayName,b.RoughtingUserID), '.' ,' ') as user_name,a.user_email,[HierachyCategory],[RoughtingUserID],[Sequance] 
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        string com = @"SELECT top(1)[FormID],TransactionID,[CreatedBy],Replace(isnull(a.DisplayName,b.RoughtingUserID), '.' ,' ') as user_name,a.user_email,[HierachyCategory],[RoughtingUserID],[Sequance] 
         FROM [dbo].[sysWorkFlow] b left outer  join tbluser a on a.user_name=b.RoughtingUserID where  b.HierachyCategory = 3 and FormId= '" + FormID.ToString() + "'" +
-       "and TransactionID= '" + TransactionNo.ToString() + "' order by b.HierachyCategory asc,b.Sequance asc";
-                SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
-                adpt.Fill(ds, "MailForwardUserToReviwer");
+               "and TransactionID= '" + TransactionNo.ToString() + "' order by b.HierachyCategory asc,b.Sequance asc";
+                        SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
+                        adpt.Fill(ds, "MailForwardUserToReviwer");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
         //Update By Adnan khan
         public DataSet MailForwardUserToApprover(string TransactionNo, string FormID)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_MailForwardUserToApprover" + " @TransactionID ='" + TransactionNo + "', " +
-                        " @FormID ='" + FormID + "'";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "MailForwardUserToApprover");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_MailForwardUserToApprover" + " @TransactionID ='" + TransactionNo + "', " +
+                                " @FormID ='" + FormID + "'";
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "MailForwardUserToApprover");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet MailForwardFormApprover(string UserID, string TransactionNo, string FormID)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                cmd.CommandText = "";
-                cmd.CommandText = "Exec SP_MailForwardFormApprover" + " @TransactionID ='" + TransactionNo + "', " +
-                        " @UserName ='" + UserID + "', " +
-                        " @FormID ='" + FormID + "'";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "MailForwardFormApprover");
-                if (ds.Tables["MailForwardFormApprover"].Rows.Count > 0)
+                using (SqlCommand cmd = new SqlCommand())//
                 {
+                    try
+                    {
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_MailForwardFormApprover" + " @TransactionID ='" + TransactionNo + "', " +
+                                " @UserName ='" + UserID + "', " +
+                                " @FormID ='" + FormID + "'";
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "MailForwardFormApprover");
+                        if (ds.Tables["MailForwardFormApprover"].Rows.Count > 0)
+                        {
+                            return ds;
+                        }
+                        else
+                        {
+                            cmd.CommandText = "";
+                            cmd.CommandText = "Exec SP_MailForwardFormApproverToMDAOrOthers" + " @TransactionID ='" + TransactionNo + "', " +
+                                    " @FormID ='" + FormID + "'";
+                            cmd.CommandType = CommandType.Text;
+                            cmd.Connection = conn;
+                            adp.SelectCommand = cmd;
+                            adp.Fill(ds, "MailForwardFormApprover");
+                        }
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
                     return ds;
                 }
-                else
-                {
-                    cmd.CommandText = "";
-                    cmd.CommandText = "Exec SP_MailForwardFormApproverToMDAOrOthers" + " @TransactionID ='" + TransactionNo + "', " +
-                            " @FormID ='" + FormID + "'";
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Connection = conn;
-                    adp.SelectCommand = cmd;
-                    adp.Fill(ds, "MailForwardFormApprover");
-                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
-
         public DataSet MailForwardToUserOnRejection(string TransactionNo, string FormID)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                string com = @"SELECT top(1)[FormID],[TransactionID],[CreatedBy],Replace(isnull(a.DisplayName,b.RoughtingUserID), '.' ,' ') as user_name,a.user_email,[HierachyCategory],[RoughtingUserID],[Sequance] FROM [dbo].[sysWorkFlow] b 
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        string com = @"SELECT top(1)[FormID],[TransactionID],[CreatedBy],Replace(isnull(a.DisplayName,b.RoughtingUserID), '.' ,' ') as user_name,a.user_email,[HierachyCategory],[RoughtingUserID],[Sequance] FROM [dbo].[sysWorkFlow] b 
                                left outer  join tbluser a on a.user_name=b.RoughtingUserID where b.HierachyCategory = 1 and b.FormId= '" + FormID.ToString() +
-                               "' and TransactionID= '" + TransactionNo.ToString() + "' order by b.HierachyCategory asc,b.Sequance asc";
-                SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
-                adpt.Fill(ds, "MailForwardToUserOnRejection");
+                                       "' and TransactionID= '" + TransactionNo.ToString() + "' order by b.HierachyCategory asc,b.Sequance asc";
+                        SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
+                        adpt.Fill(ds, "MailForwardToUserOnRejection");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet MailForwardToAllFromMDA(string TransactionNo, string FormID, string HierachyCategory)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                string com = @"SELECT [FormID],TransactionID,[CreatedBy],Replace(isnull(a.DisplayName,b.RoughtingUserID), '.' ,' ') as user_name,a.user_email,[HierachyCategory],[RoughtingUserID],[Sequance] FROM [dbo].[sysWorkFlow] b 
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        string com = @"SELECT [FormID],TransactionID,[CreatedBy],Replace(isnull(a.DisplayName,b.RoughtingUserID), '.' ,' ') as user_name,a.user_email,[HierachyCategory],[RoughtingUserID],[Sequance] FROM [dbo].[sysWorkFlow] b 
                                left outer  join tbluser a on a.user_name=b.RoughtingUserID where  b.HierachyCategory not in ('" + HierachyCategory.ToString() + "') and TransactionID= '" + TransactionNo.ToString() +
-                               "' and  FormId= '" + FormID.ToString() + "' order by b.HierachyCategory asc,b.Sequance asc";
-                SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
-                adpt.Fill(ds, "MailForwardToAllFromMDA");
+                                       "' and  FormId= '" + FormID.ToString() + "' order by b.HierachyCategory asc,b.Sequance asc";
+                        SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
+                        adpt.Fill(ds, "MailForwardToAllFromMDA");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet MailForwardFromReviwerToMDA(string TransactionNo, string FormID, string HierachyCategory)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                string com = @"SELECT top(1)[FormID],TransactionID,[CreatedBy],Replace(isnull(a.DisplayName,b.RoughtingUserID), '.' ,' ') as user_name,a.user_email,[HierachyCategory],[RoughtingUserID],[Sequance] 
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        string com = @"SELECT top(1)[FormID],TransactionID,[CreatedBy],Replace(isnull(a.DisplayName,b.RoughtingUserID), '.' ,' ') as user_name,a.user_email,[HierachyCategory],[RoughtingUserID],[Sequance] 
                      FROM [dbo].[sysWorkFlow] b left outer  join tbluser a on a.user_name=b.RoughtingUserID where  b.HierachyCategory = '" + HierachyCategory.ToString() + "'   and b.FormId= '" + FormID.ToString() + "'" +
-                     " and TransactionID= '" + TransactionNo.ToString() + "' order by b.HierachyCategory desc";
-                SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
-                adpt.Fill(ds, "MailForwardToAllFromMDA");
+                             " and TransactionID= '" + TransactionNo.ToString() + "' order by b.HierachyCategory desc";
+                        SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
+                        adpt.Fill(ds, "MailForwardToAllFromMDA");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet MailForwardToUserToMDA(string TransactionNo, string FormID, string HierachyCategory)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                string com = @"SELECT [FormID],TransactionID,[CreatedBy],Replace(isnull(a.DisplayName,b.RoughtingUserID), '.' ,' ') as user_name,a.user_email,[HierachyCategory],[RoughtingUserID],[Sequance] FROM [dbo].[sysWorkFlow] b 
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        string com = @"SELECT [FormID],TransactionID,[CreatedBy],Replace(isnull(a.DisplayName,b.RoughtingUserID), '.' ,' ') as user_name,a.user_email,[HierachyCategory],[RoughtingUserID],[Sequance] FROM [dbo].[sysWorkFlow] b 
                                left outer  join tbluser a on a.user_name=b.RoughtingUserID where  b.HierachyCategory = '" + HierachyCategory.ToString() + "' and TransactionID= '" + TransactionNo.ToString() +
-                               "' and  FormId= '" + FormID.ToString() + "' order by b.HierachyCategory asc,b.Sequance asc";
-                SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
-                adpt.Fill(ds, "MailForwardToUserToMDA");
+                                       "' and  FormId= '" + FormID.ToString() + "' order by b.HierachyCategory asc,b.Sequance asc";
+                        SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
+                        adpt.Fill(ds, "MailForwardToUserToMDA");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet MailForwardToSpecificPerson(string FormID)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                string com = @"SELECT distinct s.user_email,s.DisplayName as user_name,w.RoughtingUserID,s.FormID,Status FROM tbl_EmailToSpecificPerson as S
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        string com = @"SELECT distinct s.user_email,s.DisplayName as user_name,w.RoughtingUserID,s.FormID,Status FROM tbl_EmailToSpecificPerson as S
                                 LEFT OUTER JOIN tbluser U ON S.user_name = u.user_name 
                                 LEFT OUTER JOIN sysWorkFlow W ON S.user_name = W.RoughtingUserID 
                                  where S.FormID = '" + FormID.ToString() + "' and S.Status = '0'";
-                SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
-                adpt.Fill(ds, "tbl_EmailToSpecificPerson");
+                        SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
+                        adpt.Fill(ds, "tbl_EmailToSpecificPerson");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet MailForwardToAdminstrator(string UserName)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                string com = @"select user_name,user_email,DisplayName from tbluser where user_name = '" + UserName.ToString() + "'";
-                SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
-                adpt.Fill(ds, "MailForwardToAdminstrator");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        string com = @"select user_name,user_email,DisplayName from tbluser where user_name = '" + UserName.ToString() + "'";
+                        SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
+                        adpt.Fill(ds, "MailForwardToAdminstrator");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet MailForwardToForwarder(string UserID)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                string cmd = @"select * from tbluser where user_name = '" + UserID + "'";
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        string cmd = @"select * from tbluser where user_name = '" + UserID + "'";
 
-                SqlDataAdapter adpt = new SqlDataAdapter(cmd, conn);
-                adpt.Fill(ds, "MailForwardToForwarder");
+                        SqlDataAdapter adpt = new SqlDataAdapter(cmd, conn);
+                        adpt.Fill(ds, "MailForwardToForwarder");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         /////////////////////////////////////////////////////////////Email Method/////////////////////////////////////////////////////////
@@ -2251,22 +2448,28 @@ namespace ITLDashboard.Classes
 
         public DataSet BindAccountGrp()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                ds.Clear();
-                cmd.CommandText = "";
-                //cmd.CommandText = "SELECT Accountgroup,Accountgroup + ' ' + Accountgroupdescription as  Description FROM tblVMAccountGroup";
-                cmd.CommandText = "select * from tblCMAccountGrp";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "tblCMAccountGrp");
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        //cmd.CommandText = "SELECT Accountgroup,Accountgroup + ' ' + Accountgroupdescription as  Description FROM tblVMAccountGroup";
+                        cmd.CommandText = "select * from tblCMAccountGrp";
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "tblCMAccountGrp");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet BindSalesOrganization()
@@ -2673,21 +2876,26 @@ namespace ITLDashboard.Classes
 
         public DataSet GetStatusHierachyCategory(string user_name, string TransID, string FormID)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                cmd.CommandText = "";
-                cmd.CommandText = @"select top(1) TransactionID,RoughtingUserID, HierachyCategory,Status from sysApplicationStatus
-                                    where RoughtingUserID = '" + user_name.ToString() + "' and TransactionID = '" + TransID.ToString() + "' and FormID = '" + FormID.ToString() + "'   order by  HierachyCategory asc";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "StatusHierachyCategory");
+                using (SqlCommand cmdInsert = new SqlCommand())//
+                {
+                    try
+                    {
+                        cmd.CommandText = "";
+                        cmd.CommandText = @"SP_GetStatusHierachyCategory";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "StatusHierachyCategory");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet GetStatusHierachyCategoryControl(string user_name, string TransID, string FormID, string HierarchyCateguory, string Serial, string Status)
