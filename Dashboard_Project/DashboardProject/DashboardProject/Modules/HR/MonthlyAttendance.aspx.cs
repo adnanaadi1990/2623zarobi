@@ -17,43 +17,56 @@ namespace ITLDashboard.Modules.HR
         SqlCommand cmd = new SqlCommand();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-
-                if (Session["User_Name"] == null)
+                if (!IsPostBack)
                 {
-                    HttpContext con = HttpContext.Current;
-                    con.Request.Url.ToString();
 
-                    Session["Test"] = con.Request.Url.ToString();
+                    if (Session["User_Name"] == null)
+                    {
+                        HttpContext con = HttpContext.Current;
+                        con.Request.Url.ToString();
 
-                    //  Response.Redirect("~/SingleLogin.aspx");
+                        Session["Test"] = con.Request.Url.ToString();
+
+                        //  Response.Redirect("~/SingleLogin.aspx");
+                    }
+                    if (Session["User_Name"] == null)
+                    {
+                        Response.Redirect("~/SingleLogin.aspx");
+                    }
+                    getEmployee();
+
                 }
-                if (Session["User_Name"] == null)
-                {
-                    Response.Redirect("~/SingleLogin.aspx");
-                }
-                getEmployee();
-
             }
-
+            catch (Exception ex) 
+            {
+                lblError.Text = "Page_Load".ToString();
+            }
 
         }
 
 
         protected void getEmployee()
         {
-            cmd.CommandText = @"select E.EID as EmployeeID, CONVERT(VARCHAR(500), CONVERT(VARCHAR(500), E.EName)) as EmployeeName from Employee as E
+            try
+            {
+                cmd.CommandText = @"select E.EID as EmployeeID, CONVERT(VARCHAR(500), CONVERT(VARCHAR(500), E.EName)) as EmployeeName from Employee as E
                             left outer join Department as D on E.DID = D.DID";
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = conn;
-            conn.Open();
-            ddlEmpID.DataSource = cmd.ExecuteReader();
-            ddlEmpID.DataTextField = "EmployeeName";
-            ddlEmpID.DataValueField = "EmployeeID";
-            ddlEmpID.DataBind();
-            conn.Close();
-            ddlEmpID.Items.Insert(0, new ListItem("------------Select------------", "0"));
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                conn.Open();
+                ddlEmpID.DataSource = cmd.ExecuteReader();
+                ddlEmpID.DataTextField = "EmployeeName";
+                ddlEmpID.DataValueField = "EmployeeID";
+                ddlEmpID.DataBind();
+                conn.Close();
+                ddlEmpID.Items.Insert(0, new ListItem("------------Select------------", "0"));
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Page_Load".ToString();
+            }
         }
 
         protected void btnView_Click(object sender, EventArgs e)
@@ -178,12 +191,13 @@ namespace ITLDashboard.Modules.HR
             }
             catch (Exception ex)
             {
-                lblError.Text = ex.ToString();
+                lblError.Text = "getEmployee".ToString();
             }
         }
 
         void DateWise(object sender, SubreportProcessingEventArgs e)
         {
+            try{
             string test = e.Parameters["Date"].Values[0].ToString();
             string query = @"SELECT A_In.EID, E.EName,CAST(CheckTime AS date) as Date, D.DName, A_In.CID, A_In.BID, FORMAT(A_In.CheckTime, 'hh:mm tt') AS TimeIn, FORMAT
                              ((SELECT  MIN(CheckTime) AS Expr1 FROM   Attendance AS A_Out
@@ -205,14 +219,24 @@ namespace ITLDashboard.Modules.HR
 
             ReportDataSource rptDataSourse = new ReportDataSource("DataSet1", ds11.Tables["SubReport"]);
             e.DataSources.Add(rptDataSourse);
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "DateWise".ToString();
+            }
         }
         protected void btnCancel_Click(object sender, EventArgs e)
         {
+            try{
             ddlEmpID.SelectedIndex = -1;
             txtDateFrom.Text = "";
             txtDateTo.Text = "";
             rbRptType.SelectedValue = "NormalDays";
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "btnCancel_Click".ToString();
+            }
         }
     }
 }

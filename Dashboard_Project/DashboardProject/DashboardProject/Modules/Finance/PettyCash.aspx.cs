@@ -239,7 +239,7 @@ namespace ITLDashboard.Modules.Finance
                 }
                 catch (Exception ex)
                 {
-
+                    lblError.Text = "Page_Load" + ex.ToString();
                 }
             }
         }
@@ -266,8 +266,7 @@ namespace ITLDashboard.Modules.Finance
 
         protected void btnUpload_Click(object sender, EventArgs e)
         {
-
-
+            try{
             lblmessage.Text = "";
             error.Visible = false;
             sucess.Visible = false;
@@ -305,14 +304,25 @@ namespace ITLDashboard.Modules.Finance
 
                 }
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "btnUpload_Click" + ex.ToString();
+            }
         }
 
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
+            try{
             string url = HttpContext.Current.Request.Url.ToString();
             Response.Redirect(url.ToString());
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "btnCancel_Click" + ex.ToString();
+            }
+            }
         protected void btnSave_Click(object sender, EventArgs e)
         {
             sucess.Visible = false;
@@ -446,7 +456,7 @@ namespace ITLDashboard.Modules.Finance
 
             catch (Exception ex)
             {
-                lblError.Text = ex.ToString();
+                lblError.Text = "btnSave_Click" + ex.ToString();
 
             }
 
@@ -457,6 +467,7 @@ namespace ITLDashboard.Modules.Finance
         }
         private void BindUser()
         {
+            try{
             cmd.CommandText = "SELECT * FROM tbluserApprovalHOD where Designation = 'SMCS' and FormID = 'PC'";
             //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";
             cmd.CommandType = CommandType.Text;
@@ -525,17 +536,29 @@ namespace ITLDashboard.Modules.Finance
             {
                 ddlNotification.Items[i].Selected = true;
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "BindUser" + ex.ToString();
+            }
         }
 
         private void GetTransactionMain()
         {
+            try{
             ds = obj.GetTransactionMaxPettyCash(FormID.ToString());
             lblMaxTransactionNo.Text = ds.Tables["MaterialMaxID"].Rows[0]["TransactionID"].ToString();
             ViewState["MaterialMaxID"] = ds.Tables["MaterialMaxID"].Rows[0]["TransactionID"].ToString();
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "GetTransactionMain" + ex.ToString();
+            }
+            }
 
         private void GetStatusHierachyCategoryControls()
         {
+            try{
             ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString(), ViewState["SerialNo"].ToString(), ViewState["Status"].ToString());
             if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
             {
@@ -550,6 +573,11 @@ namespace ITLDashboard.Modules.Finance
                 btnCancel.Enabled = false;
                 btnSaveSubmit.Enabled = false;
 
+            }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "GetStatusHierachyCategoryControls" + ex.ToString();
             }
         }
 
@@ -573,21 +601,33 @@ namespace ITLDashboard.Modules.Finance
 
         private void GetDetailPettyCash()
         {
+            try{
             ds = obj.getPettyCashDetail(lblMaxTransactionID.Text.ToString());
             grdDetail.DataSource = ds.Tables["tblPettyCash"];
             grdDetail.DataBind();
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "GetDetailPettyCash" + ex.ToString();
+            }
         }
         private void ClearCont()
         {
+            try{
             ddlEmailApproval.SelectedIndex = -1;
             ddlEmailApproval2nd.SelectedIndex = -1;
             ddlEmailMDA.SelectedIndex = -1;
             lblFileName.Text = "";
             FilePath = "";
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "ClearCont" + ex.ToString();
+            }
+            }
         private void GetHarcheyID()
         {
+            try{
             ds = obj.GetHarachyCustomerMaster(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
             dt = ds.Tables["HID"];
             ViewState["HIDDataSet"] = dt;
@@ -602,7 +642,11 @@ namespace ITLDashboard.Modules.Finance
                 ViewState["SerialNo"] = ds.Tables["HID"].Rows[0]["SerialNo"].ToString();
 
                 ViewState["Status"] = ds.Tables["HID"].Rows[0]["Status"].ToString();
-
+            }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "GetHarcheyID" + ex.ToString();
             }
         }
 
@@ -618,7 +662,7 @@ namespace ITLDashboard.Modules.Finance
             }
             catch (Exception ex)
             {
-                lblError.Text = "Approver" + ex.ToString();
+                lblError.Text = "btnApproved_Click" + ex.ToString();
             }
         }
 
@@ -654,9 +698,9 @@ namespace ITLDashboard.Modules.Finance
                 }
 
             }
-            catch (NullReferenceException ex)
+            catch (Exception ex)
             {
-                lblError.Text = "Email User" + ex.ToString();
+                lblError.Text = "EmailWorkSendFirstApproval" + ex.ToString();
             }
 
 
@@ -725,14 +769,15 @@ namespace ITLDashboard.Modules.Finance
                     }
                 }
             }
-            catch (NullReferenceException ex)
+            catch (Exception ex)
             {
-                lblError.Text = "Approval Email" + ex.ToString();
+                lblError.Text = "EmailWorkApproval" + ex.ToString();
             }
         }
 
         private void EmailWorkReject()
         {
+            try{
             ds = obj.MailForwardToUserOnRejection(lblMaxTransactionID.Text, FormID.ToString());
             string HierachyCategoryStatus = "00";
             if (ds.Tables["MailForwardToUserOnRejection"].Rows.Count > 0)
@@ -764,6 +809,11 @@ namespace ITLDashboard.Modules.Finance
                     lblEmail.Focus();
                 }
 
+            }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "EmailWorkReject" + ex.ToString();
             }
         }
 
@@ -801,9 +851,9 @@ namespace ITLDashboard.Modules.Finance
                 }
 
             }
-            catch (NullReferenceException ex)
+            catch (Exception ex)
             {
-                lblError.Text = "Email MDA" + ex.ToString();
+                lblError.Text = "EmailWorkSendMDA" + ex.ToString();
             }
         }
 
@@ -836,13 +886,14 @@ namespace ITLDashboard.Modules.Finance
                     }
                 }
             }
-            catch (NullReferenceException ex)
+            catch (Exception ex)
             {
-                lblError.Text = "Email MDA" + ex.ToString();
+                lblError.Text = "EmailWorkSendSpecificPerson" + ex.ToString();
             }
         }
         private void ApplicationStatus()
         {
+            try{
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
                 using (SqlCommand cmdInsert = new SqlCommand())
@@ -895,9 +946,15 @@ namespace ITLDashboard.Modules.Finance
                     }
                 }
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "ApplicationStatus" + ex.ToString();
+            }
         }
         private void ApplicationStatusSpecific()
         {
+            try{
             SqlCommand command = new SqlCommand();
             command.CommandText = "";
             string TransatcionID = "";
@@ -928,6 +985,11 @@ namespace ITLDashboard.Modules.Finance
                 conn.Open();
                 command.ExecuteNonQuery();
                 conn.Close();
+            }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "ApplicationStatusSpecific" + ex.ToString();
             }
         }
         protected void btnMDA_Click(object sender, EventArgs e)
@@ -980,11 +1042,12 @@ namespace ITLDashboard.Modules.Finance
             }
             catch (Exception ex)
             {
-                lblError.Text = "";
+                lblError.Text = "btnMDA_Click" + ex.ToString();
             }
         }
         protected void InsertEmailHOD()
         {
+            try{
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
                 using (SqlCommand cmdInsertEmail = new SqlCommand())
@@ -1020,18 +1083,30 @@ namespace ITLDashboard.Modules.Finance
                     }
                 }
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "InsertEmailHOD" + ex.ToString();
+            }
 
         }
         private void BindsysApplicationStatus()
         {
+            try{
             ds = obj.BindsysApplicationStatus(lblMaxTransactionID.Text, FormID.ToString());
             grdWStatus.DataSource = ds.Tables["BindsysApplicationStatus"];
             grdWStatus.DataBind();
             grdWStatus.Visible = true;
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "BindsysApplicationStatus" + ex.ToString();
+            }
+            }
 
         void ClearInputss(ControlCollection ctrlss)
         {
+            try{
             foreach (Control ctrlsss in ctrlss)
             {
                 if (ctrlsss is DropDownList)
@@ -1040,9 +1115,15 @@ namespace ITLDashboard.Modules.Finance
                     ((TextBox)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
                 ClearInputss(ctrlsss.Controls);
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "ClearInputss" + ex.ToString();
+            }
         }
         protected void btnDelete_Click(object sender, EventArgs e)
         {
+           try{
             FilePath = "~/DashboardDocument/PettyCash/" + lblFileName.Text.ToString();
             string pathDelete = Server.MapPath(FilePath.ToString());
             FileInfo file = new FileInfo(pathDelete);
@@ -1060,10 +1141,16 @@ namespace ITLDashboard.Modules.Finance
             {
                 lblError.Text = "File does not exists";
             }
+           }
+           catch (Exception ex)
+           {
+               lblError.Text = "btnDelete_Click" + ex.ToString();
+           }
         }
 
         protected void btnShowFile_Click(object sender, EventArgs e)
         {
+            try{
             int x = (Request.Browser.ScreenPixelsWidth) * 2 - 100;
             
             lblError.Text = "";
@@ -1094,10 +1181,16 @@ namespace ITLDashboard.Modules.Finance
             {
                 lblError.Text = "File Cannot display or may be deleted.";
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "btnShowFile_Click" + ex.ToString();
+            }
 
         }
         private void UpdateWorking()
         {
+            try{
             cmd.CommandText = @"update tbl_FI_PettyCash set ChequeNo = @CNo,Amount = @Amount
                                where TransactionID = @TransID ";
             cmd.CommandType = CommandType.Text;
@@ -1128,10 +1221,16 @@ namespace ITLDashboard.Modules.Finance
                 dvCheque.Visible = true;
                 GetDetailPettyCash();
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "UpdateWorking" + ex.ToString();
+            }
         }
 
         private void insertSpecificPerson()
         {
+            try{
             conn.Close();
             cmd.CommandText = "SP_InsertsysApplicationStatusSpecificPerson";
 
@@ -1149,6 +1248,11 @@ namespace ITLDashboard.Modules.Finance
             if (a == 1)
             {
 
+            }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "insertSpecificPerson" + ex.ToString();
             }
         }
         protected void btnReject_Click1(object sender, EventArgs e)
@@ -1182,12 +1286,13 @@ namespace ITLDashboard.Modules.Finance
             }
             catch (Exception ex)
             {
-                lblError.Text = "Reject" + ex.ToString();
+                lblError.Text = "btnReject_Click" + ex.ToString();
             }
         }
 
         protected void ClosedFormAfterReject()
         {
+            try{
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
                 using (SqlCommand cmdClosedFormAfterReject = new SqlCommand())
@@ -1216,11 +1321,17 @@ namespace ITLDashboard.Modules.Finance
                     }
                 }
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "ClosedFormAfterReject" + ex.ToString();
+            }
 
         }
 
         private void ClearInputs(ControlCollection ctrls)
         {
+            try{
             foreach (Control ctrl in ctrls)
             {
                 if (ctrl is TextBox)
@@ -1234,10 +1345,16 @@ namespace ITLDashboard.Modules.Finance
                 ClearInputs(ctrl.Controls);
             }
             Page.MaintainScrollPositionOnPostBack = false;
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "ClearInputs" + ex.ToString();
+            }
         }
 
         protected void InsertEmail()
         {
+            try{
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
                 using (SqlCommand cmdInsertEmail = new SqlCommand())
@@ -1262,6 +1379,11 @@ namespace ITLDashboard.Modules.Finance
                         connection.Close();
                     }
                 }
+            }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "InsertEmail" + ex.ToString();
             }
 
         }
