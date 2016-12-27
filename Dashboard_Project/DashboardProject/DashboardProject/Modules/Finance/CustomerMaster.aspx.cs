@@ -536,9 +536,9 @@ namespace ITLDashboard.Modules.Finance
                         cmdInsertEmail.ExecuteNonQuery();
 
                     }
-                    catch (SqlException e)
+                    catch (Exception ex)
                     {
-                        lblError.Text = e.ToString();
+                        lblError.Text = "InsertEmailHOD" + ex.ToString();
                     }
                     finally
                     {
@@ -576,7 +576,7 @@ namespace ITLDashboard.Modules.Finance
             }
             catch (Exception ex)
             {
-                lblError.Text = "Approver" + ex.ToString();
+                lblError.Text = "btnApproved_Click" + ex.ToString();
             }
         }
 
@@ -615,7 +615,7 @@ namespace ITLDashboard.Modules.Finance
             }
             catch (Exception ex)
             {
-                lblError.Text = "Reject" + ex.ToString();
+                lblError.Text = "btnReject_Click" + ex.ToString();
             }
         }
 
@@ -639,9 +639,9 @@ namespace ITLDashboard.Modules.Finance
                         cmdClosedFormAfterReject.ExecuteNonQuery();
 
                     }
-                    catch (SqlException e)
+                    catch (Exception ex)
                     {
-                        lblError.Text = e.ToString();
+                        lblError.Text = "ClosedFormAfterReject" + ex.ToString();
                     }
                     finally
                     {
@@ -671,6 +671,7 @@ namespace ITLDashboard.Modules.Finance
 
         private void bindGrid()
         {
+            try{
             conn.Open();
             cmd.CommandText = "select Wthttype, Wthttype + ' ' + WthttypeDes as Description from tblCMWthttype";
             cmd.CommandType = CommandType.Text;
@@ -688,10 +689,16 @@ namespace ITLDashboard.Modules.Finance
             list2.DataTextField = "Description";
             list2.DataValueField = "Wthttype";
             list2.DataBind();
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "bindGrid" + ex.ToString();
+            }
+            }
 
         private void setinitialrow()
         {
+            try{
             DataTable table = new DataTable("data");
             if (table.Rows.Count == 0)
             {
@@ -714,11 +721,17 @@ namespace ITLDashboard.Modules.Finance
             table.Rows.Add(row);
             GridView1.DataSource = table;
             GridView1.DataBind();
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "setinitialrow" + ex.ToString();
+            }
+            
         }
 
         protected void deleteRowEvent(object sender, EventArgs e)
         {
+            try{
             DataTable data = new DataTable();
             LinkButton delete = (LinkButton)sender;
             GridViewRow container = (GridViewRow)delete.NamingContainer;
@@ -797,10 +810,16 @@ namespace ITLDashboard.Modules.Finance
                 setinitialrow();
                 bindGrid();
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "deleteRowEvent" + ex.ToString();
+            }
         }
 
         protected void AddRowEvent(object sender, EventArgs e)
         {
+            try{
             List<string> List1 = new List<string>();
             List<string> List2 = new List<string>();
             DataTable data = new DataTable();
@@ -878,11 +897,16 @@ namespace ITLDashboard.Modules.Finance
             ViewState["Grid1"] = data;
             GridView1.DataBind();
             setData(data, List1, List2);
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "AddRowEvent" + ex.ToString();
+            }
         }
 
         protected void setData(DataTable table, List<string> List1, List<string> List2)
         {
+            try{
             foreach (GridViewRow row in GridView1.Rows)
             {
                 DropDownList ddlwthttype = (DropDownList)row.FindControl("ddlwthttype");
@@ -925,6 +949,11 @@ namespace ITLDashboard.Modules.Finance
                 TextBox txtName = (TextBox)row.FindControl("txtName");
                 txtName.Text = table.Rows[row.RowIndex]["Name"].ToString();
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "setData" + ex.ToString();
+            }
         }
 
         ///////////////////////////////////////////////////GridView1//////////////////////////////////////////////////////////
@@ -933,7 +962,7 @@ namespace ITLDashboard.Modules.Finance
 
         private void bindGrid2()
         {
-
+            try{
             cmd.CommandText = "SELECT PF,PF + ' ' + PFDes as  Description FROM tblCMPf ";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
@@ -946,10 +975,16 @@ namespace ITLDashboard.Modules.Finance
             list.DataValueField = "PF";
             list.DataBind();
             conn.Close();
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "bindGrid2" + ex.ToString();
+            }
         }
 
         private void setinitialrow2()
         {
+            try{
             DataTable table = new DataTable("data2");
             if (table.Rows.Count == 0)
             {
@@ -966,11 +1001,16 @@ namespace ITLDashboard.Modules.Finance
             table.Rows.Add(row);
             GridView2.DataSource = table;
             GridView2.DataBind();
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "setinitialrow2" + ex.ToString();
+            }
         }
 
         protected void deleteRowEvent2(object sender, EventArgs e)
         {
+            try{
             DataTable data = new DataTable();
             LinkButton delete = (LinkButton)sender;
             GridViewRow container = (GridViewRow)delete.NamingContainer;
@@ -1023,10 +1063,16 @@ namespace ITLDashboard.Modules.Finance
                 setinitialrow2();
                 bindGrid2();
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "deleteRowEvent2" + ex.ToString();
+            }
         }
 
         protected void AddRowEvent2(object sender, EventArgs e)
         {
+            try{
             List<string> List1 = new List<string>();
             DataTable data = new DataTable();
             if (data.Rows.Count == 0)
@@ -1083,11 +1129,16 @@ namespace ITLDashboard.Modules.Finance
             ViewState["Grid2"] = data;
             GridView2.DataBind();
             setData2(data, List1);
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "AddRowEvent2" + ex.ToString();
+            }
         }
 
         protected void setData2(DataTable table, List<string> List1)
         {
+            try{
             foreach (GridViewRow row in GridView2.Rows)
             {
                 DropDownList ddlPF = (DropDownList)row.FindControl("ddlPF");
@@ -1111,6 +1162,11 @@ namespace ITLDashboard.Modules.Finance
                 value = table.Rows[row.RowIndex]["Default"].ToString();
 
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "setData2" + ex.ToString();
+            }
         }
 
         ///////////////////////////////////////////////////GridView2//////////////////////////////////////////////////////////
@@ -1118,6 +1174,7 @@ namespace ITLDashboard.Modules.Finance
 
         private void GetStatusHierachyCategoryControls()
         {
+            try{
             ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
             if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
             {
@@ -1132,10 +1189,16 @@ namespace ITLDashboard.Modules.Finance
                 btnMDA.Enabled = false;
                 txtRemarksReview.Attributes.Add("disabled", "true");
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "GetStatusHierachyCategoryControls" + ex.ToString();
+            }
         }
 
         private void ClearInputs(ControlCollection ctrls)
         {
+            try{
             foreach (Control ctrl in ctrls)
             {
                 if (ctrl is TextBox)
@@ -1147,11 +1210,16 @@ namespace ITLDashboard.Modules.Finance
                 ClearInputs(ctrl.Controls);
             }
             Page.MaintainScrollPositionOnPostBack = false;
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "ClearInputs" + ex.ToString();
+            }
+            }
 
         private void updateFWorking()
         {
-
+            try{
             cmd.CommandText = "";
             cmd.CommandText = @"UPdate tbl_FI_CustomerMaster set 
                                     CustomerCode = @CustomerCode,
@@ -1195,10 +1263,16 @@ namespace ITLDashboard.Modules.Finance
             conn.Open();
             cmd.ExecuteNonQuery();
             conn.Close();
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "updateFWorking" + ex.ToString();
+            }
         }
 
         private void getUser()
         {
+            try{
             cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'CM'";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
@@ -1209,6 +1283,11 @@ namespace ITLDashboard.Modules.Finance
             ddlEmailMDA.DataBind();
             ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
             conn.Close();
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getUser" + ex.ToString();
+            }
         }
 
         private void GetTransactionID()
@@ -1231,167 +1310,264 @@ namespace ITLDashboard.Modules.Finance
 
         private void getAccountGrp()
         {
+            try{
             ds = obj.BindAccountGrp();
             ddlAccountGroup.DataTextField = ds.Tables["tblCMAccountGrp"].Columns["Accountgroup"].ToString().Trim(); // text field name of table dispalyed in dropdown
             ddlAccountGroup.DataValueField = ds.Tables["tblCMAccountGrp"].Columns["Accountgroup"].ToString().Trim();             // to retrive specific  textfield name 
             ddlAccountGroup.DataSource = ds.Tables["tblCMAccountGrp"];      //assigning datasource to the dropdownlist
             ddlAccountGroup.DataBind();  //binding dropdownlist
             ddlAccountGroup.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getAccountGrp" + ex.ToString();
+            }
         }
 
         private void getSalesOrganization()
         {
+            try{
             ds = obj.BindSalesOrganization();
             ddlSalesOrganization.DataTextField = ds.Tables["tblCMSalesOrganization"].Columns["Description"].ToString().Trim(); // text field name of table dispalyed in dropdown
             ddlSalesOrganization.DataValueField = ds.Tables["tblCMSalesOrganization"].Columns["SalesOrganization"].ToString().Trim();             // to retrive specific  textfield name 
             ddlSalesOrganization.DataSource = ds.Tables["tblCMSalesOrganization"];      //assigning datasource to the dropdownlist
             ddlSalesOrganization.DataBind();  //binding dropdownlist
             ddlSalesOrganization.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getSalesOrganization" + ex.ToString();
+            }
+            }
 
         private void getDistributionChannel()
         {
+            try{
             ds = obj.BindDistributionChannl();
             ddlDistributionChannel.DataTextField = ds.Tables["tblCMDistributionChannel"].Columns["Description"].ToString().Trim(); // text field name of table dispalyed in dropdown
             ddlDistributionChannel.DataValueField = ds.Tables["tblCMDistributionChannel"].Columns["DistributionChannel"].ToString().Trim();             // to retrive specific  textfield name 
             ddlDistributionChannel.DataSource = ds.Tables["tblCMDistributionChannel"];      //assigning datasource to the dropdownlist
             ddlDistributionChannel.DataBind();  //binding dropdownlist
             ddlDistributionChannel.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getDistributionChannel" + ex.ToString();
+            }
+            }
 
         private void getDivision()
         {
+            try{
             ds = obj.BindDivision();
             ddlDivision.DataTextField = ds.Tables["tblCMDivision"].Columns["Description"].ToString().Trim(); // text field name of table dispalyed in dropdown
             ddlDivision.DataValueField = ds.Tables["tblCMDivision"].Columns["Division"].ToString().Trim();             // to retrive specific  textfield name 
             ddlDivision.DataSource = ds.Tables["tblCMDivision"];      //assigning datasource to the dropdownlist
             ddlDivision.DataBind();  //binding dropdownlist
             ddlDivision.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getDivision" + ex.ToString();
+            }
+            }
 
         private void getCountry()
         {
+            try{
             ds = obj.BindCountry();
             ddlCountry.DataTextField = ds.Tables["tblCMCountry"].Columns["Description"].ToString().Trim(); // text field name of table dispalyed in dropdown
             ddlCountry.DataValueField = ds.Tables["tblCMCountry"].Columns["Country"].ToString().Trim();             // to retrive specific  textfield name 
             ddlCountry.DataSource = ds.Tables["tblCMCountry"];      //assigning datasource to the dropdownlist
             ddlCountry.DataBind();  //binding dropdownlist
             ddlCountry.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getCountry" + ex.ToString();
+            }
+            }
 
         private void getRegion()
         {
+            try{
             ds = obj.BindRegion();
             ddlRegion.DataTextField = ds.Tables["tblCMRegion"].Columns["Description"].ToString().Trim(); // text field name of table dispalyed in dropdown
             ddlRegion.DataValueField = ds.Tables["tblCMRegion"].Columns["Region"].ToString().Trim();             // to retrive specific  textfield name 
             ddlRegion.DataSource = ds.Tables["tblCMRegion"];      //assigning datasource to the dropdownlist
             ddlRegion.DataBind();  //binding dropdownlist
             ddlRegion.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getRegion" + ex.ToString();
+            }
+            }
 
         private void getSortKey()
         {
+            try{
             ds = obj.BindShortKey();
             ddlSortKey.DataTextField = ds.Tables["tblVMSortKey"].Columns["Description"].ToString().Trim(); // text field name of table dispalyed in dropdown
             ddlSortKey.DataValueField = ds.Tables["tblVMSortKey"].Columns["SortKeyNo"].ToString().Trim();             // to retrive specific  textfield name 
             ddlSortKey.DataSource = ds.Tables["tblVMSortKey"];      //assigning datasource to the dropdownlist
             ddlSortKey.DataBind();  //binding dropdownlist
             ddlSortKey.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getSortKey" + ex.ToString();
+            }
+            }
 
         private void getReconAccount()
         {
+            try{
             ds = obj.BindReconAccnt();
             ddlReconAccount.DataTextField = ds.Tables["tblCMReconAccount"].Columns["Description"].ToString().Trim(); // text field name of table dispalyed in dropdown
             ddlReconAccount.DataValueField = ds.Tables["tblCMReconAccount"].Columns["ReconAccount"].ToString().Trim();             // to retrive specific  textfield name 
             ddlReconAccount.DataSource = ds.Tables["tblCMReconAccount"];      //assigning datasource to the dropdownlist
             ddlReconAccount.DataBind();  //binding dropdownlist
             ddlReconAccount.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getReconAccount" + ex.ToString();
+            }
+            }
 
         private void getTermsofpayment()
         {
+            try{
             ds = obj.BindTermsofpaymnt();
             ddlADTermsofpayment.DataTextField = ds.Tables["tblCMTermsofPayment"].Columns["Description"].ToString().Trim(); // text field name of table dispalyed in dropdown
             ddlADTermsofpayment.DataValueField = ds.Tables["tblCMTermsofPayment"].Columns["TermsofPayment"].ToString().Trim();             // to retrive specific  textfield name 
             ddlADTermsofpayment.DataSource = ds.Tables["tblCMTermsofPayment"];      //assigning datasource to the dropdownlist
             ddlADTermsofpayment.DataBind();  //binding dropdownlist
             ddlADTermsofpayment.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getTermsofpayment" + ex.ToString();
+            }
+            }
 
         private void getPaymentBlock()
         {
+            try{
             ds = obj.BindPaymentBlock();
             ddlPaymentBlock.DataTextField = ds.Tables["tblCMPaymentBlock"].Columns["Description"].ToString().Trim(); // text field name of table dispalyed in dropdown
             ddlPaymentBlock.DataValueField = ds.Tables["tblCMPaymentBlock"].Columns["PaymentBlock"].ToString().Trim();             // to retrive specific  textfield name 
             ddlPaymentBlock.DataSource = ds.Tables["tblCMPaymentBlock"];      //assigning datasource to the dropdownlist
             ddlPaymentBlock.DataBind();  //binding dropdownlist
             ddlPaymentBlock.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getPaymentBlock" + ex.ToString();
+            }
+            }
 
         private void getSalesdistrict()
         {
+            try{
+
             ds = obj.BindSalesdistrict();
             ddlSalesdistrict.DataTextField = ds.Tables["tblCMSalesDistrict"].Columns["Description"].ToString().Trim(); // text field name of table dispalyed in dropdown
             ddlSalesdistrict.DataValueField = ds.Tables["tblCMSalesDistrict"].Columns["Salesdistrict"].ToString().Trim();             // to retrive specific  textfield name 
             ddlSalesdistrict.DataSource = ds.Tables["tblCMSalesDistrict"];      //assigning datasource to the dropdownlist
             ddlSalesdistrict.DataBind();  //binding dropdownlist
             ddlSalesdistrict.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getSalesdistrict" + ex.ToString();
+            }
+            }
 
         private void getCurrency()
         {
+            try{
             ds = obj.BindCurrency();
             ddlCurrency.DataTextField = ds.Tables["tblCMCurrency"].Columns["Description"].ToString().Trim(); // text field name of table dispalyed in dropdown
             ddlCurrency.DataValueField = ds.Tables["tblCMCurrency"].Columns["Currency"].ToString().Trim();             // to retrive specific  textfield name 
             ddlCurrency.DataSource = ds.Tables["tblCMCurrency"];      //assigning datasource to the dropdownlist
             ddlCurrency.DataBind();  //binding dropdownlist
             ddlCurrency.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getCurrency" + ex.ToString();
+            }
+            }
 
         private void getCustpricproc()
         {
+            try{
             ds = obj.BindCustpricproc();
             ddlCustpricproc.DataTextField = ds.Tables["tblCMCustPricProc"].Columns["Description"].ToString().Trim(); // text field name of table dispalyed in dropdown
             ddlCustpricproc.DataValueField = ds.Tables["tblCMCustPricProc"].Columns["Custpricproc"].ToString().Trim();             // to retrive specific  textfield name 
             ddlCustpricproc.DataSource = ds.Tables["tblCMCustPricProc"];      //assigning datasource to the dropdownlist
             ddlCustpricproc.DataBind();  //binding dropdownlist
             ddlCustpricproc.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getCustpricproc" + ex.ToString();
+            }
+            }
 
         private void getIncoterms()
         {
+            try{
             ds = obj.BindIncoterms();
             ddlIncoterms.DataTextField = ds.Tables["tblCMIncoterms"].Columns["Description"].ToString().Trim(); // text field name of table dispalyed in dropdown
             ddlIncoterms.DataValueField = ds.Tables["tblCMIncoterms"].Columns["Incoterms"].ToString().Trim();             // to retrive specific  textfield name 
             ddlIncoterms.DataSource = ds.Tables["tblCMIncoterms"];      //assigning datasource to the dropdownlist
             ddlIncoterms.DataBind();  //binding dropdownlist
             ddlIncoterms.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getIncoterms" + ex.ToString();
+            }
+            }
 
         private void getTermsofpaymt()
         {
+            try{
             ds = obj.BindTermsofpaymnt();
             ddlTermsofpayment.DataTextField = ds.Tables["tblCMTermsofPayment"].Columns["Description"].ToString().Trim(); // text field name of table dispalyed in dropdown
             ddlTermsofpayment.DataValueField = ds.Tables["tblCMTermsofPayment"].Columns["TermsofPayment"].ToString().Trim();             // to retrive specific  textfield name 
             ddlTermsofpayment.DataSource = ds.Tables["tblCMTermsofPayment"];      //assigning datasource to the dropdownlist
             ddlTermsofpayment.DataBind();  //binding dropdownlist
             ddlTermsofpayment.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getTermsofpaymt" + ex.ToString();
+            }
+            }
 
         private void getTax()
         {
+            try{
             ds = obj.BindTax();
             ddlTax.DataTextField = ds.Tables["tblCMTax"].Columns["Description"].ToString().Trim(); // text field name of table dispalyed in dropdown
             ddlTax.DataValueField = ds.Tables["tblCMTax"].Columns["Tax"].ToString().Trim();             // to retrive specific  textfield name 
             ddlTax.DataSource = ds.Tables["tblCMTax"];      //assigning datasource to the dropdownlist
             ddlTax.DataBind();  //binding dropdownlist
             ddlTax.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getTax" + ex.ToString();
+            }
+            }
 
         protected void getDataWhenQueryStringPass()
         {
+            try{
             string TI = Request.QueryString["TransactionNo"].ToString().Trim();
             methodCall();
 
@@ -1449,10 +1625,16 @@ namespace ITLDashboard.Modules.Finance
                 ddlTermsofpayment.SelectedValue = ds.Tables["Data"].Rows[0]["Termsofpayment"].ToString().Trim();
                 ddlTax.SelectedValue = ds.Tables["Data"].Rows[0]["Tax"].ToString().Trim();
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getDataWhenQueryStringPass" + ex.ToString();
+            }
         }
 
         protected void getCMWithHoldingTaxDataDataWhenQueryStringPass()
         {
+            try{
             string TI = lblMaxTransactionID.Text;
             cmd.CommandText = "";
             cmd.CommandText = @"SELECT TransactionID
@@ -1484,12 +1666,17 @@ namespace ITLDashboard.Modules.Finance
                 GridView1.Visible = false;
                 GridView4.Visible = true;
             }
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getCMWithHoldingTaxDataDataWhenQueryStringPass" + ex.ToString();
+            }
 
         }
 
         protected void getCMPartnerFunctionsDataDataWhenQueryStringPass()
         {
+            try{
             string TI = lblMaxTransactionID.Text;
             cmd.CommandText = "";
             cmd.CommandText = @"SELECT TransactionID
@@ -1515,12 +1702,17 @@ namespace ITLDashboard.Modules.Finance
                 GridView2.Visible = false;
                 GridView3.Visible = true;
             }
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getCMPartnerFunctionsDataDataWhenQueryStringPass" + ex.ToString();
+            }
 
         }
 
         protected void DisableControls(Control parent, bool State)
         {
+            try{
             foreach (Control c in parent.Controls)
             {
                 if (c is DropDownList)
@@ -1540,10 +1732,16 @@ namespace ITLDashboard.Modules.Finance
                 ClearInputscolor(Page.Controls);
 
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "DisableControls" + ex.ToString();
+            }
         }
 
         void ClearInputscolor(ControlCollection ctrlss)
         {
+            try{
             foreach (Control ctrlsss in ctrlss)
             {
                 if (ctrlsss is TextBox)
@@ -1554,10 +1752,16 @@ namespace ITLDashboard.Modules.Finance
                     ((ListBox)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
                 ClearInputscolor(ctrlsss.Controls);
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "ClearInputscolor" + ex.ToString();
+            }
         }
 
         protected void madatorycolor()
         {
+            try{
             ddlTitle.BackColor = System.Drawing.Color.AliceBlue;
             txtName.BackColor = System.Drawing.Color.AliceBlue;
             ddlSalesOrganization.BackColor = System.Drawing.Color.AliceBlue;
@@ -1569,7 +1773,11 @@ namespace ITLDashboard.Modules.Finance
             ddlEmailMDA.BackColor = System.Drawing.Color.AliceBlue;
             txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
             ddlCountry.BackColor = System.Drawing.Color.AliceBlue;
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "madatorycolor" + ex.ToString();
+            }
         }
 
         ///////////////////////////////////////////////////Methods//////////////////////////////////////////////////////////
@@ -1577,6 +1785,7 @@ namespace ITLDashboard.Modules.Finance
 
         protected void Grid1datainsert()
         {
+            try{
             DataTable dtCurrentTable = (DataTable)ViewState["Grid1"];
             if (dtCurrentTable != null)
             {
@@ -1606,11 +1815,16 @@ namespace ITLDashboard.Modules.Finance
             //    GridView1.DataMember = "data";
             //    GridView1.DataBind();
             //}
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Grid1datainsert" + ex.ToString();
+            }
         }
 
         protected void Grid2datainsert()
         {
+            try{
             DataTable dtCurrentTable = (DataTable)ViewState["Grid2"];
             if (dtCurrentTable != null)
             {
@@ -1634,10 +1848,16 @@ namespace ITLDashboard.Modules.Finance
                     }
                 }
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Grid2datainsert" + ex.ToString();
+            }
         }
 
         private void GetHarcheyID()
         {
+            try{
             ds = obj.GetHarachyCustomerMaster(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
             dt = ds.Tables["HID"];
             ViewState["HIDDataSet"] = dt;
@@ -1653,6 +1873,11 @@ namespace ITLDashboard.Modules.Finance
 
                 ViewState["Status"] = ds.Tables["HID"].Rows[0]["Status"].ToString();
 
+            }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "GetHarcheyID" + ex.ToString();
             }
         }
 
@@ -1740,6 +1965,7 @@ namespace ITLDashboard.Modules.Finance
 
         private void EmailReject()
         {
+            try{
             string HierachyCategoryStatus = "00"; // Allow based on reqierment if there is No MDA if other wise allow "4"//
             ds = obj.MailForwardToUserOnRejection(lblMaxTransactionID.Text, FormID.ToString());
 
@@ -1771,71 +1997,91 @@ namespace ITLDashboard.Modules.Finance
                     lblEmail.Text = "*New Customer Master Creation Request against  Form ID # " + lblMaxTransactionID.Text + " has been rejected by you";
                 }
             }
+            }
+
+            catch (Exception ex)
+            {
+                lblError.Text = "EmailReject" + ex.ToString();
+            }
         }
 
 
         private void ApplicationStatus()
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            try
             {
-                using (SqlCommand cmdInsert = new SqlCommand())
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
                 {
-
-
-                    string TransatcionID = "";
-                    string HierachyCategory = "";
-                    string Status = "";
-                    string Remarks = "";
-                    if (Request.QueryString["TransactionNo"].ToString() == null)
+                    using (SqlCommand cmdInsert = new SqlCommand())
                     {
-                        TransatcionID = ViewState["MaterialMaxID"].ToString();
-                        HierachyCategory = "1";
-                    }
-                    else
-                    {
-                        TransatcionID = lblMaxTransactionID.Text;
-                        HierachyCategory = ViewState["HID"].ToString();
-                        Status = ViewState["Status"].ToString();
-                        ds.Clear();
-                        cmdInsert.CommandText = "";
-                        cmdInsert.CommandText = @"SP_SYS_UpdateApplicationStatus";
-                        cmdInsert.CommandType = CommandType.StoredProcedure;
-                        cmdInsert.Connection = connection;
-                        cmdInsert.Parameters.AddWithValue("@FormID", FormID.ToString());
-                        cmdInsert.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text.ToString());
-                        cmdInsert.Parameters.AddWithValue("@HierachyCategory", HierachyCategory.ToString());
-                        cmdInsert.Parameters.AddWithValue("@RoughtingUserID", Session["User_Name"].ToString());
-                        cmdInsert.Parameters.AddWithValue("@Status", Status.ToString());
-                        cmdInsert.Parameters.AddWithValue("@TransferredTo", "");
-                        cmdInsert.Parameters.AddWithValue("@SerialNo", ViewState["SerialNo"]);
-                        cmdInsert.Parameters.AddWithValue("@Sequence", ViewState["Sequance"]);
-                        cmdInsert.Parameters.AddWithValue("@Remarks", txtRemarksReview.Text);
-                        try
-                        {
-                            connection.Open();
-                            cmdInsert.ExecuteNonQuery();
 
-                        }
-                        catch (SqlException e)
+
+                        string TransatcionID = "";
+                        string HierachyCategory = "";
+                        string Status = "";
+                        string Remarks = "";
+                        if (Request.QueryString["TransactionNo"].ToString() == null)
                         {
-                            lblError.Text = e.ToString();
+                            TransatcionID = ViewState["MaterialMaxID"].ToString();
+                            HierachyCategory = "1";
                         }
-                        finally
+                        else
                         {
-                            connection.Close();
+                            TransatcionID = lblMaxTransactionID.Text;
+                            HierachyCategory = ViewState["HID"].ToString();
+                            Status = ViewState["Status"].ToString();
+                            ds.Clear();
+                            cmdInsert.CommandText = "";
+                            cmdInsert.CommandText = @"SP_SYS_UpdateApplicationStatus";
+                            cmdInsert.CommandType = CommandType.StoredProcedure;
+                            cmdInsert.Connection = connection;
+                            cmdInsert.Parameters.AddWithValue("@FormID", FormID.ToString());
+                            cmdInsert.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text.ToString());
+                            cmdInsert.Parameters.AddWithValue("@HierachyCategory", HierachyCategory.ToString());
+                            cmdInsert.Parameters.AddWithValue("@RoughtingUserID", Session["User_Name"].ToString());
+                            cmdInsert.Parameters.AddWithValue("@Status", Status.ToString());
+                            cmdInsert.Parameters.AddWithValue("@TransferredTo", "");
+                            cmdInsert.Parameters.AddWithValue("@SerialNo", ViewState["SerialNo"]);
+                            cmdInsert.Parameters.AddWithValue("@Sequence", ViewState["Sequance"]);
+                            cmdInsert.Parameters.AddWithValue("@Remarks", txtRemarksReview.Text);
+                            try
+                            {
+                                connection.Open();
+                                cmdInsert.ExecuteNonQuery();
+
+                            }
+                            catch (SqlException e)
+                            {
+                                lblError.Text = e.ToString();
+                            }
+                            finally
+                            {
+                                connection.Close();
+                            }
                         }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                lblError.Text = "ApplicationStatus" + ex.ToString();
+            }
+            
         }
 
         private void BindsysApplicationStatus()
         {
+            try{
             ds = obj.BindsysApplicationStatus(lblMaxTransactionID.Text, FormID.ToString());
             grdWStatus.DataSource = ds.Tables["BindsysApplicationStatus"];
             grdWStatus.DataBind();
             grdWStatus.Visible = true;
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "BindsysApplicationStatus" + ex.ToString();
+            }
+            }
 
         private void EmailWorkApproval()
         {
@@ -1899,9 +2145,9 @@ namespace ITLDashboard.Modules.Finance
                     }
                 }
             }
-            catch (NullReferenceException ex)
+            catch (Exception ex)
             {
-                lblError.Text = "Approval Email" + ex.ToString();
+                lblError.Text = "EmailWorkApproval" + ex.ToString();
             }
 
         }
@@ -1932,9 +2178,10 @@ namespace ITLDashboard.Modules.Finance
                         cmdInsertEmail.ExecuteNonQuery();
 
                     }
-                    catch (SqlException e)
+                  
+                    catch (Exception ex)
                     {
-                        lblError.Text = e.ToString();
+                    lblError.Text = "InsertEmail" + ex.ToString();
                     }
                     finally
                     {
