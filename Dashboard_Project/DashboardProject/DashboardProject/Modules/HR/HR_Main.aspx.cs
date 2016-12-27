@@ -48,7 +48,6 @@ namespace ITLDashboard.Modules.HR
                 }
 
             }
-
         }
 
         protected void lnklogout_Click(object sender, EventArgs e)
