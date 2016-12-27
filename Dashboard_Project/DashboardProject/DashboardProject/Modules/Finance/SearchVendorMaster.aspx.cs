@@ -34,6 +34,7 @@ namespace ITLDashboard.Modules.Finance
         public static string FormID = "301";
         protected void Page_Load(object sender, EventArgs e)
         {
+            try{
             if (!IsPostBack)
             {
                 txtFormID.Text = "";
@@ -52,6 +53,11 @@ namespace ITLDashboard.Modules.Finance
                     Response.Redirect("~/SingleLogin.aspx");
                 }
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Page_Load" + ex.ToString();
+            }
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -61,13 +67,20 @@ namespace ITLDashboard.Modules.Finance
             }
             catch (Exception ex)
             {
+                lblError.Text = "btnSearch_Click" + ex.ToString();
             }
         }
         protected void btnCancel_Click(object sender, EventArgs e)
         {
+            try{
             string url = HttpContext.Current.Request.Url.ToString();
             Response.Redirect(url.ToString());
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "btnCancel_Click" + ex.ToString();
+            }
+            }
         protected void getFileName()
         {
             try
@@ -100,7 +113,7 @@ namespace ITLDashboard.Modules.Finance
             }
             catch (Exception ex)
             {
-
+                lblError.Text = "getFileName" + ex.ToString();
             }
         }
     }
