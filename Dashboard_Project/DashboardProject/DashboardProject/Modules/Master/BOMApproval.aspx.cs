@@ -50,6 +50,7 @@ namespace DashboardProject.Modules.Master
         DataTable tableEmail = new DataTable();
         protected void Page_Load(object sender, EventArgs e)
         {
+            try{
             if (!IsPostBack)
             {
                 if (Session["User_Name"] == null)
@@ -80,15 +81,27 @@ namespace DashboardProject.Modules.Master
                     getUserDetail();
                 }
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Page_Load" + ex.ToString();
+            }
         }
 
         private void mandatcolor()
-        {
+        {   
+            try{
             txtBaseQuantity.BackColor = System.Drawing.Color.AliceBlue;
             ddlPlant.BackColor = System.Drawing.Color.AliceBlue;
             ddlStorageLocation.BackColor = System.Drawing.Color.AliceBlue;
             txtMaterial.BackColor = System.Drawing.Color.AliceBlue;
             txtDescription.BackColor = System.Drawing.Color.AliceBlue;
+        }
+            catch (Exception ex)
+            {
+                lblError.Text = "mandatcolor" + ex.ToString();
+            }
+
         }
 
 
@@ -96,6 +109,7 @@ namespace DashboardProject.Modules.Master
 
         private void BindGrid()
         {
+            try{
             DataTable dt = new DataTable();
             dt.Columns.AddRange(new DataColumn[7] { new DataColumn("TransactionID"), new DataColumn("ComponentType"), new DataColumn("Material"), new DataColumn("MaterialDescription"), new DataColumn("Quantity"), new DataColumn("UOM"), new DataColumn("StoreLocation") });
             DataColumn c = new DataColumn("sno", typeof(int));
@@ -107,10 +121,16 @@ namespace DashboardProject.Modules.Master
             GridView1.DataSource = (DataTable)ViewState["BOMGrid"];
             GridView1.DataBind();
             GridView1.Columns[0].Visible = true;
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "BindGrid" + ex.ToString();
+            }
         }
 
         protected void Add(object sender, EventArgs e)
         {
+            try{
             if (ddlPlant.SelectedValue != "")
             {
                 lblgridError.Text = "";
@@ -184,11 +204,17 @@ namespace DashboardProject.Modules.Master
             {
                 lblgridError.Text = "Select any plant!";
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Add" + ex.ToString();
+            }
         }
 
 
         private DataSet GetData(string query)
         {
+            try{
             string conString = ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString;
             SqlCommand cmd = new SqlCommand(query);
             using (SqlConnection con = new SqlConnection(conString))
@@ -206,6 +232,11 @@ namespace DashboardProject.Modules.Master
                     }
                 }
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "DataSet GetData" + ex.ToString();
+            }
         }
 
         #endregion
@@ -214,6 +245,7 @@ namespace DashboardProject.Modules.Master
 
         private void BindPlant()
         {
+            try{
             ds.Clear();
             ds = obj.BindPlant();
             ddlPlant.DataTextField = ds.Tables["Plant"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
@@ -221,7 +253,12 @@ namespace DashboardProject.Modules.Master
             ddlPlant.DataSource = ds.Tables["Plant"];      //assigning datasource to the dropdownlist
             ddlPlant.DataBind();  //binding dropdownlist
             ddlPlant.Items.Insert(0, new ListItem("------Select------", ""));
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "BindPlant" + ex.ToString();
+            }
+            }
 
         private void GetTransactionID()
         {
@@ -237,7 +274,7 @@ namespace DashboardProject.Modules.Master
             catch (Exception ex)
             {
                 dvemaillbl.Visible = true;
-                lblError.Text = "Transaction ID" + ex.ToString();
+                lblError.Text = "GetTransactionID" + ex.ToString();
             }
         }
 
@@ -377,7 +414,7 @@ namespace DashboardProject.Modules.Master
                             EmailWorkSendFirstApproval();
                             lblMaxTransactionID.Text = "";
                             GetTransactionID();
-                    
+
                             for (int i = 0; i < ddlNotification.Items.Count; i++)
                             {
                                 ddlNotification.Items[i].Selected = true;
@@ -390,9 +427,8 @@ namespace DashboardProject.Modules.Master
             }
             catch (Exception ex)
             {
-                lblError.Text = ex.ToString();
+                lblError.Text = "btnSave_Click" + ex.ToString();
             }
-
         }
 
         protected void btnSaveSubmit_Click(object sender, EventArgs e)
@@ -466,11 +502,13 @@ namespace DashboardProject.Modules.Master
             }
             catch (Exception ex)
             {
+                lblError.Text = "OnRowDataBound" + ex.ToString();
             }
         }
 
         protected void ddlPlant_SelectedIndexChanged(object sender, EventArgs e)
         {
+            try{
             ddlStorageLocation.DataSource = GetData("SP_StorageLocationPlantWise");
             ddlStorageLocation.DataTextField = "Description";
             ddlStorageLocation.DataValueField = "StorageLocationcode";
@@ -485,10 +523,16 @@ namespace DashboardProject.Modules.Master
                 ddlNotification.Items[i].Selected = true;
                 ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "ddlPlant_SelectedIndexChanged" + ex.ToString();
+            }
         }
 
         protected void OnDataBound(object sender, EventArgs e)
         {
+            try{
 
             conn.Close();
 
@@ -501,10 +545,16 @@ namespace DashboardProject.Modules.Master
             ddlCountries.DataBind();
             //Add Default Item in the DropDownList
             ddlCountries.Items.Insert(0, new ListItem("Please select"));
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "OnDataBound" + ex.ToString();
+            }
         }
 
         protected void insertLineItem()
         {
+            try{
             DataTable dt = (DataTable)ViewState["BOMGrid"];
 
             for (int i = 0; i <= dt.Rows.Count - 1; i++)
@@ -538,7 +588,11 @@ namespace DashboardProject.Modules.Master
                     }
                 }
             }
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "insertLineItem" + ex.ToString();
+            }
         }
 
         #region methodEmailWorks
@@ -993,13 +1047,20 @@ namespace DashboardProject.Modules.Master
 
         private void BindsysApplicationStatus()
         {
+            try{
             ds = obj.BindsysApplicationStatus(lblMaxTransactionID.Text, FormID.ToString());
             grdWStatus.DataSource = ds.Tables["BindsysApplicationStatus"];
             grdWStatus.DataBind();
             grdWStatus.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "BindsysApplicationStatus" + ex.ToString();
+            }
         }
         private void GetStatusHierachyCategoryControls()
         {
+            try{
             ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString(), ViewState["SerialNo"].ToString(), ViewState["Status"].ToString());
             if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
             {
@@ -1016,6 +1077,11 @@ namespace DashboardProject.Modules.Master
                 txtRemarksReview.Enabled = false;
                 txtBillOfMaterial.Enabled = false;
 
+            }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "GetStatusHierachyCategoryControls" + ex.ToString();
             }
         }
         private void getUserDetail()
@@ -1039,6 +1105,7 @@ namespace DashboardProject.Modules.Master
         }
         private void GetHarcheyID()
         {
+            try{
             ds = obj.GetHarachyCustomerMaster(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
             dt = ds.Tables["HID"];
             ViewState["HIDDataSet"] = dt;
@@ -1054,6 +1121,11 @@ namespace DashboardProject.Modules.Master
 
                 ViewState["Status"] = ds.Tables["HID"].Rows[0]["Status"].ToString();
 
+            }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "GetHarcheyID" + ex.ToString();
             }
         }
 
@@ -1079,38 +1151,44 @@ namespace DashboardProject.Modules.Master
         }
         private void BindUser()
         {
-            cmd.CommandText = "SELECT * FROM tblEmailSequanceWise where FormID = '" + FormID.ToString() + "' order by Sequance asc";
-            //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = conn;
-
-            conn.Open();
-            ddlNotification.DataSource = cmd.ExecuteReader();
-            ddlNotification.DataTextField = "DisplayName";
-            ddlNotification.DataValueField = "user_name";
-            ddlNotification.DataBind();
-            conn.Close();
-            for (int i = 0; i < ddlNotification.Items.Count; i++)
+            try
             {
-                ddlNotification.Items[i].Selected = true;
-                ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
+                cmd.CommandText = "SELECT * FROM tblEmailSequanceWise where FormID = '" + FormID.ToString() + "' order by Sequance asc";
+                //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+
+                conn.Open();
+                ddlNotification.DataSource = cmd.ExecuteReader();
+                ddlNotification.DataTextField = "DisplayName";
+                ddlNotification.DataValueField = "user_name";
+                ddlNotification.DataBind();
+                conn.Close();
+                for (int i = 0; i < ddlNotification.Items.Count; i++)
+                {
+                    ddlNotification.Items[i].Selected = true;
+                    ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
+                }
+
+                cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'DSA'";
+                //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                conn.Open();
+                ddlEmailMDA.DataSource = cmd.ExecuteReader();
+                ddlEmailMDA.DataTextField = "DisplayName";
+                ddlEmailMDA.DataValueField = "user_name";
+                ddlEmailMDA.DataBind();
+                conn.Close();
+                ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
+
             }
 
-            cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'DSA'";
-            //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = conn;
-            conn.Open();
-            ddlEmailMDA.DataSource = cmd.ExecuteReader();
-            ddlEmailMDA.DataTextField = "DisplayName";
-            ddlEmailMDA.DataValueField = "user_name";
-            ddlEmailMDA.DataBind();
-            conn.Close();
-            ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            catch (Exception ex)
+            {
+                lblError.Text = "BindUser" + ex.ToString();
+            }
         }
-
-
 
     }
 
