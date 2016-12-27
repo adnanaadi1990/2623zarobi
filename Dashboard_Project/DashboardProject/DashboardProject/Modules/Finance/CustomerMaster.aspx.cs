@@ -659,7 +659,13 @@ namespace ITLDashboard.Modules.Finance
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
+            try{
             ClearInputs(Page.Controls);
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "btnReviewed_Click" + ex.ToString();
+            }
         }
 
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
