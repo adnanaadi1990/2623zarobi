@@ -568,7 +568,7 @@ namespace ITLDashboard.Modules.Master
 
             catch (Exception ex)
             {
-
+                lblError.Text = "BindPageLoad" + ex.ToString();
             }
 
 
@@ -576,27 +576,36 @@ namespace ITLDashboard.Modules.Master
 
         private void BindGrid()
         {
+            try
+            {
 
-            cmd.CommandText = "SP_AltUnitOfMeasureGrid" + " @TransactionID='" + lblMaxTransactionID.Text.ToString() + "'";
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = conn;
-            adp.SelectCommand = cmd;
-            ds.Clear();
-            adp.Fill(ds, "AltUnitOfMeasure");
-            GridView1.DataSource = ds.Tables["AltUnitOfMeasure"];
-            GridView1.DataBind();
-            if (GridView1.Rows.Count >= 1)
-            {
-                GridView1.Visible = true;
+                cmd.CommandText = "SP_AltUnitOfMeasureGrid" + " @TransactionID='" + lblMaxTransactionID.Text.ToString() + "'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                adp.SelectCommand = cmd;
+                ds.Clear();
+                adp.Fill(ds, "AltUnitOfMeasure");
+                GridView1.DataSource = ds.Tables["AltUnitOfMeasure"];
+                GridView1.DataBind();
+                if (GridView1.Rows.Count >= 1)
+                {
+                    GridView1.Visible = true;
+                }
+                else
+                {
+                    GridView1.Visible = false;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                GridView1.Visible = false;
+                lblError.Text = "BindGrid" + ex.ToString();
             }
         }
 
         protected void Add(object sender, EventArgs e)
         {
+          
+            try {
             lblgridError.Text = "";
             Control control = null;
             if (GridView1.FooterRow != null)
@@ -651,7 +660,13 @@ namespace ITLDashboard.Modules.Master
             GridView1.DataBind();
             ConvertionFactor.Focus();
             GridView1.Columns[0].Visible = true;
-        }
+
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Add" + ex.ToString();
+            }
+            }
 
         private void DummyGrid()
         {
@@ -668,12 +683,12 @@ namespace ITLDashboard.Modules.Master
                 GridView1.DataSource = (DataTable)ViewState["ConvertionFacter"];
                 GridView1.DataBind();
                 GridView1.Columns[0].Visible = true;
-
             }
             catch (Exception ex)
             {
-
+                lblError.Text = "DummyGrid" + ex.ToString();
             }
+            
         }
 
         protected void getUserHOD()
@@ -699,14 +714,22 @@ namespace ITLDashboard.Modules.Master
 
         protected void madatorycolor()
         {
+            try
+            {
 
-            ddlMSG.BackColor = System.Drawing.Color.AliceBlue;
-            ddlMG.BackColor = System.Drawing.Color.AliceBlue;
-            ddlMMBaseUnitOfMeasure.BackColor = System.Drawing.Color.AliceBlue;
-            txtDescription.BackColor = System.Drawing.Color.AliceBlue;
-            txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
-            ddlEmailMDA.BackColor = System.Drawing.Color.AliceBlue;
-
+                ddlMSG.BackColor = System.Drawing.Color.AliceBlue;
+                ddlMG.BackColor = System.Drawing.Color.AliceBlue;
+                ddlMMBaseUnitOfMeasure.BackColor = System.Drawing.Color.AliceBlue;
+                txtDescription.BackColor = System.Drawing.Color.AliceBlue;
+                txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
+                ddlEmailMDA.BackColor = System.Drawing.Color.AliceBlue;
+            }
+            
+            catch (Exception ex)
+            {
+                dvemaillbl.Visible = true;
+                lblError.Text = "madatorycolor" + ex.ToString();
+            }
         }
 
         private void GetTransactionID()
@@ -723,41 +746,48 @@ namespace ITLDashboard.Modules.Master
             catch (Exception ex)
             {
                 dvemaillbl.Visible = true;
-                lblError.Text = "Transaction ID" + ex.ToString();
+                lblError.Text = "GetTransactionID" + ex.ToString();
             }
         }
 
         protected void DisableControls(Control parent, bool State)
         {
-            foreach (Control c in parent.Controls)
+            try
             {
-                if (c is DropDownList)
+                foreach (Control c in parent.Controls)
                 {
-                    ((DropDownList)(c)).Enabled = State;
+                    if (c is DropDownList)
+                    {
+                        ((DropDownList)(c)).Enabled = State;
+                    }
+                    if (c is TextBox)
+                    {
+                        ((TextBox)(c)).Enabled = State;
+                    }
+                    if (c is ListBox)
+                    {
+                        ((ListBox)(c)).Enabled = State;
+                    }
+                    if (c is CheckBox)
+                    {
+                        ((CheckBox)(c)).Enabled = State;
+                    }
+                    if (c is RadioButtonList)
+                    {
+                        ((RadioButtonList)(c)).Enabled = State;
+                    }
+                    if (c is RadioButton)
+                    {
+                        ((RadioButton)(c)).Enabled = State;
+                    }
+                    DisableControls(c, State);
+                    RadioButtonList2.Enabled = false;
+                    ddlTransferUser.Enabled = true;
                 }
-                if (c is TextBox)
-                {
-                    ((TextBox)(c)).Enabled = State;
-                }
-                if (c is ListBox)
-                {
-                    ((ListBox)(c)).Enabled = State;
-                }
-                if (c is CheckBox)
-                {
-                    ((CheckBox)(c)).Enabled = State;
-                }
-                if (c is RadioButtonList)
-                {
-                    ((RadioButtonList)(c)).Enabled = State;
-                }
-                if (c is RadioButton)
-                {
-                    ((RadioButton)(c)).Enabled = State;
-                }
-                DisableControls(c, State);
-                RadioButtonList2.Enabled = false;
-                ddlTransferUser.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "DisableControls" + ex.ToString();
             }
         }
 
@@ -782,7 +812,7 @@ namespace ITLDashboard.Modules.Master
             }
             catch (Exception ex)
             {
-                lblError.Text = "Ha ID Error" + ex.ToString();
+                lblError.Text = "GetHarcheyID" + ex.ToString();
             }
         }
 
@@ -800,12 +830,13 @@ namespace ITLDashboard.Modules.Master
             }
             catch (Exception ex)
             {
-                lblError.Text = "Ha ID Error" + ex.ToString();
+                lblError.Text = "GetHarcheyID" + ex.ToString();
             }
         }
 
         private void GetStatusHierachyCategoryControls()
         {
+            try{
             ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
             if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
             {
@@ -843,6 +874,11 @@ namespace ITLDashboard.Modules.Master
 
 
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "GetStatusHierachyCategoryControls" + ex.ToString();
+            }
         }
 
         private void getUserDetail()
@@ -862,189 +898,197 @@ namespace ITLDashboard.Modules.Master
             catch (SqlException ex)
             {
                 dvemaillbl.Visible = true;
-                lblError.Text = "User Detail" + ex.ToString();
+                lblError.Text = "getUserDetail" + ex.ToString();
             }
         }
 
         private void whenquerystringpass()
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            try
             {
-                using (SqlCommand cmdGetData = new SqlCommand())
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
                 {
-
-                    conn.Close();
-                    string a = Request.QueryString["TransactionNo"].ToString();
-                    cmdGetData.CommandText = @"SP_GetMaterialData";
-                    cmdGetData.CommandType = CommandType.StoredProcedure;
-                    cmdGetData.Connection = connection;
-                    cmdGetData.Parameters.AddWithValue("@TMAIN", a.ToString());
-                    adp.SelectCommand = cmdGetData;
-                    dt.Clear();
-                    adp.Fill(dt);
-                    DataTableReader reader = dt.CreateDataReader();
-                    while (reader.Read())
+                    using (SqlCommand cmdGetData = new SqlCommand())
                     {
-                        reader.Read();
-                        lblMaxTransactionNo.Text = reader[0].ToString();
-                        lblMaxTransactionID.Text = reader[1].ToString();
-                        getTransferUser();
-                        ddlMaterialType.SelectedValue = reader["MaterialType"].ToString();
-                        txtSMC.Text = reader["SAPMaterialCode"].ToString();
-                        BindValuationCategoryMTYPE();
-                        BindPlantMtype();
 
-                        for (int i = 0; i < ddlPlant.Items.Count; i++)
+                        conn.Close();
+                        string a = Request.QueryString["TransactionNo"].ToString();
+                        cmdGetData.CommandText = @"SP_GetMaterialData";
+                        cmdGetData.CommandType = CommandType.StoredProcedure;
+                        cmdGetData.Connection = connection;
+                        cmdGetData.Parameters.AddWithValue("@TMAIN", a.ToString());
+                        adp.SelectCommand = cmdGetData;
+                        dt.Clear();
+                        adp.Fill(dt);
+                        DataTableReader reader = dt.CreateDataReader();
+                        while (reader.Read())
                         {
-                            foreach (string category in reader["Plant"].ToString().Split(','))
+                            reader.Read();
+                            lblMaxTransactionNo.Text = reader[0].ToString();
+                            lblMaxTransactionID.Text = reader[1].ToString();
+                            getTransferUser();
+                            ddlMaterialType.SelectedValue = reader["MaterialType"].ToString();
+                            txtSMC.Text = reader["SAPMaterialCode"].ToString();
+                            BindValuationCategoryMTYPE();
+                            BindPlantMtype();
+
+                            for (int i = 0; i < ddlPlant.Items.Count; i++)
                             {
-                                if (category != ddlPlant.Items[i].Value) continue;
-                                ddlPlant.Items[i].Selected = true;
-                                break;
+                                foreach (string category in reader["Plant"].ToString().Split(','))
+                                {
+                                    if (category != ddlPlant.Items[i].Value) continue;
+                                    ddlPlant.Items[i].Selected = true;
+                                    break;
+                                }
+                            }
+                            txtDescription.Text = reader["Description"].ToString();
+                            BindBaseUnitOfMeasureMTYPR();
+                            ddlMMBaseUnitOfMeasure.SelectedValue = reader["BaseUnitofMeasure"].ToString();
+                            BindMaterialgroup();
+                            ddlMG.SelectedValue = reader["MaterialGroup"].ToString().Trim();
+                            ddlMSG.SelectedValue = reader["MaterialSubGroup"].ToString();
+                            txtGROSSWEIGHT.Text = reader["GrossWeight"].ToString();
+                            txtNETWEIGHT.Text = reader["NetWeight"].ToString();
+                            ddlWeightunitBD.SelectedValue = reader["WeightUni"].ToString();
+                            txtVolume.Text = reader["Volume"].ToString();
+                            ddlVOLUMEUNIT.SelectedValue = reader["VolumeUnit"].ToString();
+                            txtOldMaterialNumber.Text = reader["OldMaterailNo"].ToString();
+                            txtSizeDimensions.Text = reader["Size_Dimension"].ToString();
+                            ddlBasicDataPackagingMaterialCateguory.SelectedValue = reader["Packeging_Material_Catg"].ToString();
+                            chkBatchManagement.SelectedValue = reader["BatchManagmet"].ToString();
+                            string PH = reader["ProductHierarchy"].ToString();
+                            string[] lines = PH.Split(',');
+                            string aa = lines[0].Trim();
+                            string ab = lines[1].Trim();
+                            string ac = lines[2].Trim();
+                            ddlProdCatg.SelectedValue = aa.ToString();
+                            ddlProdCatgsub1.SelectedValue = ab.ToString();
+                            ddlProdCatgsub2.SelectedValue = ac.ToString();
+                            ddlDistributionChannel.SelectedValue = reader["DistributionChannel"].ToString();
+                            ddlSalesOrg.SelectedValue = reader["SalesOrg"].ToString();
+                            ddlSalesUnit.SelectedValue = reader["SalesUnit"].ToString();
+                            ddlDivision.SelectedValue = reader["Division"].ToString();
+                            ddlTaxClassification.SelectedValue = reader["TaxClasification"].ToString();
+                            ddlItemCateguoryGroup.SelectedValue = reader["Item_Catg_Group"].ToString();
+                            ddlLoomType.SelectedValue = reader["LoomType"].ToString();
+                            ddlRoomReady.SelectedValue = reader["RoomReady"].ToString();
+                            ddlSubDivision.SelectedValue = reader["SubDivision"].ToString();
+                            ddlNOS.SelectedValue = reader["NOS"].ToString();
+                            ddlAvailabilitycheck.SelectedValue = reader["Availabilitycheck"].ToString();
+                            ddlTransportionGroup.SelectedValue = reader["TransportaionGroup"].ToString();
+                            ddlLoadingGroup.SelectedValue = reader["LoadingGroup"].ToString();
+                            ddlProfitCenter.SelectedValue = reader["ProfitCenter"].ToString();
+                            txtSalesodertext.Text = reader["SalesOrderTax"].ToString();
+                            ddlRate.SelectedValue = reader["Material_Rebate_Rate"].ToString();
+                            ddlRebatecategoryRate.SelectedValue = reader["Rebate_Catg"].ToString();
+                            BindMRPTypeMTYPE();
+                            ddlMrpType.SelectedValue = reader["MRPType"].ToString();
+                            ddlMRPGroup.SelectedValue = reader["MRP_Group"].ToString();
+                            txtReoderPoint.Text = reader["ReoderPoint"].ToString();
+                            ddlMRPController.SelectedValue = reader["MRPController"].ToString();
+                            ddlProductionunit.SelectedValue = reader["Production_Unit_Of_Measure"].ToString();
+                            ddlUnitOfIssue.SelectedValue = reader["UnitOfIssue"].ToString();
+                            ddlProdsupervisor.SelectedValue = reader["Prodsupervisor"].ToString();
+                            ddlProdScheduleProfile.SelectedValue = reader["ProdScheduleProfile"].ToString();
+                            bindSLfromPlant();
+                            for (int i = 0; i < ddlStorageLocation.Items.Count; i++)
+                            {
+                                foreach (string StorageLocation in reader["Storage_Location"].ToString().Split(','))
+                                {
+                                    if (StorageLocation != ddlStorageLocation.Items[i].Value) continue;
+                                    ddlStorageLocation.Items[i].Selected = true;
+                                    break;
+                                }
+                            }
+                            txtUnderDeliveryTollerance.Text = reader["Under_Delivery_Tollerance"].ToString();
+                            txtOverDeliveryTollerance.Text = reader["Ove_Delivery_Tollerance"].ToString();
+                            ddlTaskListUsage.SelectedValue = reader["TaskListUsage"].ToString();
+                            ddlQMControlKey.SelectedValue = reader["QMControlKey"].ToString();
+                            string InspectionSetup = "";
+                            InspectionSetup = reader["InspectionSetup"].ToString();
+                            if (InspectionSetup == "1")
+                            {
+                                chkInspectionSetup.Checked = true;
+                            }
+                            else
+                            {
+                                chkInspectionSetup.Checked = false;
+                            }
+                            string QmProcActive = "";
+                            QmProcActive = reader["QMprocactive"].ToString();
+                            if (QmProcActive == "1")
+                            {
+                                chkQmProcActive.Checked = true;
+                            }
+                            else
+                            {
+                                chkQmProcActive.Checked = false;
+                            }
+                            txtMinimumLotSize.Text = reader["MinimumLotSize"].ToString();
+                            txtMaximumLotSize.Text = reader["MaximumLotSize"].ToString();
+                            txtMaximumstocklevel.Text = reader["Maximumstocklevel"].ToString();
+                            TxtSchedMarginkey.Text = reader["SchedMarginkey"].ToString();
+                            ddlPeriodIndicator.SelectedValue = reader["PeriodIndicator"].ToString();
+                            ddlStrategygroup.SelectedValue = reader["Strategygroup"].ToString().Trim();
+                            ddlLotsize.SelectedValue = reader["Lotsize"].ToString();
+                            BindValuationClass();
+                            ddlValuationClass.SelectedValue = reader["ValuationClass"].ToString();
+                            ddlValuationCategory.SelectedValue = reader["ValuationCategory"].ToString();
+                            BindSplitValueationMTYP();
+
+                            for (int i = 0; i < ddlValuationType.Items.Count; i++)
+                            {
+                                foreach (string ValuationType in reader["ValuationType"].ToString().Split(','))
+                                {
+                                    if (ValuationType != ddlValuationType.Items[i].Value) continue;
+                                    ddlValuationType.Items[i].Selected = true;
+                                    break;
+                                }
+                            }
+
+                            txtStandardPrice.Text = reader["StandardPrice"].ToString();
+                            RadioButtonList2.SelectedValue = reader["ClosedBox"].ToString();
+                            string MatLock = "";
+                            MatLock = reader["Materiallock"].ToString();
+                            if (MatLock == "1")
+                            {
+                                chkLock.Checked = true;
+                                cbML.SelectedValue = "1";
+                            }
+                            else
+                            {
+                                chkLock.Checked = false;
+                                cbML.SelectedValue = "0";
+                            }
+                            string ActionSelected = reader["Status"].ToString();
+
+                            for (int i = 0; i < ddlPlant.Items.Count; i++)
+                            {
+                                ddlPlant.Items[i].Attributes.Add("disabled", "disabled");
+                            }
+                            for (int i = 0; i < ddlStorageLocation.Items.Count; i++)
+                            {
+                                ddlStorageLocation.Items[i].Attributes.Add("disabled", "disabled");
+                            }
+                            for (int i = 0; i < ddlValuationType.Items.Count; i++)
+                            {
+                                ddlValuationType.Items[i].Attributes.Add("disabled", "disabled");
                             }
                         }
-                        txtDescription.Text = reader["Description"].ToString();
-                        BindBaseUnitOfMeasureMTYPR();
-                        ddlMMBaseUnitOfMeasure.SelectedValue = reader["BaseUnitofMeasure"].ToString();
-                        BindMaterialgroup();
-                        ddlMG.SelectedValue = reader["MaterialGroup"].ToString().Trim();
-                        ddlMSG.SelectedValue = reader["MaterialSubGroup"].ToString();
-                        txtGROSSWEIGHT.Text = reader["GrossWeight"].ToString();
-                        txtNETWEIGHT.Text = reader["NetWeight"].ToString();
-                        ddlWeightunitBD.SelectedValue = reader["WeightUni"].ToString();
-                        txtVolume.Text = reader["Volume"].ToString();
-                        ddlVOLUMEUNIT.SelectedValue = reader["VolumeUnit"].ToString();
-                        txtOldMaterialNumber.Text = reader["OldMaterailNo"].ToString();
-                        txtSizeDimensions.Text = reader["Size_Dimension"].ToString();
-                        ddlBasicDataPackagingMaterialCateguory.SelectedValue = reader["Packeging_Material_Catg"].ToString();
-                        chkBatchManagement.SelectedValue = reader["BatchManagmet"].ToString();
-                        string PH = reader["ProductHierarchy"].ToString();
-                        string[] lines = PH.Split(',');
-                        string aa = lines[0].Trim();
-                        string ab = lines[1].Trim();
-                        string ac = lines[2].Trim();
-                        ddlProdCatg.SelectedValue = aa.ToString();
-                        ddlProdCatgsub1.SelectedValue = ab.ToString();
-                        ddlProdCatgsub2.SelectedValue = ac.ToString();
-                        ddlDistributionChannel.SelectedValue = reader["DistributionChannel"].ToString();
-                        ddlSalesOrg.SelectedValue = reader["SalesOrg"].ToString();
-                        ddlSalesUnit.SelectedValue = reader["SalesUnit"].ToString();
-                        ddlDivision.SelectedValue = reader["Division"].ToString();
-                        ddlTaxClassification.SelectedValue = reader["TaxClasification"].ToString();
-                        ddlItemCateguoryGroup.SelectedValue = reader["Item_Catg_Group"].ToString();
-                        ddlLoomType.SelectedValue = reader["LoomType"].ToString();
-                        ddlRoomReady.SelectedValue = reader["RoomReady"].ToString();
-                        ddlSubDivision.SelectedValue = reader["SubDivision"].ToString();
-                        ddlNOS.SelectedValue = reader["NOS"].ToString();
-                        ddlAvailabilitycheck.SelectedValue = reader["Availabilitycheck"].ToString();
-                        ddlTransportionGroup.SelectedValue = reader["TransportaionGroup"].ToString();
-                        ddlLoadingGroup.SelectedValue = reader["LoadingGroup"].ToString();
-                        ddlProfitCenter.SelectedValue = reader["ProfitCenter"].ToString();
-                        txtSalesodertext.Text = reader["SalesOrderTax"].ToString();
-                        ddlRate.SelectedValue = reader["Material_Rebate_Rate"].ToString();
-                        ddlRebatecategoryRate.SelectedValue = reader["Rebate_Catg"].ToString();
-                        BindMRPTypeMTYPE();
-                        ddlMrpType.SelectedValue = reader["MRPType"].ToString();
-                        ddlMRPGroup.SelectedValue = reader["MRP_Group"].ToString();
-                        txtReoderPoint.Text = reader["ReoderPoint"].ToString();
-                        ddlMRPController.SelectedValue = reader["MRPController"].ToString();
-                        ddlProductionunit.SelectedValue = reader["Production_Unit_Of_Measure"].ToString();
-                        ddlUnitOfIssue.SelectedValue = reader["UnitOfIssue"].ToString();
-                        ddlProdsupervisor.SelectedValue = reader["Prodsupervisor"].ToString();
-                        ddlProdScheduleProfile.SelectedValue = reader["ProdScheduleProfile"].ToString();
-                        bindSLfromPlant();
-                        for (int i = 0; i < ddlStorageLocation.Items.Count; i++)
-                        {
-                            foreach (string StorageLocation in reader["Storage_Location"].ToString().Split(','))
-                            {
-                                if (StorageLocation != ddlStorageLocation.Items[i].Value) continue;
-                                ddlStorageLocation.Items[i].Selected = true;
-                                break;
-                            }
-                        }
-                        txtUnderDeliveryTollerance.Text = reader["Under_Delivery_Tollerance"].ToString();
-                        txtOverDeliveryTollerance.Text = reader["Ove_Delivery_Tollerance"].ToString();
-                        ddlTaskListUsage.SelectedValue = reader["TaskListUsage"].ToString();
-                        ddlQMControlKey.SelectedValue = reader["QMControlKey"].ToString();
-                        string InspectionSetup = "";
-                        InspectionSetup = reader["InspectionSetup"].ToString();
-                        if (InspectionSetup == "1")
-                        {
-                            chkInspectionSetup.Checked = true;
-                        }
-                        else
-                        {
-                            chkInspectionSetup.Checked = false;
-                        }
-                        string QmProcActive = "";
-                        QmProcActive = reader["QMprocactive"].ToString();
-                        if (QmProcActive == "1")
-                        {
-                            chkQmProcActive.Checked = true;
-                        }
-                        else
-                        {
-                            chkQmProcActive.Checked = false;
-                        }
-                        txtMinimumLotSize.Text = reader["MinimumLotSize"].ToString();
-                        txtMaximumLotSize.Text = reader["MaximumLotSize"].ToString();
-                        txtMaximumstocklevel.Text = reader["Maximumstocklevel"].ToString();
-                        TxtSchedMarginkey.Text = reader["SchedMarginkey"].ToString();
-                        ddlPeriodIndicator.SelectedValue = reader["PeriodIndicator"].ToString();
-                        ddlStrategygroup.SelectedValue = reader["Strategygroup"].ToString().Trim();
-                        ddlLotsize.SelectedValue = reader["Lotsize"].ToString();
-                        BindValuationClass();
-                        ddlValuationClass.SelectedValue = reader["ValuationClass"].ToString();
-                        ddlValuationCategory.SelectedValue = reader["ValuationCategory"].ToString();
-                        BindSplitValueationMTYP();
-
-                        for (int i = 0; i < ddlValuationType.Items.Count; i++)
-                        {
-                            foreach (string ValuationType in reader["ValuationType"].ToString().Split(','))
-                            {
-                                if (ValuationType != ddlValuationType.Items[i].Value) continue;
-                                ddlValuationType.Items[i].Selected = true;
-                                break;
-                            }
-                        }
-
-                        txtStandardPrice.Text = reader["StandardPrice"].ToString();
-                        RadioButtonList2.SelectedValue = reader["ClosedBox"].ToString();
-                        string MatLock = "";
-                        MatLock = reader["Materiallock"].ToString();
-                        if (MatLock == "1")
-                        {
-                            chkLock.Checked = true;
-                            cbML.SelectedValue = "1";
-                        }
-                        else
-                        {
-                            chkLock.Checked = false;
-                            cbML.SelectedValue = "0";
-                        }
-                        string ActionSelected = reader["Status"].ToString();
-
-                        for (int i = 0; i < ddlPlant.Items.Count; i++)
-                        {
-                            ddlPlant.Items[i].Attributes.Add("disabled", "disabled");
-                        }
-                        for (int i = 0; i < ddlStorageLocation.Items.Count; i++)
-                        {
-                            ddlStorageLocation.Items[i].Attributes.Add("disabled", "disabled");
-                        }
-                        for (int i = 0; i < ddlValuationType.Items.Count; i++)
-                        {
-                            ddlValuationType.Items[i].Attributes.Add("disabled", "disabled");
-                        }
+                        reader.Close();
                     }
-                    reader.Close();
                 }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "whenquerystringpass" + ex.ToString();
             }
         }
 
+
         protected void getUser()
         {
-
+            try{
             cmd.CommandText = "";
             cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserReviwer where FormName = 'MMFG'";
             cmd.CommandType = CommandType.Text;
@@ -1126,11 +1170,16 @@ namespace ITLDashboard.Modules.Master
             ddlNotificationFI.DataValueField = "user_name";
             ddlNotificationFI.DataBind();
             conn.Close();
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "getUser" + ex.ToString();
+            }
         }
 
         protected void getTransferUser()
         {//SELECT user_name,DisplayName FROM tbluser where user_name not in ('" + Session["User_Name"].ToString() + "')
+           try{
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
                 using (SqlCommand cmdgetTransferUser = new SqlCommand())
@@ -1152,37 +1201,61 @@ namespace ITLDashboard.Modules.Master
                     ddlTransferUser.Items.Insert(0, new ListItem("------Select------", "0"));
                 }
             }
+           }
+           catch (SqlException ex)
+           {
+               lblError.Text = "getTransferUser" + ex.ToString();
+           }
         }
 
         private void BindsysApplicationStatus()
         {
+            try{
             ds = obj.BindsysApplicationStatus(lblMaxTransactionID.Text, FormID.ToString());
             grdWStatus.DataSource = ds.Tables["BindsysApplicationStatus"];
             grdWStatus.DataBind();
             grdWStatus.Visible = true;
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindsysApplicationStatus" + ex.ToString();
+            }
+            }
 
         private void BindPlantMtype()
         {
+            try{
             ddlPlant.Items.Clear();
             ds = obj.BindPlantMtype(ddlMaterialType.SelectedValue.ToString());
             ddlPlant.DataTextField = ds.Tables["BindPlantMtype"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
             ddlPlant.DataValueField = ds.Tables["BindPlantMtype"].Columns["PlantId"].ToString();             // to retrive specific  textfield name 
             ddlPlant.DataSource = ds.Tables["BindPlantMtype"];      //assigning datasource to the dropdownlist
             ddlPlant.DataBind();  //binding dropdownlist
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindPlantMtype" + ex.ToString();
+            }
+            }
 
         private void BindPlant()
         {
+            try{
             ds = obj.BindPlant();
             ddlPlant.DataTextField = ds.Tables["Plant"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
             ddlPlant.DataValueField = ds.Tables["Plant"].Columns["PlantId"].ToString();             // to retrive specific  textfield name 
             ddlPlant.DataSource = ds.Tables["Plant"];      //assigning datasource to the dropdownlist
             ddlPlant.DataBind();  //binding dropdownlist
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindPlant" + ex.ToString();
+            }
+            }
 
         private void BindStorageLocation()
         {
+            try{
             ds = obj.BindStorageLocation();
             ddlStorageLocation.DataTextField = ds.Tables["StorageLocation"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
             ddlStorageLocation.DataValueField = ds.Tables["StorageLocation"].Columns["StorageLocationcode"].ToString();             // to retrive specific  textfield name 
@@ -1190,11 +1263,16 @@ namespace ITLDashboard.Modules.Master
             ddlStorageLocation.DataBind();  //binding dropdownlist
             // Adding "Please select" option in dropdownlist for validation
             //ddlStorageLocation.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindStorageLocation" + ex.ToString();
+            }
         }
 
         private void BindMaterialgroup()
         {
+            try{
             ddlMG.Items.Clear();
             ds = obj.BindMaterialgroupMtype(ddlMaterialType.SelectedValue.ToString());
             ddlMG.DataTextField = ds.Tables["BindMaterialgroupMtype"].Columns["Description"].ToString().Trim(); // text field name of table dispalyed in dropdown
@@ -1203,7 +1281,11 @@ namespace ITLDashboard.Modules.Master
             ddlMG.DataBind();  //binding dropdownlist
             //Adding "Please select" option in dropdownlist for validation
             ddlMG.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindMaterialgroup" + ex.ToString();
+            }
         }
 
         private void BindLenght()
@@ -1213,7 +1295,7 @@ namespace ITLDashboard.Modules.Master
 
         private void BindBaseUnitOfMeasure()
         {
-
+            try{
             ds = obj.BindBaseUnitOfMeasure();
             ddlMMBaseUnitOfMeasure.DataTextField = ds.Tables["BaseUnitOfMeasure"].Columns["Baseuom"].ToString(); // text field name of table dispalyed in dropdown
             ddlMMBaseUnitOfMeasure.DataValueField = ds.Tables["BaseUnitOfMeasure"].Columns["Baseuom"].ToString();             // to retrive specific  textfield name 
@@ -1244,12 +1326,17 @@ namespace ITLDashboard.Modules.Master
             //ddlOrderingUnit.DataSource = ds.Tables["BaseUnitOfMeasure"];      //assigning datasource to the dropdownlist
             //ddlOrderingUnit.DataBind();  //binding dropdownlist
             //ddlOrderingUnit.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindBaseUnitOfMeasure" + ex.ToString();
+            }
 
         }
 
         private void BindBaseUnitOfMeasureMTYPR()
-        {
+        {   
+            try{
             ddlMMBaseUnitOfMeasure.Items.Clear();
             ds = obj.BindBaseUnitOfMeasureMTYPE(ddlMaterialType.SelectedValue.ToString());
             ddlMMBaseUnitOfMeasure.DataTextField = ds.Tables["BindBaseUnitOfMeasureMTYPE"].Columns["Baseuom"].ToString(); // text field name of table dispalyed in dropdown
@@ -1281,22 +1368,33 @@ namespace ITLDashboard.Modules.Master
             ddlOrderingUnit.DataSource = ds.Tables["BindBaseUnitOfMeasureMTYPE"];      //assigning datasource to the dropdownlist
             ddlOrderingUnit.DataBind();  //binding dropdownlist
             ddlOrderingUnit.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindBaseUnitOfMeasureMTYPR" + ex.ToString();
+            }
 
         }
 
         private void BindSplitValueation()
         {
+            try{
             ds = obj.BindSplitValueation();
             ddlValuationType.DataTextField = ds.Tables["ValuationType"].Columns["ValuationType"].ToString(); // text field name of table dispalyed in dropdown
             ddlValuationType.DataValueField = ds.Tables["ValuationType"].Columns["ValuationType"].ToString();             // to retrive specific  textfield name 
             ddlValuationType.DataSource = ds.Tables["ValuationType"];      //assigning datasource to the dropdownlist
             ddlValuationType.DataBind();  //binding dropdownlist
             //  ddlValuationType.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindSplitValueation" + ex.ToString();
+            }
+            }
 
         private void BindSplitValueationMTYP()
         {
+            try{
             ddlValuationType.Items.Clear();
             ds = obj.BindSplitValueation(ddlValuationCategory.SelectedValue.ToString());
             ddlValuationType.DataTextField = ds.Tables["BindSplitValueation"].Columns["ValuationType"].ToString(); // text field name of table dispalyed in dropdown
@@ -1304,10 +1402,16 @@ namespace ITLDashboard.Modules.Master
             ddlValuationType.DataSource = ds.Tables["BindSplitValueation"];      //assigning datasource to the dropdownlist
             ddlValuationType.DataBind();  //binding dropdownlist
             //  ddlValuationType.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindSplitValueationMTYP" + ex.ToString();
+            }
+            }
 
         private void BindProfitCenter()
         {
+            try{
             ds = obj.BindProfitCenter();
             ddlProfitCenter.DataTextField = ds.Tables["ProfitCenter"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
             ddlProfitCenter.DataValueField = ds.Tables["ProfitCenter"].Columns["ProfitCentercode"].ToString();             // to retrive specific  textfield name 
@@ -1315,11 +1419,16 @@ namespace ITLDashboard.Modules.Master
             ddlProfitCenter.DataBind();  //binding dropdownlist
             //Adding "Please select" option in dropdownlist for validation
             ddlProfitCenter.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindProfitCenter" + ex.ToString();
+            }
         }
 
         private void BindProductHierarchy()
         {
+            try{
             using (SqlCommand cmd = new SqlCommand())
             {
                 ds.Clear();
@@ -1334,10 +1443,16 @@ namespace ITLDashboard.Modules.Master
                 ddlProdCatg.DataBind();  //binding dropdownlist
                 ddlProdCatg.Items.Insert(0, new ListItem("------Select------", "0"));
             }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindProductHierarchy" + ex.ToString();
+            }
         }
 
         private void BindProductHierarchy2()
         {
+            try{
             using (SqlCommand cmd = new SqlCommand())
             {
                 ds.Clear();
@@ -1352,12 +1467,17 @@ namespace ITLDashboard.Modules.Master
                 ddlProdCatgsub1.DataBind();  //binding dropdownlist
                 ddlProdCatgsub1.Items.Insert(0, new ListItem("------Select------", "0"));
             }
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindProductHierarchy2" + ex.ToString();
+            }
 
         }
 
         private void BindProductHierarchy3()
         {
+            try{
             using (SqlCommand cmd = new SqlCommand())
             {
                 ds.Clear();
@@ -1374,11 +1494,17 @@ namespace ITLDashboard.Modules.Master
                 ddlProdCatgsub2.Items.Insert(0, new ListItem("------Select------", "0"));
 
             }
+    }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindProductHierarchy3" + ex.ToString();
+            }
 
         }
 
         private void BindValuationCategoryMTYPE()
         {
+            try{
             ddlValuationCategory.Items.Clear();
             ds = obj.BindValuationCategoryMTYPE(ddlMaterialType.SelectedValue.ToString());
             ddlValuationCategory.DataTextField = ds.Tables["ValuationCategoryMTYPE"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
@@ -1386,11 +1512,16 @@ namespace ITLDashboard.Modules.Master
             ddlValuationCategory.DataSource = ds.Tables["ValuationCategoryMTYPE"];      //assigning datasource to the dropdownlist
             ddlValuationCategory.DataBind();  //binding dropdownlist
             ddlValuationCategory.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindValuationCategoryMTYPE" + ex.ToString();
+            }
         }
 
         private void BindPurchasingGroup()
         {
+            try{
             ddlPurchasingGroup.Items.Clear();
             ds = obj.BindPurchasingGroupMTYPE(ddlMaterialType.SelectedValue.ToString());
             ddlPurchasingGroup.DataTextField = ds.Tables["BindPurchasingGroupMTYPE"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
@@ -1398,21 +1529,33 @@ namespace ITLDashboard.Modules.Master
             ddlPurchasingGroup.DataSource = ds.Tables["BindPurchasingGroupMTYPE"];      //assigning datasource to the dropdownlist
             ddlPurchasingGroup.DataBind();  //binding dropdownlist
             ddlPurchasingGroup.Items.Insert(0, new ListItem("------Select------", "0"));
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindPurchasingGroup" + ex.ToString();
+            }
 
         }
 
         private void BindMRPController()
         {
+            try{
             ds = obj.BindMRPController();
             ddlMRPController.DataTextField = ds.Tables["mrpController"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
             ddlMRPController.DataValueField = ds.Tables["mrpController"].Columns["mrpControllercode"].ToString();             // to retrive specific  textfield name 
             ddlMRPController.DataSource = ds.Tables["mrpController"];      //assigning datasource to the dropdownlist
             ddlMRPController.DataBind();  //binding dropdownlist
             ddlMRPController.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindMRPController" + ex.ToString();
+            }
+            }
 
         private void BindMRPType()
         {
+            try{
             ds = obj.BindMRPType();
             ddlMrpType.DataTextField = ds.Tables["MRPType"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
             ddlMrpType.DataValueField = ds.Tables["MRPType"].Columns["mrptypecode"].ToString();             // to retrive specific  textfield name 
@@ -1420,10 +1563,16 @@ namespace ITLDashboard.Modules.Master
             ddlMrpType.DataBind();  //binding dropdownlist
             ddlMrpType.Items.Insert(0, new ListItem("------Select------", "0"));
             ddlMrpType.SelectedValue = "ND";
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindMRPType" + ex.ToString();
+            }
+            }
 
         private void BindMRPTypeMTYPE()
         {
+            try{
             ddlMrpType.Items.Clear();
             ds = obj.BindMRPtypeMTYPE(ddlMaterialType.SelectedValue.ToString());
             ddlMrpType.DataTextField = ds.Tables["BindMRPtypeMTYPE"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
@@ -1431,41 +1580,64 @@ namespace ITLDashboard.Modules.Master
             ddlMrpType.DataSource = ds.Tables["BindMRPtypeMTYPE"];      //assigning datasource to the dropdownlist
             ddlMrpType.DataBind();  //binding dropdownlist
             ddlMrpType.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindMRPTypeMTYPE" + ex.ToString();
+            }
         }
 
         private void BindLotSize()
         {
+            try{
             ds = obj.BindLotSize();
             ddlLotsize.DataTextField = ds.Tables["LotSize"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
             ddlLotsize.DataValueField = ds.Tables["LotSize"].Columns["LotSizecode"].ToString();             // to retrive specific  textfield name 
             ddlLotsize.DataSource = ds.Tables["LotSize"];      //assigning datasource to the dropdownlist
             ddlLotsize.DataBind();  //binding dropdownlist
             ddlLotsize.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindLotSize" + ex.ToString();
+            }
+            }
 
         private void BindPeriodIndicator()
         {
+            try{
             ds = obj.BindPeriodIndicator();
             ddlPeriodIndicator.DataTextField = ds.Tables["PeriodIndicator"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
             ddlPeriodIndicator.DataValueField = ds.Tables["PeriodIndicator"].Columns["PeriodIndicartorcode"].ToString();             // to retrive specific  textfield name 
             ddlPeriodIndicator.DataSource = ds.Tables["PeriodIndicator"];      //assigning datasource to the dropdownlist
             ddlPeriodIndicator.DataBind();  //binding dropdownlist
             ddlPeriodIndicator.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindPeriodIndicator" + ex.ToString();
+            }
+            }
 
         private void BindStrategygroup()
         {
+            try{
             ds = obj.BindStrategygroup();
             ddlStrategygroup.DataTextField = ds.Tables["Strategygroup"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
             ddlStrategygroup.DataValueField = ds.Tables["Strategygroup"].Columns["Strategygroupcode"].ToString();             // to retrive specific  textfield name 
             ddlStrategygroup.DataSource = ds.Tables["Strategygroup"];      //assigning datasource to the dropdownlist
             ddlStrategygroup.DataBind();  //binding dropdownlist
             ddlStrategygroup.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindStrategygroup" + ex.ToString();
+            }
+            }
 
         private void BindQMControlKey()
         {
+            try{
             ds = obj.BindQMControlKey();
             ddlQMControlKey.DataTextField = ds.Tables["QMControlKey"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
             ddlQMControlKey.DataValueField = ds.Tables["QMControlKey"].Columns["QMControlKeyCode"].ToString();             // to retrive specific  textfield name 
@@ -1474,10 +1646,16 @@ namespace ITLDashboard.Modules.Master
             ddlQMControlKey.Items.Insert(0, new ListItem("------Select------", "0"));
 
             // ddlQMControlKey.SelectedValue = "0001";
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindQMControlKey" + ex.ToString();
+            }
+            }
 
         private void BindAvailabilitycheck()
         {
+            try{
             ds = obj.BindAvailabilitycheck();
             ddlAvailabilitycheck.DataTextField = ds.Tables["Availabilitycheck"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
             ddlAvailabilitycheck.DataValueField = ds.Tables["Availabilitycheck"].Columns["Availabilitycheckcode"].ToString();             // to retrive specific  textfield name 
@@ -1485,60 +1663,97 @@ namespace ITLDashboard.Modules.Master
             ddlAvailabilitycheck.DataBind();  //binding dropdownlist
             ddlAvailabilitycheck.Items.Insert(0, new ListItem("------Select------", "0"));
             ddlAvailabilitycheck.SelectedValue = "KP";
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindAvailabilitycheck" + ex.ToString();
+            }
+            }
 
         private void BindRebateCategoryRate()
         {
+            try{
             ds = obj.BindRebateCategoryRate();
             ddlRebatecategoryRate.DataTextField = ds.Tables["RebateCategoryRate"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
             ddlRebatecategoryRate.DataValueField = ds.Tables["RebateCategoryRate"].Columns["Rebatecategorycode"].ToString();             // to retrive specific  textfield name 
             ddlRebatecategoryRate.DataSource = ds.Tables["RebateCategoryRate"];      //assigning datasource to the dropdownlist
             ddlRebatecategoryRate.DataBind();  //binding dropdownlist
             ddlRebatecategoryRate.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindRebateCategoryRate" + ex.ToString();
+            }
+            }
 
         private void BindRate()
         {
+            try{
             ds = obj.BindRate();
             ddlRate.DataTextField = ds.Tables["Rate"].Columns["Rate"].ToString().Trim(); // text field name of table dispalyed in dropdown
             ddlRate.DataValueField = ds.Tables["Rate"].Columns["Rate"].ToString().Trim();             // to retrive specific  textfield name 
             ddlRate.DataSource = ds.Tables["Rate"];      //assigning datasource to the dropdownlist
             ddlRate.DataBind();  //binding dropdownlist
             ddlRate.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindRate" + ex.ToString();
+            }
+            }
 
         private void BindDistributionChannel()
         {
-            ds = obj.BindDistributionChannel();
-            ddlDistributionChannel.DataTextField = ds.Tables["DistributionChannel"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
-            ddlDistributionChannel.DataValueField = ds.Tables["DistributionChannel"].Columns["DistributionChannelcode"].ToString();             // to retrive specific  textfield name 
-            ddlDistributionChannel.DataSource = ds.Tables["DistributionChannel"];      //assigning datasource to the dropdownlist
-            ddlDistributionChannel.DataBind();  //binding dropdownlist
-            ddlDistributionChannel.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            try
+            {
+                ds = obj.BindDistributionChannel();
+                ddlDistributionChannel.DataTextField = ds.Tables["DistributionChannel"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
+                ddlDistributionChannel.DataValueField = ds.Tables["DistributionChannel"].Columns["DistributionChannelcode"].ToString();             // to retrive specific  textfield name 
+                ddlDistributionChannel.DataSource = ds.Tables["DistributionChannel"];      //assigning datasource to the dropdownlist
+                ddlDistributionChannel.DataBind();  //binding dropdownlist
+                ddlDistributionChannel.Items.Insert(0, new ListItem("------Select------", "0"));
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindDistributionChannel" + ex.ToString();
+            }
+            }
 
         private void BindLoadingGroup()
         {
+            try{
             ds = obj.BindLoadingGroup();
             ddlLoadingGroup.DataTextField = ds.Tables["LoadingGroup"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
             ddlLoadingGroup.DataValueField = ds.Tables["LoadingGroup"].Columns["LoadingGroupcode"].ToString();             // to retrive specific  textfield name 
             ddlLoadingGroup.DataSource = ds.Tables["LoadingGroup"];      //assigning datasource to the dropdownlist
             ddlLoadingGroup.DataBind();  //binding dropdownlist
             ddlLoadingGroup.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindLoadingGroup" + ex.ToString();
+            }
+            }
 
         private void BindSalesTax()
         {
+            try { 
             ds = obj.BindSalesTax();
             ddlTaxClassification.DataTextField = ds.Tables["SalesTax"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
             ddlTaxClassification.DataValueField = ds.Tables["SalesTax"].Columns["TaxClassificationcode"].ToString();             // to retrive specific  textfield name 
             ddlTaxClassification.DataSource = ds.Tables["SalesTax"];      //assigning datasource to the dropdownlist
             ddlTaxClassification.DataBind();  //binding dropdownlist
             ddlTaxClassification.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindSalesTax" + ex.ToString();
+            }
+            }
 
         private void BindMaterialSubGroup()
         {
+            try{
             cmd.CommandText = "SP_MaterialSubGroup";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
@@ -1549,11 +1764,16 @@ namespace ITLDashboard.Modules.Master
             ddlMSG.DataSource = ds.Tables["MeterialGroup"];      //assigning datasource to the dropdownlist
             ddlMSG.DataBind();  //binding dropdownlist
             ddlMSG.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindMaterialSubGroup" + ex.ToString();
+            } 
         }
 
         private void BindVolumeunit()
-        {
+        {   
+            try{
             cmd.CommandText = "SP_Volumeunit";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
@@ -1571,11 +1791,16 @@ namespace ITLDashboard.Modules.Master
             //ddlVolumUnit.DataBind();  //binding dropdownlist
             ////Adding "Please select" option in dropdownlist for validation
             //ddlVolumUnit.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindVolumeunit" + ex.ToString();
+            } 
         }
 
         private void Bindweightunit()
         {
+            try{
             cmd.CommandText = "SP_weightunit";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
@@ -1593,12 +1818,17 @@ namespace ITLDashboard.Modules.Master
             ddlWeightunitBD.DataSource = ds.Tables["weightunit"];      //assigning datasource to the dropdownlist
             ddlWeightunitBD.DataBind();  //binding dropdownlist
             ddlWeightunitBD.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "Bindweightunit" + ex.ToString();
+            } 
 
         }
 
         private void BindDivision()
         {
+            try{
             cmd.CommandText = "SP_Division";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
@@ -1609,10 +1839,17 @@ namespace ITLDashboard.Modules.Master
             ddlDivision.DataSource = ds.Tables["Division"];      //assigning datasource to the dropdownlist
             ddlDivision.DataBind();  //binding dropdownlist
             ddlDivision.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindDivision" + ex.ToString();
+            } 
+            
+            }
 
         private void BindItemCateguoryGroup()
         {
+            try{
             cmd.CommandText = "SP_ItemCateguoryGroup";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
@@ -1623,11 +1860,16 @@ namespace ITLDashboard.Modules.Master
             ddlItemCateguoryGroup.DataSource = ds.Tables["ItemCateguoryGroup"];      //assigning datasource to the dropdownlist
             ddlItemCateguoryGroup.DataBind();  //binding dropdownlist
             ddlItemCateguoryGroup.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindItemCateguoryGroup" + ex.ToString();
+            } 
         }
 
         private void BindLoomType()
         {
+            try{
             cmd.CommandText = "SP_LoomType";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
@@ -1638,10 +1880,16 @@ namespace ITLDashboard.Modules.Master
             ddlLoomType.DataSource = ds.Tables["LoomType"];      //assigning datasource to the dropdownlist
             ddlLoomType.DataBind();  //binding dropdownlist
             ddlLoomType.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindLoomType" + ex.ToString();
+            } 
+            }
 
         private void BindRoomReady()
         {
+            try{
             cmd.CommandText = "SP_RoomReady";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
@@ -1652,10 +1900,16 @@ namespace ITLDashboard.Modules.Master
             ddlRoomReady.DataSource = ds.Tables["RoomReady"];      //assigning datasource to the dropdownlist
             ddlRoomReady.DataBind();  //binding dropdownlist
             ddlRoomReady.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindRoomReady" + ex.ToString();
+            } 
+            }
 
         private void BindSubDivision()
         {
+            try{
             cmd.CommandText = "SP_SubDivision";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
@@ -1666,10 +1920,16 @@ namespace ITLDashboard.Modules.Master
             ddlSubDivision.DataSource = ds.Tables["SubDivision"];      //assigning datasource to the dropdownlist
             ddlSubDivision.DataBind();
             ddlSubDivision.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindSubDivision" + ex.ToString();
+            } 
+            }
 
         private void BindNOS()
         {
+            try{
             cmd.CommandText = "SP_NOS";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
@@ -1680,10 +1940,16 @@ namespace ITLDashboard.Modules.Master
             ddlNOS.DataSource = ds.Tables["NOS"];      //assigning datasource to the dropdownlist
             ddlNOS.DataBind();  //binding dropdownlist
             ddlNOS.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindNOS" + ex.ToString();
+            } 
+            }
 
         private void BindTransportionGroup()
         {
+            try{
             cmd.CommandText = "SP_TransportionGroup";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
@@ -1694,10 +1960,16 @@ namespace ITLDashboard.Modules.Master
             ddlTransportionGroup.DataSource = ds.Tables["TransportionGroup"];      //assigning datasource to the dropdownlist
             ddlTransportionGroup.DataBind();  //binding dropdownlist
             ddlTransportionGroup.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindTransportionGroup" + ex.ToString();
+            } 
+            }
 
         private void BindPackagingMaterialCateguory()
         {
+            try{
             cmd.CommandText = "SP_PackagingMaterialCateguory";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
@@ -1715,11 +1987,16 @@ namespace ITLDashboard.Modules.Master
             ddlBasicDataPackagingMaterialCateguory.DataSource = ds.Tables["PackagingMaterialCateguory"];      //assigning datasource to the dropdownlist
             ddlBasicDataPackagingMaterialCateguory.DataBind();  //binding dropdownlist
             ddlBasicDataPackagingMaterialCateguory.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindPackagingMaterialCateguory" + ex.ToString();
+            } 
         }
 
         private void BindMrpGroup()
         {
+            try{
             cmd.CommandText = "SP_MrpGrp";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
@@ -1737,11 +2014,16 @@ namespace ITLDashboard.Modules.Master
             ddlBasicDataPackagingMaterialCateguory.DataSource = ds.Tables["PackagingMaterialCateguory"];      //assigning datasource to the dropdownlist
             ddlBasicDataPackagingMaterialCateguory.DataBind();  //binding dropdownlist
             ddlBasicDataPackagingMaterialCateguory.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindMrpGroup" + ex.ToString();
+            } 
         }
 
         private void BindMrpGroupMtype()
         {
+            try{
             cmd.CommandText = "select MrpGrpcode, MrpGrpcode + ' '+ Description as Description from tblMrpGrp where MaterialTypecode = '" + ddlMaterialType.SelectedValue + "'";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
@@ -1752,11 +2034,16 @@ namespace ITLDashboard.Modules.Master
             ddlMRPGroup.DataSource = ds.Tables["BindMrpGroupMtype"];      //assigning datasource to the dropdownlist
             ddlMRPGroup.DataBind();  //binding dropdownlist
             ddlMRPGroup.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindMrpGroupMtype" + ex.ToString();
+            } 
         }
 
         private void BindMRPControllerMtype()
         {
+            try{
             cmd.CommandText = "SELECT mrpControllercode ,mrpControllercode+ ' ' + Description as Description FROM [dbo].tblmrpController   where MaterialTypecode  = '" + ddlMaterialType.SelectedValue + "'";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
@@ -1767,11 +2054,16 @@ namespace ITLDashboard.Modules.Master
             ddlMRPController.DataSource = ds.Tables["BindMRPControllerMtype"];      //assigning datasource to the dropdownlist
             ddlMRPController.DataBind();  //binding dropdownlist
             ddlMRPController.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindMRPControllerMtype" + ex.ToString();
+            } 
         }
 
         private void BindBackFlush()
         {
+            try{
             cmd.CommandText = "SP_BackFlush";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
@@ -1782,11 +2074,16 @@ namespace ITLDashboard.Modules.Master
             ddlBackFlush.DataSource = ds.Tables["BackFlush"];      //assigning datasource to the dropdownlist
             ddlBackFlush.DataBind();  //binding dropdownlist
             ddlBackFlush.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindBackFlush" + ex.ToString();
+            } 
         }
 
         private void BindPackagingMaterialType()
         {
+            try{
             cmd.CommandText = "SP_PackagingMaterialType";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
@@ -1797,11 +2094,16 @@ namespace ITLDashboard.Modules.Master
             ddlPackagingMaterialType.DataSource = ds.Tables["PackagingMaterialType"];      //assigning datasource to the dropdownlist
             ddlPackagingMaterialType.DataBind();  //binding dropdownlist
             ddlPackagingMaterialType.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindPackagingMaterialType" + ex.ToString();
+            } 
         }
 
         private void BindValuationClass()
         {
+            try{
             ddlValuationClass.Items.Clear();
             ds = obj.BindValuationClassMtype(ddlMaterialType.SelectedValue.ToString());
             ddlValuationClass.DataTextField = ds.Tables["BindValuationClassMtype"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
@@ -1809,42 +2111,64 @@ namespace ITLDashboard.Modules.Master
             ddlValuationClass.DataSource = ds.Tables["BindValuationClassMtype"];      //assigning datasource to the dropdownlist
             ddlValuationClass.DataBind();  //binding dropdownlist
             ddlValuationClass.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindValuationClass" + ex.ToString();
+            } 
         }
 
         private void BindProdnsupervisor()
         {
+            try{
             ds = obj.BindProdnsupervisor();
             ddlProdsupervisor.DataTextField = ds.Tables["Prodnsupervisor"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
             ddlProdsupervisor.DataValueField = ds.Tables["Prodnsupervisor"].Columns["prodnsupervisorcode"].ToString();             // to retrive specific  textfield name 
             ddlProdsupervisor.DataSource = ds.Tables["Prodnsupervisor"];      //assigning datasource to the dropdownlist
             ddlProdsupervisor.DataBind();  //binding dropdownlist
             ddlProdsupervisor.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindProdnsupervisor" + ex.ToString();
+            } 
         }
 
         private void BindProdSchedProfile()
         {
+            try{
             ds = obj.BindProdSchedProfile();
             ddlProdScheduleProfile.DataTextField = ds.Tables["ProdSchedProfile"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
             ddlProdScheduleProfile.DataValueField = ds.Tables["ProdSchedProfile"].Columns["ProdSchedProfilecode"].ToString();             // to retrive specific  textfield name 
             ddlProdScheduleProfile.DataSource = ds.Tables["ProdSchedProfile"];      //assigning datasource to the dropdownlist
             ddlProdScheduleProfile.DataBind();  //binding dropdownlist
             ddlProdScheduleProfile.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindProdSchedProfile" + ex.ToString();
+            } 
+            }
 
         private void BindTasklistusage()
         {
+            try{
             ds = obj.BindTasklistusage();
             ddlTaskListUsage.DataTextField = ds.Tables["Tasklistusage"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
             ddlTaskListUsage.DataValueField = ds.Tables["Tasklistusage"].Columns["tasklistusagecode"].ToString();             // to retrive specific  textfield name 
             ddlTaskListUsage.DataSource = ds.Tables["Tasklistusage"];      //assigning datasource to the dropdownlist
             ddlTaskListUsage.DataBind();  //binding dropdownlist
             ddlTaskListUsage.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "BindTasklistusage" + ex.ToString();
+            } 
+            }
 
         protected void ddlMaterialType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            try{
             if (ddlMaterialType.SelectedValue != "0")
             {
                 BD.Visible = true;
@@ -1863,7 +2187,11 @@ namespace ITLDashboard.Modules.Master
                 divEmail.Visible = false;
             }
 
-
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "ddlMaterialType_SelectedIndexChanged" + ex.ToString();
+            } 
 
         }
 
@@ -1874,11 +2202,18 @@ namespace ITLDashboard.Modules.Master
 
         protected void ddlPlant_SelectedIndexChanged(object sender, EventArgs e)
         {
+            try{
             bindSLfromPlant();
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "ddlPlant_SelectedIndexChanged" + ex.ToString();
+            } 
+            }
 
         protected void bindSLfromPlant()
         {
+            try{
             string Plant = "";
             string strQuery = "";
             ddlStorageLocation.Items.Clear();
@@ -1911,15 +2246,27 @@ namespace ITLDashboard.Modules.Master
                 ddlStorageLocation.DataBind();  //binding dropdownlist
                 conn.Close();
             }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "bindSLfromPlant" + ex.ToString();
+            } 
         }
 
         protected void MG_SelectedIndexChanged(object sender, EventArgs e)
         {
+            try{
             bindMSGfromMG();
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "MG_SelectedIndexChanged" + ex.ToString();
+            } 
+            }
 
         protected void bindMSGfromMG()
         {
+            try{
             // string value1 = MG.SelectedValue;
             string value1 = ddlMG.SelectedValue;
             ViewState["q"] = value1.ToString().Trim();
@@ -1940,16 +2287,28 @@ namespace ITLDashboard.Modules.Master
             ddlMSG.DataBind();  //binding dropdownlist
             ddlMSG.Items.Insert(0, new ListItem("------Select------", "0"));
             conn.Close();
-        }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "bindMSGfromMG" + ex.ToString();
+            } 
+            }
 
         protected void refreshpage()
         {
+            try{
             //ScriptManager.RegisterStartupScript(this, typeof(Page), "myscript", "setTimeout(function(){location.href='MeterialMaster.aspx';},15000);", true);
             ClearInputs(Page.Controls);
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "refreshpage" + ex.ToString();
+            } 
         }
 
         void ClearInputss(ControlCollection ctrlss)
         {
+            try{
             foreach (Control ctrlsss in ctrlss)
             {
                 if (ctrlsss is TextBox)
@@ -1960,10 +2319,16 @@ namespace ITLDashboard.Modules.Master
                     ((ListBox)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
                 ClearInputss(ctrlsss.Controls);
             }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "ClearInputss" + ex.ToString();
+            } 
         }
 
         void ClearInputs(ControlCollection ctrls)
         {
+            try{
             foreach (Control ctrl in ctrls)
             {
                 if (ctrl is TextBox)
@@ -1975,11 +2340,17 @@ namespace ITLDashboard.Modules.Master
                     ((ListBox)ctrl).SelectedIndex = -1;
                 ClearInputs(ctrl.Controls);
             }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "ClearInputs" + ex.ToString();
+            } 
 
         }
 
         protected void ddlProdCatg_SelectedIndexChanged(object sender, EventArgs e)
         {
+            try{
             String strQuery = "SELECT Distinct  [H2ID],[H2ID]+ ' ' + H2Desc as H2Desc  FROM [dbo].[TBL_ProductHierarchy] where H1ID = @H1ID";
             using (SqlCommand cmd = new SqlCommand())
             {
@@ -2000,11 +2371,17 @@ namespace ITLDashboard.Modules.Master
                 ddlProdCatgsub1.SelectedIndex = -1;
                 ddlProdCatgsub2.SelectedIndex = -1;
             }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "ddlProdCatg_SelectedIndexChanged" + ex.ToString();
+            }
 
         }
 
         protected void ddlProdCatgsub1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            try{
             String strQuery = "SELECT Distinct  [H3ID] ,[H3ID]+ ' ' + H3Desc as H3Desc  FROM [dbo].[TBL_ProductHierarchy] where H1ID = @H1ID and H2ID =@H2ID";
             using (SqlCommand cmd = new SqlCommand())
             {
@@ -2028,6 +2405,11 @@ namespace ITLDashboard.Modules.Master
                     ddlProdCatgsub2.SelectedIndex = 1;
                 }
             }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "ddlProdCatgsub1_SelectedIndexChanged" + ex.ToString();
+            }
         }
 
         protected void ddlProdCatgsub2_SelectedIndexChanged(object sender, EventArgs e)
@@ -2042,8 +2424,9 @@ namespace ITLDashboard.Modules.Master
                 BindSplitValueationMTYP();
                 Page.MaintainScrollPositionOnPostBack = true;
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
+                lblError.Text = "ddlValuationCategory_SelectedIndexChanged" + ex.ToString();
             }
         }
 
@@ -2166,14 +2549,15 @@ namespace ITLDashboard.Modules.Master
                     Page.MaintainScrollPositionOnPostBack = false;
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-
+                lblError.Text = "btnSave_Click" + ex.ToString();
             }
         }
 
         protected void Save()
         {
+            try{
             string aaa = ddlMaterialType.SelectedItem.Value;
             string FormID = "101";
             string MMCreatedBy = Session["User_Name"].ToString();
@@ -2304,6 +2688,11 @@ namespace ITLDashboard.Modules.Master
             divEmail.Visible = false;
             ddlSearchMC.SelectedIndex = -1;
             GetTransactionID();
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "Save" + ex.ToString();
+            }
         }
 
         protected void btnSaveSubmit_Click(object sender, EventArgs e)
@@ -2459,7 +2848,7 @@ namespace ITLDashboard.Modules.Master
 
             catch (Exception ex)
             {
-                lblError.Text = "Approver" + ex.ToString();
+                lblError.Text = "btnApprover_Click" + ex.ToString();
             }
         }
 
@@ -2494,7 +2883,7 @@ namespace ITLDashboard.Modules.Master
 
             catch (Exception ex)
             {
-                lblError.Text = "Reject" + ex.ToString();
+                lblError.Text = "btnReject_Click" + ex.ToString();
             }
         }
 
@@ -2519,7 +2908,7 @@ namespace ITLDashboard.Modules.Master
             }
             catch (Exception ex)
             {
-                lblError.Text = ex.ToString();
+                lblError.Text = "btnEdit_Click" + ex.ToString();
             }
         }
 
@@ -2744,7 +3133,7 @@ namespace ITLDashboard.Modules.Master
             }
             catch (Exception ex)
             {
-                lblError.Text = ex.ToString();
+                lblError.Text = "btnUpdate_Click" + ex.ToString();
             }
         }
 
@@ -2833,7 +3222,7 @@ namespace ITLDashboard.Modules.Master
             }
             catch (Exception ex)
             {
-                lblError.Text = ex.ToString();
+                lblError.Text = "btnTUpdate_Click" + ex.ToString();
             }
 
         }
@@ -2936,7 +3325,7 @@ namespace ITLDashboard.Modules.Master
             }
             catch (Exception ex)
             {
-                lblError.Text = ex.ToString();
+                lblError.Text = "btnFUpdate_Click" + ex.ToString();
             }
 
         }
@@ -3004,7 +3393,7 @@ namespace ITLDashboard.Modules.Master
             }
             catch (Exception ex)
             {
-
+                lblError.Text = "btnForward_Click" + ex.ToString();
             }
         }
 
@@ -3016,6 +3405,7 @@ namespace ITLDashboard.Modules.Master
 
         private void EmailWorkSendFirstApproval()
         {
+            try{
 
             ds = obj.MailForwardUserToApprover(lblMaxTransactionID.Text, FormID.ToString());
 
@@ -3046,11 +3436,17 @@ namespace ITLDashboard.Modules.Master
             {
 
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "EmailWorkSendFirstApproval" + ex.ToString();
+            }
 
         }
 
         private void EmailWorkFirstHaracheyReviwer()
         {
+            try{
             string HierachyCategory = "4";
             string HierachyCategoryStatus = "03";
             ds = obj.MailForwardFromReviwerToMDA(lblMaxTransactionID.Text, FormID.ToString(), HierachyCategory.ToString());
@@ -3102,10 +3498,16 @@ namespace ITLDashboard.Modules.Master
             {
 
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "EmailWorkFirstHaracheyReviwer" + ex.ToString();
+            }
         }
 
         private void EmailWorkFirstHaracheyMDA()
         {
+            try{
             string HierachyCategory = "4";
             string HierachyCategoryStatus = "04"; // Allow based on reqierment if there is No MDA if other wise allow "4"//
             ds = obj.MailForwardToAllFromMDA(lblMaxTransactionID.Text, FormID.ToString(), HierachyCategory.ToString());
@@ -3145,10 +3547,16 @@ namespace ITLDashboard.Modules.Master
             {
 
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "EmailWorkFirstHaracheyMDA" + ex.ToString();
+            }
         }
 
         private void EmailWorkApproved()
         {
+            try{
             string HierachyCategoryStatus = "02";
             ds = obj.MailForwardFormApprover(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
             string Value = ds.Tables["MailForwardFormApprover"].Rows[0]["HierachyCategory"].ToString();
@@ -3205,10 +3613,16 @@ namespace ITLDashboard.Modules.Master
                     }
                 }
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "EmailWorkApproved" + ex.ToString();
+            }
         }
 
         private void EmailWorkFormForwarding()
         {
+            try{
             string HierachyCategoryStatus = "06";
             ds = obj.MailForwardFormApprover(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
             string Value = ds.Tables["MailForwardFormApprover"].Rows[0]["HierachyCategory"].ToString();
@@ -3266,10 +3680,16 @@ namespace ITLDashboard.Modules.Master
                     }
                 }
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "EmailWorkFormForwarding" + ex.ToString();
+            }
         }
 
         private void EmailWorkReject()
         {
+            try{
             ds = obj.MailForwardToUserOnRejection(lblMaxTransactionID.Text, FormID.ToString());
 
             if (ds.Tables["MailForwardToUserOnRejection"].Rows.Count > 0)
@@ -3297,11 +3717,16 @@ namespace ITLDashboard.Modules.Master
                     Page.MaintainScrollPositionOnPostBack = true;
                 }
             }
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "EmailWorkReject" + ex.ToString();
+            }
         }
 
         protected void InsertEmail()
         {
+            try{
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
                 using (SqlCommand cmdInsertEmail = new SqlCommand())
@@ -3333,51 +3758,63 @@ namespace ITLDashboard.Modules.Master
                     }
                 }
             }
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "InsertEmail" + ex.ToString();
+            }
         }
 
         protected void InsertEmailHOD()
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            try
             {
-                using (SqlCommand cmdInsertEmail = new SqlCommand())
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
                 {
-                    cmdInsertEmail.Connection = connection;
-                    cmdInsertEmail.CommandType = CommandType.StoredProcedure;
-                    cmdInsertEmail.CommandText = @"SP_InsertEmailHOD";
+                    using (SqlCommand cmdInsertEmail = new SqlCommand())
+                    {
+                        cmdInsertEmail.Connection = connection;
+                        cmdInsertEmail.CommandType = CommandType.StoredProcedure;
+                        cmdInsertEmail.CommandText = @"SP_InsertEmailHOD";
 
-                    try
-                    {
-                        //string SplitString = "";
-                        //string input = EmailBody.ToString(); ;
-                        //SplitString = input.Substring(input.IndexOf(',') + 1);
-                        connection.Open();
-                        cmdInsertEmail.Parameters.AddWithValue("@TransactionID", TransactionID.ToString());
-                        cmdInsertEmail.Parameters.AddWithValue("@FormCode", FormID.ToString());
-                        cmdInsertEmail.Parameters.AddWithValue("@UserName", UserName.ToString());
-                        cmdInsertEmail.Parameters.AddWithValue("@UserEmail", UserEmail.ToString());
-                        cmdInsertEmail.Parameters.AddWithValue("@EmailSubject", EmailSubject.ToString());
-                        cmdInsertEmail.Parameters.AddWithValue("@EmailBody", EmailBody.ToString());
-                        cmdInsertEmail.Parameters.AddWithValue("@SessionUser", SessionUser.ToString());
-                        cmdInsertEmail.Parameters.AddWithValue("@HID", ViewState["HID"].ToString());
-                        cmdInsertEmail.ExecuteNonQuery();
+                        try
+                        {
+                            //string SplitString = "";
+                            //string input = EmailBody.ToString(); ;
+                            //SplitString = input.Substring(input.IndexOf(',') + 1);
+                            connection.Open();
+                            cmdInsertEmail.Parameters.AddWithValue("@TransactionID", TransactionID.ToString());
+                            cmdInsertEmail.Parameters.AddWithValue("@FormCode", FormID.ToString());
+                            cmdInsertEmail.Parameters.AddWithValue("@UserName", UserName.ToString());
+                            cmdInsertEmail.Parameters.AddWithValue("@UserEmail", UserEmail.ToString());
+                            cmdInsertEmail.Parameters.AddWithValue("@EmailSubject", EmailSubject.ToString());
+                            cmdInsertEmail.Parameters.AddWithValue("@EmailBody", EmailBody.ToString());
+                            cmdInsertEmail.Parameters.AddWithValue("@SessionUser", SessionUser.ToString());
+                            cmdInsertEmail.Parameters.AddWithValue("@HID", ViewState["HID"].ToString());
+                            cmdInsertEmail.ExecuteNonQuery();
 
-                    }
-                    catch (SqlException e)
-                    {
-                        lblError.Text = e.ToString();
-                    }
-                    finally
-                    {
-                        connection.Close();
+                        }
+                        catch (SqlException e)
+                        {
+                            lblError.Text = e.ToString();
+                        }
+                        finally
+                        {
+                            connection.Close();
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                lblError.Text = "InsertEmailHOD" + ex.ToString();
+            }
 
-        }
+        } 
 
         private void ApplicationStatus()
         {
+            try{
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
                 using (SqlCommand cmdInsert = new SqlCommand())
@@ -3429,10 +3866,16 @@ namespace ITLDashboard.Modules.Master
                     }
                 }
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "ApplicationStatus" + ex.ToString();
+            }
         }
 
         protected void ClosedFormAfterReject()
         {
+            try{
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
                 using (SqlCommand cmdClosedFormAfterReject = new SqlCommand())
@@ -3461,7 +3904,11 @@ namespace ITLDashboard.Modules.Master
                     }
                 }
             }
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "ClosedFormAfterReject" + ex.ToString();
+            }
         }
 
         #endregion
