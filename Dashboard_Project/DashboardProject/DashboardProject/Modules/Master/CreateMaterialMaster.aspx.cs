@@ -526,29 +526,6 @@ namespace ITLDashboard.Modules.Master
                     lblmessage.ForeColor = System.Drawing.Color.Red;
                     return;
                 }
-
-
-                cmd.CommandText = @"Select SAPMaterialCode from tbl_SYS_MaterialMaster where SAPMaterialCode = '" + txtSMC.Text.ToString() + "'";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-
-                adp.SelectCommand = cmd;
-                dt.Clear();
-                adp.Fill(dt);
-                if (dt.Rows.Count > 0)
-                {
-
-                    lblEmail.Text = "";
-                    lblmessage.Text = "";
-                    lblUpError.Text = "SAP material code " + txtSMC.Text + " already exist!. Please provide a specific code";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblmessage.Focus();
-                    sucess.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    txtSMC.BackColor = System.Drawing.Color.Red;
-                    lblmessage.ForeColor = System.Drawing.Color.Red;
-                }
                 else
                 {
                     string MLock = "";
@@ -566,22 +543,31 @@ namespace ITLDashboard.Modules.Master
                     lblUpError.Text = "";
                     sucess.Visible = false;
                     error.Visible = false;
-                    ds = obj.UpdateMaterial(lblMaxTransactionID.Text, txtSMC.Text.Trim(), MLock.ToString());
-                    //ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup2();", true);
-                    //lblmessage.Text = "SAP Material Code " + txtSMC.Text.Trim() + " has been saved against  Form ID # " + Request.QueryString["TransactionNo"].ToString();
-
-                    lblmessage.Visible = true;
                     try
                     {
-                        EmailWorkFirstHaracheyMDA();
-                        InsertEmailHOD();
-                        ApplicationStatus();
-                        BindsysApplicationStatus();
-                        GetStatusHierachyCategoryControls();
-                        sucess.Visible = true;
-                        error.Visible = false;
-                        Page.MaintainScrollPositionOnPostBack = false;
+                        ds = obj.UpdateMaterial(lblMaxTransactionID.Text, txtSMC.Text.Trim(), MLock.ToString());
 
+                        string message = ds.Tables["Message"].Rows[0]["Dec"].ToString().Trim();
+                        if (message == "Record updated sucessfully!")
+                        {
+                            lblmessage.Visible = true;
+
+                            EmailWorkFirstHaracheyMDA();
+                            InsertEmailHOD();
+                            ApplicationStatus();
+                            BindsysApplicationStatus();
+                            GetStatusHierachyCategoryControls();
+                            sucess.Visible = true;
+                            error.Visible = false;
+                            Page.MaintainScrollPositionOnPostBack = false;
+                        }
+                        else
+                        {
+                            message = ds.Tables["Message"].Rows[0]["Dec"].ToString().Trim();
+                            lblMaxTransactionID.Text = ds.Tables["Message1"].Rows[0]["TransactionID"].ToString().Trim();
+                            lblmessage.Text = message + " # " + lblMaxTransactionID.Text;
+                            
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -2445,14 +2431,14 @@ namespace ITLDashboard.Modules.Master
             }
         }
 
-        private void BindMrpGroupMtype(string MrpGroupMtype)
+        private void BindMrpGroupMtype()
         {
             try
             {
                 cmd.CommandText = "SP_BindMrpGroupMtype";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
-                cmd.Parameters.AddWithValue("@Materialtypcode", "%" + MrpGroupMtype.ToString() + "%");
+                cmd.Parameters.AddWithValue("@Materialtypcode", "%" + ddlMaterialType.SelectedValue + "%");
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "BindMrpGroupMtype");
                 ddlMRPGroup.DataTextField = ds.Tables["BindMrpGroupMtype"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
@@ -2468,14 +2454,14 @@ namespace ITLDashboard.Modules.Master
             }
         }
 
-        private void BindMRPControllerMtype(string mrpControllercode)
+        private void BindMRPControllerMtype()
         {
             try
             {
                 cmd.CommandText = "SP_BindMRPControllerMtype";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
-                cmd.Parameters.AddWithValue("@Materialtypcode", "%" + mrpControllercode.ToString() + "%");
+                cmd.Parameters.AddWithValue("@Materialtypcode", "%" + ddlMaterialType.SelectedValue.ToString() + "%");
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "BindMRPControllerMtype");
                 ddlMRPController.DataTextField = ds.Tables["BindMRPControllerMtype"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
