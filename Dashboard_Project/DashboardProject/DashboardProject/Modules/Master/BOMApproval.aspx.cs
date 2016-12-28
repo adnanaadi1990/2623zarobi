@@ -1183,7 +1183,6 @@ namespace DashboardProject.Modules.Master
                 ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
 
             }
-
             catch (Exception ex)
             {
                 lblError.Text = "BindUser" + ex.ToString();

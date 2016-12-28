@@ -2445,10 +2445,14 @@ namespace ITLDashboard.Classes
                 {
                     try
                     {
-                        string cmd1 = @"select * from tbluser where user_name = '" + UserID + "'";
 
-                        SqlDataAdapter adpt = new SqlDataAdapter(cmd1, conn);
-                        adpt.Fill(ds, "MailForwardToForwarder");
+                        ds.Clear();
+                        cmd.CommandText = @"select * from tbluser where user_name = @UserID";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        cmd.Parameters.AddWithValue("@UserID", UserID.ToString());
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "MailForwardToForwarder");
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
@@ -2851,10 +2855,14 @@ namespace ITLDashboard.Classes
                     try
                     {
                         cmd.CommandText = "";
-                        cmd.CommandText = @"select top(1) RoutingID from tbl_SysHierarchyControl where FormID = '" + FormID.ToString() + "' and TransactionID = '" + TID.ToString() + "' and HierarchyCateguory = '" + HirCtg.ToString() + "'" +
-                         "and Status = '" + Status.ToString() + "'  and RoutingID LIKE '%" + UserName + "%'";
-                        cmd.CommandType = CommandType.Text;
+                        cmd.CommandText = @"SP_controlFowardControl";
+                        cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@FormID", "%" + FormID.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@TransactionID", "%" + TID.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@HierarchyCateguory", "%" + HirCtg.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@Status", "%" + Status.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@RoutingID", "%" + UserName.ToString() + "%");
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "controlFowardControl");
 
@@ -2870,25 +2878,31 @@ namespace ITLDashboard.Classes
 
         public DataSet GetHarachyNextData(string user_name, string TransactionID, string FormID, string HID)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                cmd.CommandText = "";
-                cmd.CommandText = @"select * from [sysWorkFlow]
-                RoughtingUserID where TransactionID = '" + TransactionID + "' and FormID ='" + FormID + "' and SerialNo > (select SerialNo from [sysWorkFlow] RoughtingUserID where RoughtingUserID like '" + user_name + "%' and TransactionID = '" + TransactionID + "' and FormID = '" + FormID + "') order by HierachyCategory,Sequance asc";
-
-
-                //cmd.CommandText = @"select * from [sysWorkFlow]
-                //RoughtingUserID where TransactionID = '" + TransactionID + "' and FormID = '" + FormID + "' and Sequance >= (select Sequance from [sysWorkFlow] RoughtingUserID where RoughtingUserID like '" + user_name + "%' and TransactionID = '" + TransactionID + "' and FormID = '" + FormID + "' ) and HierachyCategory = '" + HID + "' order by HierachyCategory,Sequance asc";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "GetHarachyNextData");
+                using (SqlCommand cmdInsert = new SqlCommand())//
+                {
+                    try
+                    {
+                        cmd.CommandText = "";
+                        cmd.CommandText = @"SP_GetHarachyNextData";
+                        //cmd.CommandText = @"select * from [sysWorkFlow]
+                        //RoughtingUserID where TransactionID = '" + TransactionID + "' and FormID = '" + FormID + "' and Sequance >= (select Sequance from [sysWorkFlow] RoughtingUserID where RoughtingUserID like '" + user_name + "%' and TransactionID = '" + TransactionID + "' and FormID = '" + FormID + "' ) and HierachyCategory = '" + HID + "' order by HierachyCategory,Sequance asc";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@RoughtingUserID", "%" + user_name.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@TransactionID", "%" + TransactionID.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@FormID", "%" + FormID.ToString() + "%");
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "GetHarachyNextData");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet GetStatusHierachyCategory(string user_name, string TransID, string FormID)
@@ -2903,6 +2917,9 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = @"SP_GetStatusHierachyCategory";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@RoughtingUserID", "%" + user_name.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@TransactionID", "%" + TransID.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@FormID", "%" + FormID.ToString() + "%");
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "StatusHierachyCategory");
                     }
@@ -2917,43 +2934,59 @@ namespace ITLDashboard.Classes
 
         public DataSet GetStatusHierachyCategoryControl(string user_name, string TransID, string FormID, string HierarchyCateguory, string Serial, string Status)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                cmd.CommandText = "";
-                cmd.CommandText = @"sysControls";
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                cmd.Parameters.AddWithValue("@RoughtingUserID", user_name.ToString());
-                cmd.Parameters.AddWithValue("@TransactionID", TransID.ToString());
-                cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
-                cmd.Parameters.AddWithValue("@HierachyCategory", HierarchyCateguory.ToString());
-                adp.Fill(ds, "tbl_SysHierarchyControl");
+                using (SqlCommand cmdInsert = new SqlCommand())//
+                {
+                    try
+                    {
+                        cmd.CommandText = "";
+                        cmd.CommandText = @"sysControls";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        cmd.Parameters.AddWithValue("@RoughtingUserID", user_name.ToString());
+                        cmd.Parameters.AddWithValue("@TransactionID", TransID.ToString());
+                        cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
+                        cmd.Parameters.AddWithValue("@HierachyCategory", HierarchyCateguory.ToString());
+                        adp.Fill(ds, "tbl_SysHierarchyControl");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet GetStatusHierachyCategoryControl(string user_name, string TransID, string FormID, string SerialNo, string Sequance)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                cmd.CommandText = "";
-                cmd.CommandText = @"select top(1) TransactionID,RoughtingUserID, HierachyCategory,Status from sysworkflow
-                                    where RoughtingUserID = '" + user_name.ToString() + "' and TransactionID = '" + TransID.ToString() + "' and FormID = '" + FormID.ToString() + "' and SerialNo = '" + SerialNo.ToString() + "' and Sequance = '" + Sequance.ToString() + "'  order by SerialNo asc,Sequance desc";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "GetStatusHierachyCategoryControl");
+                using (SqlCommand cmdInsert = new SqlCommand())//
+                {
+                    try
+                    {
+                        cmd.CommandText = "";
+                        cmd.CommandText = @"SP_GetStatusHierachyCategoryControl";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        cmd.Parameters.AddWithValue("@RoughtingUserID", "%" + user_name.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@TransactionID", "%" + TransID.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@FormID", "%" + FormID.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@SerialNo", "%" + SerialNo.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@Sequance", "%" + Sequance.ToString() + "%");
+                        adp.Fill(ds, "GetStatusHierachyCategoryControl");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet insertEmail(string user_name, string UserEmail, string EmailSubject, string Body, string datetime, string sessionuser)
