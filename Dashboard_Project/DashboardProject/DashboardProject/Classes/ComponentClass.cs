@@ -2878,25 +2878,31 @@ namespace ITLDashboard.Classes
 
         public DataSet GetHarachyNextData(string user_name, string TransactionID, string FormID, string HID)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                cmd.CommandText = "";
-                cmd.CommandText = @"SP_GetHarachyNextData";
-                //cmd.CommandText = @"select * from [sysWorkFlow]
-                //RoughtingUserID where TransactionID = '" + TransactionID + "' and FormID = '" + FormID + "' and Sequance >= (select Sequance from [sysWorkFlow] RoughtingUserID where RoughtingUserID like '" + user_name + "%' and TransactionID = '" + TransactionID + "' and FormID = '" + FormID + "' ) and HierachyCategory = '" + HID + "' order by HierachyCategory,Sequance asc";
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = conn;
-                cmd.Parameters.AddWithValue("@RoughtingUserID", "%" + user_name.ToString()+ "%");
-                cmd.Parameters.AddWithValue("@TransactionID", "%" + TransactionID.ToString()+ "%");
-                cmd.Parameters.AddWithValue("@FormID", "%" + FormID.ToString()+ "%");
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "GetHarachyNextData");
+                using (SqlCommand cmdInsert = new SqlCommand())//
+                {
+                    try
+                    {
+                        cmd.CommandText = "";
+                        cmd.CommandText = @"SP_GetHarachyNextData";
+                        //cmd.CommandText = @"select * from [sysWorkFlow]
+                        //RoughtingUserID where TransactionID = '" + TransactionID + "' and FormID = '" + FormID + "' and Sequance >= (select Sequance from [sysWorkFlow] RoughtingUserID where RoughtingUserID like '" + user_name + "%' and TransactionID = '" + TransactionID + "' and FormID = '" + FormID + "' ) and HierachyCategory = '" + HID + "' order by HierachyCategory,Sequance asc";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@RoughtingUserID", "%" + user_name.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@TransactionID", "%" + TransactionID.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@FormID", "%" + FormID.ToString() + "%");
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "GetHarachyNextData");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
 
         public DataSet GetStatusHierachyCategory(string user_name, string TransID, string FormID)
