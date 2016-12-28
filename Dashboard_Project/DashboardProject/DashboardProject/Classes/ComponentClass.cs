@@ -2834,10 +2834,14 @@ namespace ITLDashboard.Classes
                     try
                     {
                         cmd.CommandText = "";
-                        cmd.CommandText = @"select top(1) RoutingID from tbl_SysHierarchyControl where FormID = '" + FormID.ToString() + "' and TransactionID = '" + TID.ToString() + "' and HierarchyCateguory = '" + HirCtg.ToString() + "'" +
-                         "and Status = '" + Status.ToString() + "'  and RoutingID LIKE '%" + UserName + "%'";
-                        cmd.CommandType = CommandType.Text;
+                        cmd.CommandText = @"SP_controlFowardControl";
+                        cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@FormID", "%" + FormID.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@TransactionID", "%" + TID.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@HierarchyCateguory", "%" + HirCtg.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@Status", "%" + Status.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@RoutingID", "%" + UserName.ToString() + "%");
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "controlFowardControl");
 
@@ -2886,6 +2890,9 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = @"SP_GetStatusHierachyCategory";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@RoughtingUserID", "%" + user_name.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@TransactionID", "%" + TransID.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@FormID", "%" + FormID.ToString()+ "%");
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "StatusHierachyCategory");
                     }
