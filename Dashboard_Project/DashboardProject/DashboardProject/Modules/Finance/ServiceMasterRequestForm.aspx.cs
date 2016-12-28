@@ -57,6 +57,7 @@ namespace DashboardProject.Modules.Finance
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            try{
             Page.MaintainScrollPositionOnPostBack = true;
             if (!IsPostBack)
             {
@@ -198,21 +199,31 @@ namespace DashboardProject.Modules.Finance
                 }
                 catch (Exception ex)
                 {
-                    ex.ToString();
+                    lblError.Text = "Page_Load" + ex.ToString();
                 }
+            }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Page_Load" + ex.ToString();
             }
         }
 
 
         private void BindPageLoad()
         {
+            try{
             getUserSAPID();
             BindDivision();
             BindMaterialGroup();
             BindServiceCategory();
             // BindValuation();
             BindBaseUnit();
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "BindPageLoad" + ex.ToString();
+            }
         }
 
         ///////////////////////////////////////////////////BTN EVENT///////////////////////////////////////////////////////////
@@ -324,11 +335,10 @@ namespace DashboardProject.Modules.Finance
                     GetTransactionID();
                     madatorycolor();
                 }
-            }
-
+            } 
             catch (Exception ex)
             {
-                lblError.Text = ex.ToString();
+                lblError.Text = "btnSave_Click" + ex.ToString();
             }
         }
 
@@ -367,10 +377,9 @@ namespace DashboardProject.Modules.Finance
                     whenquerystringpass();
                 }
             }
-
             catch (Exception ex)
             {
-                lblError.Text = "Approver" + ex.ToString();
+                lblError.Text = "btnApprover_Click" + ex.ToString();
             }
         }
 
@@ -458,8 +467,9 @@ namespace DashboardProject.Modules.Finance
             }
             catch (Exception ex)
             {
-                lblError.Text = "MDA" + ex.ToString();
+                lblError.Text = "btnSubmit_Click" + ex.ToString();
             }
+
         }
 
         protected void btnReject_Click(object sender, EventArgs e)
@@ -491,18 +501,23 @@ namespace DashboardProject.Modules.Finance
                     lblEmail.Focus();
                 }
             }
-
             catch (Exception ex)
             {
-                lblError.Text = "Reject" + ex.ToString();
+                lblError.Text = "btnReject_Click" + ex.ToString();
             }
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
+            try{
             string url = HttpContext.Current.Request.Url.ToString();
             Response.Redirect(url.ToString());
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "btnCancel_Click" + ex.ToString();
+            }
+            }
  
         protected void btnEdit_Click(object sender, EventArgs e)
         {
@@ -511,6 +526,7 @@ namespace DashboardProject.Modules.Finance
 
         protected void UpdateSerialNumberAll()
         {
+            try{
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
                 using (SqlCommand cmdInsertEmail = new SqlCommand())//
@@ -533,7 +549,7 @@ namespace DashboardProject.Modules.Finance
 
                     catch (SqlException e)
                     {
-                        lblError.Text = e.ToString();
+                        lblError.Text = "UpdateSerialNumberAll" + ex.ToString();
                     }
                     finally
                     {
@@ -541,10 +557,16 @@ namespace DashboardProject.Modules.Finance
                     }
                 }
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "UpdateSerialNumberAll" + ex.ToString();
+            }
         }
 
         private void EMailForwardToForwarder()
         {
+            try{
 
             ds = obj.MailForwardToForwarder(ddlTransferUser.SelectedValue.ToString());
 
@@ -571,7 +593,11 @@ namespace DashboardProject.Modules.Finance
             {
 
             }
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "EMailForwardToForwarder" + ex.ToString();
+            }
         }
 
         protected void btnForward_Click(object sender, EventArgs e)
@@ -631,7 +657,7 @@ namespace DashboardProject.Modules.Finance
             }
             catch (Exception ex)
             {
-
+                lblError.Text = "btnForward_Click" + ex.ToString();
             }
         }
 
@@ -639,6 +665,7 @@ namespace DashboardProject.Modules.Finance
 
         protected void getUser()
         {
+            try{
             cmd.CommandText = "";
             cmd.CommandText = "Select user_name,DisplayName from tblusermodulecategory where Category like '%SAP Basis Consultant%'";
             cmd.CommandType = CommandType.Text;
@@ -665,11 +692,17 @@ namespace DashboardProject.Modules.Finance
 
             ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
             ddlReviewer.Items.Insert(0, new ListItem("------Select------", "0"));
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getUser" + ex.ToString();
+            }
         }
 
         protected void getTransferUser()
-        {//SELECT user_name,DisplayName FROM tbluser where user_name not in ('" + Session["User_Name"].ToString() + "')
+        {
+            try{
+            //SELECT user_name,DisplayName FROM tbluser where user_name not in ('" + Session["User_Name"].ToString() + "')
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
                 using (SqlCommand cmdgetTransferUser = new SqlCommand())
@@ -690,6 +723,11 @@ namespace DashboardProject.Modules.Finance
                     ddlTransferUser.DataBind();  //binding dropdownlist
                     ddlTransferUser.Items.Insert(0, new ListItem("------Select------", "0"));
                 }
+            }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getTransferUser" + ex.ToString();
             }
         }
 
@@ -716,6 +754,7 @@ namespace DashboardProject.Modules.Finance
 
         protected void getUserSAPID()
         {
+            try{
             string strQuery = @"Select SAPID from tbluser where user_name = '" + Session["user_name"].ToString() + "'";
 
             ds.Clear();
@@ -730,10 +769,17 @@ namespace DashboardProject.Modules.Finance
             string Value = ds.Tables["tbl_UserSAPID"].Rows[0]["SAPID"].ToString();
             txtSAPID.Text = Value.ToString();
             conn.Close();
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getUserSAPID" + ex.ToString();
+            }
         }
 
         private void GetHarcheyID()
         {
+           
+            try{
             ds = obj.GetHarachyCustomerMaster(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
             dt = ds.Tables["HID"];
             ViewState["HIDDataSet"] = dt;
@@ -748,10 +794,16 @@ namespace DashboardProject.Modules.Finance
                 ViewState["SerialNo"] = ds.Tables["HID"].Rows[0]["SerialNo"].ToString();
                 ViewState["Status"] = ds.Tables["HID"].Rows[0]["Status"].ToString();
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "GetHarcheyID" + ex.ToString();
+            }
         }
 
         private void GetStatusHierachyCategoryControls()
         {
+            try{
             ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
             if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
             {
@@ -770,6 +822,11 @@ namespace DashboardProject.Modules.Finance
                 ////btnSubmitFC.Enabled = false;
                 txtRemarksReview.Attributes.Add("disabled", "true");
                 ////disabledListItem();
+            }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "GetStatusHierachyCategoryControls" + ex.ToString();
             }
         }
 
@@ -813,17 +870,23 @@ namespace DashboardProject.Modules.Finance
 
         protected void madatorycolor()
         {
+            try{
             ddlServiceCategory.BackColor = System.Drawing.Color.AliceBlue;
             ddlBUOM.BackColor = System.Drawing.Color.AliceBlue;
             ddlMSG.BackColor = System.Drawing.Color.AliceBlue;
             ddlDivision.BackColor = System.Drawing.Color.AliceBlue;
             ddlValuation.BackColor = System.Drawing.Color.AliceBlue;
             txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "madatorycolor" + ex.ToString();
+            }
         }
 
         private void ClearInputs(ControlCollection ctrls)
         {
+            try{
             foreach (Control ctrl in ctrls)
             {
                 if (ctrl is TextBox)
@@ -837,10 +900,16 @@ namespace DashboardProject.Modules.Finance
                 ClearInputs(ctrl.Controls);
             }
             Page.MaintainScrollPositionOnPostBack = false;
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "ClearInputs" + ex.ToString();
+            }
         }
 
         protected void DisableControls(Control parent, bool State)
         {
+            try{
             foreach (Control c in parent.Controls)
             {
                 if (c is DropDownList)
@@ -868,10 +937,16 @@ namespace DashboardProject.Modules.Finance
                 ClearInputscolor(Page.Controls);
 
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "DisableControls" + ex.ToString();
+            }
         }
 
         void ClearInputscolor(ControlCollection ctrlss)
         {
+            try{
             foreach (Control ctrlsss in ctrlss)
             {
                 if (ctrlsss is TextBox)
@@ -884,24 +959,42 @@ namespace DashboardProject.Modules.Finance
                     ((RadioButtonList)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
                 ClearInputscolor(ctrlsss.Controls);
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "ClearInputscolor" + ex.ToString();
+            }
         }
 
         protected void refreshpage()
         {
+            try{
             //ScriptManager.RegisterStartupScript(this, typeof(Page), "myscript", "setTimeout(function(){location.href='MeterialMaster.aspx';},15000);", true);
             ClearInputs(Page.Controls);
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "refreshpage" + ex.ToString();
+            }
+            }
 
         private void BindsysApplicationStatus()
         {
+            try{
             ds = obj.BindsysApplicationStatus(lblMaxTransactionID.Text, FormID.ToString());
             grdWStatus.DataSource = ds.Tables["BindsysApplicationStatus"];
             grdWStatus.DataBind();
             grdWStatus.Visible = true;
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "BindsysApplicationStatus" + ex.ToString();
+            }
+            }
 
         private void GetHarcheyNextData()
         {
+            try{
             ds = obj.GetHarachyNextData(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
             if (ds.Tables["GetHarachyNextData"].Rows.Count > 0)
             {
@@ -924,7 +1017,7 @@ namespace DashboardProject.Modules.Finance
                             }
                             catch (SqlException e)
                             {
-                                lblError.Text = e.ToString();
+                                lblError.Text = "GetHarcheyNextData" + ex.ToString();
                             }
                             finally
                             {
@@ -935,10 +1028,16 @@ namespace DashboardProject.Modules.Finance
                 }
 
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "GetHarcheyNextData" + ex.ToString();
+            }
         }
 
         protected void InsertTransferEmail()
         {
+            try{
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
                 using (SqlCommand cmdInsertEmail = new SqlCommand())//
@@ -970,7 +1069,7 @@ namespace DashboardProject.Modules.Finance
                     }
                     catch (SqlException e)
                     {
-                        lblError.Text = e.ToString();
+                        lblError.Text = "InsertTransferEmail" + ex.ToString();
                     }
                     finally
                     {
@@ -978,11 +1077,17 @@ namespace DashboardProject.Modules.Finance
                     }
                 }
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "InsertTransferEmail" + ex.ToString();
+            }
 
         }
 
         private void ApplicationStatus()
         {
+            try{
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
                 using (SqlCommand cmdInsert = new SqlCommand())
@@ -1035,10 +1140,17 @@ namespace DashboardProject.Modules.Finance
                     }
                 }
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "ApplicationStatus" + ex.ToString();
+            }
         }
+
 
         void ClearInputss(ControlCollection ctrlss)
         {
+            try{
             foreach (Control ctrlsss in ctrlss)
             {
                 if (ctrlsss is TextBox)
@@ -1049,10 +1161,16 @@ namespace DashboardProject.Modules.Finance
                     ((ListBox)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
                 ClearInputss(ctrlsss.Controls);
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "ClearInputss" + ex.ToString();
+            }
         }
 
         private void whenquerystringpass()
         {
+            try{
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
                 using (SqlCommand cmdGetData = new SqlCommand())
@@ -1085,6 +1203,11 @@ namespace DashboardProject.Modules.Finance
                     reader.Close();
                 }
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "whenquerystringpass" + ex.ToString();
+            }
         }
 
         ////////////////////////////////////////////methods/////////////////////////////////////////////////////////
@@ -1104,22 +1227,29 @@ namespace DashboardProject.Modules.Finance
             }
             catch (Exception ex)
             {
-                lblError.Text = "Ha ID Error" + ex.ToString();
+                lblError.Text = "controlForwardHide" + ex.ToString();
             }
         }
 
         private void BindServiceCategory()
         {
+            try{
             ds = objFK.BindServiceCategory();
             ddlServiceCategory.DataTextField = ds.Tables["tbl_ServiceCategory"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
             ddlServiceCategory.DataValueField = ds.Tables["tbl_ServiceCategory"].Columns["ServiceCategoryCode"].ToString();             // to retrive specific  textfield name 
             ddlServiceCategory.DataSource = ds.Tables["tbl_ServiceCategory"];      //assigning datasource to the dropdownlist
             ddlServiceCategory.DataBind();  //binding dropdownlist
             ddlServiceCategory.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "BindServiceCategory" + ex.ToString();
+            }
+            }
 
         private void BindBaseUnit()
         {
+            try{
             ds = objFK.BindBaseUnit();
             ddlBUOM.DataTextField = ds.Tables["tblBaseunitofmeasure"].Columns["Baseuom"].ToString(); // text field name of table dispalyed in dropdown
             ddlBUOM.DataValueField = ds.Tables["tblBaseunitofmeasure"].Columns["Baseuom"].ToString();             // to retrive specific  textfield name 
@@ -1127,20 +1257,32 @@ namespace DashboardProject.Modules.Finance
             ddlBUOM.DataBind();  //binding dropdownlist
             ddlBUOM.Items.Insert(0, new ListItem("------Select------", "0"));
             ddlBUOM.SelectedValue = "AU";
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "BindBaseUnit" + ex.ToString();
+            }
+            }
 
         private void BindMaterialGroup()
         {
+            try{
             ds = objFK.BindMaterialService();
             ddlMSG.DataTextField = ds.Tables["tblMaterialgrp"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
             ddlMSG.DataValueField = ds.Tables["tblMaterialgrp"].Columns["Materialgrpcode"].ToString();             // to retrive specific  textfield name 
             ddlMSG.DataSource = ds.Tables["tblMaterialgrp"];      //assigning datasource to the dropdownlist
             ddlMSG.DataBind();  //binding dropdownlist
             ddlMSG.Items.Insert(0, new ListItem("------Select------", "0"));
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "BindMaterialGroup" + ex.ToString();
+            }
+            }
 
         private void BindDivision()
         {
+            try{
             ds = objFK.BindDivision();
             ddlDivision.DataTextField = ds.Tables["tblDivision"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
             ddlDivision.DataValueField = ds.Tables["tblDivision"].Columns["Divisioncode"].ToString();             // to retrive specific  textfield name 
@@ -1148,10 +1290,16 @@ namespace DashboardProject.Modules.Finance
             ddlDivision.DataBind();  //binding dropdownlist
             ddlDivision.Items.Insert(0, new ListItem("------Select------", "0"));
             ddlDivision.SelectedValue = "10";
-        }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "BindDivision" + ex.ToString();
+            }
+            }
 
         private void BindValuationMethod()
         {
+            try{
             ds.Clear();
             //ds = objFK.BindValuation();
             //ddlValuationClass.DataTextField = ds.Tables["tblValuationClass"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
@@ -1172,11 +1320,16 @@ namespace DashboardProject.Modules.Finance
             conn.Close();
 
             ddlValuation.Items.Insert(0, new ListItem("------Select------", ""));
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "BindValuationMethod" + ex.ToString();
+            }
         }
 
         protected void InsertEmail()
         {
+            try{
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
                 using (SqlCommand cmdInsertEmail = new SqlCommand())
@@ -1200,13 +1353,18 @@ namespace DashboardProject.Modules.Finance
                     }
                     catch (SqlException e)
                     {
-                        lblError.Text = e.ToString();
+                        lblError.Text = "InsertEmail" + ex.ToString();
                     }
                     finally
                     {
                         connection.Close();
                     }
                 }
+            }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "InsertEmail" + ex.ToString();
             }
 
         }

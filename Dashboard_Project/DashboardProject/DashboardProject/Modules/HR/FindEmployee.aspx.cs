@@ -35,6 +35,7 @@ namespace ITLDashboard.Modules.HR
         DataTable table = new DataTable();
         protected void Page_Load(object sender, EventArgs e)
         {
+            try{
             if (!IsPostBack)
             {
                 //txtRemarksReview.Visible = false;
@@ -55,6 +56,11 @@ namespace ITLDashboard.Modules.HR
                 getUser();
                 getDepartment();
             }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Page_Load" + ex.ToString();
+            }
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -65,11 +71,12 @@ namespace ITLDashboard.Modules.HR
             }
             catch (Exception ex)
             {
-                lblError.Text = ex.ToString();
+                lblError.Text = "btnSearch_Click" + ex.ToString();
             }
         }
         protected void getData()
         {
+            try{
 
             cmd.CommandText = @"SELECT user_name
       ,user_email
@@ -102,10 +109,15 @@ namespace ITLDashboard.Modules.HR
             ddlLocation.SelectedIndex = -1;
             ddlDepartment.SelectedIndex = -1;
             abc.Visible = true;
-
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getData" + ex.ToString();
+            }
         }
         protected void getUser()
         {
+            try{
             string strQuery = @"select Distinct user_name, DisplayName + ' | ' + Department + ' | ' + Designation  as Description from tbluser where Designation is not null and Designation != ''";
 
             ds.Clear();
@@ -123,9 +135,15 @@ namespace ITLDashboard.Modules.HR
             ddlDisplayName.DataBind();  //binding dropdownlist
             ddlDisplayName.Items.Insert(0, new ListItem("------Select------", ""));
             conn.Close();
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getUser" + ex.ToString();
+            }
         }
         protected void getDepartment()
         {
+            try{
             string strQuery = @"select Distinct Department from tbluser where Department is not null and Department != ''";
 
             ds.Clear();
@@ -143,13 +161,24 @@ namespace ITLDashboard.Modules.HR
             ddlDepartment.DataBind();  //binding dropdownlist
             ddlDepartment.Items.Insert(0, new ListItem("------Select------", ""));
             conn.Close();
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "getDepartment" + ex.ToString();
+            }
         }
         protected void grdData_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
+            try{
             grdData.PageIndex = e.NewPageIndex;
             DataTable dtpaging = (DataTable)ViewState["paging"];
             grdData.DataSource = dtpaging;   // 6 feb 2014
             grdData.DataBind();
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "grdData_PageIndexChanging" + ex.ToString();
+            }
         }
     }
 }

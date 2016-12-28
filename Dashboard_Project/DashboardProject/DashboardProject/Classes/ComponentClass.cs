@@ -2170,7 +2170,7 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "Exec SP_AllowForms" + " @User_Name ='" + UserName + "', " +
                                 " @Form_Name ='" + FormName + "'";
-                        cmd.CommandType = CommandType.Text;
+                        cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "AllowForm");
@@ -2197,11 +2197,13 @@ namespace ITLDashboard.Classes
                     try
                     {
                         ds.Clear();
-                        string com = @"SELECT top(1)[FormID],TransactionID,[CreatedBy],Replace(isnull(a.DisplayName,b.RoughtingUserID), '.' ,' ') as user_name,a.user_email,[HierachyCategory],[RoughtingUserID],[Sequance] 
-        FROM [dbo].[sysWorkFlow] b left outer  join tbluser a on a.user_name=b.RoughtingUserID where  b.HierachyCategory = 3 and FormId= '" + FormID.ToString() + "'" +
-               "and TransactionID= '" + TransactionNo.ToString() + "' order by b.HierachyCategory asc,b.Sequance asc";
-                        SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
-                        adpt.Fill(ds, "MailForwardUserToReviwer");
+                        cmd.CommandText = "SP_MailForwardUserToReviwer";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        cmd.Parameters.AddWithValue("@TransactionID", TransactionNo.ToString());
+                        cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "MailForwardUserToReviwer");
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
@@ -2224,7 +2226,7 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "Exec SP_MailForwardUserToApprover" + " @TransactionID ='" + TransactionNo + "', " +
                                 " @FormID ='" + FormID + "'";
-                        cmd.CommandType = CommandType.Text;
+                        cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "MailForwardUserToApprover");
@@ -2250,7 +2252,7 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "Exec SP_MailForwardFormApprover" + " @TransactionID ='" + TransactionNo + "', " +
                                 " @UserName ='" + UserID + "', " +
                                 " @FormID ='" + FormID + "'";
-                        cmd.CommandType = CommandType.Text;
+                        cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "MailForwardFormApprover");
@@ -2263,7 +2265,7 @@ namespace ITLDashboard.Classes
                             cmd.CommandText = "";
                             cmd.CommandText = "Exec SP_MailForwardFormApproverToMDAOrOthers" + " @TransactionID ='" + TransactionNo + "', " +
                                     " @FormID ='" + FormID + "'";
-                            cmd.CommandType = CommandType.Text;
+                            cmd.CommandType = CommandType.StoredProcedure;
                             cmd.Connection = conn;
                             adp.SelectCommand = cmd;
                             adp.Fill(ds, "MailForwardFormApprover");
@@ -2286,11 +2288,14 @@ namespace ITLDashboard.Classes
                     try
                     {
                         ds.Clear();
-                        string com = @"SELECT top(1)[FormID],[TransactionID],[CreatedBy],Replace(isnull(a.DisplayName,b.RoughtingUserID), '.' ,' ') as user_name,a.user_email,[HierachyCategory],[RoughtingUserID],[Sequance] FROM [dbo].[sysWorkFlow] b 
-                               left outer  join tbluser a on a.user_name=b.RoughtingUserID where b.HierachyCategory = 1 and b.FormId= '" + FormID.ToString() +
-                                       "' and TransactionID= '" + TransactionNo.ToString() + "' order by b.HierachyCategory asc,b.Sequance asc";
-                        SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
-                        adpt.Fill(ds, "MailForwardToUserOnRejection");
+                        cmd.CommandText = "SP_MailForwardToUserOnRejection";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        cmd.Parameters.AddWithValue("@TransactionID", TransactionNo.ToString());
+                        cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "MailForwardToUserOnRejection");
+
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
@@ -2310,11 +2315,14 @@ namespace ITLDashboard.Classes
                     try
                     {
                         ds.Clear();
-                        string com = @"SELECT [FormID],TransactionID,[CreatedBy],Replace(isnull(a.DisplayName,b.RoughtingUserID), '.' ,' ') as user_name,a.user_email,[HierachyCategory],[RoughtingUserID],[Sequance] FROM [dbo].[sysWorkFlow] b 
-                               left outer  join tbluser a on a.user_name=b.RoughtingUserID where  b.HierachyCategory not in ('" + HierachyCategory.ToString() + "') and TransactionID= '" + TransactionNo.ToString() +
-                                       "' and  FormId= '" + FormID.ToString() + "' order by b.HierachyCategory asc,b.Sequance asc";
-                        SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
-                        adpt.Fill(ds, "MailForwardToAllFromMDA");
+                        cmd.CommandText = "SP_MailForwardToAllFromMDA";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        cmd.Parameters.AddWithValue("@TransactionID", TransactionNo.ToString());
+                        cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
+                        cmd.Parameters.AddWithValue("@HierachyCategory", HierachyCategory.ToString());
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "MailForwardToAllFromMDA");
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
@@ -2334,11 +2342,14 @@ namespace ITLDashboard.Classes
                     try
                     {
                         ds.Clear();
-                        string com = @"SELECT top(1)[FormID],TransactionID,[CreatedBy],Replace(isnull(a.DisplayName,b.RoughtingUserID), '.' ,' ') as user_name,a.user_email,[HierachyCategory],[RoughtingUserID],[Sequance] 
-                     FROM [dbo].[sysWorkFlow] b left outer  join tbluser a on a.user_name=b.RoughtingUserID where  b.HierachyCategory = '" + HierachyCategory.ToString() + "'   and b.FormId= '" + FormID.ToString() + "'" +
-                             " and TransactionID= '" + TransactionNo.ToString() + "' order by b.HierachyCategory desc";
-                        SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
-                        adpt.Fill(ds, "MailForwardToAllFromMDA");
+                        cmd.CommandText = "SP_MailForwardFromReviwerToMDA";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        cmd.Parameters.AddWithValue("@TransactionID", TransactionNo.ToString());
+                        cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
+                        cmd.Parameters.AddWithValue("@HierachyCategory", HierachyCategory.ToString());
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "MailForwardToAllFromMDA");
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
@@ -2358,11 +2369,14 @@ namespace ITLDashboard.Classes
                     try
                     {
                         ds.Clear();
-                        string com = @"SELECT [FormID],TransactionID,[CreatedBy],Replace(isnull(a.DisplayName,b.RoughtingUserID), '.' ,' ') as user_name,a.user_email,[HierachyCategory],[RoughtingUserID],[Sequance] FROM [dbo].[sysWorkFlow] b 
-                               left outer  join tbluser a on a.user_name=b.RoughtingUserID where  b.HierachyCategory = '" + HierachyCategory.ToString() + "' and TransactionID= '" + TransactionNo.ToString() +
-                                       "' and  FormId= '" + FormID.ToString() + "' order by b.HierachyCategory asc,b.Sequance asc";
-                        SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
-                        adpt.Fill(ds, "MailForwardToUserToMDA");
+                        cmd.CommandText = "SP_MailForwardToUserToMDA";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        cmd.Parameters.AddWithValue("@TransactionID", TransactionNo.ToString());
+                        cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
+                        cmd.Parameters.AddWithValue("@HierachyCategory", HierachyCategory.ToString());
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "MailForwardToUserToMDA");
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
@@ -2382,12 +2396,12 @@ namespace ITLDashboard.Classes
                     try
                     {
                         ds.Clear();
-                        string com = @"SELECT distinct s.user_email,s.DisplayName as user_name,w.RoughtingUserID,s.FormID,Status FROM tbl_EmailToSpecificPerson as S
-                                LEFT OUTER JOIN tbluser U ON S.user_name = u.user_name 
-                                LEFT OUTER JOIN sysWorkFlow W ON S.user_name = W.RoughtingUserID 
-                                 where S.FormID = '" + FormID.ToString() + "' and S.Status = '0'";
-                        SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
-                        adpt.Fill(ds, "tbl_EmailToSpecificPerson");
+                        cmd.CommandText = "SP_MailForwardToSpecificPerson";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "tbl_EmailToSpecificPerson");
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
@@ -2402,14 +2416,17 @@ namespace ITLDashboard.Classes
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                using (SqlCommand cmd = new SqlCommand())//
+                using (SqlCommand cmd = new SqlCommand())
                 {
                     try
                     {
                         ds.Clear();
-                        string com = @"select user_name,user_email,DisplayName from tbluser where user_name = '" + UserName.ToString() + "'";
-                        SqlDataAdapter adpt = new SqlDataAdapter(com, conn);
-                        adpt.Fill(ds, "MailForwardToAdminstrator");
+                        cmd.CommandText = "SP_MailForwardToAdminstrator";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        cmd.Parameters.AddWithValue("@Username", UserName.ToString());
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "MailForwardToAdminstrator");
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
@@ -2428,10 +2445,14 @@ namespace ITLDashboard.Classes
                 {
                     try
                     {
-                        string cmd = @"select * from tbluser where user_name = '" + UserID + "'";
 
-                        SqlDataAdapter adpt = new SqlDataAdapter(cmd, conn);
-                        adpt.Fill(ds, "MailForwardToForwarder");
+                        ds.Clear();
+                        cmd.CommandText = @"select * from tbluser where user_name = @UserID";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        cmd.Parameters.AddWithValue("@UserID", UserID.ToString());
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "MailForwardToForwarder");
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
