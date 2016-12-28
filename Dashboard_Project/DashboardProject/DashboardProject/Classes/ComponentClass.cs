@@ -2445,10 +2445,14 @@ namespace ITLDashboard.Classes
                 {
                     try
                     {
-                        string cmd1 = @"select * from tbluser where user_name = '" + UserID + "'";
 
-                        SqlDataAdapter adpt = new SqlDataAdapter(cmd1, conn);
-                        adpt.Fill(ds, "MailForwardToForwarder");
+                        ds.Clear();
+                        cmd.CommandText = @"select * from tbluser where user_name = @UserID";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        cmd.Parameters.AddWithValue("@UserID", UserID.ToString());
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "MailForwardToForwarder");
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
