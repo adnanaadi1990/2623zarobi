@@ -103,7 +103,7 @@ namespace DashboardProject.Modules.Master
             try
             {
                 string Link = "";
-                cmd.CommandText = @"select top(1) TransactionMain,TransactionID from tbl_SYS_MaterialMaster where TransactionID = @TNo";
+                cmd.CommandText = @"select top(1) TransactionMain,TransactionID from tbl_SYS_MaterialMaster where TransactionID = @TNo and MaterialType in ('FERT','HAWA')";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
                 cmd.Parameters.AddWithValue("@TNo", txtFormID.Text.ToString());
