@@ -547,7 +547,7 @@ namespace DashboardProject.Modules.Finance
                     }
 
 
-                    catch (SqlException e)
+                    catch (SqlException ex)
                     {
                         lblError.Text = "UpdateSerialNumberAll" + ex.ToString();
                     }
