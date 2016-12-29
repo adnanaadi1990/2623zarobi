@@ -1015,7 +1015,7 @@ namespace DashboardProject.Modules.Finance
                                 cmdInsertEmail.ExecuteNonQuery();
 
                             }
-                            catch (SqlException e)
+                            catch (SqlException ex)
                             {
                                 lblError.Text = "GetHarcheyNextData" + ex.ToString();
                             }
@@ -1067,7 +1067,7 @@ namespace DashboardProject.Modules.Finance
                         cmdInsertEmail.ExecuteNonQuery();
 
                     }
-                    catch (SqlException e)
+                    catch (SqlException ex)
                     {
                         lblError.Text = "InsertTransferEmail" + ex.ToString();
                     }
@@ -1129,9 +1129,9 @@ namespace DashboardProject.Modules.Finance
                             cmdInsert.ExecuteNonQuery();
 
                         }
-                        catch (SqlException e)
+                        catch (SqlException ex)
                         {
-                            lblError.Text = e.ToString();
+                            lblError.Text = ex.ToString();
                         }
                         finally
                         {
@@ -1351,7 +1351,7 @@ namespace DashboardProject.Modules.Finance
                         cmdInsertEmail.ExecuteNonQuery();
 
                     }
-                    catch (SqlException e)
+                    catch (SqlException ex)
                     {
                         lblError.Text = "InsertEmail" + ex.ToString();
                     }
@@ -1571,9 +1571,9 @@ namespace DashboardProject.Modules.Finance
                         cmdInsertEmail.ExecuteNonQuery();
 
                     }
-                    catch (SqlException e)
+                    catch (SqlException ex)
                     {
-                        lblError.Text = e.ToString();
+                        lblError.Text = ex.ToString();
                     }
                     finally
                     {
@@ -1604,9 +1604,9 @@ namespace DashboardProject.Modules.Finance
                         cmdClosedFormAfterReject.ExecuteNonQuery();
 
                     }
-                    catch (SqlException e)
+                    catch (SqlException ex)
                     {
-                        lblError.Text = e.ToString();
+                        lblError.Text = ex.ToString();
                     }
                     finally
                     {
