@@ -113,7 +113,7 @@ namespace DashboardProject.Modules.Inventorymanagement
 
 
                         BindsysApplicationStatus();
-                        GetSockDetail();
+                      //  GetSockDetail();
                         GetHarcheyID();
                         getUserDetail();
                         GetStatusHierachyCategoryControls();
@@ -325,7 +325,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                 lblError.Text = "GetHarcheyID" + ex.ToString();
             }
         }
-        /////////////////////////////-----------------/BindUser Method-----------------------///////////////////////////////
+        /////////////////////////////-----------------BindUser Method-----------------------///////////////////////////////
         private void BindUser()
         {
             try
