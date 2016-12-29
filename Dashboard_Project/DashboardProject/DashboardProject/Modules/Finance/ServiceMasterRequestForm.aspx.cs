@@ -180,21 +180,29 @@ namespace DashboardProject.Modules.Finance
                     else
                     {
                         ds = obj.CheckSapID(Session["User_Name"].ToString());
-                        string Value = ds.Tables["SAPID"].Rows[0]["SAPID"].ToString();
-                        if (Value != "")
+                        if (ds.Tables["SAPID"].Rows.Count> 0)
                         {
-                            ////dvType.Visible = true;
-                            getUserDetail();
-                            getUser();
-                            getUserHOD();
-                            madatorycolor();
-                            GetTransactionID();
-                            BindPageLoad();
+                            string Value = ds.Tables["SAPID"].Rows[0]["SAPID"].ToString();
+                            if (Value != "")
+                            {
+                                ////dvType.Visible = true;
+                                getUserDetail();
+                                getUser();
+                                getUserHOD();
+                                madatorycolor();
+                                GetTransactionID();
+                                BindPageLoad();
+                            }
+                            else
+                            {
+                                Response.Redirect("~/AccessDenied.aspx");
+                            }
                         }
                         else
                         {
                             Response.Redirect("~/AccessDenied.aspx");
                         }
+                      
                     }
                 }
                 catch (Exception ex)
