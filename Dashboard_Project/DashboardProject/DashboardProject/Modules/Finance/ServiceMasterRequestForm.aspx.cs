@@ -547,7 +547,7 @@ namespace DashboardProject.Modules.Finance
                     }
 
 
-                    catch (SqlException e)
+                    catch (SqlException ex)
                     {
                         lblError.Text = "UpdateSerialNumberAll" + ex.ToString();
                     }
@@ -1015,7 +1015,7 @@ namespace DashboardProject.Modules.Finance
                                 cmdInsertEmail.ExecuteNonQuery();
 
                             }
-                            catch (SqlException e)
+                            catch (SqlException ex)
                             {
                                 lblError.Text = "GetHarcheyNextData" + ex.ToString();
                             }
@@ -1067,7 +1067,7 @@ namespace DashboardProject.Modules.Finance
                         cmdInsertEmail.ExecuteNonQuery();
 
                     }
-                    catch (SqlException e)
+                    catch (SqlException ex)
                     {
                         lblError.Text = "InsertTransferEmail" + ex.ToString();
                     }
@@ -1351,7 +1351,7 @@ namespace DashboardProject.Modules.Finance
                         cmdInsertEmail.ExecuteNonQuery();
 
                     }
-                    catch (SqlException e)
+                    catch (SqlException ex)
                     {
                         lblError.Text = "InsertEmail" + ex.ToString();
                     }
