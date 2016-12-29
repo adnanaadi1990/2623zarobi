@@ -314,7 +314,6 @@ namespace DashboardProject.Modules.Inventorymanagement
                 lblError.Text = "getUserDetail" + ex.ToString();
             }
         }
-
         private void GetHarcheyID()
         {
 

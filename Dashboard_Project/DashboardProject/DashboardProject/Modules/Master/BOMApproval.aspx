@@ -155,7 +155,7 @@
             display: none;
         }
 
-        .btn-primary {
+        .btn-primary {            height: 26px;
         }
     </style>
 

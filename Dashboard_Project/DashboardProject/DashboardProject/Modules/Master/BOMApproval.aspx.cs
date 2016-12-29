@@ -376,7 +376,7 @@ namespace DashboardProject.Modules.Master
                     {
                         using (SqlDataAdapter sda = new SqlDataAdapter())
                         {
-                            string Approval = ViewState["HOD"].ToString() + "," + Notification.ToString();
+                            string Approval = ViewState["HOD"].ToString() ;
                             cmd.Connection = con;
                             cmd.CommandType = CommandType.StoredProcedure;
                             cmd.Parameters.AddWithValue("@TransactionMain", ddlPlant.SelectedValue.ToString());
@@ -438,7 +438,7 @@ namespace DashboardProject.Modules.Master
         protected void btnApproved_Click(object sender, EventArgs e)
         {
 
-            //Approve Fahad
+ 
         }
 
         protected void btnReject_Click(object sender, EventArgs e)
