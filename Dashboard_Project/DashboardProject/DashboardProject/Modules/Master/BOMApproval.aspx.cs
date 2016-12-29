@@ -50,37 +50,38 @@ namespace DashboardProject.Modules.Master
         DataTable tableEmail = new DataTable();
         protected void Page_Load(object sender, EventArgs e)
         {
-            try{
-            if (!IsPostBack)
+            try
             {
-                if (Session["User_Name"] == null)
+                if (!IsPostBack)
                 {
-                    HttpContext con = HttpContext.Current;
-                    con.Request.Url.ToString();
+                    if (Session["User_Name"] == null)
+                    {
+                        HttpContext con = HttpContext.Current;
+                        con.Request.Url.ToString();
 
-                    Session["Test"] = con.Request.Url.ToString();
+                        Session["Test"] = con.Request.Url.ToString();
 
-                    //  Response.Redirect("~/SingleLogin.aspx");
-                }
-                if (Session["User_Name"] == null)
-                {
-                    Response.Redirect("~/SingleLogin.aspx");
-                }
-                if (Request.QueryString["TransactionNo"] != null)
-                {
+                        //  Response.Redirect("~/SingleLogin.aspx");
+                    }
+                    if (Session["User_Name"] == null)
+                    {
+                        Response.Redirect("~/SingleLogin.aspx");
+                    }
+                    if (Request.QueryString["TransactionNo"] != null)
+                    {
 
+                    }
+                    else
+                    {
+                        BindGrid();
+                        BindPlant();
+                        GetTransactionID();
+                        getUserHOD();
+                        mandatcolor();
+                        BindUser();
+                        getUserDetail();
+                    }
                 }
-                else
-                {
-                    BindGrid();
-                    BindPlant();
-                    GetTransactionID();
-                    getUserHOD();
-                    mandatcolor();
-                    BindUser();
-                    getUserDetail();
-                }
-            }
             }
             catch (Exception ex)
             {
@@ -89,14 +90,15 @@ namespace DashboardProject.Modules.Master
         }
 
         private void mandatcolor()
-        {   
-            try{
-            txtBaseQuantity.BackColor = System.Drawing.Color.AliceBlue;
-            ddlPlant.BackColor = System.Drawing.Color.AliceBlue;
-            ddlStorageLocation.BackColor = System.Drawing.Color.AliceBlue;
-            txtMaterial.BackColor = System.Drawing.Color.AliceBlue;
-            txtDescription.BackColor = System.Drawing.Color.AliceBlue;
-        }
+        {
+            try
+            {
+                txtBaseQuantity.BackColor = System.Drawing.Color.AliceBlue;
+                ddlPlant.BackColor = System.Drawing.Color.AliceBlue;
+                ddlStorageLocation.BackColor = System.Drawing.Color.AliceBlue;
+                txtMaterial.BackColor = System.Drawing.Color.AliceBlue;
+                txtDescription.BackColor = System.Drawing.Color.AliceBlue;
+            }
             catch (Exception ex)
             {
                 lblError.Text = "mandatcolor" + ex.ToString();
@@ -109,18 +111,19 @@ namespace DashboardProject.Modules.Master
 
         private void BindGrid()
         {
-            try{
-            DataTable dt = new DataTable();
-            dt.Columns.AddRange(new DataColumn[7] { new DataColumn("TransactionID"), new DataColumn("ComponentType"), new DataColumn("Material"), new DataColumn("MaterialDescription"), new DataColumn("Quantity"), new DataColumn("UOM"), new DataColumn("StoreLocation") });
-            DataColumn c = new DataColumn("sno", typeof(int));
-            c.AutoIncrement = true;
-            c.AutoIncrementSeed = 1;
-            c.AutoIncrementStep = 1;
-            dt.Columns.Add(c);
-            ViewState["BOMGrid"] = dt;
-            GridView1.DataSource = (DataTable)ViewState["BOMGrid"];
-            GridView1.DataBind();
-            GridView1.Columns[0].Visible = true;
+            try
+            {
+                DataTable dt = new DataTable();
+                dt.Columns.AddRange(new DataColumn[7] { new DataColumn("TransactionID"), new DataColumn("ComponentType"), new DataColumn("Material"), new DataColumn("MaterialDescription"), new DataColumn("Quantity"), new DataColumn("UOM"), new DataColumn("StoreLocation") });
+                DataColumn c = new DataColumn("sno", typeof(int));
+                c.AutoIncrement = true;
+                c.AutoIncrementSeed = 1;
+                c.AutoIncrementStep = 1;
+                dt.Columns.Add(c);
+                ViewState["BOMGrid"] = dt;
+                GridView1.DataSource = (DataTable)ViewState["BOMGrid"];
+                GridView1.DataBind();
+                GridView1.Columns[0].Visible = true;
             }
             catch (Exception ex)
             {
@@ -130,80 +133,81 @@ namespace DashboardProject.Modules.Master
 
         protected void Add(object sender, EventArgs e)
         {
-            try{
-            if (ddlPlant.SelectedValue != "")
+            try
             {
-                lblgridError.Text = "";
-                Control control = null;
-                if (GridView1.FooterRow != null)
+                if (ddlPlant.SelectedValue != "")
                 {
-                    control = GridView1.FooterRow;
-                }
-                else
-                {
-                    control = GridView1.Controls[0].Controls[0];
-                }
-                string customerName = (control.FindControl("ddlComponentType") as DropDownList).SelectedValue;
-                string companyName2 = (control.FindControl("txtMaterial") as TextBox).Text;
-                string companyName3 = (control.FindControl("txtMaterialDescription") as TextBox).Text;
-                string companyName4 = (control.FindControl("txtQuantity") as TextBox).Text;
-                string companyName5 = (control.FindControl("ddlUOM") as DropDownList).SelectedValue;
-                string companyName6 = (control.FindControl("ddlStLoc") as DropDownList).SelectedValue;
-
-                if (customerName.ToString() == "")
-                {
-                    lblgridError.Text = "Component Type should not be left blank";
-                    return;
-                }
-                if (companyName2.ToString() == "")
-                {
-                    lblgridError.Text = "Material No should not be left blank";
-                    return;
-                }
-                if (companyName3.ToString() == "")
-                {
-                    lblgridError.Text = "Material Description should not be left blank";
-                    return;
-                }
-                if (companyName4.ToString() == "")
-                {
-                    lblgridError.Text = "Quantity should not be left blank";
-                    return;
-                }
-                if (companyName5.ToString() == "")
-                {
-                    lblgridError.Text = "UOM should not be left blank";
-                    return;
-                }
-                if (companyName6.ToString() == "")
-                {
-                    lblgridError.Text = "Store Location should not be left blank";
-                    return;
-                }
-                else
-                {
-                    DataTable dt = (DataTable)ViewState["BOMGrid"];
-                    dt.Rows.Add("", customerName.ToString().Trim(), companyName2.ToString().Trim(), companyName3.ToString().Trim(),
-                       companyName4.ToString().Trim(), companyName5.ToString().Trim(), companyName6.ToString().Trim());
-                    ViewState["BOMGrid"] = dt;
-                    GridView1.DataSource = (DataTable)ViewState["BOMGrid"];
-                    GridView1.DataBind();
-                    GridView1.Columns[0].Visible = true;
-
-
-                    float GTotal = 0f;
-                    for (int i = 0; i < GridView1.Rows.Count; i++)
+                    lblgridError.Text = "";
+                    Control control = null;
+                    if (GridView1.FooterRow != null)
                     {
-                        String total = (GridView1.Rows[i].FindControl("lblQuantity") as Label).Text;
-                        GTotal += Convert.ToSingle(total);
+                        control = GridView1.FooterRow;
                     }
-                    lblSum.Text = GTotal.ToString();
+                    else
+                    {
+                        control = GridView1.Controls[0].Controls[0];
+                    }
+                    string customerName = (control.FindControl("ddlComponentType") as DropDownList).SelectedValue;
+                    string companyName2 = (control.FindControl("txtMaterial") as TextBox).Text;
+                    string companyName3 = (control.FindControl("txtMaterialDescription") as TextBox).Text;
+                    string companyName4 = (control.FindControl("txtQuantity") as TextBox).Text;
+                    string companyName5 = (control.FindControl("ddlUOM") as DropDownList).SelectedValue;
+                    string companyName6 = (control.FindControl("ddlStLoc") as DropDownList).SelectedValue;
+
+                    if (customerName.ToString() == "")
+                    {
+                        lblgridError.Text = "Component Type should not be left blank";
+                        return;
+                    }
+                    if (companyName2.ToString() == "")
+                    {
+                        lblgridError.Text = "Material No should not be left blank";
+                        return;
+                    }
+                    if (companyName3.ToString() == "")
+                    {
+                        lblgridError.Text = "Material Description should not be left blank";
+                        return;
+                    }
+                    if (companyName4.ToString() == "")
+                    {
+                        lblgridError.Text = "Quantity should not be left blank";
+                        return;
+                    }
+                    if (companyName5.ToString() == "")
+                    {
+                        lblgridError.Text = "UOM should not be left blank";
+                        return;
+                    }
+                    if (companyName6.ToString() == "")
+                    {
+                        lblgridError.Text = "Store Location should not be left blank";
+                        return;
+                    }
+                    else
+                    {
+                        DataTable dt = (DataTable)ViewState["BOMGrid"];
+                        dt.Rows.Add("", customerName.ToString().Trim(), companyName2.ToString().Trim(), companyName3.ToString().Trim(),
+                           companyName4.ToString().Trim(), companyName5.ToString().Trim(), companyName6.ToString().Trim());
+                        ViewState["BOMGrid"] = dt;
+                        GridView1.DataSource = (DataTable)ViewState["BOMGrid"];
+                        GridView1.DataBind();
+                        GridView1.Columns[0].Visible = true;
+
+
+                        float GTotal = 0f;
+                        for (int i = 0; i < GridView1.Rows.Count; i++)
+                        {
+                            String total = (GridView1.Rows[i].FindControl("lblQuantity") as Label).Text;
+                            GTotal += Convert.ToSingle(total);
+                        }
+                        lblSum.Text = GTotal.ToString();
+                    }
                 }
-            }
-            else
-            {
-                lblgridError.Text = "Select any plant!";
-            }
+                else
+                {
+                    lblgridError.Text = "Select any plant!";
+                }
             }
             catch (Exception ex)
             {
@@ -214,7 +218,6 @@ namespace DashboardProject.Modules.Master
 
         private DataSet GetData(string query)
         {
-            try{
             string conString = ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString;
             SqlCommand cmd = new SqlCommand(query);
             using (SqlConnection con = new SqlConnection(conString))
@@ -232,11 +235,6 @@ namespace DashboardProject.Modules.Master
                     }
                 }
             }
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "DataSet GetData" + ex.ToString();
-            }
         }
 
         #endregion
@@ -245,20 +243,21 @@ namespace DashboardProject.Modules.Master
 
         private void BindPlant()
         {
-            try{
-            ds.Clear();
-            ds = obj.BindPlant();
-            ddlPlant.DataTextField = ds.Tables["Plant"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
-            ddlPlant.DataValueField = ds.Tables["Plant"].Columns["PlantId"].ToString();             // to retrive specific  textfield name 
-            ddlPlant.DataSource = ds.Tables["Plant"];      //assigning datasource to the dropdownlist
-            ddlPlant.DataBind();  //binding dropdownlist
-            ddlPlant.Items.Insert(0, new ListItem("------Select------", ""));
+            try
+            {
+                ds.Clear();
+                ds = obj.BindPlant();
+                ddlPlant.DataTextField = ds.Tables["Plant"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
+                ddlPlant.DataValueField = ds.Tables["Plant"].Columns["PlantId"].ToString();             // to retrive specific  textfield name 
+                ddlPlant.DataSource = ds.Tables["Plant"];      //assigning datasource to the dropdownlist
+                ddlPlant.DataBind();  //binding dropdownlist
+                ddlPlant.Items.Insert(0, new ListItem("------Select------", ""));
             }
             catch (Exception ex)
             {
                 lblError.Text = "BindPlant" + ex.ToString();
             }
-            }
+        }
 
         private void GetTransactionID()
         {
@@ -438,7 +437,7 @@ namespace DashboardProject.Modules.Master
 
         protected void btnApproved_Click(object sender, EventArgs e)
         {
-            
+
             //Approve Fahad
         }
 
@@ -508,21 +507,22 @@ namespace DashboardProject.Modules.Master
 
         protected void ddlPlant_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try{
-            ddlStorageLocation.DataSource = GetData("SP_StorageLocationPlantWise");
-            ddlStorageLocation.DataTextField = "Description";
-            ddlStorageLocation.DataValueField = "StorageLocationcode";
-            ddlStorageLocation.DataBind();
-            //Add Default Item in the DropDownList
-            ddlStorageLocation.Items.Insert(0, new ListItem("------Select------", ""));
-            GridView1.DataSource = (DataTable)ViewState["BOMGrid"];
-            GridView1.DataBind();
-            lblgridError.Text = "";
-            for (int i = 0; i < ddlNotification.Items.Count; i++)
+            try
             {
-                ddlNotification.Items[i].Selected = true;
-                ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
-            }
+                ddlStorageLocation.DataSource = GetData("SP_StorageLocationPlantWise");
+                ddlStorageLocation.DataTextField = "Description";
+                ddlStorageLocation.DataValueField = "StorageLocationcode";
+                ddlStorageLocation.DataBind();
+                //Add Default Item in the DropDownList
+                ddlStorageLocation.Items.Insert(0, new ListItem("------Select------", ""));
+                GridView1.DataSource = (DataTable)ViewState["BOMGrid"];
+                GridView1.DataBind();
+                lblgridError.Text = "";
+                for (int i = 0; i < ddlNotification.Items.Count; i++)
+                {
+                    ddlNotification.Items[i].Selected = true;
+                    ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
+                }
             }
             catch (Exception ex)
             {
@@ -532,19 +532,20 @@ namespace DashboardProject.Modules.Master
 
         protected void OnDataBound(object sender, EventArgs e)
         {
-            try{
+            try
+            {
 
-            conn.Close();
+                conn.Close();
 
-            cmd.CommandText = "";
-            //Find the DropDownList in the Row
-            DropDownList ddlCountries = GridView1.FooterRow.FindControl("ddlStLoc") as DropDownList;
-            ddlCountries.DataSource = GetData("SP_StorageLocation");
-            ddlCountries.DataTextField = "Description";
-            ddlCountries.DataValueField = "StorageLocationcode";
-            ddlCountries.DataBind();
-            //Add Default Item in the DropDownList
-            ddlCountries.Items.Insert(0, new ListItem("Please select"));
+                cmd.CommandText = "";
+                //Find the DropDownList in the Row
+                DropDownList ddlCountries = GridView1.FooterRow.FindControl("ddlStLoc") as DropDownList;
+                ddlCountries.DataSource = GetData("SP_StorageLocation");
+                ddlCountries.DataTextField = "Description";
+                ddlCountries.DataValueField = "StorageLocationcode";
+                ddlCountries.DataBind();
+                //Add Default Item in the DropDownList
+                ddlCountries.Items.Insert(0, new ListItem("Please select"));
             }
             catch (Exception ex)
             {
@@ -554,40 +555,41 @@ namespace DashboardProject.Modules.Master
 
         protected void insertLineItem()
         {
-            try{
-            DataTable dt = (DataTable)ViewState["BOMGrid"];
-
-            for (int i = 0; i <= dt.Rows.Count - 1; i++)
+            try
             {
-                dt.Rows[i]["TransactionID"] = lblMaxTransactionID.Text;
-                dt.AcceptChanges();
-            }
+                DataTable dt = (DataTable)ViewState["BOMGrid"];
 
-            if (dt.Rows.Count > 0)
-            {
-                string consString = ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(consString))
+                for (int i = 0; i <= dt.Rows.Count - 1; i++)
                 {
-                    using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(con))
-                    {
-                        //Set the database table name
-                        sqlBulkCopy.DestinationTableName = "dbo.tbl_BOM_Approval_ITEM";
+                    dt.Rows[i]["TransactionID"] = lblMaxTransactionID.Text;
+                    dt.AcceptChanges();
+                }
 
-                        //[OPTIONAL]: Map the DataTable columns with that of the database table
-                        sqlBulkCopy.ColumnMappings.Add("Sno", "Sequance");
-                        sqlBulkCopy.ColumnMappings.Add("TransactionID", "TransactionID");
-                        sqlBulkCopy.ColumnMappings.Add("ComponentType", "ComType");
-                        sqlBulkCopy.ColumnMappings.Add("Material", "MaterialNo");
-                        sqlBulkCopy.ColumnMappings.Add("MaterialDescription", "MaterialDesc");
-                        sqlBulkCopy.ColumnMappings.Add("Quantity", "QTY");
-                        sqlBulkCopy.ColumnMappings.Add("UOM", "UOM");
-                        sqlBulkCopy.ColumnMappings.Add("StoreLocation", "StorageLocation");
-                        con.Open();
-                        sqlBulkCopy.WriteToServer(dt);
-                        con.Close();
+                if (dt.Rows.Count > 0)
+                {
+                    string consString = ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString;
+                    using (SqlConnection con = new SqlConnection(consString))
+                    {
+                        using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(con))
+                        {
+                            //Set the database table name
+                            sqlBulkCopy.DestinationTableName = "dbo.tbl_BOM_Approval_ITEM";
+
+                            //[OPTIONAL]: Map the DataTable columns with that of the database table
+                            sqlBulkCopy.ColumnMappings.Add("Sno", "Sequance");
+                            sqlBulkCopy.ColumnMappings.Add("TransactionID", "TransactionID");
+                            sqlBulkCopy.ColumnMappings.Add("ComponentType", "ComType");
+                            sqlBulkCopy.ColumnMappings.Add("Material", "MaterialNo");
+                            sqlBulkCopy.ColumnMappings.Add("MaterialDescription", "MaterialDesc");
+                            sqlBulkCopy.ColumnMappings.Add("Quantity", "QTY");
+                            sqlBulkCopy.ColumnMappings.Add("UOM", "UOM");
+                            sqlBulkCopy.ColumnMappings.Add("StoreLocation", "StorageLocation");
+                            con.Open();
+                            sqlBulkCopy.WriteToServer(dt);
+                            con.Close();
+                        }
                     }
                 }
-            }
             }
             catch (Exception ex)
             {
@@ -1047,11 +1049,12 @@ namespace DashboardProject.Modules.Master
 
         private void BindsysApplicationStatus()
         {
-            try{
-            ds = obj.BindsysApplicationStatus(lblMaxTransactionID.Text, FormID.ToString());
-            grdWStatus.DataSource = ds.Tables["BindsysApplicationStatus"];
-            grdWStatus.DataBind();
-            grdWStatus.Visible = true;
+            try
+            {
+                ds = obj.BindsysApplicationStatus(lblMaxTransactionID.Text, FormID.ToString());
+                grdWStatus.DataSource = ds.Tables["BindsysApplicationStatus"];
+                grdWStatus.DataBind();
+                grdWStatus.Visible = true;
             }
             catch (Exception ex)
             {
@@ -1060,24 +1063,25 @@ namespace DashboardProject.Modules.Master
         }
         private void GetStatusHierachyCategoryControls()
         {
-            try{
-            ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString(), ViewState["SerialNo"].ToString(), ViewState["Status"].ToString());
-            if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
+            try
             {
-                ViewState["StatusHierachyCategory"] = ds.Tables["tbl_SysHierarchyControl"].Rows[0]["Status"].ToString();
-            }
-            if (((string)ViewState["StatusHierachyCategory"]) == "01" || ((string)ViewState["StatusHierachyCategory"]) == "02" || ((string)ViewState["StatusHierachyCategory"]) == "03" || ((string)ViewState["StatusHierachyCategory"]) == "04" || ((string)ViewState["StatusHierachyCategory"]) == "00" || ((string)ViewState["StatusHierachyCategory"]) == "06")
-            {
-                btnSave.Enabled = false;
-                btnReject.Attributes.Add("disabled", "true");
-                btnApproved.Enabled = false;
-                btnMDA.Enabled = false;
-                btnCancel.Enabled = false;
-                btnSaveSubmit.Enabled = false;
-                txtRemarksReview.Enabled = false;
-                txtBillOfMaterial.Enabled = false;
+                ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString(), ViewState["SerialNo"].ToString(), ViewState["Status"].ToString());
+                if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
+                {
+                    ViewState["StatusHierachyCategory"] = ds.Tables["tbl_SysHierarchyControl"].Rows[0]["Status"].ToString();
+                }
+                if (((string)ViewState["StatusHierachyCategory"]) == "01" || ((string)ViewState["StatusHierachyCategory"]) == "02" || ((string)ViewState["StatusHierachyCategory"]) == "03" || ((string)ViewState["StatusHierachyCategory"]) == "04" || ((string)ViewState["StatusHierachyCategory"]) == "00" || ((string)ViewState["StatusHierachyCategory"]) == "06")
+                {
+                    btnSave.Enabled = false;
+                    btnReject.Attributes.Add("disabled", "true");
+                    btnApproved.Enabled = false;
+                    btnMDA.Enabled = false;
+                    btnCancel.Enabled = false;
+                    btnSaveSubmit.Enabled = false;
+                    txtRemarksReview.Enabled = false;
+                    txtBillOfMaterial.Enabled = false;
 
-            }
+                }
             }
             catch (Exception ex)
             {
@@ -1105,23 +1109,24 @@ namespace DashboardProject.Modules.Master
         }
         private void GetHarcheyID()
         {
-            try{
-            ds = obj.GetHarachyCustomerMaster(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
-            dt = ds.Tables["HID"];
-            ViewState["HIDDataSet"] = dt;
-
-            if (ds.Tables["HID"].Rows.Count > 0)
+            try
             {
-                lblMaxTransactionID.Text = ds.Tables["HID"].Rows[0]["TransactionID"].ToString();
-                ViewState["HID"] = ds.Tables["HID"].Rows[0]["HierachyCategory"].ToString();
-                ViewState["RoughtingUserID"] = ds.Tables["HID"].Rows[0]["RoughtingUserID"].ToString();
-                ViewState["Sequance"] = ds.Tables["HID"].Rows[0]["Sequance"].ToString();
-                ViewState["FormCreatedBy"] = ds.Tables["HID"].Rows[0]["CreatedBy"].ToString();
-                ViewState["SerialNo"] = ds.Tables["HID"].Rows[0]["SerialNo"].ToString();
+                ds = obj.GetHarachyCustomerMaster(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
+                dt = ds.Tables["HID"];
+                ViewState["HIDDataSet"] = dt;
 
-                ViewState["Status"] = ds.Tables["HID"].Rows[0]["Status"].ToString();
+                if (ds.Tables["HID"].Rows.Count > 0)
+                {
+                    lblMaxTransactionID.Text = ds.Tables["HID"].Rows[0]["TransactionID"].ToString();
+                    ViewState["HID"] = ds.Tables["HID"].Rows[0]["HierachyCategory"].ToString();
+                    ViewState["RoughtingUserID"] = ds.Tables["HID"].Rows[0]["RoughtingUserID"].ToString();
+                    ViewState["Sequance"] = ds.Tables["HID"].Rows[0]["Sequance"].ToString();
+                    ViewState["FormCreatedBy"] = ds.Tables["HID"].Rows[0]["CreatedBy"].ToString();
+                    ViewState["SerialNo"] = ds.Tables["HID"].Rows[0]["SerialNo"].ToString();
 
-            }
+                    ViewState["Status"] = ds.Tables["HID"].Rows[0]["Status"].ToString();
+
+                }
             }
             catch (Exception ex)
             {

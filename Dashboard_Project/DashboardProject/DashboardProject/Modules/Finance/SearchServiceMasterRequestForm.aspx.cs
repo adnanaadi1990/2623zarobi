@@ -35,33 +35,36 @@ namespace DashboardProject.Modules.Finance
         SqlCommand cmd = new SqlCommand();
         DataTable table = new DataTable();
         public static string FormID = "SMRF01";
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            try{
-            if (!IsPostBack)
+            try
             {
-                txtFormID.Text = "";
-                lblError.Text = "";
-                if (Session["User_Name"] == null)
+                if (!IsPostBack)
                 {
-                    HttpContext con = HttpContext.Current;
-                    con.Request.Url.ToString();
+                    txtFormID.Text = "";
+                    lblError.Text = "";
+                    if (Session["User_Name"] == null)
+                    {
+                        HttpContext con = HttpContext.Current;
+                        con.Request.Url.ToString();
 
-                    Session["Test"] = con.Request.Url.ToString();
+                        Session["Test"] = con.Request.Url.ToString();
 
-                    //  Response.Redirect("~/SingleLogin.aspx");
+                        //  Response.Redirect("~/SingleLogin.aspx");
+                    }
+                    if (Session["User_Name"] == null)
+                    {
+                        Response.Redirect("~/SingleLogin.aspx");
+                    }
                 }
-                if (Session["User_Name"] == null)
-                {
-                    Response.Redirect("~/SingleLogin.aspx");
-                }
-            }
             }
             catch (Exception ex)
             {
                 lblError.Text = "Page_Load" + ex.ToString();
             }
         }
+
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             try
@@ -73,19 +76,21 @@ namespace DashboardProject.Modules.Finance
                 lblError.Text = "btnSearch_Click" + ex.ToString();
             }
         }
+
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            try{
-            //string url = HttpContext.Current.Request.Url.ToString();
-            //Response.Redirect(url.ToString());
-            string url = Request.Url.ToString();
-            Response.Redirect(url.ToString());
+            try
+            {
+                //string url = HttpContext.Current.Request.Url.ToString();
+                //Response.Redirect(url.ToString());
+                string url = Request.Url.ToString();
+                Response.Redirect(url.ToString());
             }
             catch (Exception ex)
             {
                 lblError.Text = "btnCancel_Click" + ex.ToString();
             }
-            }
+        }
         protected void getFileName()
         {
             try

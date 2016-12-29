@@ -250,9 +250,9 @@ namespace ITLDashboard.Classes
 
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "SP_CheckSapID";
-                        cmd.CommandType = CommandType.Text;
-                        cmd.Connection = conn;
+                        cmd.CommandText = "SP_Check_SAPID";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
                         cmd.Parameters.AddWithValue("@user_name", "%" + username.ToString() + "%");
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "SAPID");
