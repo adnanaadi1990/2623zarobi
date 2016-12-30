@@ -155,7 +155,7 @@
             display: none;
         }
 
-        .btn-primary {
+        .btn-primary {            height: 26px;
         }
     </style>
 
@@ -569,7 +569,7 @@
                         <div class="col-sm-12" style="text-align: center;">
                             <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" OnClientClick="return AllowOneClick()" Text="Save" Width="100px" OnClick="btnSave_Click"></asp:Button>
                             <asp:Button ID="btnSaveSubmit" runat="server" CssClass="btn btn-primary" Text="Save / Submit" Width="100px" Visible="False" ValidationGroup="grpSave" OnClientClick="return AllowOneClick()" CausesValidation="False" OnClick="btnSaveSubmit_Click"></asp:Button>
-                            <asp:Button ID="btnApproved" runat="server" CssClass="btn btn-primary" Text="Approve" OnClick="btnApproved_Click" Width="100px" Visible="False" OnClientClick="return AllowOneClick()"></asp:Button>
+                            <asp:Button ID="btnApproved" runat="server" CssClass="btn btn-primary" Text="Approve" OnClick="btnApproved_Click" Width="100px" OnClientClick="return AllowOneClick()"></asp:Button>
                             <%--<%# Eval("Width") %>--%>
                             <asp:Button ID="btnReject" runat="server" CssClass="btn btn-primary" Text="Reject" OnClick="btnReject_Click" Width="100px" CausesValidation="False" Visible="False"></asp:Button>
                             <asp:Button ID="btnMDA" runat="server" CssClass="btn btn-primary" OnClientClick="return AllowOneClick()" OnClick="btnMDA_Click" Text="Submit" Width="100px" Visible="False" />

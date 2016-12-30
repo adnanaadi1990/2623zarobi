@@ -40,6 +40,7 @@ namespace DashboardProject.Modules.Master
         public string FormType = "N";
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString.ToString());
         ComponentClass obj = new ComponentClass();
+        ComponentClass_FD objFD = new ComponentClass_FD();
         DataTable dt = new DataTable();
         DataTable dtcon = new DataTable();
         DataSet ds = new DataSet();
@@ -376,10 +377,10 @@ namespace DashboardProject.Modules.Master
                     {
                         using (SqlDataAdapter sda = new SqlDataAdapter())
                         {
-                            string Approval = ViewState["HOD"].ToString() + "," + Notification.ToString();
+                            string Approval = ViewState["HOD"].ToString() ;
                             cmd.Connection = con;
                             cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.AddWithValue("@TransactionMain", ddlPlant.SelectedValue.ToString());
+                            cmd.Parameters.AddWithValue("@TransactionMain", lblMaxTransactionNo.Text);
                             cmd.Parameters.AddWithValue("@MaterialNo", txtMaterial.Text.ToString());
                             cmd.Parameters.AddWithValue("@MaterialDesc", txtDescription.Text.ToString());
                             cmd.Parameters.AddWithValue("@Plant", ddlPlant.SelectedValue.ToString());
@@ -437,8 +438,26 @@ namespace DashboardProject.Modules.Master
 
         protected void btnApproved_Click(object sender, EventArgs e)
         {
+            try
+            {
+                ds = objFD.InsertAllHODS(FormID.ToString(), lblMaxTransactionID.Text, Session["User_Name"].ToString());
+                //error.Visible = false;
+                //lblUpError.Text = "";
+                //sucess.Visible = false;
+                //lblmessage.Text = "";
+                //EmailWorkApproved();
+                //ApplicationStatus();
+                //BindsysApplicationStatus();
+                //GetStatusHierachyCategoryControls();
+                //Page.MaintainScrollPositionOnPostBack = true;
+                //lblEmail.Focus();
 
-            //Approve Fahad
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Approver" + ex.ToString();
+            }
+ 
         }
 
         protected void btnReject_Click(object sender, EventArgs e)
