@@ -43,11 +43,38 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "SP_NEWWorkFlowTest";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
+                        cmd.Connection = connection;
                         cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
                         cmd.Parameters.AddWithValue("@TransactionID", TransactionID.ToString());
                         cmd.Parameters.AddWithValue("@RoughtingUserID", RoughtingUserID.ToString());
 
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "getPlantDistinct");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
+            }
+        }
+
+        public DataSet getUserSequanceWise(string FormID) //string TransactionID, string RoughtingUserID
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SELECT * FROM tblEmailSequanceWise where FormID = @FormID order by Sequance asc";
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Connection = connection;
+                        cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "getPlantDistinct");
                     }
