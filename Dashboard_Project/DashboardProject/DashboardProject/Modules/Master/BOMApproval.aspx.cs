@@ -40,6 +40,7 @@ namespace DashboardProject.Modules.Master
         public string FormType = "N";
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString.ToString());
         ComponentClass obj = new ComponentClass();
+        ComponentClass_FD objFD = new ComponentClass_FD();
         DataTable dt = new DataTable();
         DataTable dtcon = new DataTable();
         DataSet ds = new DataSet();
@@ -69,7 +70,23 @@ namespace DashboardProject.Modules.Master
                     }
                     if (Request.QueryString["TransactionNo"] != null)
                     {
+                        cmd.CommandText = @"select * from tbl_BOM_Approval_Header where TransactionMain = @TransactionMain";
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@TransactionMain", Request.QueryString["TransactionNo"].ToString());
+                        adp.SelectCommand = cmd;
+                        dt.Clear();
+                        adp.Fill(dt);
+                        DataTableReader reader = dt.CreateDataReader();
+                        while (reader.Read())
+                        {
+                            lblMaxTransactionNo.Text = reader["TransactionMain"].ToString();
+                            lblMaxTransactionID.Text = reader["TransactionID"].ToString();
+                        }
 
+                        GetHarcheyID();
+                        getUserDetail();
+                        BindsysApplicationStatus();
                     }
                     else
                     {
@@ -376,10 +393,10 @@ namespace DashboardProject.Modules.Master
                     {
                         using (SqlDataAdapter sda = new SqlDataAdapter())
                         {
-                            string Approval = ViewState["HOD"].ToString() + "," + Notification.ToString();
+                            string Approval = ViewState["HOD"].ToString() ;
                             cmd.Connection = con;
                             cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.AddWithValue("@TransactionMain", ddlPlant.SelectedValue.ToString());
+                            cmd.Parameters.AddWithValue("@TransactionMain", lblMaxTransactionNo.Text);
                             cmd.Parameters.AddWithValue("@MaterialNo", txtMaterial.Text.ToString());
                             cmd.Parameters.AddWithValue("@MaterialDesc", txtDescription.Text.ToString());
                             cmd.Parameters.AddWithValue("@Plant", ddlPlant.SelectedValue.ToString());
@@ -437,8 +454,19 @@ namespace DashboardProject.Modules.Master
 
         protected void btnApproved_Click(object sender, EventArgs e)
         {
-
-            //Approve Fahad
+            try
+            {
+                ds = objFD.InsertAllHODS(FormID.ToString(), lblMaxTransactionID.Text, Session["User_Name"].ToString());
+                EmailWorkApproved();
+                ApplicationStatus();
+                BindsysApplicationStatus();
+             
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Approver" + ex.ToString();
+            }
+ 
         }
 
         protected void btnReject_Click(object sender, EventArgs e)
@@ -743,14 +771,14 @@ namespace DashboardProject.Modules.Master
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new material creation request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are kind approval is required for the information on the following URL: <br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                        "<br>Material Master Application <br> Information Systems Dashboard";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A Bom Approval request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are kind approval is required for the information on the following URL: <br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                        "<br>BOM Approval Application <br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
 
 
-                    lblEmail.Text = "*New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
+                    lblEmail.Text = "*BOM Approval Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
                     ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
                     lblEmail.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;

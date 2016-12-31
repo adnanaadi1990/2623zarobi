@@ -707,6 +707,7 @@
     <Content Include="Modules\Inventorymanagement\DeadStock.aspx" />
     <Content Include="Modules\Inventorymanagement\InventoryAdjustmentApproval.aspx" />
     <Content Include="Modules\Inventorymanagement\Inventorymanagement_Main.aspx" />
+    <Content Include="Modules\Inventorymanagement\QuotationApprovalWorkflow.aspx" />
     <Content Include="Modules\Inventorymanagement\SearchDeadStock.aspx" />
     <Content Include="Modules\Inventorymanagement\SearchInventoryAdjustment.aspx" />
     <Content Include="Modules\Master\BOMApproval.aspx" />
@@ -1078,6 +1079,13 @@
     </Compile>
     <Compile Include="Modules\Inventorymanagement\Inventorymanagement_Main.aspx.designer.cs">
       <DependentUpon>Inventorymanagement_Main.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Inventorymanagement\QuotationApprovalWorkflow.aspx.cs">
+      <DependentUpon>QuotationApprovalWorkflow.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Inventorymanagement\QuotationApprovalWorkflow.aspx.designer.cs">
+      <DependentUpon>QuotationApprovalWorkflow.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Inventorymanagement\SearchDeadStock.aspx.cs">
       <DependentUpon>SearchDeadStock.aspx</DependentUpon>
@@ -1835,6 +1843,7 @@
     <Folder Include="css\Classes\" />
     <Folder Include="css\Code\" />
     <Folder Include="css\Content\" />
+    <Folder Include="DashboardDocument\QuotationApprovalWorkflow\" />
     <Folder Include="js\bin\" />
     <Folder Include="js\bower_components\" />
     <Folder Include="js\Classes\" />
