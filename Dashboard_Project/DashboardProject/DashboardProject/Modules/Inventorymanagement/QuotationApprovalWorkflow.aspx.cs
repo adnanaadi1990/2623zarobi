@@ -221,11 +221,6 @@ namespace DashboardProject.Modules.Inventorymanagement
                     lblError.Text = "Page_Load" + ex.ToString();
                 }
             }
-            for (int i = 0; i < ddlNotification.Items.Count; i++)
-            {
-                ddlNotification.Items[i].Selected = true;
-                ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
-            }
        }
         #region Methods
         //////////////////////////////////////////--------------Methods---------------//////////////////////////////////////////////////////
@@ -1196,5 +1191,7 @@ namespace DashboardProject.Modules.Inventorymanagement
 
         }    
         #endregion
+
+       
     }
 }
