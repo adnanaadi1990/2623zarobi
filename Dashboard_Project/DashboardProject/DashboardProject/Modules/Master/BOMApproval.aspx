@@ -154,9 +154,6 @@
         .rgPageFirst, .rgPagePrev, .rgPageNext, .rgPageLast {
             display: none;
         }
-
-        .btn-primary {            height: 26px;
-        }
     </style>
 
 

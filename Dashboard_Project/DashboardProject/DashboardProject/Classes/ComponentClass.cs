@@ -567,7 +567,7 @@ namespace ITLDashboard.Classes
 
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_BindPlant";
+                        cmd.CommandText = "SP_BindPlant";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -1914,7 +1914,7 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "Exec SP_BindsysApplicationStatus" + " @TransactionID ='" + TransactionId + "', " +
                              " @FormID='" + FormId + "'";
-                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandType = CommandType.Text;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "BindsysApplicationStatus");
@@ -2229,7 +2229,7 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "Exec SP_MailForwardUserToApprover" + " @TransactionID ='" + TransactionNo + "', " +
                                 " @FormID ='" + FormID + "'";
-                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandType = CommandType.Text;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "MailForwardUserToApprover");
@@ -2253,9 +2253,9 @@ namespace ITLDashboard.Classes
                     {
                         cmd.CommandText = "";
                         cmd.CommandText = "Exec SP_MailForwardFormApprover" + " @TransactionID ='" + TransactionNo + "', " +
-                                " @UserName ='" + UserID + "', " +
+                                " @UserID ='" + UserID + "', " +
                                 " @FormID ='" + FormID + "'";
-                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandType = CommandType.Text;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "MailForwardFormApprover");
@@ -2268,7 +2268,7 @@ namespace ITLDashboard.Classes
                             cmd.CommandText = "";
                             cmd.CommandText = "Exec SP_MailForwardFormApproverToMDAOrOthers" + " @TransactionID ='" + TransactionNo + "', " +
                                     " @FormID ='" + FormID + "'";
-                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.CommandType = CommandType.Text;
                             cmd.Connection = conn;
                             adp.SelectCommand = cmd;
                             adp.Fill(ds, "MailForwardFormApprover");

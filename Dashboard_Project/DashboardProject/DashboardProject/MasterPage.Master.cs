@@ -138,6 +138,7 @@ namespace ITLDashboard
                         txtSearch.Visible = false;
                         dvSearchbtn.Visible = false;
                         RadTreeView1.Visible = false;
+                        getUserDetail();
                     }
                     else
                     {
