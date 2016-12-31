@@ -101,6 +101,9 @@
         max-height:10%;
         overflow-y:scroll;
         }
+        .form-control {
+            margin-top: 0px;
+        }
     </style>
 
 </asp:Content>
@@ -213,16 +216,16 @@
      
                                 
 
-                                <div class="col-sm-4">
+                                <%--<div class="col-sm-4">
                                     Specific (Approver)  
                                        <asp:ListBox ID="ddlNotification" SelectionMode="Multiple" runat="server">
                                        </asp:ListBox>
-                                </div>
-<div class="col-sm-4">
+                                </div>--%>
+<%--<div class="col-sm-4">
                                     IS Representative  
                                        <asp:DropDownList ID="ddlEmailMDA" CssClass="form-control" runat="server">
                                        </asp:DropDownList>
-                                </div>
+                                </div>--%>
                             </div>
 
                         </div>

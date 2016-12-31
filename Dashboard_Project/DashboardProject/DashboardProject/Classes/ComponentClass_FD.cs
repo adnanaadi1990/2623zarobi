@@ -41,7 +41,7 @@ namespace ITLDashboard.Classes
 
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "SP_NEWWorkFlowTest";
+                        cmd.CommandText = "SP_InsertHODsApproval";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = connection;
                         cmd.Parameters.AddWithValue("@FormID", FormID.ToString());

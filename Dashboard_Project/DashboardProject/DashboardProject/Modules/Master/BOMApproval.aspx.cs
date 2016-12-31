@@ -460,17 +460,7 @@ namespace DashboardProject.Modules.Master
                 EmailWorkApproved();
                 ApplicationStatus();
                 BindsysApplicationStatus();
-                //error.Visible = false;
-                //lblUpError.Text = "";
-                //sucess.Visible = false;
-                //lblmessage.Text = "";
-                //EmailWorkApproved();
-                //ApplicationStatus();
-                //BindsysApplicationStatus();
-                //GetStatusHierachyCategoryControls();
-                //Page.MaintainScrollPositionOnPostBack = true;
-                //lblEmail.Focus();
-
+             
             }
             catch (Exception ex)
             {

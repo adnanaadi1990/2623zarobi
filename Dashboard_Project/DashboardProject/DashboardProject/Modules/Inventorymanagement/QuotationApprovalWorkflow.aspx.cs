@@ -433,7 +433,7 @@ namespace DashboardProject.Modules.Inventorymanagement
         {
             try
             {
-                cmd.CommandText = @"update tbl_Inventoryadjustment set DocumentNo = @DocumentNo 
+                cmd.CommandText = @"update tbl_QuotationApproval set DocumentNo = @DocumentNo 
                                where TransactionID = @TransID ";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
@@ -723,17 +723,17 @@ namespace DashboardProject.Modules.Inventorymanagement
         {
             try
             {
+                ds = objFD.InsertAllHODS(FormID.ToString(), lblMaxTransactionID.Text, Session["User_Name"].ToString());
                 EmailWorkApproved();
                 ApplicationStatus();
                 BindsysApplicationStatus();
-                GetStatusHierachyCategoryControls();
-            }
 
-            catch (SqlException ex)
-            {
-                dvemaillbl.Visible = true;
-                lblError.Text = "btnApproved_Click" + ex.ToString();
             }
+            catch (Exception ex)
+            {
+                lblError.Text = "Approver" + ex.ToString();
+            }
+ 
         }
         //-///////////////----------------------------------Reject Button------------------------///////////////////
         protected void btnReject_Click(object sender, EventArgs e)
