@@ -42,7 +42,7 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         //cmd.CommandText = "SELECT COALESCE(MAX(MeterialNo), 0) +1 as TransactionID from tbl_SYS_MaterialMaster";
                         cmd.CommandText = "EXEC [SP_MaintainTrans]";
-                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandType = CommandType.Text;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "MaterialMaxID");
@@ -266,6 +266,35 @@ namespace ITLDashboard.Classes
             }
         }
 
+
+        public DataSet FormDepartmentMarketing()
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = @"Select * from tbluser
+where Department like '%Marketing%' or DisplayName like  '%Amna Kiran%' and Department = 'Export'";
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Connection = connection;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "FormDepartmentMarketing");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
+            }
+        }
+
+
         public DataSet GetTransactionMaxPettyCash(string FORMID)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
@@ -410,7 +439,7 @@ namespace ITLDashboard.Classes
                     try
                     {
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_BindGridDept";
+                        cmd.CommandText = "SP_BindGridDept";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         conn.Open();
@@ -436,7 +465,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_BindGridDesignation";
+                        cmd.CommandText = "SP_BindGridDesignation";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -487,7 +516,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_BindMaterialType";
+                        cmd.CommandText = "SP_BindMaterialType";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -512,7 +541,7 @@ namespace ITLDashboard.Classes
                     {
                         dt.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_BindMaterialMaster";
+                        cmd.CommandText = "SP_BindMaterialMaster";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -538,8 +567,9 @@ namespace ITLDashboard.Classes
 
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_StorageLocation";
-                        cmd.CommandType = CommandType.StoredProcedure;
+                       //// cmd.CommandText = "Exec SP_StorageLocation";
+                        cmd.CommandText = "SELECT [StorageLocationSNo] ,[StorageLocationcode],[StorageLocationcode] + ' ' + Description as Description FROM tblStorageLocation";
+                        cmd.CommandType = CommandType.Text;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "StorageLocation");
@@ -564,7 +594,7 @@ namespace ITLDashboard.Classes
 
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_BindPlant";
+                        cmd.CommandText = "SP_BindPlant";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -616,7 +646,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "EXEC SP_Materialgroup";
+                        cmd.CommandText = "SP_Materialgroup";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -667,7 +697,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_BaseUnitOfMeasure";
+                        cmd.CommandText = "SP_BaseUnitOfMeasure";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = connection;
                         adp.SelectCommand = cmd;
@@ -768,7 +798,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_ValuationType";
+                        cmd.CommandText = "SP_ValuationType";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -793,7 +823,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_tblProfitCenter";
+                        cmd.CommandText = "SP_tblProfitCenter";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -818,7 +848,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_ValuationCategory";
+                        cmd.CommandText = "SP_ValuationCategory";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -921,7 +951,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_PurchasingGroup";
+                        cmd.CommandText = "SP_PurchasingGroup";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -972,7 +1002,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_mrpController";
+                        cmd.CommandText = "SP_mrpController";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -997,7 +1027,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_LotSize";
+                        cmd.CommandText = "SP_LotSize";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -1022,7 +1052,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_MRPType";
+                        cmd.CommandText = "SP_MRPType";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -1073,7 +1103,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_Availabilitycheck";
+                        cmd.CommandText = "SP_Availabilitycheck";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -1098,7 +1128,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_RebateCategoryRate";
+                        cmd.CommandText = "SP_RebateCategoryRate";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -1124,7 +1154,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_PeriodIndicator";
+                        cmd.CommandText = "SP_PeriodIndicator";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -1149,7 +1179,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_Strategygroup";
+                        cmd.CommandText = "SP_Strategygroup";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -1174,7 +1204,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_QMControlKey";
+                        cmd.CommandText = "SP_QMControlKey";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -1199,7 +1229,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_Rate";
+                        cmd.CommandText = "SP_Rate";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -1224,7 +1254,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_DistributionChannel";
+                        cmd.CommandText = "SP_DistributionChannel";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -1249,7 +1279,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_Deliveringplant";
+                        cmd.CommandText = "SP_Deliveringplant";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -1274,7 +1304,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_LoadingGroup";
+                        cmd.CommandText = "SP_LoadingGroup";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -1299,7 +1329,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_SalesTax";
+                        cmd.CommandText = "SP_SalesTax";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -1324,7 +1354,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_ValuationClass";
+                        cmd.CommandText = "SP_ValuationClass";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -1375,7 +1405,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_Prodnsupervisor";
+                        cmd.CommandText = "SP_Prodnsupervisor";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -1400,7 +1430,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_ProdSchedProfile";
+                        cmd.CommandText = "SP_ProdSchedProfile";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -1425,7 +1455,7 @@ namespace ITLDashboard.Classes
                     {
                         ds.Clear();
                         cmd.CommandText = "";
-                        cmd.CommandText = "Exec SP_Tasklistusage";
+                        cmd.CommandText = "SP_Tasklistusage";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
@@ -1691,7 +1721,7 @@ namespace ITLDashboard.Classes
                 cmd.CommandText = "EXEC SP_UpdateMaterial" + " @TransactionID  ='" + MetrialNo.ToString() + "', " +
                        " @Materiallock ='" + MLock.ToString() + "', " +
                        " @SAPCode ='" + SAPCode.ToString() + "'";
-                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
 
                 adp.SelectCommand = cmd;
@@ -1885,7 +1915,7 @@ namespace ITLDashboard.Classes
                         ds.Clear();
                         cmd.CommandText = "";
                         cmd.CommandText = "Exec getDeleteList" + " @TransactionID ='" + TransactionId + "'";
-                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandType = CommandType.Text;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "BindgetDeleteList");
@@ -1911,7 +1941,7 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "Exec SP_BindsysApplicationStatus" + " @TransactionID ='" + TransactionId + "', " +
                              " @FormID='" + FormId + "'";
-                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandType = CommandType.Text;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "BindsysApplicationStatus");
@@ -2170,7 +2200,7 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "Exec SP_AllowForms" + " @User_Name ='" + UserName + "', " +
                                 " @Form_Name ='" + FormName + "'";
-                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandType = CommandType.Text;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "AllowForm");
@@ -2226,7 +2256,7 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "Exec SP_MailForwardUserToApprover" + " @TransactionID ='" + TransactionNo + "', " +
                                 " @FormID ='" + FormID + "'";
-                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandType = CommandType.Text;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "MailForwardUserToApprover");
@@ -2252,7 +2282,7 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "Exec SP_MailForwardFormApprover" + " @TransactionID ='" + TransactionNo + "', " +
                                 " @UserName ='" + UserID + "', " +
                                 " @FormID ='" + FormID + "'";
-                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandType = CommandType.Text;
                         cmd.Connection = conn;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "MailForwardFormApprover");
@@ -2265,7 +2295,7 @@ namespace ITLDashboard.Classes
                             cmd.CommandText = "";
                             cmd.CommandText = "Exec SP_MailForwardFormApproverToMDAOrOthers" + " @TransactionID ='" + TransactionNo + "', " +
                                     " @FormID ='" + FormID + "'";
-                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.CommandType = CommandType.Text;
                             cmd.Connection = conn;
                             adp.SelectCommand = cmd;
                             adp.Fill(ds, "MailForwardFormApprover");
