@@ -1116,25 +1116,27 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "";
-                cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserReviwer where FormName = 'MMFG'";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SP_getuserNotificationMIS";
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 conn.Open();
                 ddlNotificationMIS.DataSource = cmd.ExecuteReader();
                 ddlNotificationMIS.DataTextField = "DisplayName";
                 ddlNotificationMIS.DataValueField = "user_name";
                 ddlNotificationMIS.DataBind();
+                ddlNotificationMIS.Items.Insert(0, new ListItem("------Select------", "0"));
                 conn.Close();
 
                 cmd.CommandText = "";
-                cmd.CommandText = "select * from tbluserMDA where FormName = 'MMFG'";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SP_getuserMDA";
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 conn.Open();
                 ddlEmailMDA.DataSource = cmd.ExecuteReader();
                 ddlEmailMDA.DataTextField = "DisplayName";
                 ddlEmailMDA.DataValueField = "user_name";
                 ddlEmailMDA.DataBind();
+                ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
                 conn.Close();
 
                 using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
@@ -1146,8 +1148,8 @@ namespace ITLDashboard.Modules.Master
                             ds.Clear();
                             cmdgetdata.CommandText = "";
                             //cmd.CommandText = "SELECT COALESCE(MAX(MeterialNo), 0) +1 as TransactionID from tbl_SYS_MaterialMaster";
-                            cmdgetdata.CommandText = "select * FROM tblusermodulecategory where Category in  ('Merchandiser','Merchandiser HOD')";
-                            cmdgetdata.CommandType = CommandType.Text;
+                            cmdgetdata.CommandText = "SP_getuserMerchandiser";
+                            cmdgetdata.CommandType = CommandType.StoredProcedure;
                             cmdgetdata.Connection = connection;
                             adp.SelectCommand = cmdgetdata;
                             adp.Fill(dt);
@@ -1167,18 +1169,19 @@ namespace ITLDashboard.Modules.Master
                 }
 
                 cmd.CommandText = "";
-                cmd.CommandText = "select * from tbluserApproval where FormName = 'MMFG'";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SP_getuserTaxes";
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 conn.Open();
                 ddlTaxes.DataSource = cmd.ExecuteReader();
                 ddlTaxes.DataTextField = "DisplayName";
                 ddlTaxes.DataValueField = "user_name";
                 ddlTaxes.DataBind();
+                ddlTaxes.Items.Insert(0, new ListItem("------Select------", "0"));
                 conn.Close();
 
                 cmd.CommandText = "";
-                cmd.CommandText = "select * FROM tblusermodulecategory where Category = 'Merchandiser HOD'";
+                cmd.CommandText = "SP_getuserMHOD";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
                 conn.Open();
@@ -1186,32 +1189,35 @@ namespace ITLDashboard.Modules.Master
                 ddlMHOD.DataTextField = "DisplayName";
                 ddlMHOD.DataValueField = "user_name";
                 ddlMHOD.DataBind();
+                ddlMHOD.Items.Insert(0, new ListItem("------Select------", "0"));
                 conn.Close();
 
                 cmd.CommandText = "";
-                cmd.CommandText = "SELECT * FROM tbluser WHERE Designation IN ('Manager','Senior Manager') and Department like '%Marketing%'";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SP_getuserMarketing";
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 conn.Open();
                 ddlMarketingHOD.DataSource = cmd.ExecuteReader();
                 ddlMarketingHOD.DataTextField = "DisplayName";
                 ddlMarketingHOD.DataValueField = "user_name";
                 ddlMarketingHOD.DataBind();
+                ddlMarketingHOD.Items.Insert(0, new ListItem("------Select------", "0"));
                 conn.Close();
 
-                ddlTaxes.Items.Insert(0, new ListItem("------Select------", "0"));
-                ddlMerchandiser.Items.Insert(0, new ListItem("------Select------", "0"));
-                ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
-                ddlEmailReviwer.Items.Insert(0, new ListItem("------Select------", "0"));
+                //ddlTaxes.Items.Insert(0, new ListItem("------Select------", "0"));
+                //ddlMerchandiser.Items.Insert(0, new ListItem("------Select------", "0"));
+                //ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
+                //ddlEmailReviwer.Items.Insert(0, new ListItem("------Select------", "0"));
 
-                cmd.CommandText = " SELECT user_name,DisplayName FROM tbl_EmailToSpecificPerson where FormID = '101'";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SP_getuserNotificationFI";
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 conn.Open();
                 ddlNotificationFI.DataSource = cmd.ExecuteReader();
                 ddlNotificationFI.DataTextField = "DisplayName";
                 ddlNotificationFI.DataValueField = "user_name";
                 ddlNotificationFI.DataBind();
+                ddlNotificationFI.Items.Insert(0, new ListItem("------Select------", "0"));
                 conn.Close();
             }
             catch (SqlException ex)
