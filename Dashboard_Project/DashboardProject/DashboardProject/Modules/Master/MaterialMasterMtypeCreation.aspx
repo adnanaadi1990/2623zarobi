@@ -3,7 +3,7 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="../../Scripts/jquery-1.9.1.min.js"></script>
     <script src="../../Scripts/bootstrap.min.js"></script>
-<%--<link href="../../Content/bootstrap.min.css" rel="stylesheet" />--%>
+        <%--<link href="../../Content/bootstrap.min.css" rel="stylesheet" />--%>
 
     <link href="../../Content/multiselect.css" rel="stylesheet" type="text/css" />
     <script src="../../Scripts/miltiselect.js" type="text/javascript"></script>
@@ -285,8 +285,8 @@
                             </div>
                             <div class="col-sm-4">
                                 Plant
-                                    <asp:ListBox ID="ddlPlant" runat="server" SelectionMode="Multiple" AutoPostBack="True" OnSelectedIndexChanged="ddlPlant_SelectedIndexChanged"></asp:ListBox>
-                            </div>
+                              <asp:DropDownList runat="server" ID="ddlPlant" OnSelectedIndexChanged="ddlPlant_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
+                                                  </div>
                             <div class="col-sm-7">
                                 Storage Location
                          <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -1149,8 +1149,8 @@
                                       <asp:DropDownList ID="ddlMHOD" runat="server" CssClass="form-control" ></asp:DropDownList>
                             </div>
                                    <div class="col-sm-3">
-                                Taxes HOD
-                                      <asp:DropDownList ID="ddlTHOD" runat="server" CssClass="form-control" ></asp:DropDownList>
+                                       Marketing HOD
+                                      <asp:DropDownList ID="ddlMarketingHOD" runat="server" CssClass="form-control" ></asp:DropDownList>
                             </div>
                             <div id="Div1" class="col-sm-3" runat="server" visible="false">
                                 Review By

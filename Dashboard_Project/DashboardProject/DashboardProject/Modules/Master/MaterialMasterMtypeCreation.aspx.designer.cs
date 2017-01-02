@@ -190,7 +190,7 @@ namespace ITLDashboard.Modules.Master {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox ddlPlant;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPlant;
         
         /// <summary>
         /// UpdatePanel1 control.
@@ -1066,13 +1066,13 @@ namespace ITLDashboard.Modules.Master {
         protected global::System.Web.UI.WebControls.DropDownList ddlMHOD;
         
         /// <summary>
-        /// ddlTHOD control.
+        /// ddlMarketingHOD control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTHOD;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMarketingHOD;
         
         /// <summary>
         /// Div1 control.
