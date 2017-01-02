@@ -86,5 +86,30 @@ namespace ITLDashboard.Classes
                 }
             }
         }
+        public DataSet BindsysApplicationStatus(string TransactionId, string FormId)
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "Exec SP_BindsysApplicationStatus" + " @TransactionID ='" + TransactionId + "', " +
+                             " @FormID='" + FormId + "'";
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Connection = conn;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "BindsysApplicationStatus");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
+            }
+        }
     }
 }
