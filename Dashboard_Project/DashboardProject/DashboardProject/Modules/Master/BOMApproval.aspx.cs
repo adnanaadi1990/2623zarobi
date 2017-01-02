@@ -70,23 +70,81 @@ namespace DashboardProject.Modules.Master
                     }
                     if (Request.QueryString["TransactionNo"] != null)
                     {
-                        cmd.CommandText = @"select * from tbl_BOM_Approval_Header where TransactionMain = @TransactionMain";
-                        cmd.CommandType = CommandType.Text;
-                        cmd.Connection = conn;
-                        cmd.Parameters.AddWithValue("@TransactionMain", Request.QueryString["TransactionNo"].ToString());
-                        adp.SelectCommand = cmd;
-                        dt.Clear();
-                        adp.Fill(dt);
-                        DataTableReader reader = dt.CreateDataReader();
-                        while (reader.Read())
-                        {
-                            lblMaxTransactionNo.Text = reader["TransactionMain"].ToString();
-                            lblMaxTransactionID.Text = reader["TransactionID"].ToString();
-                        }
-
+                        GetDataBOMWhenQueryStringpass();
                         GetHarcheyID();
                         getUserDetail();
                         BindsysApplicationStatus();
+                        GetStatusHierachyCategoryControls();
+                        DisableControls(Page, false);
+                        divEmail.Visible = false;
+                        if (((string)ViewState["HID"]) == "1")
+                        {
+                            DVERROR.Visible = true;
+                            btnApproved.Visible = false;
+                            btnReject.Visible = false;
+                            btnSave.Visible = false;
+                            btnSaveSubmit.Visible = false;
+                            btnCancel.Visible = false;
+                            btnMDA.Visible = false;
+                            dvFormID.Visible = true;
+                            txtRemarksReview.Visible = true;
+                            txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
+                            dvTransactionNo.Visible = false;
+                            //txtRemarksReview.Enabled = false;
+                        }
+                        if (((string)ViewState["HID"]) == "2")
+                        {
+
+                            DVERROR.Visible = true;
+                            btnApproved.Visible = true;
+                            btnReject.Visible = true;
+                            btnSave.Visible = false;
+                            btnSaveSubmit.Visible = false;
+                            btnCancel.Visible = false;
+                            btnMDA.Visible = false;
+                            //btnShow.Visible = false;
+                            dvFormID.Visible = true;
+                            dvTransactionNo.Visible = false;
+                            txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
+                            txtRemarksReview.Enabled = true;
+                            txtRemarksReview.Visible = true;
+
+                        }
+                        if (((string)ViewState["HID"]) == "4")
+                        {
+                            DVERROR.Visible = true;
+                            btnApproved.Visible = false;
+                            btnReject.Visible = true;
+                            btnSave.Visible = false;
+                            btnSaveSubmit.Visible = false;
+                            btnCancel.Visible = false;
+                            btnMDA.Visible = true;
+                            dvCheque.Visible = true;
+                            dvFormID.Visible = true;
+                            dvTransactionNo.Visible = false;
+                            txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
+                            txtRemarksReview.Enabled = true;
+                            txtRemarksReview.Visible = true;
+                            txtBillOfMaterial.Enabled = true;
+                        }
+                        if (((string)ViewState["HID"]) == "3")
+                        {
+                            btnApproved.Visible = false;
+                            btnSave.Visible = false;
+                            btnSaveSubmit.Visible = false;
+                            btnCancel.Visible = false;
+                            btnMDA.Visible = true;
+                            dvCheque.Visible = true;
+                            DVERROR.Visible = true;
+                            dvFormID.Visible = true;
+                            btnReject.Visible = true;
+                            dvTransactionNo.Visible = false;
+                            txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
+                            txtRemarksReview.Enabled = true;
+                            txtRemarksReview.Visible = true;
+                        }
+
+
                     }
                     else
                     {
@@ -105,7 +163,42 @@ namespace DashboardProject.Modules.Master
                 lblError.Text = "Page_Load" + ex.ToString();
             }
         }
+        protected void GetDataBOMWhenQueryStringpass()
+        {
+            cmd.CommandText = @"select * from tbl_BOM_Approval_Header where TransactionMain = @TransactionMain";
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = conn;
+            cmd.Parameters.AddWithValue("@TransactionMain", Request.QueryString["TransactionNo"].ToString());
+            adp.SelectCommand = cmd;
+            dt.Clear();
+            adp.Fill(dt);
+            DataTableReader reader = dt.CreateDataReader();
+            while (reader.Read())
+            {
+                BindPlant();
+                lblMaxTransactionNo.Text = reader["TransactionMain"].ToString();
+                lblMaxTransactionID.Text = reader["TransactionID"].ToString();
+                txtBillOfMaterial.Text = reader["BOM"].ToString();
+                ddlPlant.SelectedValue = reader["Plant"].ToString();
 
+                ddlStorageLocation.DataSource = GetData("SP_StorageLocationPlantWise");
+                ddlStorageLocation.DataTextField = "Description";
+                ddlStorageLocation.DataValueField = "StorageLocationcode";
+                ddlStorageLocation.DataBind();
+
+                ddlStorageLocation.SelectedValue = reader["StorageLocation"].ToString();
+                txtMaterial.Text = reader["MaterialNo"].ToString();
+                txtDescription.Text = reader["MaterialDesc"].ToString();
+                txtProductionLotSizefrom.Text = reader["ProdLotSizeFrom"].ToString();
+                txtProductionLotSizeTo.Text = reader["ProdLotSizeTo"].ToString();
+                txtProductionVersion.Text = reader["ProductionVersion"].ToString();
+                txtProductionVersionDescription.Text = reader["ProductionVersion"].ToString();
+                txtBOMValidFrom.Text = reader["BOMValidFrom"].ToString();
+                txtBOMValidTo.Text = reader["BOMValidTo"].ToString();
+                txtBaseQuantity.Text = reader["QTY"].ToString();
+            }
+
+        }
         private void mandatcolor()
         {
             try
@@ -375,17 +468,7 @@ namespace DashboardProject.Modules.Master
                 }
                 else
                 {
-                    string Notification = "";
 
-                    for (int i = 0; i <= ddlNotification.Items.Count - 1; i++)
-                    {
-                        if (ddlNotification.Items[i].Selected)
-                        {
-                            if (Notification == "") { Notification = ddlNotification.Items[i].Value; }
-                            else { Notification += "," + ddlNotification.Items[i].Value; }
-                        }
-
-                    }
 
                     string conString = ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString;
                     SqlCommand cmd = new SqlCommand("SP_SYS_Create_BOM_Approval");
@@ -393,7 +476,7 @@ namespace DashboardProject.Modules.Master
                     {
                         using (SqlDataAdapter sda = new SqlDataAdapter())
                         {
-                            string Approval = ViewState["HOD"].ToString() ;
+                            string Approval = ViewState["HOD"].ToString();
                             cmd.Connection = con;
                             cmd.CommandType = CommandType.StoredProcedure;
                             cmd.Parameters.AddWithValue("@TransactionMain", lblMaxTransactionNo.Text);
@@ -431,11 +514,6 @@ namespace DashboardProject.Modules.Master
                             lblMaxTransactionID.Text = "";
                             GetTransactionID();
 
-                            for (int i = 0; i < ddlNotification.Items.Count; i++)
-                            {
-                                ddlNotification.Items[i].Selected = true;
-                                ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
-                            }
                         }
                     }
 
@@ -460,23 +538,82 @@ namespace DashboardProject.Modules.Master
                 EmailWorkApproved();
                 ApplicationStatus();
                 BindsysApplicationStatus();
-             
+                GetStatusHierachyCategoryControls();
             }
             catch (Exception ex)
             {
                 lblError.Text = "Approver" + ex.ToString();
             }
- 
+
         }
 
         protected void btnReject_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (txtRemarksReview.Text == "")
+                {
 
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Remarks should not be left blank!";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    txtRemarksReview.BackColor = System.Drawing.Color.Red;
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    return;
+                }
+                else
+                {
+                    EmailWorkReject();
+                    ClosedFormAfterReject();
+                    //   ApplicationStatus();
+                    BindsysApplicationStatus();
+                    GetStatusHierachyCategoryControls();
+                }
+            }
+
+            catch (SqlException ex)
+            {
+                dvemaillbl.Visible = true;
+                lblError.Text = "btnReject_Click" + ex.ToString();
+            }
         }
 
         protected void btnMDA_Click(object sender, EventArgs e)
         {
+            try
+            {
+                txtBillOfMaterial.ForeColor = System.Drawing.Color.Black;
+                if (txtBillOfMaterial.Text == "")
+                {
 
+                    lblError.Text = "";
+                    lblEmail.Text = "";
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Bill Of Material NO should not be left blank";
+                    sucess.Visible = true;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    txtBillOfMaterial.BackColor = System.Drawing.Color.Red;
+                    lblmessage.ForeColor = System.Drawing.Color.Red;
+                    return;
+                }
+                else
+                {
+                    UpdateWorking();
+
+                }
+            }
+
+            catch (SqlException ex)
+            {
+                dvemaillbl.Visible = true;
+                lblError.Text = "btnMDA_Click" + ex.ToString();
+            }
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
@@ -546,11 +683,7 @@ namespace DashboardProject.Modules.Master
                 GridView1.DataSource = (DataTable)ViewState["BOMGrid"];
                 GridView1.DataBind();
                 lblgridError.Text = "";
-                for (int i = 0; i < ddlNotification.Items.Count; i++)
-                {
-                    ddlNotification.Items[i].Selected = true;
-                    ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
-                }
+
             }
             catch (Exception ex)
             {
@@ -728,14 +861,14 @@ namespace DashboardProject.Modules.Master
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
-                    EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br><br>  SAP material code " + txtBillOfMaterial.Text.Trim() + " has been issued against  new material creation request Form ID # " + lblMaxTransactionID.Text.ToString() + " <br><br> The form can be reviewed at the following URL:<br> <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>  This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                    "<br>Material Master Application <br> Information Systems Dashboard";
+                    EmailSubject = "BOM Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br><br>   BOM Approval Of " + txtBillOfMaterial.Text.Trim() + " has been issued against BOM Approval request Form ID # " + lblMaxTransactionID.Text.ToString() + " <br><br> The form can be reviewed at the following URL:<br> <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>  This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                    "<br>BOM Approval Application <br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
 
-                    lblmessage.Text = "SAP Material Code " + txtBillOfMaterial.Text.Trim() + " has been saved against  Form ID # " + lblMaxTransactionID.Text;
+                    lblmessage.Text = "BOM Approval Of " + txtBillOfMaterial.Text.Trim() + " has been saved against  Form ID # " + lblMaxTransactionID.Text;
 
                     lblmessage.ForeColor = System.Drawing.Color.Green;
                     conn.Close();
@@ -770,8 +903,8 @@ namespace DashboardProject.Modules.Master
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
-                    EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A Bom Approval request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are kind approval is required for the information on the following URL: <br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                    EmailSubject = "BOM Aproval Request Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> BOM Approval request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are kind approval is required for the information on the following URL: <br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
                         "<br>BOM Approval Application <br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
@@ -798,14 +931,14 @@ namespace DashboardProject.Modules.Master
                         FormCode = reader["FormID"].ToString();
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
-                        EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new material creation request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br><br> You are requested to create a material code information on the following URL:<br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message.<br>" +
-                             "Material Master Application <br> Information Systems Dashboard";
+                        EmailSubject = "BOM Aproval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> BOM Aproval Request request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br><br> You are requested to create a Document No information on the following URL:<br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message.<br>" +
+                             "BOM Approval Application <br> Information Systems Dashboard";
                         SessionUser = Session["User_Name"].ToString();
                         DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                         InsertEmail();
                         ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
-                        lblEmail.Text = "*New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
+                        lblEmail.Text = "BOM Aproval Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
                         lblEmail.Focus();
                         Page.MaintainScrollPositionOnPostBack = false;
                         Page.MaintainScrollPositionOnPostBack = true;
@@ -830,14 +963,14 @@ namespace DashboardProject.Modules.Master
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
-                    EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new material creation request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been forward by by " + ViewState["SessionUser"].ToString() + " <br> <br> You are kind approval is required for the information on the following URL: <br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                        "<br>Material Master Application <br> Information Systems Dashboard";
+                    EmailSubject = "BOM Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new BOM Approval request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been forward by by " + ViewState["SessionUser"].ToString() + " <br> <br> You are kind approval is required for the information on the following URL: <br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                        "<br>BOM Approval Application <br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
 
-                    lblEmail.Text = "*New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
+                    lblEmail.Text = "BOM Approval Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
                     ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
                     lblEmail.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
@@ -859,14 +992,14 @@ namespace DashboardProject.Modules.Master
                         FormCode = reader["FormID"].ToString();
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
-                        EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new material creation request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br><br> You are requested to create a material code information on the following URL:<br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message.<br>" +
-                             "Material Master Application <br> Information Systems Dashboard";
+                        EmailSubject = "BOM Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>A New BOM Approval request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br><br> You are requested to create a material code information on the following URL:<br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message.<br>" +
+                             "BOM Approval Application <br> Information Systems Dashboard";
                         SessionUser = Session["User_Name"].ToString();
                         DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                         InsertEmail();
                         ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
-                        lblEmail.Text = "*New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
+                        lblEmail.Text = "BOM Approval Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
                         lblEmail.Focus();
                         Page.MaintainScrollPositionOnPostBack = false;
                         Page.MaintainScrollPositionOnPostBack = true;
@@ -890,16 +1023,16 @@ namespace DashboardProject.Modules.Master
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
-                    EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>  Your new material creation request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been disapproved by  " + ViewState["SessionUser"].ToString() + " <br><br> The reason of rejection is given below you can review your form on following url:<br><br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a>" +
+                    EmailSubject = "BOM Aproval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>BOM Aproval request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been disapproved by  " + ViewState["SessionUser"].ToString() + " <br><br> The reason of rejection is given below you can review your form on following url:<br><br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a>" +
                             "<br> <br> <br><b>Reject Remarks: " + txtRemarksReview.Text + "</b> " +
                           " <br> <br> This is an auto-generated email from IS Dashboard, you do not need to reply to this message.<br>" +
-                        "<br>Material Master Application <br> Information Systems Dashboard";
+                        "<br>BOM Approval Application <br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
                     ViewState["Status"] = "00"; // For Status Reject
-                    lblEmail.Text = "*New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been rejected by you";
+                    lblEmail.Text = "*BOM Aproval Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been rejected by you";
                     lblEmail.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
                     Page.MaintainScrollPositionOnPostBack = true;
@@ -1093,7 +1226,7 @@ namespace DashboardProject.Modules.Master
         {
             try
             {
-                ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString(), ViewState["SerialNo"].ToString(), ViewState["Status"].ToString());
+                ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
                 if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
                 {
                     ViewState["StatusHierachyCategory"] = ds.Tables["tbl_SysHierarchyControl"].Rows[0]["Status"].ToString();
@@ -1186,23 +1319,6 @@ namespace DashboardProject.Modules.Master
         {
             try
             {
-                cmd.CommandText = "SELECT * FROM tblEmailSequanceWise where FormID = '" + FormID.ToString() + "' order by Sequance asc";
-                //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-
-                conn.Open();
-                ddlNotification.DataSource = cmd.ExecuteReader();
-                ddlNotification.DataTextField = "DisplayName";
-                ddlNotification.DataValueField = "user_name";
-                ddlNotification.DataBind();
-                conn.Close();
-                for (int i = 0; i < ddlNotification.Items.Count; i++)
-                {
-                    ddlNotification.Items[i].Selected = true;
-                    ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
-                }
-
                 cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'DSA'";
                 //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
                 cmd.CommandType = CommandType.Text;
@@ -1221,7 +1337,82 @@ namespace DashboardProject.Modules.Master
                 lblError.Text = "BindUser" + ex.ToString();
             }
         }
+        private void UpdateWorking()
+        {
+            try
+            {
+                cmd.CommandText = @"SP_UpdateBOM";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@BillOfMaterial", txtBillOfMaterial.Text);
+                cmd.Parameters.AddWithValue("@TransID", lblMaxTransactionID.Text);
+                conn.Open();
+                int a = cmd.ExecuteNonQuery();
+                if (a == 1)
+                {
+                    EmailWorkFirstHaracheyMDA();
+                    ApplicationStatus();
+                    BindsysApplicationStatus();
+                    InsertEmailHOD();
+                    GetStatusHierachyCategoryControls();
 
+                    lblmessage.Text = "Bill Of Material No " + txtBillOfMaterial.Text + " has been issued against  BOM Approval Request Form ID #  " + lblMaxTransactionID.Text + " ";
+                    lblmessage.ForeColor = System.Drawing.Color.Green;
+                    conn.Close();
+                    sucess.Visible = true;
+                    error.Visible = false;
+                    lblmessage.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                }
+            }
+
+            catch (SqlException ex)
+            {
+                dvemaillbl.Visible = true;
+                lblError.Text = "UpdateWorking" + ex.ToString();
+            }
+        }
+
+
+        protected void DisableControls(Control parent, bool State)
+        {
+            try
+            {
+                foreach (Control c in parent.Controls)
+                {
+                    if (c is DropDownList)
+                    {
+                        ((DropDownList)(c)).Enabled = State;
+                    }
+                    if (c is TextBox)
+                    {
+                        ((TextBox)(c)).Enabled = State;
+                    }
+                    if (c is ListBox)
+                    {
+                        ((ListBox)(c)).Enabled = State;
+                    }
+                    if (c is CheckBox)
+                    {
+                        ((CheckBox)(c)).Enabled = State;
+                    }
+                    if (c is RadioButtonList)
+                    {
+                        ((RadioButtonList)(c)).Enabled = State;
+                    }
+                    if (c is RadioButton)
+                    {
+                        ((RadioButton)(c)).Enabled = State;
+                    }
+                    DisableControls(c, State);
+                }
+            }
+            catch (SqlException ex)
+            {
+                dvemaillbl.Visible = true;
+                lblError.Text = ex.ToString();
+            }
+        }
     }
 
 }
