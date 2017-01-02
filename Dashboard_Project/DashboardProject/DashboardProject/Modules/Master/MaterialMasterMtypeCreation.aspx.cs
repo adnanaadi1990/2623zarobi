@@ -41,6 +41,7 @@ namespace ITLDashboard.Modules.Master
         public string FormType = "N";
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString.ToString());
         ComponentClass obj = new ComponentClass();
+        ComponentClass_FK objFK = new ComponentClass_FK();
         DataTable dt = new DataTable();
         DataTable dtcon = new DataTable();
         DataSet ds = new DataSet();
@@ -507,7 +508,7 @@ namespace ITLDashboard.Modules.Master
                     }
                     else
                     {
-                        ds = obj.FormDepartmentMarketing();
+                        ds = objFK.FormDepartmentMarketing();
                         if (ds.Tables["FormDepartmentMarketing"].Rows.Count > 0)
                         {
                             dt.Clear();
@@ -515,12 +516,12 @@ namespace ITLDashboard.Modules.Master
                             DataRow[] foundAuthors = dt.Select("user_name = '" + Session["User_Name"].ToString() + "'");
                             if (foundAuthors.Length != 0)
                             {
-                                getUser();
-                                //getUserHOD();
-                                DummyGrid();
-                                getUserDetail();
-                                GetTransactionID();
-                                BindPageLoad();
+                        getUser();
+                        //getUserHOD();
+                        DummyGrid();
+                        getUserDetail();
+                        GetTransactionID();
+                        BindPageLoad();
                             }
                             else
                             {
@@ -1145,13 +1146,11 @@ namespace ITLDashboard.Modules.Master
                             ds.Clear();
                             cmdgetdata.CommandText = "";
                             //cmd.CommandText = "SELECT COALESCE(MAX(MeterialNo), 0) +1 as TransactionID from tbl_SYS_MaterialMaster";
-                            cmdgetdata.CommandText = "select * FROM tblusermodulecategory where Category = 'Merchandiser'";
+                            cmdgetdata.CommandText = "select * FROM tblusermodulecategory where Category in  ('Merchandiser','Merchandiser HOD')";
                             cmdgetdata.CommandType = CommandType.Text;
                             cmdgetdata.Connection = connection;
                             adp.SelectCommand = cmdgetdata;
-                            adp.Fill(ds, "tblusermodulecategoryMerchandiser");
-                            dt.Clear();
-                            dt = ds.Tables["tblusermodulecategoryMerchandiser"];
+                            adp.Fill(dt);
                             ViewState["tblusermodulecategoryMerchandiser"] = dt;
                             //ddlMerchandiser.DataTextField = ds.Tables["tblusermodulecategoryMerchandiser"].Columns["DisplayName"].ToString(); // text field name of table dispalyed in dropdown
                             //ddlMerchandiser.DataValueField = ds.Tables["tblusermodulecategoryMerchandiser"].Columns["user_name"].ToString();             // to retrive specific  textfield name 
@@ -1278,6 +1277,7 @@ namespace ITLDashboard.Modules.Master
                 ddlPlant.DataValueField = ds.Tables["BindPlantMtype"].Columns["PlantId"].ToString();             // to retrive specific  textfield name 
                 ddlPlant.DataSource = ds.Tables["BindPlantMtype"];      //assigning datasource to the dropdownlist
                 ddlPlant.DataBind();  //binding dropdownlist
+                ddlPlant.Items.Insert(0, new ListItem("------Select------", "0"));
             }
             catch (SqlException ex)
             {
@@ -1294,6 +1294,7 @@ namespace ITLDashboard.Modules.Master
                 ddlPlant.DataValueField = ds.Tables["Plant"].Columns["PlantId"].ToString();             // to retrive specific  textfield name 
                 ddlPlant.DataSource = ds.Tables["Plant"];      //assigning datasource to the dropdownlist
                 ddlPlant.DataBind();  //binding dropdownlist
+                ddlPlant.Items.Insert(0, new ListItem("------Select------", "0"));
             }
             catch (SqlException ex)
             {
@@ -4354,17 +4355,36 @@ namespace ITLDashboard.Modules.Master
         {
             try
             {
-           
+
                 bindSLfromPlant();
                 getUser();
                 DataTable tblusermodulecategoryMerchandiser = (DataTable)ViewState["tblusermodulecategoryMerchandiser"];
-                DataView dv = new DataView(tblusermodulecategoryMerchandiser);
-                dv.RowFilter = "ModuleName = '" + ddlPlant.SelectedValue.ToString() + "'";
-                ddlMerchandiser.Items.Clear();
-                ddlMerchandiser.DataSource = dv;
+                DataView dvDataMerchandiser = new DataView(tblusermodulecategoryMerchandiser);
+                dvDataMerchandiser.RowFilter = "ModuleName like '%" + ddlPlant.SelectedValue.ToString() + "%' and Category = 'Merchandiser'";
+
+                ddlMerchandiser.DataSource = dvDataMerchandiser;
                 ddlMerchandiser.DataTextField = "DisplayName";
                 ddlMerchandiser.DataValueField = "user_name";
                 ddlMerchandiser.DataBind();
+                ddlMerchandiser.Items.Insert(0, new ListItem("------Select------", "0"));
+
+            //    DataView dvDataMerchandiserHOD = new DataView(tblusermodulecategoryMerchandiser);
+                dvDataMerchandiser.RowFilter = "ModuleName like '%" + ddlPlant.SelectedValue.ToString() + "%' and Category = 'Merchandiser HOD'";
+
+                ddlMHOD.DataSource = dvDataMerchandiser;
+                ddlMHOD.DataTextField = "DisplayName";
+                ddlMHOD.DataValueField = "user_name";
+                ddlMHOD.DataBind();
+                ddlMHOD.Items.Insert(0, new ListItem("------Select------", "0"));
+                //ds.Tables.Add(dvData.ToTable("tblusermodulecategoryMerchandiser"));
+                //ddlMerchandiser.DataTextField = ds.Tables["tblusermodulecategoryMerchandiser"].Columns["DisplayName"].ToString(); // text field name of table dispalyed in dropdown
+                //ddlMerchandiser.DataValueField = ds.Tables["tblusermodulecategoryMerchandiser"].Columns["user_name"].ToString();             // to retrive specific  textfield name 
+                //ddlMerchandiser.DataSource = ds.Tables["tblusermodulecategoryMerchandiser"];      //assigning datasource to the dropdownlist
+                //ddlMerchandiser.DataBind();  //binding dropdownlist
+                //ddlMerchandiser.Items.Insert(0, new ListItem("------Select------", "0"));
+               
+
+
 
             }
             catch (SqlException ex)

@@ -163,5 +163,25 @@ namespace ITLDashboard.Classes
             { conn.Close(); }
             return ds;
         }
+
+        public DataSet FormDepartmentMarketing()
+        {
+            try
+            {
+
+                cmd.CommandText = @"select * FROM tbluser where Department in  ('Marketing')";
+
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+
+                adp.SelectCommand = cmd;
+                adp.Fill(ds, "FormDepartmentMarketing");
+            }
+            catch (Exception ex)
+            { ex.ToString(); }
+            finally
+            { conn.Close(); }
+            return ds;
+        }
     }
 }

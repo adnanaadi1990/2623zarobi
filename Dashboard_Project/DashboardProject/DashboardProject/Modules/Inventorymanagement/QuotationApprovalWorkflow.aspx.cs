@@ -217,11 +217,12 @@ namespace DashboardProject.Modules.Inventorymanagement
                 }
                 catch (SqlException ex)
                 {
+                    dvemaillbl.Visible = true;
                     lblError.Text = "Page_Load" + ex.ToString();
                 }
             }
        }
-       
+        #region Methods
         //////////////////////////////////////////--------------Methods---------------//////////////////////////////////////////////////////
         //--///Bind Application Method///
         private void BindsysApplicationStatus()
@@ -479,6 +480,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                 lblError.Text = "GetSockDetail" + ex.ToString();
             }
         }
+        #endregion
         ///////////////----------------------------------Events---------------------------------//////////////////////////////
         //-------------------------------------------Upload Button------------------------///////////////////
         protected void btnUpload_Click(object sender, EventArgs e)
@@ -624,13 +626,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                     return;
 
                 }
-                //if (ddlNotification.SelectedValue == "")
-                //{
-                //    ddlNotification.BackColor = System.Drawing.Color.Red;
-                //    lblUpError.Text = "Please select any Person for Notification";
-                //    error.Visible = true;
-                //    return;
-                //}
+             
                 if (txtDescription.Text == "")
                 {
                     txtDescription.BackColor = System.Drawing.Color.Red;
@@ -641,18 +637,9 @@ namespace DashboardProject.Modules.Inventorymanagement
                 }
                 string Notification = "";
 
-                //for (int i = 0; i <= ddlNotification.Items.Count - 1; i++)
-                //{
-                //    if (ddlNotification.Items[i].Selected)
-                //    {
-                //        if (Notification == "") { Notification = ddlNotification.Items[i].Value; }
-                //        else { Notification += "," + ddlNotification.Items[i].Value; }
-                //    }
-
-                //}
-
+             
                 FilePath = "~/DashboardDocument/InventoryAdjustment/" + "InventoryAdjustment" + lblFileName.Text.ToString();
-                string Approval = ViewState["HOD"].ToString() + "," + Notification.ToString();
+                string Approval = ViewState["HOD"].ToString();
                 cmd.CommandText = "Exec SP_SYS_create_InventoryManagment" + " @TransactionMain='" + lblMaxTransactionNo.Text + "', " +
                         " @FileName='" + lblFileName.Text + "', " +
                         " @Description='" + txtDescription.Text + "', " +
@@ -686,11 +673,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                 txtRemarksReview.Text = "";
                 txtDescription.Text = "";
 
-                //for (int i = 0; i < ddlNotification.Items.Count; i++)
-                //{
-                //    ddlNotification.Items[i].Selected = true;
-                //    ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
-                //}
+              
             }
 
 

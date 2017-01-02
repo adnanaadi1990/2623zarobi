@@ -289,14 +289,9 @@
                                                   </div>
                             <div class="col-sm-7">
                                 Storage Location
-                         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                             <ContentTemplate>
+                    
                                  <asp:ListBox ID="ddlStorageLocation" runat="server" CssClass="form-control" SelectionMode="Multiple" AppendDataBoundItems="True"></asp:ListBox>
-                             </ContentTemplate>
-                             <Triggers>
-                                 <asp:AsyncPostBackTrigger ControlID="ddlPlant" EventName="SelectedIndexChanged" />
-                             </Triggers>
-                         </asp:UpdatePanel>
+                           
                                 <asp:TextBox ID="txtStLocation" runat="server" CssClass="form-control" Visible="false"> </asp:TextBox>
                             </div>
 
