@@ -527,7 +527,6 @@ namespace DashboardProject.Modules.Master
                 else
                 {
                     UpdateWorking();
-                    GetSockDetail();
                 }
             }
 
@@ -787,14 +786,14 @@ namespace DashboardProject.Modules.Master
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
-                    EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br><br>  SAP material code " + txtBillOfMaterial.Text.Trim() + " has been issued against  new material creation request Form ID # " + lblMaxTransactionID.Text.ToString() + " <br><br> The form can be reviewed at the following URL:<br> <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>  This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                    "<br>Material Master Application <br> Information Systems Dashboard";
+                    EmailSubject = "BOM Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br><br>   BOM Approval Of " + txtBillOfMaterial.Text.Trim() + " has been issued against BOM Approval request Form ID # " + lblMaxTransactionID.Text.ToString() + " <br><br> The form can be reviewed at the following URL:<br> <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>  This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                    "<br>BOM Approval Application <br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
 
-                    lblmessage.Text = "SAP Material Code " + txtBillOfMaterial.Text.Trim() + " has been saved against  Form ID # " + lblMaxTransactionID.Text;
+                    lblmessage.Text = "BOM Approval Of " + txtBillOfMaterial.Text.Trim() + " has been saved against  Form ID # " + lblMaxTransactionID.Text;
 
                     lblmessage.ForeColor = System.Drawing.Color.Green;
                     conn.Close();
@@ -859,7 +858,7 @@ namespace DashboardProject.Modules.Master
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                         EmailSubject = "BOM Aproval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
                         EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> BOM Aproval Request request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br><br> You are requested to create a Document No information on the following URL:<br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message.<br>" +
-                             "Material Master Application <br> Information Systems Dashboard";
+                             "BOM Approval Application <br> Information Systems Dashboard";
                         SessionUser = Session["User_Name"].ToString();
                         DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                         InsertEmail();
@@ -889,14 +888,14 @@ namespace DashboardProject.Modules.Master
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
-                    EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new material creation request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been forward by by " + ViewState["SessionUser"].ToString() + " <br> <br> You are kind approval is required for the information on the following URL: <br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                        "<br>Material Master Application <br> Information Systems Dashboard";
+                    EmailSubject = "BOM Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new BOM Approval request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been forward by by " + ViewState["SessionUser"].ToString() + " <br> <br> You are kind approval is required for the information on the following URL: <br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                        "<br>BOM Approval Application <br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
 
-                    lblEmail.Text = "*New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
+                    lblEmail.Text = "BOM Approval Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
                     ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
                     lblEmail.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
@@ -918,14 +917,14 @@ namespace DashboardProject.Modules.Master
                         FormCode = reader["FormID"].ToString();
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
-                        EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new material creation request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br><br> You are requested to create a material code information on the following URL:<br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message.<br>" +
-                             "Material Master Application <br> Information Systems Dashboard";
+                        EmailSubject = "BOM Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>A New BOM Approval request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br><br> You are requested to create a material code information on the following URL:<br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message.<br>" +
+                             "BOM Approval Application <br> Information Systems Dashboard";
                         SessionUser = Session["User_Name"].ToString();
                         DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                         InsertEmail();
                         ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
-                        lblEmail.Text = "*New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
+                        lblEmail.Text = "BOM Approval Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
                         lblEmail.Focus();
                         Page.MaintainScrollPositionOnPostBack = false;
                         Page.MaintainScrollPositionOnPostBack = true;
@@ -1293,12 +1292,11 @@ namespace DashboardProject.Modules.Master
                 int a = cmd.ExecuteNonQuery();
                 if (a == 1)
                 {
-                 
+                    EmailWorkFirstHaracheyMDA();
                     ApplicationStatus();
                     BindsysApplicationStatus();
                     InsertEmailHOD();
                     GetStatusHierachyCategoryControls();
-
 
                     lblmessage.Text = "Bill Of Material No " + txtBillOfMaterial.Text + " has been issued against  BOM Approval Request Form ID #  " + lblMaxTransactionID.Text + " ";
                     lblmessage.ForeColor = System.Drawing.Color.Green;
