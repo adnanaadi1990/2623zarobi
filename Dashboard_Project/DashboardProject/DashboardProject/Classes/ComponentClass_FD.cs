@@ -111,5 +111,43 @@ namespace ITLDashboard.Classes
                 }
             }
         }
+        public DataSet getInventory(string TransID)
+        {
+            try
+            {
+                ds.Clear();
+                cmd.CommandText = "";
+                cmd.CommandText = @"SP_SYS_Inventory";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@TransactionID", TransID.ToString());
+                adp.SelectCommand = cmd;
+                adp.Fill(ds, "getInventory");
+            }
+            catch (Exception ex)
+            { ex.ToString(); }
+            finally
+            { conn.Close(); }
+            return ds;
+        }
+        public DataSet getQuotationApproval(string TransID)
+        {
+            try
+            {
+                ds.Clear();
+                cmd.CommandText = "";
+                cmd.CommandText = @"SP_SYS_Qoutation";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@TransactionID", TransID.ToString());
+                adp.SelectCommand = cmd;
+                adp.Fill(ds, "getQoutaion");
+            }
+            catch (Exception ex)
+            { ex.ToString(); }
+            finally
+            { conn.Close(); }
+            return ds;
+        }
     }
 }

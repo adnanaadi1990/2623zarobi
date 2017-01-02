@@ -95,7 +95,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                         string a = Request.QueryString["TransactionNo"].ToString();
 
                         // cmd.CommandText = @"select * from tbl_FI_PettyCash where TransactionMain = @TNo";
-                        cmd.CommandText = " SELECT * from  tbl_Inventoryadjustment where TransactionMain = @TNo";
+                        cmd.CommandText = " SELECT * from  tbl_QuotationApproval where TransactionMain = @TNo";
                         cmd.CommandType = CommandType.Text;
                         cmd.Connection = conn;
                         cmd.Parameters.AddWithValue("@TNo", a.ToString());
@@ -114,7 +114,7 @@ namespace DashboardProject.Modules.Inventorymanagement
 
 
                         BindsysApplicationStatus();
-                      //  GetSockDetail();
+                       GetSockDetail();
                         GetHarcheyID();
                         getUserDetail();
                         GetStatusHierachyCategoryControls();
@@ -241,12 +241,12 @@ namespace DashboardProject.Modules.Inventorymanagement
             }
         }
         /////////GetStatusHierachyCategoryControls Method////////
+
         private void GetStatusHierachyCategoryControls()
         {
-
             try
             {
-                ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString(), ViewState["SerialNo"].ToString(), ViewState["Status"].ToString());
+                ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
                 if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
                 {
                     ViewState["StatusHierachyCategory"] = ds.Tables["tbl_SysHierarchyControl"].Rows[0]["Status"].ToString();
@@ -262,15 +262,17 @@ namespace DashboardProject.Modules.Inventorymanagement
                     txtRemarksReview.Enabled = false;
                     txtDocNo.Enabled = false;
 
+
+
                 }
             }
-
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                dvemaillbl.Visible = true;
                 lblError.Text = "GetStatusHierachyCategoryControls" + ex.ToString();
             }
         }
+
+
         //---////////////////////////--------------------------getUserDetails Method----------------------//////////////////////////
         private void getUserDetail()
         {
@@ -469,8 +471,8 @@ namespace DashboardProject.Modules.Inventorymanagement
         {
             try
             {
-                ds = objAD.getDeadStock(lblMaxTransactionID.Text.ToString());
-                grdDetail.DataSource = ds.Tables["getDeadStock"];
+                ds = objFD.getQuotationApproval(lblMaxTransactionID.Text.ToString());
+                grdDetail.DataSource = ds.Tables["getQoutaion"];
                 grdDetail.DataBind();
             }
 
@@ -640,7 +642,7 @@ namespace DashboardProject.Modules.Inventorymanagement
              
                 FilePath = "~/DashboardDocument/InventoryAdjustment/" + "InventoryAdjustment" + lblFileName.Text.ToString();
                 string Approval = ViewState["HOD"].ToString();
-                cmd.CommandText = "Exec SP_SYS_create_InventoryManagment" + " @TransactionMain='" + lblMaxTransactionNo.Text + "', " +
+                cmd.CommandText = "Exec SP_SYS_QuotationApproval" + " @TransactionMain='" + lblMaxTransactionNo.Text + "', " +
                         " @FileName='" + lblFileName.Text + "', " +
                         " @Description='" + txtDescription.Text + "', " +
                         " @FilePath='" + FilePath.ToString() + "', " +
@@ -702,6 +704,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                 EmailWorkApproved();
                 ApplicationStatus();
                 BindsysApplicationStatus();
+                GetStatusHierachyCategoryControls();
 
             }
             catch (Exception ex)
@@ -1045,8 +1048,8 @@ namespace DashboardProject.Modules.Inventorymanagement
         {
             try
             {
-                string HierachyCategory = "3";
-                string HierachyCategoryStatus = "03"; // Allow based on reqierment if there is No MDA if other wise allow "4"//
+                string HierachyCategory = "4";
+                string HierachyCategoryStatus = "04"; // Allow based on reqierment if there is No MDA if other wise allow "4"//
                 ds = obj.MailForwardToAllFromMDA(lblMaxTransactionID.Text, FormID.ToString(), HierachyCategory.ToString());
 
                 if (ds.Tables["MailForwardToAllFromMDA"].Rows.Count > 0)
