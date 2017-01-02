@@ -70,23 +70,81 @@ namespace DashboardProject.Modules.Master
                     }
                     if (Request.QueryString["TransactionNo"] != null)
                     {
-                        cmd.CommandText = @"select * from tbl_BOM_Approval_Header where TransactionMain = @TransactionMain";
-                        cmd.CommandType = CommandType.Text;
-                        cmd.Connection = conn;
-                        cmd.Parameters.AddWithValue("@TransactionMain", Request.QueryString["TransactionNo"].ToString());
-                        adp.SelectCommand = cmd;
-                        dt.Clear();
-                        adp.Fill(dt);
-                        DataTableReader reader = dt.CreateDataReader();
-                        while (reader.Read())
-                        {
-                            lblMaxTransactionNo.Text = reader["TransactionMain"].ToString();
-                            lblMaxTransactionID.Text = reader["TransactionID"].ToString();
-                        }
-
+                        GetDataBOMWhenQueryStringpass();
                         GetHarcheyID();
                         getUserDetail();
                         BindsysApplicationStatus();
+                        GetStatusHierachyCategoryControls();
+                        DisableControls(Page, false);
+                        divEmail.Visible = false;
+                        if (((string)ViewState["HID"]) == "1")
+                        {
+                            DVERROR.Visible = true;
+                            btnApproved.Visible = false;
+                            btnReject.Visible = false;
+                            btnSave.Visible = false;
+                            btnSaveSubmit.Visible = false;
+                            btnCancel.Visible = false;
+                            btnMDA.Visible = false;
+                            dvFormID.Visible = true;
+                            txtRemarksReview.Visible = true;
+                            txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
+                            dvTransactionNo.Visible = false;
+                            //txtRemarksReview.Enabled = false;
+                        }
+                        if (((string)ViewState["HID"]) == "2")
+                        {
+
+                            DVERROR.Visible = true;
+                            btnApproved.Visible = true;
+                            btnReject.Visible = true;
+                            btnSave.Visible = false;
+                            btnSaveSubmit.Visible = false;
+                            btnCancel.Visible = false;
+                            btnMDA.Visible = false;
+                            //btnShow.Visible = false;
+                            dvFormID.Visible = true;
+                            dvTransactionNo.Visible = false;
+                            txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
+                            txtRemarksReview.Enabled = true;
+                            txtRemarksReview.Visible = true;
+
+                        }
+                        if (((string)ViewState["HID"]) == "4")
+                        {
+                            DVERROR.Visible = true;
+                            btnApproved.Visible = false;
+                            btnReject.Visible = true;
+                            btnSave.Visible = false;
+                            btnSaveSubmit.Visible = false;
+                            btnCancel.Visible = false;
+                            btnMDA.Visible = true;
+                            dvCheque.Visible = true;
+                            dvFormID.Visible = true;
+                            dvTransactionNo.Visible = false;
+                            txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
+                            txtRemarksReview.Enabled = true;
+                            txtRemarksReview.Visible = true;
+                            txtBillOfMaterial.Enabled = true;
+                        }
+                        if (((string)ViewState["HID"]) == "3")
+                        {
+                            btnApproved.Visible = false;
+                            btnSave.Visible = false;
+                            btnSaveSubmit.Visible = false;
+                            btnCancel.Visible = false;
+                            btnMDA.Visible = true;
+                            dvCheque.Visible = true;
+                            DVERROR.Visible = true;
+                            dvFormID.Visible = true;
+                            btnReject.Visible = true;
+                            dvTransactionNo.Visible = false;
+                            txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
+                            txtRemarksReview.Enabled = true;
+                            txtRemarksReview.Visible = true;
+                        }
+
+
                     }
                     else
                     {
@@ -105,7 +163,42 @@ namespace DashboardProject.Modules.Master
                 lblError.Text = "Page_Load" + ex.ToString();
             }
         }
+        protected void GetDataBOMWhenQueryStringpass()
+        {
+            cmd.CommandText = @"select * from tbl_BOM_Approval_Header where TransactionMain = @TransactionMain";
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = conn;
+            cmd.Parameters.AddWithValue("@TransactionMain", Request.QueryString["TransactionNo"].ToString());
+            adp.SelectCommand = cmd;
+            dt.Clear();
+            adp.Fill(dt);
+            DataTableReader reader = dt.CreateDataReader();
+            while (reader.Read())
+            {
+                BindPlant();
+                lblMaxTransactionNo.Text = reader["TransactionMain"].ToString();
+                lblMaxTransactionID.Text = reader["TransactionID"].ToString();
+                txtBillOfMaterial.Text = reader["BOM"].ToString();
+                ddlPlant.SelectedValue = reader["Plant"].ToString();
 
+                ddlStorageLocation.DataSource = GetData("SP_StorageLocationPlantWise");
+                ddlStorageLocation.DataTextField = "Description";
+                ddlStorageLocation.DataValueField = "StorageLocationcode";
+                ddlStorageLocation.DataBind();
+
+                ddlStorageLocation.SelectedValue = reader["StorageLocation"].ToString();
+                txtMaterial.Text = reader["MaterialNo"].ToString();
+                txtDescription.Text = reader["MaterialDesc"].ToString();
+                txtProductionLotSizefrom.Text = reader["ProdLotSizeFrom"].ToString();
+                txtProductionLotSizeTo.Text = reader["ProdLotSizeTo"].ToString();
+                txtProductionVersion.Text = reader["ProductionVersion"].ToString();
+                txtProductionVersionDescription.Text = reader["ProductionVersion"].ToString();
+                txtBOMValidFrom.Text = reader["BOMValidFrom"].ToString();
+                txtBOMValidTo.Text = reader["BOMValidTo"].ToString();
+                txtBaseQuantity.Text = reader["QTY"].ToString();
+            }
+
+        }
         private void mandatcolor()
         {
             try
@@ -375,17 +468,7 @@ namespace DashboardProject.Modules.Master
                 }
                 else
                 {
-                    string Notification = "";
 
-                    for (int i = 0; i <= ddlNotification.Items.Count - 1; i++)
-                    {
-                        if (ddlNotification.Items[i].Selected)
-                        {
-                            if (Notification == "") { Notification = ddlNotification.Items[i].Value; }
-                            else { Notification += "," + ddlNotification.Items[i].Value; }
-                        }
-
-                    }
 
                     string conString = ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString;
                     SqlCommand cmd = new SqlCommand("SP_SYS_Create_BOM_Approval");
@@ -393,7 +476,7 @@ namespace DashboardProject.Modules.Master
                     {
                         using (SqlDataAdapter sda = new SqlDataAdapter())
                         {
-                            string Approval = ViewState["HOD"].ToString() ;
+                            string Approval = ViewState["HOD"].ToString();
                             cmd.Connection = con;
                             cmd.CommandType = CommandType.StoredProcedure;
                             cmd.Parameters.AddWithValue("@TransactionMain", lblMaxTransactionNo.Text);
@@ -431,11 +514,6 @@ namespace DashboardProject.Modules.Master
                             lblMaxTransactionID.Text = "";
                             GetTransactionID();
 
-                            for (int i = 0; i < ddlNotification.Items.Count; i++)
-                            {
-                                ddlNotification.Items[i].Selected = true;
-                                ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
-                            }
                         }
                     }
 
@@ -460,18 +538,18 @@ namespace DashboardProject.Modules.Master
                 EmailWorkApproved();
                 ApplicationStatus();
                 BindsysApplicationStatus();
-             
+                GetStatusHierachyCategoryControls();
             }
             catch (Exception ex)
             {
                 lblError.Text = "Approver" + ex.ToString();
             }
- 
+
         }
 
         protected void btnReject_Click(object sender, EventArgs e)
         {
-             try
+            try
             {
                 if (txtRemarksReview.Text == "")
                 {
@@ -527,6 +605,7 @@ namespace DashboardProject.Modules.Master
                 else
                 {
                     UpdateWorking();
+
                 }
             }
 
@@ -604,11 +683,7 @@ namespace DashboardProject.Modules.Master
                 GridView1.DataSource = (DataTable)ViewState["BOMGrid"];
                 GridView1.DataBind();
                 lblgridError.Text = "";
-                for (int i = 0; i < ddlNotification.Items.Count; i++)
-                {
-                    ddlNotification.Items[i].Selected = true;
-                    ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
-                }
+
             }
             catch (Exception ex)
             {
@@ -1151,7 +1226,7 @@ namespace DashboardProject.Modules.Master
         {
             try
             {
-                ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString(), ViewState["SerialNo"].ToString(), ViewState["Status"].ToString());
+                ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
                 if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
                 {
                     ViewState["StatusHierachyCategory"] = ds.Tables["tbl_SysHierarchyControl"].Rows[0]["Status"].ToString();
@@ -1244,23 +1319,6 @@ namespace DashboardProject.Modules.Master
         {
             try
             {
-                cmd.CommandText = "SELECT * FROM tblEmailSequanceWise where FormID = '" + FormID.ToString() + "' order by Sequance asc";
-                //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-
-                conn.Open();
-                ddlNotification.DataSource = cmd.ExecuteReader();
-                ddlNotification.DataTextField = "DisplayName";
-                ddlNotification.DataValueField = "user_name";
-                ddlNotification.DataBind();
-                conn.Close();
-                for (int i = 0; i < ddlNotification.Items.Count; i++)
-                {
-                    ddlNotification.Items[i].Selected = true;
-                    ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
-                }
-
                 cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'DSA'";
                 //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
                 cmd.CommandType = CommandType.Text;
@@ -1312,6 +1370,47 @@ namespace DashboardProject.Modules.Master
             {
                 dvemaillbl.Visible = true;
                 lblError.Text = "UpdateWorking" + ex.ToString();
+            }
+        }
+
+
+        protected void DisableControls(Control parent, bool State)
+        {
+            try
+            {
+                foreach (Control c in parent.Controls)
+                {
+                    if (c is DropDownList)
+                    {
+                        ((DropDownList)(c)).Enabled = State;
+                    }
+                    if (c is TextBox)
+                    {
+                        ((TextBox)(c)).Enabled = State;
+                    }
+                    if (c is ListBox)
+                    {
+                        ((ListBox)(c)).Enabled = State;
+                    }
+                    if (c is CheckBox)
+                    {
+                        ((CheckBox)(c)).Enabled = State;
+                    }
+                    if (c is RadioButtonList)
+                    {
+                        ((RadioButtonList)(c)).Enabled = State;
+                    }
+                    if (c is RadioButton)
+                    {
+                        ((RadioButton)(c)).Enabled = State;
+                    }
+                    DisableControls(c, State);
+                }
+            }
+            catch (SqlException ex)
+            {
+                dvemaillbl.Visible = true;
+                lblError.Text = ex.ToString();
             }
         }
     }
