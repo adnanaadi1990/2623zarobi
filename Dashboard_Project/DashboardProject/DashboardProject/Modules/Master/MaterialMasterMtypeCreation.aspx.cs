@@ -507,30 +507,30 @@ namespace ITLDashboard.Modules.Master
                     }
                     else
                     {
-                        ds = obj.FormDepartmentMarketing();
-                        if (ds.Tables["FormDepartmentMarketing"].Rows.Count > 0)
-                        {
-                            dt.Clear();
-                            dt = ds.Tables["FormDepartmentMarketing"];
-                            DataRow[] foundAuthors = dt.Select("user_name = '" + Session["User_Name"].ToString() + "'");
-                            if (foundAuthors.Length != 0)
-                            {
-                                getUser();
-                                //getUserHOD();
-                                DummyGrid();
-                                getUserDetail();
-                                GetTransactionID();
-                                BindPageLoad();
-                            }
-                            else
-                            {
-                                Response.Redirect("~/AccessDenied.aspx");
-                            }
-                        }
-                        else
-                        {
-                            Response.Redirect("~/AccessDenied.aspx");
-                        }
+                        //ds = obj.FormDepartmentMarketing();
+                        //if (ds.Tables["FormDepartmentMarketing"].Rows.Count > 0)
+                        //{
+                        //    dt.Clear();
+                        //    dt = ds.Tables["FormDepartmentMarketing"];
+                        //    DataRow[] foundAuthors = dt.Select("user_name = '" + Session["User_Name"].ToString() + "'");
+                        //    if (foundAuthors.Length != 0)
+                        //    {
+                        getUser();
+                        //getUserHOD();
+                        DummyGrid();
+                        getUserDetail();
+                        GetTransactionID();
+                        BindPageLoad();
+                        //    }
+                        //    else
+                        //    {
+                        //        Response.Redirect("~/AccessDenied.aspx");
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    Response.Redirect("~/AccessDenied.aspx");
+                        //}
                     }
                 }
                 catch (Exception ex)
@@ -1149,9 +1149,7 @@ namespace ITLDashboard.Modules.Master
                             cmdgetdata.CommandType = CommandType.Text;
                             cmdgetdata.Connection = connection;
                             adp.SelectCommand = cmdgetdata;
-                            adp.Fill(ds, "tblusermodulecategoryMerchandiser");
-                            dt.Clear();
-                            dt = ds.Tables["tblusermodulecategoryMerchandiser"];
+                            adp.Fill(dt);
                             ViewState["tblusermodulecategoryMerchandiser"] = dt;
                             //ddlMerchandiser.DataTextField = ds.Tables["tblusermodulecategoryMerchandiser"].Columns["DisplayName"].ToString(); // text field name of table dispalyed in dropdown
                             //ddlMerchandiser.DataValueField = ds.Tables["tblusermodulecategoryMerchandiser"].Columns["user_name"].ToString();             // to retrive specific  textfield name 
@@ -4354,17 +4352,23 @@ namespace ITLDashboard.Modules.Master
         {
             try
             {
-           
+
                 bindSLfromPlant();
                 getUser();
                 DataTable tblusermodulecategoryMerchandiser = (DataTable)ViewState["tblusermodulecategoryMerchandiser"];
-                DataView dv = new DataView(tblusermodulecategoryMerchandiser);
-                dv.RowFilter = "ModuleName = '" + ddlPlant.SelectedValue.ToString() + "'";
-                ddlMerchandiser.Items.Clear();
-                ddlMerchandiser.DataSource = dv;
-                ddlMerchandiser.DataTextField = "DisplayName";
-                ddlMerchandiser.DataValueField = "user_name";
-                ddlMerchandiser.DataBind();
+                DataView dvData = new DataView(tblusermodulecategoryMerchandiser);
+                dvData.RowFilter = "ModuleName like '%" + ddlPlant.SelectedValue.ToString() + "%'";
+                dt = dvData.ToTable();
+                ds.Clear();
+                ds.Tables.Add(dvData.ToTable("tblusermodulecategoryMerchandiser"));
+                ddlMerchandiser.DataTextField = ds.Tables["tblusermodulecategoryMerchandiser"].Columns["DisplayName"].ToString(); // text field name of table dispalyed in dropdown
+                ddlMerchandiser.DataValueField = ds.Tables["tblusermodulecategoryMerchandiser"].Columns["user_name"].ToString();             // to retrive specific  textfield name 
+                ddlMerchandiser.DataSource = ds.Tables["tblusermodulecategoryMerchandiser"];      //assigning datasource to the dropdownlist
+                ddlMerchandiser.DataBind();  //binding dropdownlist
+                ddlMerchandiser.Items.Insert(0, new ListItem("------Select------", "0"));
+               
+
+
 
             }
             catch (SqlException ex)
