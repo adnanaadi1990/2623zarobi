@@ -3121,7 +3121,7 @@ namespace ITLDashboard.Modules.Master
                     sucess.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
                     ddlProdCatg.BackColor = System.Drawing.Color.Red;
-                    whenquerystringpass();
+
                     return;
                 }
                 if (ddlProdCatgsub1.SelectedValue == "0")
@@ -3134,7 +3134,6 @@ namespace ITLDashboard.Modules.Master
                     sucess.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
                     ddlProdCatgsub1.BackColor = System.Drawing.Color.Red;
-                    whenquerystringpass();
                     return;
                 }
                 if (ddlProdCatgsub2.SelectedValue == "0")
@@ -3147,7 +3146,7 @@ namespace ITLDashboard.Modules.Master
                     sucess.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
                     ddlProdCatgsub2.BackColor = System.Drawing.Color.Red;
-                    whenquerystringpass();
+
                     return;
                 }
                 if (ddlSalesUnit.SelectedValue == "0")
@@ -3160,7 +3159,7 @@ namespace ITLDashboard.Modules.Master
                     sucess.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
                     ddlSalesUnit.BackColor = System.Drawing.Color.Red;
-                    whenquerystringpass();
+
                     return;
                 }
                 if (ddlItemCateguoryGroup.SelectedValue == "0")
@@ -3173,7 +3172,7 @@ namespace ITLDashboard.Modules.Master
                     sucess.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
                     ddlItemCateguoryGroup.BackColor = System.Drawing.Color.Red;
-                    whenquerystringpass();
+
                     return;
                 }
                 if (ddlProfitCenter.SelectedValue == "0")
@@ -3186,7 +3185,7 @@ namespace ITLDashboard.Modules.Master
                     sucess.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
                     ddlProfitCenter.BackColor = System.Drawing.Color.Red;
-                    whenquerystringpass();
+         
                     return;
                 }
                 if (ddlProductionunit.SelectedValue == "0")
@@ -3199,7 +3198,7 @@ namespace ITLDashboard.Modules.Master
                     sucess.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
                     ddlProductionunit.BackColor = System.Drawing.Color.Red;
-                    whenquerystringpass();
+    
                     return;
                 }
 
@@ -3213,7 +3212,7 @@ namespace ITLDashboard.Modules.Master
                     sucess.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
                     ddlUnitOfIssue.BackColor = System.Drawing.Color.Red;
-                    whenquerystringpass();
+
                     return;
                 }
 
@@ -3227,7 +3226,7 @@ namespace ITLDashboard.Modules.Master
                     sucess.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
                     ddlMrpType.BackColor = System.Drawing.Color.Red;
-                    whenquerystringpass();
+
                     return;
                 }
 
@@ -3241,7 +3240,7 @@ namespace ITLDashboard.Modules.Master
                     sucess.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
                     ddlMRPGroup.BackColor = System.Drawing.Color.Red;
-                    whenquerystringpass();
+
                     return;
                 }
 
@@ -3255,7 +3254,7 @@ namespace ITLDashboard.Modules.Master
                     sucess.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
                     ddlAvailabilitycheck.BackColor = System.Drawing.Color.Red;
-                    whenquerystringpass();
+
                     return;
                 }
                 if (ddlStorageLocation.SelectedValue == "")
@@ -3615,18 +3614,16 @@ namespace ITLDashboard.Modules.Master
 
                     }
 
-                    cmd.CommandText = @"UPDATE tbl_SYS_MaterialMaster
-                    SET  ValuationClass = @ValuationClass,
-                    ValuationCategory = @ValuationCategory,
-					ValuationType = @ValuationType,
-					StandardPrice = @StandardPrice
-                    where TransactionID = '" + lblMaxTransactionID.Text + "' ";
-                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = @"SP_SYS_UpdateFGMMFI";
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = conn;
                     cmd.Parameters.AddWithValue("@ValuationClass", ddlValuationClass.SelectedValue);
                     cmd.Parameters.AddWithValue("@ValuationCategory", ddlValuationCategory.SelectedValue);
                     cmd.Parameters.AddWithValue("@ValuationType", VTYPE.ToString());
                     cmd.Parameters.AddWithValue("@StandardPrice", txtStandardPrice.Text);
+                    cmd.Parameters.AddWithValue("@TransactionMain", lblMaxTransactionNo.Text);
+                    cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
+                     cmd.Parameters.AddWithValue("@Plant", ddlPlant.SelectedValue);
                     conn.Open();
 
                     int aa = cmd.ExecuteNonQuery();
