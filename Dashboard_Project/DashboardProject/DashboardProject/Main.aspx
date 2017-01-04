@@ -85,6 +85,12 @@
                 btnHiddenIM.click();
             }
         }
+        function DivClickedPP() {
+            var btnPP = $('#<%= btnPP.ClientID %>');
+            if (btnPP != null) {
+                btnPP.click();
+             }
+         }
         
     </script>
 </head>
@@ -276,34 +282,24 @@ documents and waste stationery.<br>
                             </div>
                         </a>
                     </div>
-                    <div class="col-lg-4 col-sm-6">
-                        <a href="#" class="portfolio-box">
-                            <img src="img/portfolio/module3.png" class="img-responsive" alt="">
-                            <div class="portfolio-box-caption">
-                                <div class="portfolio-box-caption-content">
-                                    <div class="project-category text-faded">APPLICATION</div>
-                                    <div class="project-name">Sales Distribution</div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                        <a href="#" class="portfolio-box">
-                            <img src="img/portfolio/module1.png" class="img-responsive" alt="">
-                            <div class="portfolio-box-caption">
-                                <div class="portfolio-box-caption-content">
-                                    <div class="project-category text-faded">APPLICATION</div>
-                                    <div class="project-name">
-                                        Quality Management
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
+
+                      <div class="col-lg-4 col-sm-6">
                         <a href="#" class="portfolio-box">
                             <img src="img/portfolio/module5-2.png" class="img-responsive" alt="">
                             <div class="portfolio-box-caption">
+                                <div class="portfolio-box-caption-content">
+                                    <div class="project-category text-faded">APPLICATION</div>
+                                    <div class="project-name">Procurement</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+
+                    <div class="col-lg-4 col-sm-6">
+                        <a href="#" class="portfolio-box">
+                              <asp:ImageButton ID="btnPP" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/module5-2.png" />
+                   <div class="portfolio-box-caption" onclick="javascript:DivClickedPP(); return true;">
                                 <div class="portfolio-box-caption-content">
                                     <div class="project-category text-faded">APPLICATION</div>
                                     <div class="project-name">Production Planning</div>
@@ -311,6 +307,34 @@ documents and waste stationery.<br>
                             </div>
                         </a>
                     </div>
+
+                    <div class="col-lg-4 col-sm-6">
+                        <a href="#" class="portfolio-box">
+                            <asp:ImageButton ID="btnAnnexure" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/Annexure.jpg" OnClick="btnAnnexure_Click" />
+                            <div class="portfolio-box-caption" onclick="javascript:DivClickedAnnexure(); return true;">
+                                <div class="portfolio-box-caption-content">
+                                    <div class="project-category text-faded">APPLICATION</div>
+                                    <div class="project-name">Assets Application</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                     <div class="col-lg-4 col-sm-6">
+                        <a href="#" class="portfolio-box">
+                            <asp:ImageButton ID="btnSAPBasis" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/UserRightsApp.jpg" OnClick="btnSAPBasis_Click" />
+                            <div class="portfolio-box-caption" onclick="javascript:DivClickedSAPBasis(); return true;">
+                                <div class="portfolio-box-caption-content">
+                                    <div class="project-category text-faded">APPLICATION</div>
+                                    <div class="project-name">SAP Basis</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    
+                    
+                    
                     <div class="col-lg-4 col-sm-6">
                         <a href="#" class="portfolio-box">
                             <asp:ImageButton ID="btnHR" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/HR.png" OnClick="btnHR_Click" />
@@ -324,29 +348,31 @@ documents and waste stationery.<br>
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <a href="#" class="portfolio-box">
-                            <asp:ImageButton ID="btnAnnexure" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/Annexure.jpg" OnClick="btnAnnexure_Click" />
-                            <div class="portfolio-box-caption" onclick="javascript:DivClickedAnnexure(); return true;">
+                            <img src="img/portfolio/module3.png" class="img-responsive" alt="">
+                            <div class="portfolio-box-caption">
                                 <div class="portfolio-box-caption-content">
                                     <div class="project-category text-faded">APPLICATION</div>
-                                    <div class="project-name">Assets Application</div>
+                                    <div class="project-name">Sales Distribution</div>
                                 </div>
                             </div>
                         </a>
                     </div>
-                       <div class="col-lg-4 col-sm-6">
+                      <div class="col-lg-4 col-sm-6">
                         <a href="#" class="portfolio-box">
-                            <asp:ImageButton ID="btnSAPBasis" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/UserRightsApp.jpg" OnClick="btnSAPBasis_Click" />
-                            <div class="portfolio-box-caption" onclick="javascript:DivClickedSAPBasis(); return true;">
+                            <img src="img/portfolio/module1.png" class="img-responsive" alt="">
+                            <div class="portfolio-box-caption">
                                 <div class="portfolio-box-caption-content">
                                     <div class="project-category text-faded">APPLICATION</div>
-                                    <div class="project-name">User Rights Application</div>
+                                    <div class="project-name">
+                                        Quality Management
+                                    </div>
                                 </div>
                             </div>
                         </a>
                     </div>
                         <div class="col-lg-4 col-sm-6">
                         <a href="#" class="portfolio-box">
-                            <asp:ImageButton ID="btnIM" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/UserRightsApp.jpg" OnClick="btnIM_Click" />
+                            <asp:ImageButton ID="btnIM" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/inventorymanagement.jpg" OnClick="btnIM_Click" />
                             <div class="portfolio-box-caption" onclick="javascript:DivClickedIM(); return true;">
                                 <div class="portfolio-box-caption-content">
                                     <div class="project-category text-faded">APPLICATION</div>

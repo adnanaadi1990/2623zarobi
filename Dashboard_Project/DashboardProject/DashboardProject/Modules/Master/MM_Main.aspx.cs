@@ -119,9 +119,41 @@ namespace ITLDashboard.Modules.Master
 
         protected void btnFG_Click(object sender, ImageClickEventArgs e)
         {
-            Session["Application"] = "BOM";
-            Response.Redirect("~/Default.aspx");
+            Session["Application"] = "MM";
+            //  Response.Redirect("~/Default.aspx");
+            getFormsName();
+            if (((string)ViewState["FNAME"]) == "MM")
+            {
+                // Response.Redirect("CreateMaterialMaster.aspx");
+                Response.Redirect("~/Default.aspx");
+            }
+            else
+            {
+                Response.Redirect("~/AccessDenied.aspx");
+
+            }
+
         }
-   
+
+        protected void btnSM_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["Application"] = "SMRF";
+            //  Response.Redirect("~/Default.aspx");
+            getFormsName();
+            if (((string)ViewState["FNAME"]) == "SMRF")
+            {
+                // Response.Redirect("CreateMaterialMaster.aspx");
+                Response.Redirect("~/Default.aspx");
+            }
+            else
+            {
+                Response.Redirect("~/AccessDenied.aspx");
+
+            }
+
+        }
+
+       
+       
     }
 }

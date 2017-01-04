@@ -99,6 +99,18 @@ namespace ITLDashboard.Modules.Master
                     txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
                     txtSMC.BackColor = System.Drawing.Color.AliceBlue;
 
+                    ddlProdCatg.BackColor = System.Drawing.Color.AliceBlue;
+                    ddlProdCatgsub1.BackColor = System.Drawing.Color.AliceBlue;
+                    ddlProdCatgsub2.BackColor = System.Drawing.Color.AliceBlue;
+                    ddlSalesUnit.BackColor = System.Drawing.Color.AliceBlue;
+                    ddlItemCateguoryGroup.BackColor = System.Drawing.Color.AliceBlue;
+                    ddlProfitCenter.BackColor = System.Drawing.Color.AliceBlue;
+                    ddlProductionunit.BackColor = System.Drawing.Color.AliceBlue;
+                    ddlUnitOfIssue.BackColor = System.Drawing.Color.AliceBlue;
+                    ddlMrpType.BackColor = System.Drawing.Color.AliceBlue;
+                    ddlMRPGroup.BackColor = System.Drawing.Color.AliceBlue;
+                    ddlAvailabilitycheck.BackColor = System.Drawing.Color.AliceBlue;
+
                     if (Request.QueryString["TransactionNo"] != null)
                     {
 
@@ -749,6 +761,18 @@ namespace ITLDashboard.Modules.Master
                 txtDescription.BackColor = System.Drawing.Color.AliceBlue;
                 txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
                 ddlEmailMDA.BackColor = System.Drawing.Color.AliceBlue;
+
+                ddlProdCatg.BackColor = System.Drawing.Color.AliceBlue;
+                ddlProdCatgsub1.BackColor = System.Drawing.Color.AliceBlue;
+                ddlProdCatgsub2.BackColor = System.Drawing.Color.AliceBlue;
+                ddlSalesUnit.BackColor = System.Drawing.Color.AliceBlue;
+                ddlItemCateguoryGroup.BackColor = System.Drawing.Color.AliceBlue;
+                ddlProfitCenter.BackColor = System.Drawing.Color.AliceBlue;
+                ddlProductionunit.BackColor = System.Drawing.Color.AliceBlue;
+                ddlUnitOfIssue.BackColor = System.Drawing.Color.AliceBlue;
+                ddlMrpType.BackColor = System.Drawing.Color.AliceBlue;
+                ddlMRPGroup.BackColor = System.Drawing.Color.AliceBlue;
+                ddlAvailabilitycheck.BackColor = System.Drawing.Color.AliceBlue;
             }
 
             catch (Exception ex)
@@ -3088,6 +3112,153 @@ namespace ITLDashboard.Modules.Master
         {
             try
             {
+                if (ddlProdCatg.SelectedValue == "0")
+                {
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Prod Catg should not be left blank!";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    ddlProdCatg.BackColor = System.Drawing.Color.Red;
+                    whenquerystringpass();
+                    return;
+                }
+                if (ddlProdCatgsub1.SelectedValue == "0")
+                {
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Prod Catg sub1 should not be left blank!";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    ddlProdCatgsub1.BackColor = System.Drawing.Color.Red;
+                    whenquerystringpass();
+                    return;
+                }
+                if (ddlProdCatgsub2.SelectedValue == "0")
+                {
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Prod Catg sub2 should not be left blank!";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    ddlProdCatgsub2.BackColor = System.Drawing.Color.Red;
+                    whenquerystringpass();
+                    return;
+                }
+                if (ddlSalesUnit.SelectedValue == "0")
+                {
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Sales Unit should not be left blank!";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    ddlSalesUnit.BackColor = System.Drawing.Color.Red;
+                    whenquerystringpass();
+                    return;
+                }
+                if (ddlItemCateguoryGroup.SelectedValue == "0")
+                {
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Item Categuory Group should not be left blank!";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    ddlItemCateguoryGroup.BackColor = System.Drawing.Color.Red;
+                    whenquerystringpass();
+                    return;
+                }
+                if (ddlProfitCenter.SelectedValue == "0")
+                {
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Profit Center should not be left blank!";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    ddlProfitCenter.BackColor = System.Drawing.Color.Red;
+                    whenquerystringpass();
+                    return;
+                }
+                if (ddlProductionunit.SelectedValue == "0")
+                {
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Production unit should not be left blank!";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    ddlProductionunit.BackColor = System.Drawing.Color.Red;
+                    whenquerystringpass();
+                    return;
+                }
+
+                if (ddlUnitOfIssue.SelectedValue == "0")
+                {
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Unit Of Issue should not be left blank!";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    ddlUnitOfIssue.BackColor = System.Drawing.Color.Red;
+                    whenquerystringpass();
+                    return;
+                }
+
+                if (ddlMrpType.SelectedValue == "0")
+                {
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Mrp Type should not be left blank!";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    ddlMrpType.BackColor = System.Drawing.Color.Red;
+                    whenquerystringpass();
+                    return;
+                }
+
+                if (ddlMRPGroup.SelectedValue == "0")
+                {
+                    lblmessage.Text = "";
+                    lblUpError.Text = "MRP Group should not be left blank!";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    ddlMRPGroup.BackColor = System.Drawing.Color.Red;
+                    whenquerystringpass();
+                    return;
+                }
+
+                if (ddlAvailabilitycheck.SelectedValue == "0")
+                {
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Availability check should not be left blank!";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    ddlAvailabilitycheck.BackColor = System.Drawing.Color.Red;
+                    whenquerystringpass();
+                    return;
+                }
                 if (ddlStorageLocation.SelectedValue == "")
                 {
 
@@ -4382,6 +4553,21 @@ namespace ITLDashboard.Modules.Master
                 //ddlMerchandiser.DataBind();  //binding dropdownlist
                 //ddlMerchandiser.Items.Insert(0, new ListItem("------Select------", "0"));
 
+                if(ddlPlant.SelectedValue == "1000")
+                {
+                    ddlMG.SelectedValue = "0006";
+                    bindMSGfromMG();
+                }
+                else if (ddlPlant.SelectedValue == "2000")
+                {
+                    ddlMG.SelectedValue = "0007";
+                    bindMSGfromMG();
+                }
+                else if (ddlPlant.SelectedValue == "3000")
+                {
+                    ddlMG.SelectedValue = "0005";
+                    bindMSGfromMG();
+                }
             }
             catch (SqlException ex)
             {

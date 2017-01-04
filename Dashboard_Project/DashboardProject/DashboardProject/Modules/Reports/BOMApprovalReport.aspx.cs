@@ -53,12 +53,13 @@ namespace DashboardProject.Modules.Reports
                 RadGrid1.Visible = true;
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = @"SP_BOMApprovalReport";
+                cmd.CommandText = @"SP_BOMAppReport";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 cmd.Parameters.AddWithValue("@FormIDFrom", txtFormIDfrom.Text);
                 cmd.Parameters.AddWithValue("@FormIDto", txtFormIDto.Text);
-                cmd.Parameters.AddWithValue("@MaterialNo", txtUN.Text);
+                cmd.Parameters.AddWithValue("@username", txtUN.Text);
+                cmd.Parameters.AddWithValue("@MaterialNo", txtUserName.Text);
 
                 adp.SelectCommand = cmd;
                 adp.Fill(dt);

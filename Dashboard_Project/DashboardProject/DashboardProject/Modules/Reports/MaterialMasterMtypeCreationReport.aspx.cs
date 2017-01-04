@@ -53,7 +53,7 @@ namespace DashboardProject.Modules.Reports
                 RadGrid1.Visible = true;
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = @"SP_MATERIALREPORT1";
+                cmd.CommandText = @"SP_MATERIALREPORTFG";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 cmd.Parameters.AddWithValue("@FormIDFrom", txtFormIDfrom.Text);

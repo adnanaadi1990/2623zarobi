@@ -58,13 +58,13 @@ namespace ITLDashboard {
         protected global::System.Web.UI.WebControls.ImageButton btnFI;
         
         /// <summary>
-        /// btnHR control.
+        /// btnPP control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnHR;
+        protected global::System.Web.UI.WebControls.ImageButton btnPP;
         
         /// <summary>
         /// btnAnnexure control.
@@ -83,6 +83,15 @@ namespace ITLDashboard {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnSAPBasis;
+        
+        /// <summary>
+        /// btnHR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnHR;
         
         /// <summary>
         /// btnIM control.
