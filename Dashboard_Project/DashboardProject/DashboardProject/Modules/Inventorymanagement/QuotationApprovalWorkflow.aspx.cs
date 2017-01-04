@@ -57,7 +57,7 @@ namespace DashboardProject.Modules.Inventorymanagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
-               if (!IsPostBack)
+            if (!IsPostBack)
             {
                 if (Session["User_Name"] == null)
                 {
@@ -114,7 +114,7 @@ namespace DashboardProject.Modules.Inventorymanagement
 
 
                         BindsysApplicationStatus();
-                       GetSockDetail();
+                        GetSockDetail();
                         GetHarcheyID();
                         getUserDetail();
                         GetStatusHierachyCategoryControls();
@@ -221,7 +221,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                     lblError.Text = "Page_Load" + ex.ToString();
                 }
             }
-       }
+        }
         #region Methods
         //////////////////////////////////////////--------------Methods---------------//////////////////////////////////////////////////////
         //--///Bind Application Method///
@@ -329,7 +329,7 @@ namespace DashboardProject.Modules.Inventorymanagement
         {
             try
             {
-              
+
                 cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'IAA'";
                 //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
                 cmd.CommandType = CommandType.Text;
@@ -510,7 +510,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                     else
                     {
                         string character = Guid.NewGuid().ToString().Substring(0, Guid.NewGuid().ToString().IndexOf("-"));
-                        fleUpload.PostedFile.SaveAs(Server.MapPath("~/DashboardDocument/InventoryAdjustment/" + character.ToString() + "_" + filename));
+                        fleUpload.PostedFile.SaveAs(Server.MapPath("~/DashboardDocument/QuotationApprovalWorkflow/" + "QuotationApprovalWorkflow" + character.ToString() + "_" + filename));
                         lblFileName.Text = character.ToString() + "_" + filename.ToString();
                         lblmessage.Text = "File uploaded successfully!";
 
@@ -572,8 +572,8 @@ namespace DashboardProject.Modules.Inventorymanagement
             try
             {
                 lblError.Text = "";
-                string pdfFileToDisplay = "../../DashboardDocument/InventoryAdjustment/" + lblFileName.Text;
-                string pdfFileToDisplay1 = "DashboardDocument/InventoryAdjustment/" + lblFileName.Text;
+                string pdfFileToDisplay = "../../DashboardDocument/QuotationApprovalWorkflow/" + lblFileName.Text;
+                string pdfFileToDisplay1 = "DashboardDocument/QuotationApprovalWorkflow/" + lblFileName.Text;
                 // Create the fully qualified file path...
                 string fileName = this.Server.MapPath(pdfFileToDisplay.ToString());
 
@@ -628,7 +628,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                     return;
 
                 }
-             
+
                 if (txtDescription.Text == "")
                 {
                     txtDescription.BackColor = System.Drawing.Color.Red;
@@ -639,7 +639,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                 }
                 string Notification = "";
 
-             
+
                 FilePath = "~/DashboardDocument/InventoryAdjustment/" + "InventoryAdjustment" + lblFileName.Text.ToString();
                 string Approval = ViewState["HOD"].ToString();
                 cmd.CommandText = "Exec SP_SYS_QuotationApproval" + " @TransactionMain='" + lblMaxTransactionNo.Text + "', " +
@@ -675,7 +675,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                 txtRemarksReview.Text = "";
                 txtDescription.Text = "";
 
-              
+
             }
 
 
@@ -711,7 +711,7 @@ namespace DashboardProject.Modules.Inventorymanagement
             {
                 lblError.Text = "Approver" + ex.ToString();
             }
- 
+
         }
         //-///////////////----------------------------------Reject Button------------------------///////////////////
         protected void btnReject_Click(object sender, EventArgs e)
@@ -892,8 +892,8 @@ namespace DashboardProject.Modules.Inventorymanagement
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                         EmailSubject = "Quotation Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + 
-                        " has sent you a Quotation Approval Request against Form ID # " + lblMaxTransactionID.Text.ToString() + 
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() +
+                        " has sent you a Quotation Approval Request against Form ID # " + lblMaxTransactionID.Text.ToString() +
                         " for approval. <br><br> Your kind approval is required on the following URL: <br><br><a href =" + url.ToString() + ">" + url.ToString() +
                         "</a> <br> <br> This is an auto-generated email from IS Dashboard, <br>you do not need to reply to this message.<br>" +
                         "<br>Inventory Management Application <br> Information Systems Dashboard";
@@ -977,7 +977,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                             EmailSubject = "Quotation Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
                             EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() +
                             " has sent you a Quotation Approval Request against Form ID # " + lblMaxTransactionID.Text.ToString() +
-                            " for approval. <br><br> You can create a Document No on the following URL: <br><br><a href =" + url.ToString() + ">" + url.ToString() + 
+                            " for approval. <br><br> You can create a Document No on the following URL: <br><br><a href =" + url.ToString() + ">" + url.ToString() +
                             "</a> <br> <br> This is an auto-generated email from IS Dashboard, <br>you do not need to reply to this message.<br>" +
                             "<br>Inventory Management Application <br> Information Systems Dashboard";
                             SessionUser = Session["User_Name"].ToString();
@@ -1172,9 +1172,9 @@ namespace DashboardProject.Modules.Inventorymanagement
                 }
             }
 
-        }    
+        }
         #endregion
 
-       
+
     }
 }
