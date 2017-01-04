@@ -710,6 +710,7 @@
     <Content Include="Modules\Inventorymanagement\QuotationApprovalWorkflow.aspx" />
     <Content Include="Modules\Inventorymanagement\SearchDeadStock.aspx" />
     <Content Include="Modules\Inventorymanagement\SearchInventoryAdjustment.aspx" />
+    <Content Include="Modules\Inventorymanagement\SearchQuotationApprovalrequests.aspx" />
     <Content Include="Modules\Master\BOMApproval.aspx" />
     <Content Include="Modules\Master\CreateMaterialMaster.aspx" />
     <Content Include="Modules\Master\MaterialMasterMtypeCreation.aspx" />
@@ -727,6 +728,7 @@
     <Content Include="Modules\Reports\PendingList.aspx" />
     <Content Include="Modules\Reports\PendingListByUser.aspx" />
     <Content Include="Modules\Reports\PettyCashMasterReport.aspx" />
+    <Content Include="Modules\Reports\QuotationApprovalReport.aspx" />
     <Content Include="Modules\Reports\SAPAuthorizationRequest.aspx" />
     <Content Include="Modules\Reports\ServiceMasterRequestformReport.aspx" />
     <Content Include="Modules\Reports\TransportRequestReport.aspx" />
@@ -1101,6 +1103,13 @@
     <Compile Include="Modules\Inventorymanagement\SearchInventoryAdjustment.aspx.designer.cs">
       <DependentUpon>SearchInventoryAdjustment.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Inventorymanagement\SearchQuotationApprovalrequests.aspx.cs">
+      <DependentUpon>SearchQuotationApprovalrequests.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Inventorymanagement\SearchQuotationApprovalrequests.aspx.designer.cs">
+      <DependentUpon>SearchQuotationApprovalrequests.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Master\BOMApproval.aspx.cs">
       <DependentUpon>BOMApproval.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1219,6 +1228,13 @@
     </Compile>
     <Compile Include="Modules\Reports\PettyCashMasterReport.aspx.designer.cs">
       <DependentUpon>PettyCashMasterReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\QuotationApprovalReport.aspx.cs">
+      <DependentUpon>QuotationApprovalReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Reports\QuotationApprovalReport.aspx.designer.cs">
+      <DependentUpon>QuotationApprovalReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\SAPAuthorizationRequest.aspx.cs">
       <DependentUpon>SAPAuthorizationRequest.aspx</DependentUpon>

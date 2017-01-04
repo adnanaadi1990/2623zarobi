@@ -16,9 +16,10 @@ using AjaxControlToolkit;
 using System.Collections.Generic;
 using ITLDashboard.Classes;
 
+
 namespace DashboardProject.Modules.Inventorymanagement
 {
-    public partial class SearchInventoryAdjustment : System.Web.UI.Page
+    public partial class SearchQuotationApprovalrequests : System.Web.UI.Page
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString.ToString());
         ComponentClass obj = new ComponentClass();
@@ -27,10 +28,9 @@ namespace DashboardProject.Modules.Inventorymanagement
         SqlDataAdapter adp = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
         DataTable table = new DataTable();
-        public static string FormID = "602";
+        public static string FormID = "QAF01";
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (!IsPostBack)
             {
                 txtFormID.Text = "";
@@ -69,13 +69,12 @@ namespace DashboardProject.Modules.Inventorymanagement
             string url = HttpContext.Current.Request.Url.ToString();
             Response.Redirect(url.ToString());
         }
-
-        protected void getFileName()
+        private void getFileName()
         {
-            try
+        try
             {
                 string Link = "";
-                cmd.CommandText = @"select top(1) TransactionMain,TransactionID from tbl_Inventoryadjustment where TransactionID = @TNo";
+                cmd.CommandText = @"select top(1) TransactionMain,TransactionID from tbl_QuotationApproval where TransactionID = @TNo";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
                 cmd.Parameters.AddWithValue("@TNo", txtFormID.Text.ToString());
@@ -92,7 +91,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                         Link = reader["TransactionMain"].ToString();
 
                     }
-                    Response.Redirect("~/Modules/Inventorymanagement/InventoryAdjustmentApproval.aspx?TransactionNo=" + Link.ToString());
+                    Response.Redirect("~/Modules/Inventorymanagement/QuotationApprovalWorkflow.aspx?TransactionNo=" + Link.ToString());
                 }
                 else
                 {
@@ -102,10 +101,8 @@ namespace DashboardProject.Modules.Inventorymanagement
 
             catch (Exception ex)
             {
-                lblError.Text = "btnSearch_Click" + ex.ToString();
+                lblError.Text = "getFileName" + ex.ToString();
             }
         }
-
-
     }
 }
