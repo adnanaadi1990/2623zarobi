@@ -40,7 +40,18 @@
                 btnHiddenbDS.click();
             }
         }
-
+        function DivClickedIAF() {
+            var btnHiddenbIAF = $('#<%= btnIAF.ClientID %>');
+            if (btnHiddenbIAF != null) {
+                btnHiddenbIAF.click();
+             }
+        }
+        function DivClickedQAF() {
+            var DivClickedQAF = $('#<%= btnQAF.ClientID %>');
+            if (DivClickedQAF != null) {
+                DivClickedQAF.click();
+             }
+         }
     </script>
 </head>
 
@@ -110,7 +121,36 @@
                         </a>
                     </div>
 
-                    
+                      <div class="col-lg-4 col-sm-6">
+                        <a href="#" class="portfolio-box">
+                            <asp:ImageButton ID="btnIAF" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/SL.jpg" OnClick="btnIAF_Click" />
+                            <%--<img src="../../img/portfolio/VMC.png" class="img-responsive" alt="">--%>
+                            <div class="portfolio-box-caption" onclick="javascript:DivClickedIAF(); return true;">
+                                <div class="portfolio-box-caption-content">
+                                    <div class="project-category text-faded">Form</div>
+                                    <div class="project-name">
+                                      Inventory Adjustment Form
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                       <div class="col-lg-4 col-sm-6">
+                        <a href="#" class="portfolio-box">
+                            <asp:ImageButton ID="btnQAF" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/SL.jpg" OnClick="btnQAFrunat_Click" />
+                            <%--<img src="../../img/portfolio/VMC.png" class="img-responsive" alt="">--%>
+                            <div class="portfolio-box-caption" onclick="javascript:DivClickedQAF(); return true;">
+                                <div class="portfolio-box-caption-content">
+                                    <div class="project-category text-faded">Form</div>
+                                    <div class="project-name">
+                                     Quotation Approval Form
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
 
                 </div>
             </div>
