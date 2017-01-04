@@ -599,12 +599,15 @@
     <Content Include="img\portfolio\Asset Transfer Form.jpg" />
     <Content Include="img\portfolio\AssetCreationForm.png" />
     <Content Include="img\portfolio\Assets Write Off Form.png" />
+    <Content Include="img\portfolio\ASSETS.jpg" />
     <Content Include="img\portfolio\AssetsDisposal.jpg" />
     <Content Include="img\portfolio\AssetsWriteOff.jpg" />
     <Content Include="img\portfolio\AttReport.jpg" />
+    <Content Include="img\portfolio\BASIS.jpg" />
     <Content Include="img\portfolio\calendar.png" />
     <Content Include="img\portfolio\CM.jpg" />
     <Content Include="img\portfolio\Cut_03.jpg" />
+    <Content Include="img\portfolio\D.S.jpg" />
     <Content Include="img\portfolio\Dashboardicon.png" />
     <Content Include="img\portfolio\Dashboardicon2.png" />
     <Content Include="img\portfolio\DeliveryChallanWorkflow.jpg" />
@@ -620,6 +623,8 @@
     <Content Include="img\portfolio\HOD.jpg" />
     <Content Include="img\portfolio\hr-hands.png" />
     <Content Include="img\portfolio\HR.png" />
+    <Content Include="img\portfolio\I.A.jpg" />
+    <Content Include="img\portfolio\IM.jpg" />
     <Content Include="img\portfolio\IMG_4388.jpg" />
     <Content Include="img\portfolio\international_textile_logo.png" />
     <Content Include="img\portfolio\inventorymanagement.jpg" />
@@ -650,6 +655,8 @@
     <Content Include="img\portfolio\paper-planes7.png" />
     <Content Include="img\portfolio\PendingUser.jpg" />
     <Content Include="img\portfolio\PettyCash.png" />
+    <Content Include="img\portfolio\Procu.jpg" />
+    <Content Include="img\portfolio\Q.A.jpg" />
     <Content Include="img\portfolio\SAP-BASIS1.jpg" />
     <Content Include="img\portfolio\SAPUserAut.jpg" />
     <Content Include="img\portfolio\scania-flat-nose-trucks--photo-110318.jpg" />

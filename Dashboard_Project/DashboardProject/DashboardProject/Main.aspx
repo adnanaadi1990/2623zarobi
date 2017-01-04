@@ -285,7 +285,7 @@ documents and waste stationery.<br>
 
                       <div class="col-lg-4 col-sm-6">
                         <a href="#" class="portfolio-box">
-                            <img src="img/portfolio/module5-2.png" class="img-responsive" alt="">
+                            <img src="img/portfolio/Procu.jpg" class="img-responsive" alt="">
                             <div class="portfolio-box-caption">
                                 <div class="portfolio-box-caption-content">
                                     <div class="project-category text-faded">APPLICATION</div>
@@ -307,10 +307,20 @@ documents and waste stationery.<br>
                             </div>
                         </a>
                     </div>
-
+                     <div class="col-lg-4 col-sm-6">
+                        <a href="#" class="portfolio-box">
+                            <asp:ImageButton ID="btnIM" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/inventorymanagement.jpg" OnClick="btnIM_Click" />
+                            <div class="portfolio-box-caption" onclick="javascript:DivClickedIM(); return true;">
+                                <div class="portfolio-box-caption-content">
+                                    <div class="project-category text-faded">APPLICATION</div>
+                                    <div class="project-name">Inventory Management</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                     <div class="col-lg-4 col-sm-6">
                         <a href="#" class="portfolio-box">
-                            <asp:ImageButton ID="btnAnnexure" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/Annexure.jpg" OnClick="btnAnnexure_Click" />
+                            <asp:ImageButton ID="btnAnnexure" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/ASSETS.jpg" OnClick="btnAnnexure_Click" />
                             <div class="portfolio-box-caption" onclick="javascript:DivClickedAnnexure(); return true;">
                                 <div class="portfolio-box-caption-content">
                                     <div class="project-category text-faded">APPLICATION</div>
@@ -322,7 +332,7 @@ documents and waste stationery.<br>
 
                      <div class="col-lg-4 col-sm-6">
                         <a href="#" class="portfolio-box">
-                            <asp:ImageButton ID="btnSAPBasis" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/UserRightsApp.jpg" OnClick="btnSAPBasis_Click" />
+                            <asp:ImageButton ID="btnSAPBasis" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/BASIS.jpg" OnClick="btnSAPBasis_Click" />
                             <div class="portfolio-box-caption" onclick="javascript:DivClickedSAPBasis(); return true;">
                                 <div class="portfolio-box-caption-content">
                                     <div class="project-category text-faded">APPLICATION</div>
@@ -370,17 +380,7 @@ documents and waste stationery.<br>
                             </div>
                         </a>
                     </div>
-                        <div class="col-lg-4 col-sm-6">
-                        <a href="#" class="portfolio-box">
-                            <asp:ImageButton ID="btnIM" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/inventorymanagement.jpg" OnClick="btnIM_Click" />
-                            <div class="portfolio-box-caption" onclick="javascript:DivClickedIM(); return true;">
-                                <div class="portfolio-box-caption-content">
-                                    <div class="project-category text-faded">APPLICATION</div>
-                                    <div class="project-name">Inventory Management</div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                       
                     <div class="col-lg-4 col-sm-6" runat="server" id="dvAdmin" visible="false">
                         <a href="#" class="portfolio-box">
                             <asp:ImageButton ID="btnAdmin" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/admin.jpg" OnClick="btnAdmin_Click"></asp:ImageButton>
