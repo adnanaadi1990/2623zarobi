@@ -196,6 +196,7 @@ namespace DashboardProject.Modules.Master
                 txtBOMValidFrom.Text = reader["BOMValidFrom"].ToString();
                 txtBOMValidTo.Text = reader["BOMValidTo"].ToString();
                 txtBaseQuantity.Text = reader["QTY"].ToString();
+
             }
 
         }
@@ -1287,6 +1288,10 @@ namespace DashboardProject.Modules.Master
 
                     ViewState["Status"] = ds.Tables["HID"].Rows[0]["Status"].ToString();
 
+                }
+                else
+                {
+                    ViewState["HID"] = "1";
                 }
             }
             catch (Exception ex)
