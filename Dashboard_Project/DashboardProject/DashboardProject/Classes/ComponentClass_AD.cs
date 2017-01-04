@@ -52,6 +52,23 @@ namespace ITLDashboard.Classes
             { conn.Close(); }
             return ds;
         }
-
+        public DataSet AllowForms(string UserName, string FormName)
+        {
+            try
+            {
+                cmd.CommandText = "";
+                cmd.CommandText = "Exec SP_AllowForms_Restricted" + " @User_Name ='" + UserName + "', " +
+                        " @Form_ID ='" + FormName + "'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                adp.SelectCommand = cmd;
+                adp.Fill(ds, "AllowForm");
+            }
+            catch (Exception ex)
+            { ex.ToString(); }
+            finally
+            { conn.Close(); }
+            return ds;
+        }
     }
 }

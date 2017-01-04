@@ -27,7 +27,7 @@ namespace DashboardProject.Modules.PP
         SqlDataAdapter adp = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
         DataTable table = new DataTable();
-       
+        ComponentClass_AD obj_AD = new ComponentClass_AD();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -53,12 +53,23 @@ namespace DashboardProject.Modules.PP
 
         protected void btnBOM_Click(object sender, ImageClickEventArgs e)
         {
+            Session["Application"] = "BOM";
 
+            getFormsName();
+            if (((string)ViewState["FNAME"]) == "BOM")
+            {
+                //Response.Redirect("PettyCash.aspx");
+                Response.Redirect("~/Default.aspx");
+            }
+            else
+            {
+                Response.Redirect("~/AccessDenied.aspx");
+            }
         }
 
         protected void getFormsName()
         {
-            ds = FIELDV.AllowForms(Session["User_Name"].ToString(), Session["Application"].ToString());
+            ds = obj_AD.AllowForms(Session["User_Name"].ToString(), Session["Application"].ToString());
             string ColumnName = ds.Tables["AllowForm"].Columns[0].ColumnName;
             if (ds.Tables["AllowForm"].Rows.Count > 0)
             {
