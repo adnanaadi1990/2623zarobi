@@ -119,10 +119,10 @@ namespace ITLDashboard.Modules.Master
 
         protected void btnFG_Click(object sender, ImageClickEventArgs e)
         {
-            Session["Application"] = "MM";
+            Session["Application"] = "FG";
             //  Response.Redirect("~/Default.aspx");
             getFormsName();
-            if (((string)ViewState["FNAME"]) == "MM")
+            if (((string)ViewState["FNAME"]) == "FG")
             {
                 // Response.Redirect("CreateMaterialMaster.aspx");
                 Response.Redirect("~/Default.aspx");

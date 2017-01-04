@@ -1690,7 +1690,6 @@ namespace ITLDashboard.Classes
         {
             try
             {
-
                 cmd.CommandText = "EXEC SP_UpdateMaterial" + " @TransactionID  ='" + MetrialNo.ToString() + "', " +
                        " @Materiallock ='" + MLock.ToString() + "', " +
                        " @SAPCode ='" + SAPCode.ToString() + "'";
