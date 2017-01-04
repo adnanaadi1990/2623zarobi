@@ -46,7 +46,14 @@
               if (btnHiddenbtnFG != null) {
                   btnHiddenbtnFG.click();
                }
-           }
+          }
+
+          function DivClickedSM() {
+              var btnHiddenbtnSM = $('#<%= btnSM.ClientID %>');
+              if (btnHiddenbtnSM != null) {
+                  btnHiddenbtnSM.click();
+              }
+          }
           
   </script>
     
@@ -120,19 +127,33 @@
                                    <div class="col-lg-4 col-sm-6">
                        <a href="#" class="portfolio-box">
                         <%--<img src="../../img/portfolio/MMaster.jpg" class="img-responsive" alt="">--%>
-                        <asp:ImageButton ID="ImageButton2" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/Finish-goods.png" CausesValidation="False" />
+                        <asp:ImageButton ID="btnFG" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/Finish-goods.png" CausesValidation="False" OnClick="btnFG_Click" />
                         <div class="portfolio-box-caption"  onclick="javascript:DivClickedFG(); return true;">
                             <div class="portfolio-box-caption-content" >
                                 <div class="project-category text-faded">Form</div>
                                 <div class="project-name">
-                                   BOM Approval Form</div>
+                                   Finished Goods Material Master</div>
                             </div>
                         </div>
                    </a>
                 </div>
                
 
-
+                
+                                   <div class="col-lg-4 col-sm-6">
+                       <a href="#" class="portfolio-box">
+                        <%--<img src="../../img/portfolio/MMaster.jpg" class="img-responsive" alt="">--%>
+                        <asp:ImageButton ID="btnSM" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/Finish-goods.png" CausesValidation="False" OnClick="btnSM_Click"/>
+                        <div class="portfolio-box-caption"  onclick="javascript:DivClickedSM(); return true;">
+                            <div class="portfolio-box-caption-content" >
+                                <div class="project-category text-faded">Form</div>
+                                <div class="project-name">
+                                   Service Master</div>
+                            </div>
+                        </div>
+                   </a>
+                </div>
+               
                 <div class="col-lg-4 col-sm-6">
                     <a href="#" class="portfolio-box">
                         <img src="../../img/portfolio/UNDERPROCESS.png" class="img-responsive" alt="">
