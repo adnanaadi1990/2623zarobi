@@ -86,7 +86,6 @@
     <Content Include="bin\AjaxControlToolkit.pdb" />
     <Content Include="bin\AJAXExtensionsToolbox.dll" />
     <Content Include="bin\itextsharp.dll" />
-    <Content Include="bin\itextsharp.xml" />
     <Content Include="bin\Telerik.Web.Design.dll" />
     <Content Include="bin\Telerik.Web.UI.dll" />
     <Content Include="bin\Telerik.Web.UI.Skins.dll" />
@@ -604,6 +603,7 @@
     <Content Include="img\portfolio\AssetsWriteOff.jpg" />
     <Content Include="img\portfolio\AttReport.jpg" />
     <Content Include="img\portfolio\BASIS.jpg" />
+    <Content Include="img\portfolio\BOM.jpg" />
     <Content Include="img\portfolio\calendar.png" />
     <Content Include="img\portfolio\CM.jpg" />
     <Content Include="img\portfolio\Cut_03.jpg" />
@@ -1351,6 +1351,9 @@
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequiredField.cs" />
     <Compile Include="SessionExp.aspx.cs">
