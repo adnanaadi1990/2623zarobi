@@ -140,6 +140,10 @@
                         Material No
                            <asp:TextBox ID="txtUN" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
+                     <div class="col-sm-4" runat="server" id="Div2">
+                      User Name
+                           <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
                   </div>
               
 
@@ -184,8 +188,6 @@
                                             </telerik:GridButtonColumn>
                                             <telerik:GridBoundColumn DataField="TransactionID" FilterControlAltText="Filter column column" FooterText="Form ID" HeaderText="Form ID" UniqueName="FormID">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="TransactionMain" FilterControlAltText="Filter column column" FooterText="Transaction Main" HeaderText="Transaction Main" UniqueName="TransactionMain">
-                                            </telerik:GridBoundColumn>
                                               <telerik:GridBoundColumn DataField="BOM" FilterControlAltText="Filter column column" FooterText="BOM" HeaderText="BOM" UniqueName="BOM">
                                             </telerik:GridBoundColumn>
                                               <telerik:GridBoundColumn DataField="MaterialNo" FilterControlAltText="Filter column column" FooterText="Material NO" HeaderText="Material NO" UniqueName="MaterialNo">
@@ -208,6 +210,30 @@
                                             </telerik:GridBoundColumn>
                                               <telerik:GridBoundColumn DataField="BOMValidTo" FilterControlAltText="Filter column column" FooterText="BOM Valid To" HeaderText="BOM Valid To" UniqueName="BOMValidTo">
                                             </telerik:GridBoundColumn>
+
+
+                                                  <telerik:GridBoundColumn DataField="Sequance" FilterControlAltText="Filter column column" FooterText="Item" HeaderText="Item" UniqueName="Item">
+                                            </telerik:GridBoundColumn>
+
+                                                  <telerik:GridBoundColumn DataField="ComType" FilterControlAltText="Filter column column" FooterText="Com Type" HeaderText="Com Type" UniqueName="ComType">
+                                            </telerik:GridBoundColumn>
+
+                                                     <telerik:GridBoundColumn DataField="ItemMNo" FilterControlAltText="Filter column column" FooterText="Item Material No" HeaderText="Item MaterialNo" UniqueName="ItemMNo">
+                                            </telerik:GridBoundColumn>
+
+                                                     <telerik:GridBoundColumn DataField="ItemMDesc" FilterControlAltText="Filter column column" FooterText="Item Material Desc" HeaderText="Item Material Des" UniqueName="Item Material Des">
+                                            </telerik:GridBoundColumn>
+
+                                                            <telerik:GridBoundColumn DataField="QTY" FilterControlAltText="Filter column column" FooterText="QTYc" HeaderText="QTY" UniqueName="QTY">
+                                            </telerik:GridBoundColumn>
+
+                                                            <telerik:GridBoundColumn DataField="UOM" FilterControlAltText="Filter column column" FooterText="UOM" HeaderText="UOM" UniqueName="UOM">
+                                            </telerik:GridBoundColumn>
+
+                                                            <telerik:GridBoundColumn DataField="ItemStorageLocation" FilterControlAltText="Filter column column" FooterText="Item Storage Location" HeaderText="Item Storage Location" UniqueName="ItemStorageLocation">
+                                            </telerik:GridBoundColumn>
+
+
                                               <telerik:GridBoundColumn DataField="CreatedBy" FilterControlAltText="Filter column5 column" HeaderText="Created By" UniqueName="column5">
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="CreatedDateTime" FilterControlAltText="Filter column20 column" HeaderText="Created Date Time" UniqueName="column20">
