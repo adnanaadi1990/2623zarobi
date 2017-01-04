@@ -94,6 +94,9 @@ namespace ITLDashboard.Modules.Inventorymanagement
             }
         }
 
+    
+
+      
         protected void btnIAF_Click(object sender, ImageClickEventArgs e)
         {
             Session["Application"] = "IAF";
@@ -110,7 +113,7 @@ namespace ITLDashboard.Modules.Inventorymanagement
             }
         }
 
-        protected void btnQAFrunat_Click(object sender, ImageClickEventArgs e)
+        protected void btnQAF_Click(object sender, ImageClickEventArgs e)
         {
             Session["Application"] = "QAF";
             // Response.Redirect("~/Default.aspx");
@@ -125,5 +128,6 @@ namespace ITLDashboard.Modules.Inventorymanagement
 
             }
         }
+
     }
 }

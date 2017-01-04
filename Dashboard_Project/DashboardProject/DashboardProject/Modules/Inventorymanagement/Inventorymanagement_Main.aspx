@@ -138,7 +138,7 @@
 
                        <div class="col-lg-4 col-sm-6">
                         <a href="#" class="portfolio-box">
-                            <asp:ImageButton ID="btnQAF" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/SL.jpg" OnClick="btnQAFrunat_Click" />
+                            <asp:ImageButton ID="btnQAF" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/SL.jpg" OnClick="btnQAF_Click" />
                             <%--<img src="../../img/portfolio/VMC.png" class="img-responsive" alt="">--%>
                             <div class="portfolio-box-caption" onclick="javascript:DivClickedQAF(); return true;">
                                 <div class="portfolio-box-caption-content">
