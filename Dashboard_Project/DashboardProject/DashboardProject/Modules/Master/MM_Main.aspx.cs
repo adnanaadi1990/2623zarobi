@@ -117,11 +117,6 @@ namespace ITLDashboard.Modules.Master
             }
         }
 
-        protected void btnFG_Click(object sender, ImageClickEventArgs e)
-        {
-            Session["Application"] = "BOM";
-            Response.Redirect("~/Default.aspx");
-        }
-   
+       
     }
 }

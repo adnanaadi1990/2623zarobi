@@ -330,7 +330,7 @@
 
                             <div class="col-sm-4">
                                 Material Group
-                                    <asp:DropDownList ID="ddlMG" runat="server" CssClass="form-control" OnSelectedIndexChanged="MG_SelectedIndexChanged" AutoPostBack="True" CausesValidation="True">
+                                    <asp:DropDownList ID="ddlMG" runat="server" CssClass="form-control" OnSelectedIndexChanged="MG_SelectedIndexChanged" AutoPostBack="True" CausesValidation="True" Enabled="False">
                                     </asp:DropDownList>
                             </div>
 
@@ -390,7 +390,7 @@
                             </div>
                             <div class="col-sm-3">
                                 Batch Management
-                       <asp:RadioButtonList ID="chkBatchManagement" runat="server" RepeatDirection="Horizontal">
+                       <asp:RadioButtonList ID="chkBatchManagement" runat="server" RepeatDirection="Horizontal" Enabled="False">
                            <asp:ListItem Selected="True">Yes</asp:ListItem>
                            <asp:ListItem>No</asp:ListItem>
                        </asp:RadioButtonList>

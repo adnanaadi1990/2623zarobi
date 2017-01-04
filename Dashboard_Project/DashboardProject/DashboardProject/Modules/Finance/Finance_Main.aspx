@@ -188,18 +188,6 @@
                         </a>
                     </div>
 
-                    <div class="col-lg-4 col-sm-6">     
-                        <a href="#" class="portfolio-box">
-                            <asp:ImageButton ID="btnSMR" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/SMR.jpg" CausesValidation="False"  />
-                            <%-- <img src="../../img/portfolio/invoice.jpg" class="img-responsive" alt="">--%>
-                            <div class="portfolio-box-caption" onclick="javascript:DivClickedServiceMasterRequestForm(); return true;">
-                                <div class="portfolio-box-caption-content">
-                                    <div class="project-category text-faded">Form</div>
-                                    <div class="project-name">Service Master</div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
                 </div>
             </div>
         </section>
