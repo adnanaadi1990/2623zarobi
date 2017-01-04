@@ -140,6 +140,10 @@
                         Material No
                            <asp:TextBox ID="txtUN" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
+                     <div class="col-sm-4" runat="server" id="Div2">
+                      User Name
+                           <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
                   </div>
               
 
@@ -183,8 +187,6 @@
                                             <telerik:GridButtonColumn CommandName="Select" Text="Select" UniqueName="Select">
                                             </telerik:GridButtonColumn>
                                             <telerik:GridBoundColumn DataField="TransactionID" FilterControlAltText="Filter column column" FooterText="Form ID" HeaderText="Form ID" UniqueName="FormID">
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="TransactionMain" FilterControlAltText="Filter column column" FooterText="Transaction Main" HeaderText="Transaction Main" UniqueName="TransactionMain">
                                             </telerik:GridBoundColumn>
                                               <telerik:GridBoundColumn DataField="BOM" FilterControlAltText="Filter column column" FooterText="BOM" HeaderText="BOM" UniqueName="BOM">
                                             </telerik:GridBoundColumn>
