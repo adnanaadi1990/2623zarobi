@@ -201,10 +201,11 @@ namespace ITLDashboard.Modules.Master
                         if (((string)ViewState["HID"]) == "2")
                         {
                             if ((((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Senior Merchandiser") ||
+                                (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Software Developer") ||
                               (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Team Lead") ||
                                 (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Deputy Manager Production") ||
                                 (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Assistant Manager"))
-                            {
+                            {               
                                 BD.Visible = true;
                                 Prod.Visible = true;
                                 SD.Visible = true;
@@ -267,6 +268,7 @@ namespace ITLDashboard.Modules.Master
                                 controlForwardHide();
                             }
                             if ((((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Senior Manager") ||
+                                (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "SAP Business Analyst") ||
                                 (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "General Manager") ||
                                 (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Manager Operation"))
                             {
@@ -451,7 +453,7 @@ namespace ITLDashboard.Modules.Master
                                 txtRemarksReview.Visible = true;
                                 txtRemarksReview.Enabled = true;
                                 txtRemarks.Enabled = false;
-                                btnEdit.Visible = true;
+                                btnEdit.Visible = false;
                                 btnForward.Visible = true;
                                 btnTransfer.Visible = true;
                                 controlForwardHide();
@@ -516,12 +518,12 @@ namespace ITLDashboard.Modules.Master
                             DataRow[] foundAuthors = dt.Select("user_name = '" + Session["User_Name"].ToString() + "'");
                             if (foundAuthors.Length != 0)
                             {
-                        getUser();
-                        //getUserHOD();
-                        DummyGrid();
-                        getUserDetail();
-                        GetTransactionID();
-                        BindPageLoad();
+                                getUser();
+                                //getUserHOD();
+                                DummyGrid();
+                                getUserDetail();
+                                GetTransactionID();
+                                BindPageLoad();
                             }
                             else
                             {
@@ -822,7 +824,6 @@ namespace ITLDashboard.Modules.Master
                 ds = obj.GetHarachyCustomerMaster(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
                 dt = ds.Tables["HID"];
                 ViewState["HIDDataSet"] = dt;
-                ViewState["HID"] = "1";
                 if (ds.Tables["HID"].Rows.Count > 0)
                 {
                     lblMaxTransactionID.Text = ds.Tables["HID"].Rows[0]["TransactionID"].ToString();
@@ -832,6 +833,10 @@ namespace ITLDashboard.Modules.Master
                     ViewState["FormCreatedBy"] = ds.Tables["HID"].Rows[0]["CreatedBy"].ToString();
                     ViewState["SerialNo"] = ds.Tables["HID"].Rows[0]["SerialNo"].ToString();
                     ViewState["Status"] = ds.Tables["HID"].Rows[0]["Status"].ToString();
+                }
+                else
+                {
+                    ViewState["HID"] = "1";
                 }
             }
             catch (Exception ex)
@@ -1148,7 +1153,7 @@ namespace ITLDashboard.Modules.Master
                             ds.Clear();
                             cmdgetdata.CommandText = "";
                             //cmd.CommandText = "SELECT COALESCE(MAX(MeterialNo), 0) +1 as TransactionID from tbl_SYS_MaterialMaster";
-                            cmdgetdata.CommandText = "SP_getuserMerchandiser";
+                            cmdgetdata.CommandText = "SP_getuserMHOD";
                             cmdgetdata.CommandType = CommandType.StoredProcedure;
                             cmdgetdata.Connection = connection;
                             adp.SelectCommand = cmdgetdata;
@@ -1158,7 +1163,7 @@ namespace ITLDashboard.Modules.Master
                             //ddlMerchandiser.DataValueField = ds.Tables["tblusermodulecategoryMerchandiser"].Columns["user_name"].ToString();             // to retrive specific  textfield name 
                             //ddlMerchandiser.DataSource = ds.Tables["tblusermodulecategoryMerchandiser"];      //assigning datasource to the dropdownlist
                             //ddlMerchandiser.DataBind();  //binding dropdownlist
-                            //ddlMerchandiser.Items.Insert(0, new ListItem("------Select------", "0"));
+                            ddlMerchandiser.Items.Insert(0, new ListItem("------Select------", "0"));
                         }
                         catch (Exception ex)
                         { ex.ToString(); }
@@ -1180,17 +1185,7 @@ namespace ITLDashboard.Modules.Master
                 ddlTaxes.Items.Insert(0, new ListItem("------Select------", "0"));
                 conn.Close();
 
-                cmd.CommandText = "";
-                cmd.CommandText = "SP_getuserMHOD";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                conn.Open();
-                ddlMHOD.DataSource = cmd.ExecuteReader();
-                ddlMHOD.DataTextField = "DisplayName";
-                ddlMHOD.DataValueField = "user_name";
-                ddlMHOD.DataBind();
-                ddlMHOD.Items.Insert(0, new ListItem("------Select------", "0"));
-                conn.Close();
+
 
                 cmd.CommandText = "";
                 cmd.CommandText = "SP_getuserMarketing";
@@ -1204,10 +1199,6 @@ namespace ITLDashboard.Modules.Master
                 ddlMarketingHOD.Items.Insert(0, new ListItem("------Select------", "0"));
                 conn.Close();
 
-                //ddlTaxes.Items.Insert(0, new ListItem("------Select------", "0"));
-                //ddlMerchandiser.Items.Insert(0, new ListItem("------Select------", "0"));
-                //ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
-                //ddlEmailReviwer.Items.Insert(0, new ListItem("------Select------", "0"));
 
                 cmd.CommandText = "SP_getuserNotificationFI";
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -1219,6 +1210,7 @@ namespace ITLDashboard.Modules.Master
                 ddlNotificationFI.DataBind();
                 ddlNotificationFI.Items.Insert(0, new ListItem("------Select------", "0"));
                 conn.Close();
+                ddlMHOD.Items.Insert(0, new ListItem("------Select------", "0"));
             }
             catch (SqlException ex)
             {
@@ -4361,7 +4353,8 @@ namespace ITLDashboard.Modules.Master
         {
             try
             {
-
+                ddlMHOD.Items.Clear();
+                ddlMerchandiser.Items.Clear();
                 bindSLfromPlant();
                 getUser();
                 DataTable tblusermodulecategoryMerchandiser = (DataTable)ViewState["tblusermodulecategoryMerchandiser"];
@@ -4374,7 +4367,7 @@ namespace ITLDashboard.Modules.Master
                 ddlMerchandiser.DataBind();
                 ddlMerchandiser.Items.Insert(0, new ListItem("------Select------", "0"));
 
-            //    DataView dvDataMerchandiserHOD = new DataView(tblusermodulecategoryMerchandiser);
+                //    DataView dvDataMerchandiserHOD = new DataView(tblusermodulecategoryMerchandiser);
                 dvDataMerchandiser.RowFilter = "ModuleName like '%" + ddlPlant.SelectedValue.ToString() + "%' and Category = 'Merchandiser HOD'";
 
                 ddlMHOD.DataSource = dvDataMerchandiser;
@@ -4388,9 +4381,6 @@ namespace ITLDashboard.Modules.Master
                 //ddlMerchandiser.DataSource = ds.Tables["tblusermodulecategoryMerchandiser"];      //assigning datasource to the dropdownlist
                 //ddlMerchandiser.DataBind();  //binding dropdownlist
                 //ddlMerchandiser.Items.Insert(0, new ListItem("------Select------", "0"));
-               
-
-
 
             }
             catch (SqlException ex)
