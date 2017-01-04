@@ -231,7 +231,7 @@
                         <asp:DropDownList ID="ddlMaterialType" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlMaterialType_SelectedIndexChanged" AutoPostBack="True">
                             <asp:ListItem Value="0">------Select------</asp:ListItem>
                             <asp:ListItem Value="FERT">FERT Finished Product</asp:ListItem>
-                            <asp:ListItem Value="FERT">HAWA Trading Goods</asp:ListItem>
+                            <asp:ListItem Value="HAWA">HAWA Trading Goods</asp:ListItem>
                         </asp:DropDownList>
                     </div>
 
