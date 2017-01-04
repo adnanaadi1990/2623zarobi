@@ -149,5 +149,32 @@ namespace ITLDashboard.Classes
             { conn.Close(); }
             return ds;
         }
+
+
+        public DataSet GetGridBOMWhenQueryStringpass(string TransID)
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = @"getBOMGridDATA";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        cmd.Parameters.AddWithValue("@TransactionID", TransID.ToString());
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "GetGridBOMWhenQueryStringpass");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
+            }
+        }
     }
 }
