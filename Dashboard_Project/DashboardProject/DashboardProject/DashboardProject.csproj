@@ -720,6 +720,8 @@
     <Content Include="Modules\Master\SearchMaterialMasterMtypeCreation.aspx" />
     <Content Include="Modules\Master\SearchMeterialMaster.aspx" />
     <Content Include="Modules\Master\WebForm1.aspx" />
+    <Content Include="Modules\PP\PP_Main.aspx" />
+    <Content Include="Modules\Procurement\Procurment_Main.aspx" />
     <Content Include="Modules\Reports\AssetCreationFromReport.aspx" />
     <Content Include="Modules\Reports\AssetTransferFromReport.aspx" />
     <Content Include="Modules\Reports\BOMApprovalReport.aspx" />
@@ -809,6 +811,7 @@
     <Compile Include="Classes\ComponentClass_FD.cs" />
     <Compile Include="Classes\ComponentClass_FK.cs" />
     <Compile Include="Classes\FieldValidationCode.cs" />
+    <Compile Include="Classes\FieldValidation_AD.cs" />
     <Compile Include="Code\AttendanceSystemDataSet.Designer.cs" />
     <Compile Include="Code\AttendanceSystemDataSet1.Designer.cs" />
     <Compile Include="Code\AttendanceSystemDataSet2.Designer.cs">
@@ -1168,6 +1171,20 @@
     </Compile>
     <Compile Include="Modules\Master\WebForm1.aspx.designer.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PP\PP_Main.aspx.cs">
+      <DependentUpon>PP_Main.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\PP\PP_Main.aspx.designer.cs">
+      <DependentUpon>PP_Main.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Procurement\Procurment_Main.aspx.cs">
+      <DependentUpon>Procurment_Main.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Procurement\Procurment_Main.aspx.designer.cs">
+      <DependentUpon>Procurment_Main.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\AssetCreationFromReport.aspx.cs">
       <DependentUpon>AssetCreationFromReport.aspx</DependentUpon>

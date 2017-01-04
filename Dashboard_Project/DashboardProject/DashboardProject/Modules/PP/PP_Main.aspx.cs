@@ -14,16 +14,11 @@ using System.Net;
 using System.Net.Mail;
 using AjaxControlToolkit;
 using System.Collections.Generic;
-using System.Web.Script.Services;
-using System.Web.Script.Serialization;
-using System.DirectoryServices;
-using System.Security.Principal;
-using System.Web.UI.HtmlControls;
 using ITLDashboard.Classes;
 
-namespace ITLDashboard.Modules.Master
+namespace DashboardProject.Modules.PP
 {
-    public partial class MM_Main : System.Web.UI.Page
+    public partial class PP_Main : System.Web.UI.Page
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString.ToString());
         ComponentClass obj = new ComponentClass();
@@ -32,63 +27,35 @@ namespace ITLDashboard.Modules.Master
         SqlDataAdapter adp = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
         DataTable table = new DataTable();
-        FieldValidationCode FIELDV = new FieldValidationCode();
+       
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (!IsPostBack)
-            //{
-            if (Session["User_Name"] == null)
+            if (!IsPostBack)
             {
-                Response.Redirect("~/ITLLogin.aspx");
-
-            }
-            else
-            {
-                ds = obj.getUserDetail(Session["User_Name"].ToString());
-                if (ds.Tables["tbluser_DisplayName"].Rows.Count > 0)
+                if (Session["User_Name"] == null)
                 {
-                    lblUSerName.Text = ds.Tables["tbluser_DisplayName"].Rows[0]["DisplayName"].ToString();
-                    //ViewState["HID"] = ds.Tables["HID"].Rows[0]["HierachyCategory"].ToString();
+                    Response.Redirect("~/ITLLogin.aspx");
+
                 }
                 else
                 {
-                    Response.Redirect("~/NoRightsUser.aspx");
+                    ds = obj.getUserDetail(Session["User_Name"].ToString());
+                    if (ds.Tables["tbluser_DisplayName"].Rows.Count > 0)
+                    {
+                        lblUSerName.Text = ds.Tables["tbluser_DisplayName"].Rows[0]["DisplayName"].ToString();
+                        //ViewState["HID"] = ds.Tables["HID"].Rows[0]["HierachyCategory"].ToString();
+                    }
+
                 }
 
             }
-
-            //}
-
         }
 
-        protected void lnklogout_Click(object sender, EventArgs e)
+        protected void btnBOM_Click(object sender, ImageClickEventArgs e)
         {
 
-            Session.Abandon();
-            Response.Redirect("~/ITLLogin.aspx");
-
         }
-        protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
-        {
-            Session["ProjectId"] = "1";
-        }
-        protected void btnMM_Click(object sender, ImageClickEventArgs e)
-        {
-            Session["Application"] = "MM";
-            //  Response.Redirect("~/Default.aspx");
-            getFormsName();
-            if (((string)ViewState["FNAME"]) == "MM")
-            {
-                // Response.Redirect("CreateMaterialMaster.aspx");
-                Response.Redirect("~/Default.aspx");
-            }
-            else
-            {
-                Response.Redirect("~/AccessDenied.aspx");
 
-            }
-
-        }
         protected void getFormsName()
         {
             ds = FIELDV.AllowForms(Session["User_Name"].ToString(), Session["Application"].ToString());
@@ -117,6 +84,5 @@ namespace ITLDashboard.Modules.Master
             }
         }
 
-       
     }
 }
