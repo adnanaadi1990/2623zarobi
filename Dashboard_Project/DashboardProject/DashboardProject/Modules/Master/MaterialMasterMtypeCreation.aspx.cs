@@ -207,7 +207,6 @@ namespace ITLDashboard.Modules.Master
                             btnForward.Visible = false;
                             btnTransfer.Visible = false;
                             controlForwardHide();
-                            whenquerystringpass();
                         }
 
                         if (((string)ViewState["HID"]) == "2")
@@ -978,8 +977,8 @@ namespace ITLDashboard.Modules.Master
                         while (reader.Read())
                         {
                             reader.Read();
-                            lblMaxTransactionNo.Text = reader[0].ToString();
-                            lblMaxTransactionID.Text = reader[1].ToString();
+                            lblMaxTransactionNo.Text = reader["TransactionMain"].ToString();
+                            lblMaxTransactionID.Text = reader["TransactionID"].ToString();
                             getTransferUser();
                             ddlMaterialType.SelectedValue = reader["MaterialType"].ToString();
                             txtSMC.Text = reader["SAPMaterialCode"].ToString();
