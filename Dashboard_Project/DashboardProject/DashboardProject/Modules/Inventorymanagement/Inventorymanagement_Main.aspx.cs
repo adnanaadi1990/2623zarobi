@@ -93,5 +93,37 @@ namespace ITLDashboard.Modules.Inventorymanagement
 
             }
         }
+
+        protected void btnIAF_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["Application"] = "IAF";
+            // Response.Redirect("~/Default.aspx");
+            getFormsName();
+            if (((string)ViewState["FNAME"]) == "IAF")
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+            else
+            {
+                Response.Redirect("~/AccessDenied.aspx");
+
+            }
+        }
+
+        protected void btnQAFrunat_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["Application"] = "QAF";
+            // Response.Redirect("~/Default.aspx");
+            getFormsName();
+            if (((string)ViewState["FNAME"]) == "QAF")
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+            else
+            {
+                Response.Redirect("~/AccessDenied.aspx");
+
+            }
+        }
     }
 }
