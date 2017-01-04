@@ -776,6 +776,7 @@
     <Content Include="DashboardDocument\DeadStockDoc\b5013066_8fa2940_5155smart.pdf" />
     <Content Include="DashboardDocument\DeadStockDoc\e8a608cf_11e62940_4606smart.pdf" />
     <Content Include="DashboardDocument\DeadStockDoc\fc8357b7_8fa2940_5155smart.pdf" />
+    <None Include="Properties\PublishProfiles\Dashboard.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
