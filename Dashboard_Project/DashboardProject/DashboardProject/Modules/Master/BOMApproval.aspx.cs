@@ -163,6 +163,26 @@ namespace DashboardProject.Modules.Master
                 lblError.Text = "Page_Load" + ex.ToString();
             }
         }
+
+        protected void GetGridBOMWhenQueryStringpass()
+        {
+            ds = objFD.GetGridBOMWhenQueryStringpass(lblMaxTransactionID.Text.ToString());
+            if (ds.Tables["GetGridBOMWhenQueryStringpass"].Rows.Count > 0)
+            {
+                GridView1.DataSource = ds.Tables["GetGridBOMWhenQueryStringpass"];
+                GridView1.DataBind();
+                GridView1.FooterRow.Visible = false;
+                GridView1.Columns[0].Visible = false;
+                float GTotal = 0f;
+                for (int i = 0; i < GridView1.Rows.Count; i++)
+                {
+                    String total = (GridView1.Rows[i].FindControl("lblQuantity") as Label).Text;
+                    GTotal += Convert.ToSingle(total);
+                }
+                lblSum.Text = GTotal.ToString();
+            }
+
+        }
         protected void GetDataBOMWhenQueryStringpass()
         {
             cmd.CommandText = @"select * from tbl_BOM_Approval_Header where TransactionMain = @TransactionMain";
@@ -196,7 +216,7 @@ namespace DashboardProject.Modules.Master
                 txtBOMValidFrom.Text = reader["BOMValidFrom"].ToString();
                 txtBOMValidTo.Text = reader["BOMValidTo"].ToString();
                 txtBaseQuantity.Text = reader["QTY"].ToString();
-
+                GetGridBOMWhenQueryStringpass();
             }
 
         }
