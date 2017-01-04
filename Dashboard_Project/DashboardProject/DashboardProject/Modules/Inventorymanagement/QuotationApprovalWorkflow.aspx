@@ -114,7 +114,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
     <p id="dvH" style="font-family: inherit; display: none; font-size: 30px !important; font-weight: bold; color: black; text-align: center;">
-       Dead Stock Approva Report<br />
+       Quotation Approval Report<br />
         <br />
     </p>
     <div class="container" style="margin-top: 20px; width:100%;">

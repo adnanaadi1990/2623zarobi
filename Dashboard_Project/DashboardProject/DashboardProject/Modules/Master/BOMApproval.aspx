@@ -154,6 +154,7 @@
         .rgPageFirst, .rgPagePrev, .rgPageNext, .rgPageLast {
             display: none;
         }
+        .btn-primary {}
     </style>
 
 
@@ -508,10 +509,10 @@
 
 
 
-                                    <div class="col-sm-4">
+                                 <%--   <div class="col-sm-4">
                                         Specific (Approver)  
                                        <asp:ListBox ID="ddlNotification" SelectionMode="Multiple" runat="server"></asp:ListBox>
-                                    </div>
+                                    </div>--%>
                                     <div class="col-sm-4">
                                         IS Representative  
                                        <asp:DropDownList ID="ddlEmailMDA" CssClass="form-control" runat="server">

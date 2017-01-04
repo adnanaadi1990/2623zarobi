@@ -163,5 +163,24 @@ namespace ITLDashboard.Classes
             { conn.Close(); }
             return ds;
         }
+
+        public DataSet FormDepartmentMarketing()
+        {
+            try
+            {
+
+                cmd.CommandText = @"SP_FormDepartmentMarketing";
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = conn;
+                adp.SelectCommand = cmd;
+                adp.Fill(ds, "FormDepartmentMarketing");
+            }
+            catch (Exception ex)
+            { ex.ToString(); }
+            finally
+            { conn.Close(); }
+            return ds;
+        }
     }
 }

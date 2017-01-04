@@ -53,6 +53,7 @@ namespace DashboardProject.Modules.Inventorymanagement
         SqlDataAdapter adp = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
         ComponentClass_AD objAD = new ComponentClass_AD();
+        ComponentClass_FD objFD = new ComponentClass_FD();
         ComponentClass obj = new ComponentClass();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -234,8 +235,8 @@ namespace DashboardProject.Modules.Inventorymanagement
         {
             try
             {
-                ds = objAD.getDeadStock(lblMaxTransactionID.Text.ToString());
-                grdDetail.DataSource = ds.Tables["getDeadStock"];
+                ds = objFD.getInventory(lblMaxTransactionID.Text.ToString());
+                grdDetail.DataSource = ds.Tables["getInventory"];
                 grdDetail.DataBind();
             }
 
@@ -269,7 +270,7 @@ namespace DashboardProject.Modules.Inventorymanagement
 
             try
             {
-                ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString(), ViewState["SerialNo"].ToString(), ViewState["Status"].ToString());
+                ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
                 if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
                 {
                     ViewState["StatusHierachyCategory"] = ds.Tables["tbl_SysHierarchyControl"].Rows[0]["Status"].ToString();
