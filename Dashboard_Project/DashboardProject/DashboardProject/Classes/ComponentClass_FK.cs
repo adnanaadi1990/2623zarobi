@@ -169,11 +169,10 @@ namespace ITLDashboard.Classes
             try
             {
 
-                cmd.CommandText = @"select * FROM tbluser where Department in  ('Marketing')";
+                cmd.CommandText = @"SP_FormDepartmentMarketing";
 
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
-
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "FormDepartmentMarketing");
             }
