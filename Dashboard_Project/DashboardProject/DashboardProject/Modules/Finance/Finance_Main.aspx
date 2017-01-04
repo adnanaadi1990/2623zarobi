@@ -63,14 +63,7 @@
                   btnHiddenbtnClickedInvoiceWorkFlow.click();
               }
           }
-          function DivClickedServiceMasterRequestForm() {
-              var btnHiddenbtnClickedServiceMasterRequestForm = $('#<%= btnSMR.ClientID %>');
-            if (btnHiddenbtnClickedServiceMasterRequestForm != null) {
-                btnHiddenbtnClickedServiceMasterRequestForm.click();
-            }
-        }
-
-
+         
     </script>
 </head>
 

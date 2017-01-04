@@ -116,19 +116,21 @@
                         </div>
                    </a>
                 </div>
-                  <div class="col-lg-4 col-sm-6">
+
+                                   <div class="col-lg-4 col-sm-6">
                        <a href="#" class="portfolio-box">
                         <%--<img src="../../img/portfolio/MMaster.jpg" class="img-responsive" alt="">--%>
-                        <asp:ImageButton ID="btnFG" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/Finish-goods.png" CausesValidation="False" OnClick="btnFG_Click" />
+                        <asp:ImageButton ID="ImageButton2" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/Finish-goods.png" CausesValidation="False" />
                         <div class="portfolio-box-caption"  onclick="javascript:DivClickedFG(); return true;">
                             <div class="portfolio-box-caption-content" >
                                 <div class="project-category text-faded">Form</div>
                                 <div class="project-name">
-                                    Finished Goods Material Master</div>
+                                   BOM Approval Form</div>
                             </div>
                         </div>
                    </a>
                 </div>
+               
 
 
                 <div class="col-lg-4 col-sm-6">

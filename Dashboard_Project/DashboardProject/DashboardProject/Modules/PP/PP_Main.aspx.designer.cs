@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ITLDashboard.Modules.Master {
+namespace DashboardProject.Modules.PP {
     
     
-    public partial class MM_Main {
+    public partial class PP_Main {
         
         /// <summary>
         /// lblUSerName control.
@@ -31,21 +31,12 @@ namespace ITLDashboard.Modules.Master {
         protected global::System.Web.UI.HtmlControls.HtmlForm Form1;
         
         /// <summary>
-        /// btnMM control.
+        /// btnBOM control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnMM;
-        
-        /// <summary>
-        /// ImageButton2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton2;
+        protected global::System.Web.UI.WebControls.ImageButton btnBOM;
     }
 }
