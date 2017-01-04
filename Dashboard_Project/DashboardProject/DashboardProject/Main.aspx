@@ -85,6 +85,12 @@
                 btnHiddenIM.click();
             }
         }
+        function DivClickedPP() {
+            var btnPP = $('#<%= btnPP.ClientID %>');
+            if (btnPP != null) {
+                btnPP.click();
+             }
+         }
         
     </script>
 </head>
@@ -292,8 +298,8 @@ documents and waste stationery.<br>
 
                     <div class="col-lg-4 col-sm-6">
                         <a href="#" class="portfolio-box">
-                            <img src="img/portfolio/module5-2.png" class="img-responsive" alt="">
-                            <div class="portfolio-box-caption">
+                              <asp:ImageButton ID="btnPP" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/module5-2.png" />
+                   <div class="portfolio-box-caption" onclick="javascript:DivClickedPP(); return true;">
                                 <div class="portfolio-box-caption-content">
                                     <div class="project-category text-faded">APPLICATION</div>
                                     <div class="project-name">Production Planning</div>
