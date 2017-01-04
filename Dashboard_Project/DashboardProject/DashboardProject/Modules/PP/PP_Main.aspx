@@ -98,7 +98,7 @@
                 <div class="row no-gutter">
                     <div class="col-lg-4 col-sm-6">
                         <a href="#" class="portfolio-box">
-                            <asp:ImageButton ID="btnBOM" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/SL.jpg" CausesValidation="False" OnClick="btnBOM_Click" />
+                            <asp:ImageButton ID="btnBOM" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/BOM.jpg" CausesValidation="False" OnClick="btnBOM_Click" />
                             <%--<img src="../../img/portfolio/VMC.png" class="img-responsive" alt="">--%>
                             <div class="portfolio-box-caption" onclick="javascript:DVBOM(); return true;">
                                 <div class="portfolio-box-caption-content">
