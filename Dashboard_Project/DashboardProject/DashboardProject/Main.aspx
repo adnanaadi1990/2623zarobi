@@ -309,7 +309,7 @@ documents and waste stationery.<br>
                     </div>
                      <div class="col-lg-4 col-sm-6">
                         <a href="#" class="portfolio-box">
-                            <asp:ImageButton ID="btnIM" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/inventorymanagement.jpg" OnClick="btnIM_Click" />
+                            <asp:ImageButton ID="btnIM" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/IM.jpg" OnClick="btnIM_Click" />
                             <div class="portfolio-box-caption" onclick="javascript:DivClickedIM(); return true;">
                                 <div class="portfolio-box-caption-content">
                                     <div class="project-category text-faded">APPLICATION</div>
