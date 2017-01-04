@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="InventoryAdjustmentReport.aspx.cs" Inherits="DashboardProject.Modules.Reports.InventoryAdjustmentReport" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="BOMApprovalReport.aspx.cs" Inherits="DashboardProject.Modules.Reports.BOMApprovalReport" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
@@ -107,6 +107,7 @@
         }
     </style>
 
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -114,7 +115,7 @@
         <div class="row">
 
             <div class="col-sm-7">
-                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Inventory Adjustment Report</p>
+                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">BOM Approval Report</p>
             </div>
         </div>
 
@@ -136,7 +137,7 @@
                     </div>
 
                     <div class="col-sm-4" runat="server" id="Div1">
-                        User Name 
+                        Material No
                            <asp:TextBox ID="txtUN" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                   </div>
@@ -237,6 +238,5 @@
     </div>
     <telerik:RadWindowManager ID="RadWindowManager1" runat="server">
     </telerik:RadWindowManager>
-
 
 </asp:Content>

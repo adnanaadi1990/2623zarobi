@@ -10,7 +10,7 @@
 namespace DashboardProject.Modules.Reports {
     
     
-    public partial class InventoryAdjustmentReport {
+    public partial class BOMApprovalReport {
         
         /// <summary>
         /// dvTransactionNo control.

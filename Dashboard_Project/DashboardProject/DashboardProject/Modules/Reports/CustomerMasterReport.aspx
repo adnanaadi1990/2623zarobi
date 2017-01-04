@@ -123,14 +123,14 @@
         <div class="row">
 
             <div class="col-sm-7">
-                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Customer Master Report</p>
+                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">BOM Approval Report</p>
             </div>
         </div>
 
 
 
         <div class="panel panel-default">
-            <div class="panel-heading">Customer Master Report</div>
+            <div class="panel-heading">BOM Approval Report</div>
             <div class="panel-body">
 
                 <div class="row">

@@ -19,7 +19,7 @@ using ITLDashboard.Classes;
 
 namespace DashboardProject.Modules.Reports
 {
-    public partial class InventoryAdjustmentReport : System.Web.UI.Page
+    public partial class BOMApprovalReport : System.Web.UI.Page
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString.ToString());
         ComponentClass obj = new ComponentClass();
@@ -28,9 +28,8 @@ namespace DashboardProject.Modules.Reports
         SqlDataAdapter adp = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
         DataTable table = new DataTable();
-        public string FormID = "602";
+        public string FormID = "102";
         public int Coint = 0;
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -54,12 +53,12 @@ namespace DashboardProject.Modules.Reports
                 RadGrid1.Visible = true;
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = @"SP_InventoryAdjustmentReport";
+                cmd.CommandText = @"SP_BOMApprovalReport";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 cmd.Parameters.AddWithValue("@FormIDFrom", txtFormIDfrom.Text);
                 cmd.Parameters.AddWithValue("@FormIDto", txtFormIDto.Text);
-                cmd.Parameters.AddWithValue("@userName", txtUN.Text);
+                cmd.Parameters.AddWithValue("@MaterialNo", txtUN.Text);
 
                 adp.SelectCommand = cmd;
                 adp.Fill(dt);
@@ -76,10 +75,7 @@ namespace DashboardProject.Modules.Reports
             }
             finally
             { conn.Close(); }
-
-
         }
-
         void ClearInputs(ControlCollection ctrls)
         {
             foreach (Control ctrl in ctrls)
@@ -94,8 +90,6 @@ namespace DashboardProject.Modules.Reports
                 ClearInputs(ctrl.Controls);
             }
         }
-
-
         protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
 
@@ -120,7 +114,6 @@ namespace DashboardProject.Modules.Reports
                 PageSizeCombo.FindItemByText(e.Item.OwnerTableView.PageSize.ToString()).Selected = true;
             }
         }
-
         protected void RadGrid1_GroupsChanging(object sender, Telerik.Web.UI.GridGroupsChangingEventArgs e)
         {
             dt = (DataTable)ViewState["data"];
@@ -205,13 +198,10 @@ namespace DashboardProject.Modules.Reports
             }
         }
 
-
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-
             string url = HttpContext.Current.Request.Url.ToString();
             Response.Redirect(url.ToString());
-
         }
     }
 }

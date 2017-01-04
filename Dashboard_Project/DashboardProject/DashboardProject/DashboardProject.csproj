@@ -715,11 +715,13 @@
     <Content Include="Modules\Master\CreateMaterialMaster.aspx" />
     <Content Include="Modules\Master\MaterialMasterMtypeCreation.aspx" />
     <Content Include="Modules\Master\MM_Main.aspx" />
+    <Content Include="Modules\Master\SearchBOMApproval.aspx" />
     <Content Include="Modules\Master\SearchMaterialMasterMtypeCreation.aspx" />
     <Content Include="Modules\Master\SearchMeterialMaster.aspx" />
     <Content Include="Modules\Master\WebForm1.aspx" />
     <Content Include="Modules\Reports\AssetCreationFromReport.aspx" />
     <Content Include="Modules\Reports\AssetTransferFromReport.aspx" />
+    <Content Include="Modules\Reports\BOMApprovalReport.aspx" />
     <Content Include="Modules\Reports\CustomerMasterReport.aspx" />
     <Content Include="Modules\Reports\DeadStockReport.aspx" />
     <Content Include="Modules\Reports\InventoryAdjustmentReport.aspx" />
@@ -1138,6 +1140,13 @@
     <Compile Include="Modules\Master\MM_Main.aspx.designer.cs">
       <DependentUpon>MM_Main.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Master\SearchBOMApproval.aspx.cs">
+      <DependentUpon>SearchBOMApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Master\SearchBOMApproval.aspx.designer.cs">
+      <DependentUpon>SearchBOMApproval.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Master\SearchMaterialMasterMtypeCreation.aspx.cs">
       <DependentUpon>SearchMaterialMasterMtypeCreation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1172,6 +1181,13 @@
     </Compile>
     <Compile Include="Modules\Reports\AssetTransferFromReport.aspx.designer.cs">
       <DependentUpon>AssetTransferFromReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\BOMApprovalReport.aspx.cs">
+      <DependentUpon>BOMApprovalReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Reports\BOMApprovalReport.aspx.designer.cs">
+      <DependentUpon>BOMApprovalReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\CustomerMasterReport.aspx.cs">
       <DependentUpon>CustomerMasterReport.aspx</DependentUpon>
