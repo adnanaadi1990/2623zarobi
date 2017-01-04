@@ -184,12 +184,6 @@
                                             </telerik:GridButtonColumn>
                                             <telerik:GridBoundColumn DataField="TransactionID" FilterControlAltText="Filter column column" FooterText="Form ID" HeaderText="Form ID" UniqueName="FormID">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="DocumentNo" FilterControlAltText="Filter column2 column" HeaderText="Document No" UniqueName="column2">
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Description" FilterControlAltText="Filter column3 column" HeaderText="File Name" UniqueName="column3">
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="FilePath" FilterControlAltText="Filter column4 column" HeaderText="File Location" UniqueName="column4">
-                                            </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="CreatedBy" FilterControlAltText="Filter column5 column" HeaderText="Created By" UniqueName="column5">
                                             </telerik:GridBoundColumn>
               
