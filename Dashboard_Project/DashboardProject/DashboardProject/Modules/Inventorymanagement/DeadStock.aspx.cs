@@ -299,6 +299,10 @@ namespace ITLDashboard.Modules.Inventorymanagement
                 ViewState["Status"] = ds.Tables["HID"].Rows[0]["Status"].ToString();
 
             }
+            else
+            {
+                ViewState["HID"] = "1";
+            }
         }
         private void BindUser()
         {
