@@ -46,6 +46,7 @@ namespace DashboardProject.Modules.Finance
         public string SessionUser = "";
         public string DateTimeNow = "";
         public string url = "";
+        public string urlMobile = "";
 
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString.ToString());
         DataTable dt = new DataTable();
@@ -573,14 +574,19 @@ namespace DashboardProject.Modules.Finance
                     DataTableReader reader = ds.Tables["MailForwardUserToApprover"].CreateDataReader();
                     while (reader.Read())
                     {
-                        url = HttpContext.Current.Request.Url.AbsoluteUri + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+
+                        url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                        urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
                         TransactionID = reader["TransactionID"].ToString();
                         FormCode = reader["FormID"].ToString();
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                         EmailSubject = "Delivery Challan Workflow Request – Form ID # " + lblMaxTransactionID.Text + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> " + ViewState["SessionUser"].ToString() + " has sent you a Delivery Challan Workflow Request against Form ID # " + lblMaxTransactionID.Text + " for approval. <br><br> Your kind approval is required on the following URL: <br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, you do not need to reply to this message.<br><br>" +
-                    "<br>Finance Delivery Challan Workflow Application<br> Information Systems Dashboard";
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " has sent you a Delivery Challan Workflow Request against Form ID #  " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required" +
+                        "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                        "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                        "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                        "<br>BOM Approval Application <br> Information Systems Dashboard";
                         SessionUser = Session["User_Name"].ToString();
                         DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                         InsertEmail();
@@ -609,14 +615,20 @@ namespace DashboardProject.Modules.Finance
             {
                 while (reader.Read())
                 {
-                    url = Request.Url.ToString();
+
+                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
                     TransactionID = reader["TransactionID"].ToString();
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "Delivery Challan Workflow Request – Form ID #  " + lblMaxTransactionID.Text + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> Delivery Challan Workflow Request against Form ID #  " + lblMaxTransactionID.Text + " has been approved by " + ViewState["SessionUser"].ToString() + " <br><br> You are requested to Approve the Delivery Challan Workflow Request on the following URL: <br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, you do not need to reply to this message." +
-                "<br><br>Finance Delivery Challan Workflow Application<br> Information Systems Dashboard";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " Delivery Challan Workflow Request against Form ID#   " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + "<br><br> You are requested to Approve the Delivery Challan Workflow" +
+                    "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                    "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                    "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                    "<br>BOM Approval Application <br> Information Systems Dashboard";
+
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
@@ -638,14 +650,19 @@ namespace DashboardProject.Modules.Finance
                     while (reader.Read())
                     {
 
-                        url = Request.Url.ToString();
+                        url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                        urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
                         TransactionID = reader["TransactionID"].ToString();
                         FormCode = reader["FormID"].ToString();
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                         EmailSubject = "Delivery Challan Workflow Request – Form ID #  " + lblMaxTransactionID.Text + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> Delivery Challan Workflow Request against Form ID #  " + lblMaxTransactionID.Text + " has been approved by " + ViewState["SessionUser"].ToString() + " <br><br> You are requested to review the delivery challan workflow information on the following URL:<br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, you do not need to reply to this message.<br><br>" +
-                                 "<br>Finance Delivery Challan Workflow Application<br> Information Systems Dashboard";
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " Delivery Challan Workflow Request against Form ID#   " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + "<br><br> You are requested to review the Delivery Challan Workflow information " +
+                        "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                        "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                        "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                        "<br>BOM Approval Application <br> Information Systems Dashboard";
+
                         SessionUser = Session["User_Name"].ToString();
                         DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                         InsertEmail();
@@ -668,19 +685,23 @@ namespace DashboardProject.Modules.Finance
                 DataTableReader reader = ds.Tables["MailForwardToUserOnRejection"].CreateDataReader();
                 while (reader.Read())
                 {
-                    url = Request.Url.ToString();
+                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
                     TransactionID = reader["TransactionID"].ToString();
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "Delivery Challan Workflow Request – Form ID #  " + lblMaxTransactionID.Text + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> Delivery Challan Workflow Request against Form ID #  " + lblMaxTransactionID.Text + " has been rejected by " + ViewState["SessionUser"].ToString() + " <br><br> You are requested to Review the Delivery Challan Workflow Request on the following URL: <br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, you do not need to reply to this message." +
-                        "<br><br>Finance Delivery Challan Workflow Application<br> Information Systems Dashboard";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " Delivery Challan Workflow Request against Form ID#   " + lblMaxTransactionID.Text.ToString() + " has been rejected by " + ViewState["SessionUser"].ToString() + "<br><br> You are requested to review the Delivery Challan Workflow information " +
+                        "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                        "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                        "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                        "<br>BOM Approval Application <br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
                     ViewState["Status"] = "00"; // For Status Reject
-                    lblEmail.Text = "*User Authorization Request against Form ID # " + lblMaxTransactionID.Text.ToString() + " has been rejected by you";
+                    lblEmail.Text = "*Delivery Challan Workflow Request against Form ID # " + lblMaxTransactionID.Text.ToString() + " has been rejected by you";
                     lblEmail.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
                     Page.MaintainScrollPositionOnPostBack = true;
@@ -703,14 +724,18 @@ namespace DashboardProject.Modules.Finance
                 DataTableReader reader = ds.Tables["MailForwardToAllFromMDA"].CreateDataReader();
                 while (reader.Read())
                 {
-                    url = Request.Url.ToString();
+                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
                     TransactionID = reader["TransactionID"].ToString();
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "Delivery Challan Workflow Request – Form ID # " + lblMaxTransactionID.Text + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>  Delivery Challan Workflow Request Form ID # " + lblMaxTransactionID.Text + " has been reviewed by " + ViewState["SessionUser"].ToString() + ". <br><br> The form can be reviewed at the following URL:<br> <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>  This is an auto-generated email from IS Dashboard, you do not need to reply to this message.<br>" +
-                            "<br>Finance Delivery Challan Workflow Application<br> Information Systems Dashboard";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " Delivery Challan Workflow Request against Form ID#   " + lblMaxTransactionID.Text.ToString() + " has been reviewed by " + ViewState["SessionUser"].ToString() +
+                        "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                        "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                        "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                        "<br>BOM Approval Application <br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
@@ -749,14 +774,18 @@ namespace DashboardProject.Modules.Finance
                     DataTableReader reader = ds.Tables["tbl_EmailToSpecificPerson"].CreateDataReader();
                     while (reader.Read())
                     {
-                        url = Request.Url.ToString();
+                        url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                        urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
                         TransactionID = reader["TransactionID"].ToString();
                         FormCode = reader["FormID"].ToString();
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                         EmailSubject = "Delivery Challan Workflow Request – Form ID # " + lblMaxTransactionID.Text + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>  Delivery Challan Workflow Request Form ID # " + lblMaxTransactionID.Text + " has been reviewed by " + ViewState["SessionUser"].ToString() + ". <br><br> The form can be reviewed at the following URL:<br> <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>  This is an auto-generated email from IS Dashboard, you do not need to reply to this message.<br>" +
-                                "<br>Finance Delivery Challan Workflow Application<br> Information Systems Dashboard";
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " Delivery Challan Workflow Request against Form ID#   " + lblMaxTransactionID.Text.ToString() + " has been reviewed by " + ViewState["SessionUser"].ToString() +
+                        "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                        "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                        "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                        "<br>BOM Approval Application <br> Information Systems Dashboard";
                         SessionUser = Session["User_Name"].ToString();
                         DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                         InsertEmail();
