@@ -224,11 +224,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                     lblError.Text = "Page_Load" + ex.ToString();
                 }
             }
-            for (int i = 0; i < ddlNotification.Items.Count; i++)
-            {
-                ddlNotification.Items[i].Selected = true;
-                ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
-            }
+           
         }
 
         private void GetSockDetail()
@@ -337,6 +333,10 @@ namespace DashboardProject.Modules.Inventorymanagement
                     ViewState["Status"] = ds.Tables["HID"].Rows[0]["Status"].ToString();
 
                 }
+                else
+                {
+                    ViewState["HID"] = "1";
+                }
             }
 
             catch (SqlException ex)
@@ -350,25 +350,7 @@ namespace DashboardProject.Modules.Inventorymanagement
         {
             try
             {
-                cmd.CommandText = "SELECT * FROM tblEmailSequenceWise where FormID = @FormID order by Sequance asc";
-                //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-
-                conn.Open();
-                ddlNotification.DataSource = cmd.ExecuteReader();
-                cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
-                ddlNotification.DataTextField = "DisplayName";
-                ddlNotification.DataValueField = "user_name";
-                ddlNotification.DataBind();
-                conn.Close();
-                for (int i = 0; i < ddlNotification.Items.Count; i++)
-                {
-                    ddlNotification.Items[i].Selected = true;
-                    ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
-                }
-
-                cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'IAA'";
+                cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'IAF'";
                 //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
@@ -579,14 +561,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                     return;
 
                 }
-                if (ddlNotification.SelectedValue == "")
-                {
-                    ddlNotification.BackColor = System.Drawing.Color.Red;
-                    lblUpError.Text = "Please select any Person for Notification";
-                    error.Visible = true;
-                    return;
-
-                }
+            
                 if (txtDescription.Text == "")
                 {
                     txtDescription.BackColor = System.Drawing.Color.Red;
@@ -595,20 +570,9 @@ namespace DashboardProject.Modules.Inventorymanagement
                     return;
 
                 }
-                string Notification = "";
-
-                for (int i = 0; i <= ddlNotification.Items.Count - 1; i++)
-                {
-                    if (ddlNotification.Items[i].Selected)
-                    {
-                        if (Notification == "") { Notification = ddlNotification.Items[i].Value; }
-                        else { Notification += "," + ddlNotification.Items[i].Value; }
-                    }
-
-                }
-
+                
                 FilePath = "~/DashboardDocument/InventoryAdjustment/" + "InventoryAdjustment" + lblFileName.Text.ToString();
-                string Approval = ViewState["HOD"].ToString() + "," + Notification.ToString();
+                string Approval = ViewState["HOD"].ToString();
                 cmd.CommandText = "Exec SP_SYS_create_InventoryManagment" + " @TransactionMain='" + lblMaxTransactionNo.Text + "', " +
                         " @FileName='" + lblFileName.Text + "', " +
                         " @Description='" + txtDescription.Text + "', " +
@@ -642,11 +606,6 @@ namespace DashboardProject.Modules.Inventorymanagement
                 txtRemarksReview.Text = "";
                 txtDescription.Text = "";
 
-                for (int i = 0; i < ddlNotification.Items.Count; i++)
-                {
-                    ddlNotification.Items[i].Selected = true;
-                    ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
-                }
             }
 
 
@@ -701,6 +660,7 @@ namespace DashboardProject.Modules.Inventorymanagement
         {
             try
             {
+                ds = objFD.InsertAllHODS(FormID.ToString(), lblMaxTransactionID.Text, Session["User_Name"].ToString());
                 EmailWorkApproved();
                 ApplicationStatus();
                 BindsysApplicationStatus();

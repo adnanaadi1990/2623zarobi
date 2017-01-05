@@ -207,6 +207,12 @@ namespace ITLDashboard
             Session["Module"] = "IM";
             Response.Redirect("Modules/Inventorymanagement/Inventorymanagement_Main.aspx");
         }
+
+        protected void btnProcu_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["Module"] = "PP";
+            Response.Redirect("Modules/PP/PP_Main.aspx");
+        }
         ///////////////////////////////////////// Admin Email Working//////////////////
 
   
