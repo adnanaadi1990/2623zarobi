@@ -2564,6 +2564,10 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 BindSplitValueationMTYP();
+                for (int i = 0; i < ddlStorageLocation.Items.Count; i++)
+                {
+                    ddlStorageLocation.Items[i].Attributes.Add("disabled", "disabled");
+                }
                 Page.MaintainScrollPositionOnPostBack = true;
             }
             catch (SqlException ex)
@@ -2921,6 +2925,7 @@ namespace ITLDashboard.Modules.Master
                     lblUpError.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
                     lblmessage.ForeColor = System.Drawing.Color.Red;
+                    txtRemarksReview.Enabled = true;
                     return;
                 }
 
@@ -2936,6 +2941,7 @@ namespace ITLDashboard.Modules.Master
                     Page.MaintainScrollPositionOnPostBack = false;
                     txtSMC.BackColor = System.Drawing.Color.Red;
                     lblmessage.ForeColor = System.Drawing.Color.Red;
+                    txtRemarksReview.Enabled = true;
                     return;
                 }
 

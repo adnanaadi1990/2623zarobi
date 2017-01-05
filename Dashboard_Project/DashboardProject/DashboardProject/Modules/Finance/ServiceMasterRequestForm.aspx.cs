@@ -62,7 +62,7 @@ namespace DashboardProject.Modules.Finance
                 Page.MaintainScrollPositionOnPostBack = true;
                 if (!IsPostBack)
                 {
-                    txtRemarksReview.Visible = true;
+                    txtRemarksReview.Visible = false;
                     //txtRemarksReview.Visible = false;
                     if (Session["User_Name"] == null)
                     {
@@ -95,7 +95,7 @@ namespace DashboardProject.Modules.Finance
                             dvTransactionNo.Visible = false;
                             grdWStatus.Visible = true;
                             DisableControls(Page, false);
-                            txtRemarks.Enabled = true;
+                            txtRemarks.Enabled = false;
                             btnSave.Visible = false;
                             btnCancel.Visible = false;
                             ddlServiceCategory.Visible = true;
@@ -103,7 +103,7 @@ namespace DashboardProject.Modules.Finance
                             ddlMSG.Visible = true;
                             ddlDivision.Visible = true;
                             ddlValuation.Visible = true;
-                            txtRemarksReview.Visible = true;
+                            txtRemarksReview.Visible = false;
                             this.pnlemail.Visible = false;
                             this.ddlServiceCategory.Attributes.Add("disabled", "");
                             this.ddlBUOM.Attributes.Add("disabled", "");
@@ -127,7 +127,8 @@ namespace DashboardProject.Modules.Finance
                                 btnSubmit.Visible = false;
                                 btnApprover.Visible = false;
                                 btnReject.Visible = false;
-                                txtRemarksReview.Visible = false;
+                                txtRemarksReview.Enabled = true;
+                                txtRemarksReview.Visible = true;
                                 ddlValuation.Enabled = false;
                                 ddlValuation.Visible = true;
                                 controlForwardHide();
@@ -139,6 +140,7 @@ namespace DashboardProject.Modules.Finance
                                 btnApprover.Visible = true;
                                 btnSubmit.Visible = false;
                                 txtRemarksReview.Enabled = true;
+                                txtRemarksReview.Visible = true;
                                 btnReject.Visible = true;
                                 txtRemarks.Enabled = true;
                                 btnFUpdate.Visible = false;
@@ -287,19 +289,19 @@ namespace DashboardProject.Modules.Finance
                     return;
                 }
 
-                else if (txtRemarksReview.Text == "")
-                {
+                //else if (txtRemarksReview.Text == "")
+                //{
 
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Remarks should not be left blank!";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblmessage.Focus();
-                    sucess.Focus();
-                    txtRemarksReview.BackColor = System.Drawing.Color.Red;
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    return;
-                }
+                //    lblmessage.Text = "";
+                //    lblUpError.Text = "Remarks should not be left blank!";
+                //    sucess.Visible = false;
+                //    error.Visible = true;
+                //    lblmessage.Focus();
+                //    sucess.Focus();
+                //    txtRemarksReview.BackColor = System.Drawing.Color.Red;
+                //    Page.MaintainScrollPositionOnPostBack = false;
+                //    return;
+                //}
 
                 else
                 {
@@ -356,22 +358,21 @@ namespace DashboardProject.Modules.Finance
         {
             try
             {
-                if (txtRemarksReview.Text == "")
-                {
+                //if (txtRemarksReview.Text == "")
+                //{
 
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Remarks should not be left blank!";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblmessage.Focus();
-                    sucess.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    txtRemarksReview.BackColor = System.Drawing.Color.Red;
-                    whenquerystringpass();
-                    // bindSLfromPlant();
-                    return;
-                }
-                else
+                //    lblmessage.Text = "";
+                //    lblUpError.Text = "Remarks should not be left blank!";
+                //    sucess.Visible = false;
+                //    error.Visible = true;
+                //    lblmessage.Focus();
+                //    sucess.Focus();
+                //    Page.MaintainScrollPositionOnPostBack = false;
+                //    txtRemarksReview.BackColor = System.Drawing.Color.Red;
+                //    whenquerystringpass();
+                //    // bindSLfromPlant();
+                //    return;
+                //}
                 {
                     error.Visible = false;
                     lblUpError.Text = "";
@@ -400,19 +401,19 @@ namespace DashboardProject.Modules.Finance
             lblError.Text = "";
             try
             {
-                if (txtRemarksReview.Text == "")
-                {
+                //if (txtRemarksReview.Text == "")
+                //{
 
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Remarks should not be left blank!";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblmessage.Focus();
-                    sucess.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    txtRemarksReview.BackColor = System.Drawing.Color.Red;
-                    return;
-                }
+                //    lblmessage.Text = "";
+                //    lblUpError.Text = "Remarks should not be left blank!";
+                //    sucess.Visible = false;
+                //    error.Visible = true;
+                //    lblmessage.Focus();
+                //    sucess.Focus();
+                //    Page.MaintainScrollPositionOnPostBack = false;
+                //    txtRemarksReview.BackColor = System.Drawing.Color.Red;
+                //    return;
+                //}
 
                 if (ddlValuation.SelectedValue == "")
                 {

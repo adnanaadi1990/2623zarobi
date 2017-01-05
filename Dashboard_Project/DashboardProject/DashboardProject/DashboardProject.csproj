@@ -696,6 +696,7 @@
     <Content Include="Modules\AdminPannel\PendingEmailSending.aspx" />
     <Content Include="Modules\AdminPannel\UserDetailList.aspx" />
     <Content Include="Modules\Annexure\Annexure_Main.aspx" />
+    <Content Include="Modules\Annexure\AssestsDisposalForm.aspx" />
     <Content Include="Modules\Annexure\AssetCreationForm.aspx" />
     <Content Include="Modules\Annexure\AssetTransferFormApproval.aspx" />
     <Content Include="Modules\Annexure\SearchAssetCreationForm.aspx" />
@@ -962,6 +963,13 @@
     </Compile>
     <Compile Include="Modules\Annexure\Annexure_Main.aspx.designer.cs">
       <DependentUpon>Annexure_Main.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Annexure\AssestsDisposalForm.aspx.cs">
+      <DependentUpon>AssestsDisposalForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Annexure\AssestsDisposalForm.aspx.designer.cs">
+      <DependentUpon>AssestsDisposalForm.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Annexure\AssetCreationForm.aspx.cs">
       <DependentUpon>AssetCreationForm.aspx</DependentUpon>
