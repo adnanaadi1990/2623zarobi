@@ -702,9 +702,12 @@
     <Content Include="Modules\Annexure\SearchAssetCreationForm.aspx" />
     <Content Include="Modules\Annexure\SearchAssetTransferFormApproval.aspx" />
     <Content Include="Modules\Finance\CustomerMaster.aspx" />
+    <Content Include="Modules\Finance\DeliveryChallanWorkflow.aspx" />
     <Content Include="Modules\Finance\Finance_Main.aspx" />
+    <Content Include="Modules\Finance\InvoiceWorkflow.aspx" />
     <Content Include="Modules\Finance\PettyCash.aspx" />
     <Content Include="Modules\Finance\SearchCustomerMaster.aspx" />
+    <Content Include="Modules\Finance\SearchDeliveryChallanWorkflow.aspx" />
     <Content Include="Modules\Finance\SearchPettyCash.aspx" />
     <Content Include="Modules\Finance\SearchServiceMasterRequestForm.aspx" />
     <Content Include="Modules\Finance\SearchVendorMaster.aspx" />
@@ -1006,12 +1009,26 @@
     <Compile Include="Modules\Finance\CustomerMaster.aspx.designer.cs">
       <DependentUpon>CustomerMaster.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Finance\DeliveryChallanWorkflow.aspx.cs">
+      <DependentUpon>DeliveryChallanWorkflow.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Finance\DeliveryChallanWorkflow.aspx.designer.cs">
+      <DependentUpon>DeliveryChallanWorkflow.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Finance\Finance_Main.aspx.cs">
       <DependentUpon>Finance_Main.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Modules\Finance\Finance_Main.aspx.designer.cs">
       <DependentUpon>Finance_Main.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Finance\InvoiceWorkflow.aspx.cs">
+      <DependentUpon>InvoiceWorkflow.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Finance\InvoiceWorkflow.aspx.designer.cs">
+      <DependentUpon>InvoiceWorkflow.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Finance\PettyCash.aspx.cs">
       <DependentUpon>PettyCash.aspx</DependentUpon>
@@ -1026,6 +1043,13 @@
     </Compile>
     <Compile Include="Modules\Finance\SearchCustomerMaster.aspx.designer.cs">
       <DependentUpon>SearchCustomerMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Finance\SearchDeliveryChallanWorkflow.aspx.cs">
+      <DependentUpon>SearchDeliveryChallanWorkflow.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Finance\SearchDeliveryChallanWorkflow.aspx.designer.cs">
+      <DependentUpon>SearchDeliveryChallanWorkflow.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Finance\SearchPettyCash.aspx.cs">
       <DependentUpon>SearchPettyCash.aspx</DependentUpon>
