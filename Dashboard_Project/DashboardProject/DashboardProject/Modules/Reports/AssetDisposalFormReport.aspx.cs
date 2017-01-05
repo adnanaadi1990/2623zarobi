@@ -17,9 +17,9 @@ using System.Collections.Generic;
 using Telerik.Web.UI;
 using ITLDashboard.Classes;
 
-namespace ITLDashboard.Modules.Reports
+namespace DashboardProject.Modules.Reports
 {
-    public partial class AssetTransferFromReport : System.Web.UI.Page
+    public partial class AssetDisposalFormReport : System.Web.UI.Page
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString.ToString());
         ComponentClass obj = new ComponentClass();
@@ -40,7 +40,6 @@ namespace ITLDashboard.Modules.Reports
                 }
             }
         }
-
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
