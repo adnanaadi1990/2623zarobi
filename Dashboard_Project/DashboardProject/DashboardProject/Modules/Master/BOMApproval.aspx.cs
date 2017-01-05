@@ -38,6 +38,7 @@ namespace DashboardProject.Modules.Master
         public string url = "";
         public string FormID = "102";
         public string FormType = "N";
+        public string urlMobile = "";
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString.ToString());
         ComponentClass obj = new ComponentClass();
         ComponentClass_FD objFD = new ComponentClass_FD();
@@ -791,14 +792,18 @@ namespace DashboardProject.Modules.Master
                 DataTableReader reader = ds.Tables["MailForwardUserToApprover"].CreateDataReader();
                 while (reader.Read())
                 {
-                    url = HttpContext.Current.Request.Url.AbsoluteUri + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
                     TransactionID = reader["TransactionID"].ToString();
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "BOM Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " has sent you a New BOM Approval Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL: <br><br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, <br>you do not need to reply to this message.<br>" +
-                        "<br>BOM Approval Application <br> Information Systems Dashboard";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + ",<br> <br> has sent you a New BOM Approval Request against  Form ID #   " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL: " +
+                     "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                     "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                     "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                     "<br>BOM Approval Application <br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
@@ -812,60 +817,6 @@ namespace DashboardProject.Modules.Master
 
         }
 
-        private void EmailWorkFirstHaracheyReviwer()
-        {
-            string HierachyCategory = "4";
-            string HierachyCategoryStatus = "03";
-            ds = obj.MailForwardFromReviwerToMDA(lblMaxTransactionID.Text, FormID.ToString(), HierachyCategory.ToString());
-
-            if (ds.Tables["MailForwardToAllFromMDA"].Rows.Count > 0)
-            {
-                DataTableReader reader = ds.Tables["MailForwardToAllFromMDA"].CreateDataReader();
-                while (reader.Read())
-                {
-                    var to = new MailAddress(reader["user_email"].ToString(),
-                                               reader["user_name"].ToString());
-                    ViewState["UserName"] = reader["user_name"].ToString();
-                    string aa = Request.CurrentExecutionFilePath;
-                    string ab = HttpContext.Current.Request.Url.Authority;
-                    string aaa = ab + aa;
-
-                    using (MailMessage mm = new MailMessage("dashboard@internationaltextile.com", reader["user_email"].ToString()))
-                    {
-
-                        mm.Subject = "BOM Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                        //,<br> <br>   I have Following request against " + " TransactionNo " + txtSMC.Text + " has been send. <br> Please See the following page ID:  " + "" + ViewState["FormId"].ToString() + " Form Name " + "" + ViewState["FormName"].ToString() + "URL of Page :<a href= " + "" + url.ToString() + "?MeterialNo=" + txtSMC.Text + ">  " + url.ToString() + "?MeterialNo=" + txtSMC.Text + "</a><br>  For more assistment feel free to cordinate. <br><br><br>     Regard<br> ABCDEG ";
-                        mm.Body = ViewState["UserName"].ToString(); //<a href= " + "" + url.ToString() + "?SMCode=" + txtSMC.Text + ">  " + url.ToString() + "?SMCode=" + txtSMC.Text + "</a>
-
-                        string url = Request.Url.ToString();
-                        mm.Body = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>  New BOM request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been reviewed by  Mr. " + ViewState["SessionUser"] + " <br> You may check the form on the following URL:<br> <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> <br><br>" +
-                        "BOM Approval Application <br> Information Systems Dashboard";
-                        //  mm.Body  = "<html><body><div style='border-style:solid;border-width:5px;border-radius: 10px; padding-left: 10px;margin: 20px; font-size: 18px;'> <p style='font-family: Vladimir Script;font-weight: bold; color: #f7d722;font-size: 15px;'>Dear Mr XYZ "+"</p><hr><div width=40%;> <p  style='font-size: 20px;'>Hello</div></body></html>";
-
-                        mm.IsBodyHtml = true;
-                        SmtpClient smtp = new SmtpClient();
-                        smtp.Host = "smtp.gmail.com";
-                        smtp.EnableSsl = true;
-                        NetworkCredential NetworkCred = new NetworkCredential("dashboard@internationaltextile.com", "itldashboard$$");
-                        smtp.UseDefaultCredentials = true;
-                        smtp.Credentials = NetworkCred;
-                        smtp.Port = 587;
-                        smtp.Send(mm);
-                        //  ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup2();", true);
-                        lblEmail.Text = "*New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been marked “reviewed” by you.";
-                        //  btnReviewed.Enabled = false;
-                        ViewState["Status"] = HierachyCategoryStatus.ToString();
-                    }
-
-                }
-
-            }
-            else
-            {
-
-            }
-        }
-
         private void EmailWorkFirstHaracheyMDA()
         {
             string HierachyCategory = "4";
@@ -877,14 +828,19 @@ namespace DashboardProject.Modules.Master
                 DataTableReader reader = ds.Tables["MailForwardToAllFromMDA"].CreateDataReader();
                 while (reader.Read())
                 {
-                    url = Request.Url.ToString();
+                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local");
+                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110");
                     TransactionID = reader["TransactionID"].ToString();
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "BOM Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br><br>   BOM Approval Of " + txtBillOfMaterial.Text.Trim() + " has been issued against BOM Approval request Form ID # " + lblMaxTransactionID.Text.ToString() + " <br><br> The form can be reviewed at the following URL:<br> <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>  This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                    "<br>BOM Approval Application <br> Information Systems Dashboard";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + ",<br> <br> BOM Approval Request has been issued against Form ID #  " + lblMaxTransactionID.Text.ToString() +
+                     "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                     "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                     "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                     "<br>BOM Approval Application <br> Information Systems Dashboard";
+
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
@@ -919,14 +875,19 @@ namespace DashboardProject.Modules.Master
             {
                 while (reader.Read())
                 {
-                    url = Request.Url.ToString();
+                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local");
+                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110");
                     TransactionID = reader["TransactionID"].ToString();
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "BOM Aproval Request Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> BOM Approval request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are kind approval is required for the information on the following URL: <br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                        "<br>BOM Approval Application <br> Information Systems Dashboard";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + ",<br> <br> BOM Approval Request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> > Your kind approval is required on the following URL: " +
+                       "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                       "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                       "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                       "<br>BOM Approval Application <br> Information Systems Dashboard";
+
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
@@ -947,14 +908,19 @@ namespace DashboardProject.Modules.Master
                     while (reader.Read())
                     {
 
-                        url = Request.Url.ToString();
+                        url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                        urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
                         TransactionID = reader["TransactionID"].ToString();
                         FormCode = reader["FormID"].ToString();
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                         EmailSubject = "BOM Aproval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> BOM Aproval Request request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br><br> You are requested to create a Document No information on the following URL:<br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message.<br>" +
-                             "BOM Approval Application <br> Information Systems Dashboard";
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + ",<br> <br> BOM Approval Request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> > You are requested to create a Document No information on the following URL " +
+                        "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                        "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                        "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                        "<br>BOM Approval Application <br> Information Systems Dashboard";
+
                         SessionUser = Session["User_Name"].ToString();
                         DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                         InsertEmail();
@@ -979,14 +945,20 @@ namespace DashboardProject.Modules.Master
             {
                 while (reader.Read())
                 {
-                    url = Request.Url.ToString();
+
+                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
                     TransactionID = reader["TransactionID"].ToString();
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "BOM Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new BOM Approval request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been forward by by " + ViewState["SessionUser"].ToString() + " <br> <br> You are kind approval is required for the information on the following URL: <br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                        "<br>BOM Approval Application <br> Information Systems Dashboard";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + ",<br> <br> BOM Approval Request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> > You are kind approval is required for the information on the following URL:  " +
+                    "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                    "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                    "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                    "<br>BOM Approval Application <br> Information Systems Dashboard";
+
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
@@ -1008,14 +980,19 @@ namespace DashboardProject.Modules.Master
                     while (reader.Read())
                     {
 
-                        url = Request.Url.ToString();
+                        url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                        urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
                         TransactionID = reader["TransactionID"].ToString();
                         FormCode = reader["FormID"].ToString();
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                         EmailSubject = "BOM Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>A New BOM Approval request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br><br> You are requested to create a material code information on the following URL:<br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message.<br>" +
-                             "BOM Approval Application <br> Information Systems Dashboard";
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + ",<br> <br> BOM Approval Request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> > You are requested to create a material code information on the following URL  " +
+                       "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                       "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                       "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                       "<br>BOM Approval Application <br> Information Systems Dashboard";
+
                         SessionUser = Session["User_Name"].ToString();
                         DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                         InsertEmail();
@@ -1039,16 +1016,19 @@ namespace DashboardProject.Modules.Master
                 DataTableReader reader = ds.Tables["MailForwardToUserOnRejection"].CreateDataReader();
                 while (reader.Read())
                 {
-                    url = Request.Url.ToString();
+                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
                     TransactionID = reader["TransactionID"].ToString();
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "BOM Aproval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>BOM Aproval request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been disapproved by  " + ViewState["SessionUser"].ToString() + " <br><br> The reason of rejection is given below you can review your form on following url:<br><br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a>" +
-                            "<br> <br> <br><b>Reject Remarks: " + txtRemarksReview.Text + "</b> " +
-                          " <br> <br> This is an auto-generated email from IS Dashboard, you do not need to reply to this message.<br>" +
-                        "<br>BOM Approval Application <br> Information Systems Dashboard";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + ",<br> <br> BOM Approval Request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been disapproved by  " + ViewState["SessionUser"].ToString() + " <br> <br> > The reason of rejection is given below you can review your form on following url " +
+                    "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                    "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                    "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                    "<br>BOM Approval Application <br> Information Systems Dashboard";
+
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
