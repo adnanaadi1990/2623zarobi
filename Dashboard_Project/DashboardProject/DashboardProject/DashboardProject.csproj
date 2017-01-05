@@ -708,6 +708,7 @@
     <Content Include="Modules\Finance\PettyCash.aspx" />
     <Content Include="Modules\Finance\SearchCustomerMaster.aspx" />
     <Content Include="Modules\Finance\SearchDeliveryChallanWorkflow.aspx" />
+    <Content Include="Modules\Finance\SearchInvoiceWorkflow.aspx" />
     <Content Include="Modules\Finance\SearchPettyCash.aspx" />
     <Content Include="Modules\Finance\SearchServiceMasterRequestForm.aspx" />
     <Content Include="Modules\Finance\SearchVendorMaster.aspx" />
@@ -1050,6 +1051,13 @@
     </Compile>
     <Compile Include="Modules\Finance\SearchDeliveryChallanWorkflow.aspx.designer.cs">
       <DependentUpon>SearchDeliveryChallanWorkflow.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Finance\SearchInvoiceWorkflow.aspx.cs">
+      <DependentUpon>SearchInvoiceWorkflow.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Finance\SearchInvoiceWorkflow.aspx.designer.cs">
+      <DependentUpon>SearchInvoiceWorkflow.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Finance\SearchPettyCash.aspx.cs">
       <DependentUpon>SearchPettyCash.aspx</DependentUpon>
@@ -1937,6 +1945,7 @@
     <Folder Include="css\Code\" />
     <Folder Include="css\Content\" />
     <Folder Include="DashboardDocument\InventoryAdjustment\" />
+    <Folder Include="DashboardDocument\InvoiceWorkflow\" />
     <Folder Include="DashboardDocument\QuotationApprovalWorkflow\" />
     <Folder Include="js\bin\" />
     <Folder Include="js\bower_components\" />
