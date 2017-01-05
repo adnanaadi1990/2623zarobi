@@ -86,7 +86,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    &nbsp;<p id="dvH" style="font-family: inherit; display: none; font-size: 35px !important; font-weight: bold; color: black; text-align: center;">Delivery Challan Workflow Report<br />
+    &nbsp;<p id="dvH" style="font-family: inherit; display: none; font-size: 35px !important; font-weight: bold; color: black; text-align: center;">Invoice Workflow Report<br />
         <br />
     </p>
     <div id="pnlHD">
@@ -257,7 +257,11 @@
             </div>
             <div class="panel panel-default" style="text-align: center;">
                 <div class="panel-body">
-
+                    <div class="row">
+                            <div class="col-sm-12">
+                                <asp:TextBox ID="txtRemarksReview" runat="server" CssClass="form-control" Height="80px" TextMode="MultiLine" PlaceHolder="Comment Box" Visible="true" BackColor="AliceBlue"></asp:TextBox>
+                            </div>
+                        </div>
                     <div class="col-sm-12" style="text-align: left;" runat="server" id="dvemaillbl">
                         <%-- <iframe src="../../AA/Files/VendorCreationForm.version1.0.pdf" width="400"></iframe>--%>
 
