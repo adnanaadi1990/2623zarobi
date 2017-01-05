@@ -598,7 +598,7 @@ namespace DashboardProject.Modules.Finance
                         UserName = reader["DisplayName"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                         EmailSubject = "New Service Master Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + has forward you a New Service Master Request against  Form ID #   " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required" + "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + "has forward you a New Service Master Request against  Form ID #   " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required" + "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                         "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                         "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
                         "<br>Service Master Application <br> Information Systems Dashboard";
