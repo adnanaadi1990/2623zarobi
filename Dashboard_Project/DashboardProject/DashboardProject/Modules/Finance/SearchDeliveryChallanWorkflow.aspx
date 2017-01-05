@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="SearchServiceMasterRequestForm.aspx.cs" Inherits="DashboardProject.Modules.Finance.SearchServiceMasterRequestForm" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="SearchDeliveryChallanWorkflow.aspx.cs" Inherits="DashboardProject.Modules.Finance.SearchDeliveryChallanWorkflow" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
@@ -80,12 +80,12 @@
         <div class="row" id="pnlHD">
 
             <div class="col-sm-7">
-                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Search Service Master Request</p>
+                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Search Delivery Challan Workflow</p>
             </div>
         </div>
 
         <div class="panel panel-default" id="pnlPC">
-            <div class="panel-heading">Search Service Master Request</div>
+            <div class="panel-heading">Search Delivery Challan Workflow</div>
             <div class="panel-body">
 
                 <div class="row">
