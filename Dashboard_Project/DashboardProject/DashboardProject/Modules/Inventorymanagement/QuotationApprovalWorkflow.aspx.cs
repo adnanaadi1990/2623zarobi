@@ -334,7 +334,7 @@ namespace DashboardProject.Modules.Inventorymanagement
             try
             {
 
-                cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'IAA'";
+                cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'QAF'";
                 //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
@@ -514,7 +514,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                     else
                     {
                         string character = Guid.NewGuid().ToString().Substring(0, Guid.NewGuid().ToString().IndexOf("-"));
-                        fleUpload.PostedFile.SaveAs(Server.MapPath("~/DashboardDocument/QuotationApprovalWorkflow/" + "QuotationApprovalWorkflow" + character.ToString() + "_" + filename));
+                        fleUpload.PostedFile.SaveAs(Server.MapPath("~/DashboardDocument/QuotationApprovalWorkflow/" + character.ToString() + "_" + filename));
                         lblFileName.Text = character.ToString() + "_" + filename.ToString();
                         lblmessage.Text = "File uploaded successfully!";
 
@@ -644,7 +644,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                 string Notification = "";
 
 
-                FilePath = "~/DashboardDocument/InventoryAdjustment/" + "InventoryAdjustment" + lblFileName.Text.ToString();
+                FilePath = "~/DashboardDocument/QuotationApprovalWorkflow/" + lblFileName.Text.ToString();
                 string Approval = ViewState["HOD"].ToString();
                 cmd.CommandText = "Exec SP_SYS_QuotationApproval" + " @TransactionMain='" + lblMaxTransactionNo.Text + "', " +
                         " @FileName='" + lblFileName.Text + "', " +
