@@ -739,7 +739,9 @@
     <Content Include="Modules\Reports\BOMApprovalReport.aspx" />
     <Content Include="Modules\Reports\CustomerMasterReport.aspx" />
     <Content Include="Modules\Reports\DeadStockReport.aspx" />
+    <Content Include="Modules\Reports\DeliveryChallanWorkflowReport.aspx" />
     <Content Include="Modules\Reports\InventoryAdjustmentReport.aspx" />
+    <Content Include="Modules\Reports\InvoiceWorkflowReport.aspx" />
     <Content Include="Modules\Reports\MaterialMasterMtypeCreationReport.aspx" />
     <Content Include="Modules\Reports\MaterialMasterReport.aspx" />
     <Content Include="Modules\Reports\PendingList.aspx" />
@@ -1269,12 +1271,26 @@
     <Compile Include="Modules\Reports\DeadStockReport.aspx.designer.cs">
       <DependentUpon>DeadStockReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Reports\DeliveryChallanWorkflowReport.aspx.cs">
+      <DependentUpon>DeliveryChallanWorkflowReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Reports\DeliveryChallanWorkflowReport.aspx.designer.cs">
+      <DependentUpon>DeliveryChallanWorkflowReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Reports\InventoryAdjustmentReport.aspx.cs">
       <DependentUpon>InventoryAdjustmentReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Modules\Reports\InventoryAdjustmentReport.aspx.designer.cs">
       <DependentUpon>InventoryAdjustmentReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\InvoiceWorkflowReport.aspx.cs">
+      <DependentUpon>InvoiceWorkflowReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Reports\InvoiceWorkflowReport.aspx.designer.cs">
+      <DependentUpon>InvoiceWorkflowReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\MaterialMasterMtypeCreationReport.aspx.cs">
       <DependentUpon>MaterialMasterMtypeCreationReport.aspx</DependentUpon>
