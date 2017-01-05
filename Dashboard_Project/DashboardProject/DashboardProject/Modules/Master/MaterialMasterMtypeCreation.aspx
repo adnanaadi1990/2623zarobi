@@ -391,8 +391,8 @@
                             <div class="col-sm-3">
                                 Batch Management
                        <asp:RadioButtonList ID="chkBatchManagement" runat="server" RepeatDirection="Horizontal" Enabled="False">
-                           <asp:ListItem Selected="True">Yes</asp:ListItem>
-                           <asp:ListItem>No</asp:ListItem>
+                           <asp:ListItem Selected="True" Enabled="False">Yes</asp:ListItem>
+                           <asp:ListItem Enabled="False">No</asp:ListItem>
                        </asp:RadioButtonList>
                             </div>
 
