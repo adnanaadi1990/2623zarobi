@@ -108,7 +108,7 @@ namespace DashboardProject.Modules.Finance
                         GetStatusHierachyCategoryControls();
                         BindsysApplicationStatus();
                         GetDCWDetail();
-                      
+                        getUserDetail();
                         if (((string)ViewState["HID"]) == "1")
                         {
                             btnApproved.Visible = false;
@@ -173,6 +173,7 @@ namespace DashboardProject.Modules.Finance
                     else
                     {
                         GetTransactionID();
+                        getUserDetail();
                         BindUser();
                     }
                 }
@@ -182,7 +183,15 @@ namespace DashboardProject.Modules.Finance
                 }
             }
         }
-
+        private void getUserDetail()
+        {
+            ds = obj.getUserDetail(Session["User_Name"].ToString());
+            if (ds.Tables["tbluser_DisplayName"].Rows.Count > 0)
+            {
+                ViewState["SessionUser"] = ds.Tables["tbluser_DisplayName"].Rows[0]["DisplayName"].ToString();
+                //ViewState["HID"] = ds.Tables["HID"].Rows[0]["HierachyCategory"].ToString();
+            }
+        }
         protected void btnUpload_Click(object sender, EventArgs e)
         {
             btnDelete.Visible = true;
@@ -567,63 +576,39 @@ namespace DashboardProject.Modules.Finance
 
         private void EmailWorkSendFirstApproval()
         {
+
+
             try
             {
                 ds = obj.MailForwardUserToApprover(lblMaxTransactionID.Text, FormID.ToString());
 
                 if (ds.Tables["MailForwardUserToApprover"].Rows.Count > 0)
                 {
-                    DataTableReader reader = ds.CreateDataReader();
+                    DataTableReader reader = ds.Tables["MailForwardUserToApprover"].CreateDataReader();
                     while (reader.Read())
                     {
-                        var to = new MailAddress(reader["user_email"].ToString(),
-                                                   reader["user_name"].ToString());
-                        ViewState["UserName"] = reader["user_name"].ToString();
-                        string aa = Request.CurrentExecutionFilePath;
-                        string ab = HttpContext.Current.Request.Url.Authority;
-                        string aaa = ab + aa;
-
-                        using (MailMessage mm = new MailMessage("dashboard@internationaltextile.com", reader["user_email"].ToString()))
-                        {
-
-                            mm.Subject = "Invoice Workflow Request – Form ID # " + lblMaxTransactionID.Text + "";
-                            //,<br> <br>   I have Following request againts " + " TransactionNo " + txtSMC.Text + " has been send. <br> Please See the following page ID:  " + "" + ViewState["FormId"].ToString() + " Form Name " + "" + ViewState["FormName"].ToString() + "URL of Page :<a href= " + "" + url.ToString() + "?MeterialNo=" + txtSMC.Text + ">  " + url.ToString() + "?MeterialNo=" + txtSMC.Text + "</a><br>  For more assistment feel free to cordinate. <br><br><br>     Regard<br> ABCDEG ";
-                            mm.Body = ViewState["UserName"].ToString(); //<a href= " + "" + url.ToString() + "?SMCode=" + txtSMC.Text + ">  " + url.ToString() + "?SMCode=" + txtSMC.Text + "</a>
-
-                            string url = HttpContext.Current.Request.Url.AbsoluteUri + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
-                            mm.Body = "Dear Mr " + "" + ViewState["UserName"] + ",<br> <br> " + Session["User_Name"].ToString() + " has sent you a Invoice Workflow Request against Form ID # " + lblMaxTransactionID.Text + " for approval. <br><br> Your kind approval is required on the following URL: <br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, you do not need to reply to this message.<br><br>" +
-                            "<br>Finance Invoice Workflow Application<br> Information Systems Dashboard";
-                            //    mm.Body = "Dear Mr " + "" + ViewState["UserName"] + ",<br> <br>   I have sent you a New Petty Cash Request against Form ID # " + ViewState["MaterialMaxID"] + " for approval. <br><br> Your kind approval is required on the following URL: <br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> For Assessment please see the picture below <br>  <br>  <img src='http://oi65.tinypic.com/15n0n45.jpg'> <br> This is an auto-generated email from IS Dashboard, you do not need to reply to this message.<br><br>" +
-                            // "Material Master Application <br> Information Systems Dashboard";
-
-                            mm.IsBodyHtml = true;
-                            SmtpClient smtp = new SmtpClient();
-
-                            smtp.Host = "smtp.gmail.com";
-                            smtp.EnableSsl = true;
-                            NetworkCredential NetworkCred = new NetworkCredential("dashboard@internationaltextile.com", "itldashboard$$");
-                            smtp.UseDefaultCredentials = true;
-                            smtp.Credentials = NetworkCred;
-                            smtp.Port = 587;
-                            smtp.Send(mm);
-                            mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnSuccess;
-                            //  lblEmail.Text = mm.DeliveryNotificationOptions.ToString();
-                            ViewState["HID"] = "01";
-                        }
+                        url = HttpContext.Current.Request.Url.AbsoluteUri + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                        TransactionID = reader["TransactionID"].ToString();
+                        FormCode = reader["FormID"].ToString();
+                        UserName = reader["user_name"].ToString();
+                        UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
+                        EmailSubject = "Invoice Workflow Request – Form ID # " + lblMaxTransactionID.Text + "";
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> " + ViewState["SessionUser"].ToString() + " has sent you a Invoice Workflow Request  against Form ID # " + lblMaxTransactionID.Text + " for approval. <br><br> Your kind approval is required on the following URL: <br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, you do not need to reply to this message.<br><br>" +
+                    "<br>Invoice Workflow Request Application<br> Information Systems Dashboard";
+                        SessionUser = Session["User_Name"].ToString();
+                        DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                        InsertEmail();
 
                     }
-                }
-                else
-                {
 
+                    ViewState["HID"] = "01";
                 }
+
             }
             catch (NullReferenceException ex)
             {
                 lblError.Text = "Email User" + ex.ToString();
             }
-
-
         }
 
         private void EmailWorkApproval()
