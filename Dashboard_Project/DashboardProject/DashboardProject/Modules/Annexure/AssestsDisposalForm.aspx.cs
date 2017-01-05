@@ -10,7 +10,6 @@ using System.IO;
 using System;
 using System.Collections;
 using System.Configuration;
-using ComponentWizerd;
 using System.Net;
 using System.Net.Mail;
 using AjaxControlToolkit;

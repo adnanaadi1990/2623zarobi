@@ -702,6 +702,7 @@
     <Content Include="Modules\Annexure\SearchAssetCreationForm.aspx" />
     <Content Include="Modules\Annexure\SearchAssetTransferFormApproval.aspx" />
     <Content Include="Modules\Finance\CustomerMaster.aspx" />
+    <Content Include="Modules\Finance\DeliveryChallanWorkflow.aspx" />
     <Content Include="Modules\Finance\Finance_Main.aspx" />
     <Content Include="Modules\Finance\PettyCash.aspx" />
     <Content Include="Modules\Finance\SearchCustomerMaster.aspx" />
@@ -1005,6 +1006,13 @@
     </Compile>
     <Compile Include="Modules\Finance\CustomerMaster.aspx.designer.cs">
       <DependentUpon>CustomerMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Finance\DeliveryChallanWorkflow.aspx.cs">
+      <DependentUpon>DeliveryChallanWorkflow.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Finance\DeliveryChallanWorkflow.aspx.designer.cs">
+      <DependentUpon>DeliveryChallanWorkflow.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Finance\Finance_Main.aspx.cs">
       <DependentUpon>Finance_Main.aspx</DependentUpon>
