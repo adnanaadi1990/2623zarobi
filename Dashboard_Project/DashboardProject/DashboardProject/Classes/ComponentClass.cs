@@ -2118,7 +2118,7 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = @"SP_getDCWDetail";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
-                        cmd.Parameters.AddWithValue("@TransactionID", "%" + TransID.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@TransactionID", TransID.ToString());
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "tbl_FI_DeliveryChallanWorkflow");
                     }
@@ -2144,7 +2144,7 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = @"SP_getIWFDetail";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
-                        cmd.Parameters.AddWithValue("@TransactionID", "%" + TransID.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@TransactionID", TransID.ToString());
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "tbl_FI_InvoiceWorkflow");
                     }

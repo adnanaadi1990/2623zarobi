@@ -27,8 +27,8 @@ namespace DashboardProject.Modules.Finance
     public partial class InvoiceWorkflow : System.Web.UI.Page
     {
         public string PdfPath;
-        public string FormID = "202";
-        public string FilePath = "";
+        public string FormID = "203";
+        public string FilePath ="";
         public string filename = "";
         public string pathImage = "";
         public string User_ID = "";
@@ -883,20 +883,29 @@ namespace DashboardProject.Modules.Finance
 
         private void GetStatusHierachyCategoryControls()
         {
-            ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString(), ViewState["SerialNo"].ToString(), ViewState["Status"].ToString());
-            if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
+            try
             {
-                ViewState["StatusHierachyCategory"] = ds.Tables["tbl_SysHierarchyControl"].Rows[0]["Status"].ToString();
-            }
-            if (((string)ViewState["StatusHierachyCategory"]) == "01" || ((string)ViewState["StatusHierachyCategory"]) == "02" || ((string)ViewState["StatusHierachyCategory"]) == "03" || ((string)ViewState["StatusHierachyCategory"]) == "04" || ((string)ViewState["StatusHierachyCategory"]) == "00" || ((string)ViewState["StatusHierachyCategory"]) == "06")
-            {
-                btnSave.Enabled = false;
-                btnReject.Attributes.Add("disabled", "true");
-                btnApproved.Enabled = false;
-                btnReviewed.Enabled = false;
-                btnCancel.Enabled = false;
-                btnSaveSubmit.Enabled = false;
+                ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
+                if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
+                {
+                    ViewState["StatusHierachyCategory"] = ds.Tables["tbl_SysHierarchyControl"].Rows[0]["Status"].ToString();
+                }
+                if (((string)ViewState["StatusHierachyCategory"]) == "01" || ((string)ViewState["StatusHierachyCategory"]) == "02" || ((string)ViewState["StatusHierachyCategory"]) == "03" || ((string)ViewState["StatusHierachyCategory"]) == "04" || ((string)ViewState["StatusHierachyCategory"]) == "00" || ((string)ViewState["StatusHierachyCategory"]) == "06")
+                {
+                    btnSave.Enabled = false;
+                    btnReject.Attributes.Add("disabled", "true");
+                    btnApproved.Enabled = false;
+                    btnMDA.Enabled = false;
+                    btnCancel.Enabled = false;
+                    btnSaveSubmit.Enabled = false;
+                    txtRemarksReview.Enabled = false;
 
+
+                }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "GetStatusHierachyCategoryControls" + ex.ToString();
             }
         }
 
