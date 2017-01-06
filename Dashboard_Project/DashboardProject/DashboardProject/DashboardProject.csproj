@@ -702,6 +702,7 @@
     <Content Include="Modules\Annexure\AssetTransferFormApproval.aspx" />
     <Content Include="Modules\Annexure\AssetWriteoffForm.aspx" />
     <Content Include="Modules\Annexure\SearchAssetCreationForm.aspx" />
+    <Content Include="Modules\Annexure\SearchAssetsDisposalform.aspx" />
     <Content Include="Modules\Annexure\SearchAssetTransferFormApproval.aspx" />
     <Content Include="Modules\Finance\CustomerMaster.aspx" />
     <Content Include="Modules\Finance\DeliveryChallanWorkflow.aspx" />
@@ -737,6 +738,7 @@
     <Content Include="Modules\PP\PP_Main.aspx" />
     <Content Include="Modules\Procurement\Procurment_Main.aspx" />
     <Content Include="Modules\Reports\AssetCreationFromReport.aspx" />
+    <Content Include="Modules\Reports\AssetDisposalFormReport.aspx" />
     <Content Include="Modules\Reports\AssetTransferFromReport.aspx" />
     <Content Include="Modules\Reports\BOMApprovalReport.aspx" />
     <Content Include="Modules\Reports\CustomerMasterReport.aspx" />
@@ -1014,6 +1016,13 @@
     <Compile Include="Modules\Annexure\SearchAssetCreationForm.aspx.designer.cs">
       <DependentUpon>SearchAssetCreationForm.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Annexure\SearchAssetsDisposalform.aspx.cs">
+      <DependentUpon>SearchAssetsDisposalform.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Annexure\SearchAssetsDisposalform.aspx.designer.cs">
+      <DependentUpon>SearchAssetsDisposalform.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Annexure\SearchAssetTransferFormApproval.aspx.cs">
       <DependentUpon>SearchAssetTransferFormApproval.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1258,6 +1267,13 @@
     </Compile>
     <Compile Include="Modules\Reports\AssetCreationFromReport.aspx.designer.cs">
       <DependentUpon>AssetCreationFromReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\AssetDisposalFormReport.aspx.cs">
+      <DependentUpon>AssetDisposalFormReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Reports\AssetDisposalFormReport.aspx.designer.cs">
+      <DependentUpon>AssetDisposalFormReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\AssetTransferFromReport.aspx.cs">
       <DependentUpon>AssetTransferFromReport.aspx</DependentUpon>

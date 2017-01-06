@@ -17,9 +17,9 @@ using System.Collections.Generic;
 using Telerik.Web.UI;
 using ITLDashboard.Classes;
 
-namespace ITLDashboard.Modules.Reports
+namespace DashboardProject.Modules.Reports
 {
-    public partial class AssetTransferFromReport : System.Web.UI.Page
+    public partial class AssetDisposalFormReport : System.Web.UI.Page
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString.ToString());
         ComponentClass obj = new ComponentClass();
@@ -28,7 +28,7 @@ namespace ITLDashboard.Modules.Reports
         SqlDataAdapter adp = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
         DataTable table = new DataTable();
-        public string FormID = "ATFA501";
+        public string FormID = "ADF501";
         public int Coint = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -40,7 +40,6 @@ namespace ITLDashboard.Modules.Reports
                 }
             }
         }
-
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -54,14 +53,15 @@ namespace ITLDashboard.Modules.Reports
                 RadGrid1.Visible = true;
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = @"SP_AssetTransferFrom";
+                cmd.CommandText = @"SP_AssestsDisposalFormreport";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 cmd.Parameters.AddWithValue("@FormIDFrom", txtFormIDfrom.Text);
                 cmd.Parameters.AddWithValue("@FormIDto", txtFormIDto.Text);
                 cmd.Parameters.AddWithValue("@userName", txtUN.Text);
-                cmd.Parameters.AddWithValue("@Date", txtDate.Text);
-                cmd.Parameters.AddWithValue("@TagNo", txtTagNo.Text);
+                cmd.Parameters.AddWithValue("@AssetCode", txtAssetCode.Text);
+                cmd.Parameters.AddWithValue("@DateofDisposal", txtDateofDisposal.Text);
+
                 adp.SelectCommand = cmd;
                 adp.Fill(dt);
                 ViewState["data"] = dt;

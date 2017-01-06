@@ -86,7 +86,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    &nbsp;<p id="dvH" style="font-family: inherit; display: none; font-size: 35px !important; font-weight: bold; color: black; text-align: center;">Delivery Challan Workflow Report<br />
+    &nbsp;<p id="dvH" style="font-family: inherit; display: none; font-size: 35px !important; font-weight: bold; color: black; text-align: center;">Invoice Workflow Report<br />
         <br />
     </p>
     <div id="pnlHD">

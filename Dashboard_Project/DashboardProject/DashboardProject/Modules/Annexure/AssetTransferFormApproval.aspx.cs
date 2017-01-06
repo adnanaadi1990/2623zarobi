@@ -642,17 +642,7 @@ namespace ITLDashboard.Modules.Annexure
                     cmd.Connection = conn;
                     cmd.Parameters.AddWithValue("@TransactionMain", lblMaxTransactionNo.Text);
                     cmd.Parameters.AddWithValue("@Date", txtDate.Text);
-                    //cmd.Parameters.AddWithValue("@Date", txtDate.ToString());
-
-                    // string aa = txtDate.Text.ToString();
-                    //    var from = DateTime.ParseExact(txtDate.Text, "MM/dd/yyyy", null).ToString("dd/MM/yyyy");
-
-                    // cmd.Parameters.AddWithValue("@txtDate", aa.ToString());
-                    //  DateTime date1 = DateTime.ParseExact(aa.ToString(), "yyyy-mm-dd", null);
-                    //  DateTime date2 = DateTime.ParseExact(ab.ToString(), "yyyy-mm-dd", null);
-
-                    //   cmd.Parameters.AddWithValue("@ExemptionToDate", ab.ToString());
-
+ 
 
                     cmd.Parameters.AddWithValue("@Description", txtDescription.Text);
                     cmd.Parameters.AddWithValue("@FromCurrentLocation", ddlFromCurrentLocation.SelectedValue);
@@ -713,20 +703,7 @@ namespace ITLDashboard.Modules.Annexure
         {
             try
             {
-                //if (txtRemarksReview.Text == "")
-                //{
 
-                //    lblmessage.Text = "";
-                //    lblUpError.Text = "Remarks should not be left blank!";
-                //    sucess.Visible = false;
-                //    error.Visible = true;
-                //    lblmessage.Focus();
-                //    sucess.Focus();
-                //    txtRemarksReview.BackColor = System.Drawing.Color.Red;
-                //    Page.MaintainScrollPositionOnPostBack = false;
-                //    return;
-                //}
-                //else
                 {
                     getDataWhenQueryStringPass();
                     sucess.Visible = false;
@@ -749,20 +726,6 @@ namespace ITLDashboard.Modules.Annexure
         {
             try
             {
-                if (txtRemarksReview.Text == "")
-                {
-
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Remarks should not be left blank!";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblmessage.Focus();
-                    sucess.Focus();
-                    txtRemarksReview.BackColor = System.Drawing.Color.Red;
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    return;
-                }
-                else
                 {
                     EmailWorkSendToAllfromReviwer();
                     InsertEmailHOD();

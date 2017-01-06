@@ -45,6 +45,7 @@ namespace DashboardProject.Modules.Finance
         public string SessionUser = "";
         public string DateTimeNow = "";
         public string url = "";
+        public string urlMobile = "";
 
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString.ToString());
         DataTable dt = new DataTable();
@@ -576,8 +577,6 @@ namespace DashboardProject.Modules.Finance
 
         private void EmailWorkSendFirstApproval()
         {
-
-
             try
             {
                 ds = obj.MailForwardUserToApprover(lblMaxTransactionID.Text, FormID.ToString());
@@ -587,14 +586,19 @@ namespace DashboardProject.Modules.Finance
                     DataTableReader reader = ds.Tables["MailForwardUserToApprover"].CreateDataReader();
                     while (reader.Read())
                     {
-                        url = HttpContext.Current.Request.Url.AbsoluteUri + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+
+                        url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                        urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
                         TransactionID = reader["TransactionID"].ToString();
                         FormCode = reader["FormID"].ToString();
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                         EmailSubject = "Invoice Workflow Request – Form ID # " + lblMaxTransactionID.Text + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> " + ViewState["SessionUser"].ToString() + " has sent you a Invoice Workflow Request  against Form ID # " + lblMaxTransactionID.Text + " for approval. <br><br> Your kind approval is required on the following URL: <br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, you do not need to reply to this message.<br><br>" +
-                    "<br>Invoice Workflow Request Application<br> Information Systems Dashboard";
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " has sent you a Invoice Workflow Request against Form ID #  " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required" +
+                        "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                        "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                        "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                        "<br>Invoice WorkFlow Application <br> Information Systems Dashboard";
                         SessionUser = Session["User_Name"].ToString();
                         DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                         InsertEmail();
@@ -609,104 +613,80 @@ namespace DashboardProject.Modules.Finance
             {
                 lblError.Text = "Email User" + ex.ToString();
             }
+
+
         }
 
         private void EmailWorkApproval()
         {
-            try
+            string HierachyCategoryStatus = "02";
+            ds = obj.MailForwardFormApprover(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
+            string Value = ds.Tables["MailForwardFormApprover"].Rows[0]["HierachyCategory"].ToString();
+            DataTableReader reader = ds.Tables["MailForwardFormApprover"].CreateDataReader();
+            if (ds.Tables["MailForwardFormApprover"].Rows.Count > 0 && Value == "2")
             {
-                string HierachyCategoryStatus = "02"; // Allow based on reqierment if there is No MDA if other wise allow "4"//
-                ds = obj.MailForwardFormApprover(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
-                string Value = ds.Tables["MailForwardFormApprover"].Rows[0]["HierachyCategory"].ToString();
-                DataTableReader reader = ds.CreateDataReader();
-                if (ds.Tables["MailForwardFormApprover"].Rows.Count > 0 && Value == "2")
+                while (reader.Read())
+                {
+
+                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                    TransactionID = reader["TransactionID"].ToString();
+                    FormCode = reader["FormID"].ToString();
+                    UserName = reader["user_name"].ToString();
+                    UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
+                    EmailSubject = "Invoice Workflow Request – Form ID #  " + lblMaxTransactionID.Text + "";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " Invoice Workflow Request against Form ID#   " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + "<br><br> You are requested to Approve the Delivery Challan Workflow" +
+                    "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                    "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                    "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                    "<br>Invoice Workflow Application <br> Information Systems Dashboard";
+
+                    SessionUser = Session["User_Name"].ToString();
+                    DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                    InsertEmail();
+
+                    lblEmail.Text = "*Delivery Challan Workflow Request against Form ID # " + lblMaxTransactionID.Text + " has been approved by you";
+                    ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
+                    lblEmail.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    Page.MaintainScrollPositionOnPostBack = true;
+                    lblEmail.Focus();
+                }
+
+
+            }
+            else
+            {
+                if (ds.Tables["MailForwardFormApprover"].Rows.Count > 0)
                 {
                     while (reader.Read())
                     {
-                        var to = new MailAddress(reader["user_email"].ToString(),
-                                                   reader["user_name"].ToString());
-                        ViewState["UserName"] = reader["user_name"].ToString();
-                        string aa = Request.CurrentExecutionFilePath;
-                        string ab = HttpContext.Current.Request.Url.Authority;
-                        string aaa = ab + aa;
 
-                        using (MailMessage mm = new MailMessage("dashboard@internationaltextile.com", reader["user_email"].ToString()))
-                        {
+                        url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                        urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                        TransactionID = reader["TransactionID"].ToString();
+                        FormCode = reader["FormID"].ToString();
+                        UserName = reader["user_name"].ToString();
+                        UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
+                        EmailSubject = "Invoice Workflow Request – Form ID #  " + lblMaxTransactionID.Text + "";
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " Invoice Workflow Request against Form ID#   " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + "<br><br> You are requested to review the Delivery Challan Workflow information " +
+                        "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                        "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                        "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                        "<br>Invoice Workflow Approval Application <br> Information Systems Dashboard";
 
-                            mm.Subject = "Invoice Workflow Request – Form ID #  " + lblMaxTransactionID.Text + "";
-                            //,<br> <br>   I have Following request againts " + " TransactionNo " + txtSMC.Text + " has been send. <br> Please See the following page ID:  " + "" + ViewState["FormId"].ToString() + " Form Name " + "" + ViewState["FormName"].ToString() + "URL of Page :<a href= " + "" + url.ToString() + "?MeterialNo=" + txtSMC.Text + ">  " + url.ToString() + "?MeterialNo=" + txtSMC.Text + "</a><br>  For more assistment feel free to cordinate. <br><br><br>     Regard<br> ABCDEG ";
-                            mm.Body = ViewState["UserName"].ToString(); //<a href= " + "" + url.ToString() + "?SMCode=" + txtSMC.Text + ">  " + url.ToString() + "?SMCode=" + txtSMC.Text + "</a>
-                            string MeterialCode = lblMaxTransactionID.Text;
-                            string url = Request.Url.ToString();
-                            mm.Body = "Dear Mr " + "" + ViewState["UserName"] + ",<br> <br> Invoice Workflow Request against Form ID #  " + lblMaxTransactionID.Text + " has been approved by Mr. " + Session["User_Name"].ToString() + " <br><br> You are requested to Approve the Invoice Workflow Request on the following URL: <br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, you do not need to reply to this message." +
-                            "<br><br>Finance Invoice Workflow Application<br> Information Systems Dashboard";
-
-                            mm.IsBodyHtml = true;
-                            SmtpClient smtp = new SmtpClient();
-                            smtp.Host = "smtp.gmail.com";
-                            smtp.EnableSsl = true;
-                            NetworkCredential NetworkCred = new NetworkCredential("dashboard@internationaltextile.com", "itldashboard$$");
-                            smtp.UseDefaultCredentials = true;
-                            smtp.Credentials = NetworkCred;
-                            smtp.Port = 587;
-                            smtp.Send(mm);
-                            mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnSuccess;
-                            lblEmail.Text = "*Invoice Workflow Request against Form ID # " + lblMaxTransactionID.Text + " has been approved by you";
-                            ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
-                        }
-
-                    }
-
-                }
-                else
-                {
-                    if (ds.Tables["MailForwardFormApprover"].Rows.Count > 0)
-                    {
-                        while (reader.Read())
-                        {
-
-                            var to = new MailAddress(reader["user_email"].ToString(),
-                                                       reader["user_name"].ToString());
-                            ViewState["UserName"] = reader["user_name"].ToString();
-                            string aa = Request.CurrentExecutionFilePath;
-                            string ab = HttpContext.Current.Request.Url.Authority;
-                            string aaa = ab + aa;
-
-                            using (MailMessage mm = new MailMessage("dashboard@internationaltextile.com", reader["user_email"].ToString()))
-                            {
-
-                                mm.Subject = "Invoice Workflow Request – Form ID #  " + lblMaxTransactionID.Text + "";
-                                //,<br> <br>   I have Following request againts " + " Meterial No " + txtSMC.Text + " has been send. <br> Please See the following page ID:  " + "" + ViewState["FormId"].ToString() + " Form Name " + "" + ViewState["FormName"].ToString() + "URL of Page :<a href= " + "" + url.ToString() + "?MeterialNo=" + txtSMC.Text + ">  " + url.ToString() + "?MeterialNo=" + txtSMC.Text + "</a><br>  For more assistment feel free to cordinate. <br><br><br>     Regard<br> ABCDEG ";
-                                mm.Body = ViewState["UserName"].ToString(); //<a href= " + "" + url.ToString() + "?SMCode=" + txtSMC.Text + ">  " + url.ToString() + "?SMCode=" + txtSMC.Text + "</a>
-                                string MeterialCode = lblMaxTransactionID.Text;
-                                string url = Request.Url.ToString();
-                                mm.Body = "Dear Mr " + "" + ViewState["UserName"] + ",<br> <br> Invoice Workflow Request against Form ID #  " + lblMaxTransactionID.Text + " has been approved by Mr. " + Session["User_Name"].ToString() + " <br><br> You are requested to review the Invoice workflow information on the following URL:<br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, you do not need to reply to this message.<br><br>" +
-                                 "<br>Finance Invoice Workflow Application<br> Information Systems Dashboard";
-                                //  mm.Body  = "<html><body><div style='border-style:solid;border-width:5px;border-radius: 10px; padding-left: 10px;margin: 20px; font-size: 18px;'> <p style='font-family: Vladimir Script;font-weight: bold; color: #f7d722;font-size: 15px;'>Dear Mr XYZ "+"</p><hr><div width=40%;> <p  style='font-size: 20px;'>Hello</div></body></html>";
-
-                                mm.IsBodyHtml = true;
-                                SmtpClient smtp = new SmtpClient();
-                                smtp.Host = "smtp.gmail.com";
-                                smtp.EnableSsl = true;
-                                NetworkCredential NetworkCred = new NetworkCredential("dashboard@internationaltextile.com", "itldashboard$$");
-                                smtp.UseDefaultCredentials = true;
-                                smtp.Credentials = NetworkCred;
-                                smtp.Port = 587;
-                                smtp.Send(mm);
-
-                                lblEmail.Text = "*Invoice Workflow Request against Form ID # " + lblMaxTransactionID.Text + " has been approved by you";
-                                ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
-                            }
-
-                        }
+                        SessionUser = Session["User_Name"].ToString();
+                        DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                        InsertEmail();
+                        ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
+                        lblEmail.Text = "*Delivery Challan Workflow Request against Form ID # " + lblMaxTransactionID.Text + " has been approved by you";
+                        lblEmail.Focus();
+                        Page.MaintainScrollPositionOnPostBack = false;
+                        Page.MaintainScrollPositionOnPostBack = true;
+                        lblEmail.Focus();
                     }
                 }
             }
-            catch (NullReferenceException ex)
-            {
-                lblError.Text = "Approval Email" + ex.ToString();
-            }
-
         }
 
         private void EmailWorkReject()
@@ -715,100 +695,76 @@ namespace DashboardProject.Modules.Finance
 
             if (ds.Tables["MailForwardToUserOnRejection"].Rows.Count > 0)
             {
-                DataTableReader reader = ds.CreateDataReader();
+                DataTableReader reader = ds.Tables["MailForwardToUserOnRejection"].CreateDataReader();
                 while (reader.Read())
                 {
-                    var to = new MailAddress(reader["user_email"].ToString(),
-                                               reader["user_name"].ToString());
-                    ViewState["UserName"] = reader["user_name"].ToString();
-                    string aa = Request.CurrentExecutionFilePath;
-                    string ab = HttpContext.Current.Request.Url.Authority;
-                    string aaa = ab + aa;
-
-                    using (MailMessage mm = new MailMessage("dashboard@internationaltextile.com", reader["user_email"].ToString()))
-                    {
-
-                        mm.Subject = "Invoice Workflow Request – Form ID #  " + lblMaxTransactionID.Text + "";
-                        //,<br> <br>   I have Following request againts " + " TransactionNo " + txtSMC.Text + " has been send. <br> Please See the following page ID:  " + "" + ViewState["FormId"].ToString() + " Form Name " + "" + ViewState["FormName"].ToString() + "URL of Page :<a href= " + "" + url.ToString() + "?MeterialNo=" + txtSMC.Text + ">  " + url.ToString() + "?MeterialNo=" + txtSMC.Text + "</a><br>  For more assistment feel free to cordinate. <br><br><br>     Regard<br> ABCDEG ";
-                        mm.Body = ViewState["UserName"].ToString(); //<a href= " + "" + url.ToString() + "?SMCode=" + txtSMC.Text + ">  " + url.ToString() + "?SMCode=" + txtSMC.Text + "</a>
-                        string MeterialCode = lblMaxTransactionID.Text;
-                        string url = Request.Url.ToString();
-                        mm.Body = "Dear Mr " + "" + ViewState["UserName"] + ",<br> <br> Invoice Workflow Request against Form ID #  " + lblMaxTransactionID.Text + " has been rejected by Mr. " + Session["User_Name"].ToString() + " <br><br> You are requested to Review the Invoice Workflow Request on the following URL: <br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, you do not need to reply to this message." +
-                        "<br><br>Finance Invoice Workflow Application<br> Information Systems Dashboard";
-                        //  mm.Body  = "<html><body><div style='border-style:solid;border-width:5px;border-radius: 10px; padding-left: 10px;margin: 20px; font-size: 18px;'> <p style='font-family: Vladimir Script;font-weight: bold; color: #f7d722;font-size: 15px;'>Dear Mr XYZ "+"</p><hr><div width=40%;> <p  style='font-size: 20px;'>Hello</div></body></html>";
-
-                        mm.IsBodyHtml = true;
-                        SmtpClient smtp = new SmtpClient();
-                        smtp.Host = "smtp.gmail.com";
-                        smtp.EnableSsl = true;
-                        NetworkCredential NetworkCred = new NetworkCredential("dashboard@internationaltextile.com", "itldashboard$$");
-                        smtp.UseDefaultCredentials = true;
-                        smtp.Credentials = NetworkCred;
-                        smtp.Port = 587;
-                        smtp.Send(mm);
-                        ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup2();", true);
-                        lblEmail.Text = "Invoice Workflow Request against Form ID # " + lblMaxTransactionID.Text + " has been rejected by you";
-                    }
+                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                    TransactionID = reader["TransactionID"].ToString();
+                    FormCode = reader["FormID"].ToString();
+                    UserName = reader["user_name"].ToString();
+                    UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
+                    EmailSubject = "Invoice Workflow Request – Form ID #  " + lblMaxTransactionID.Text + "";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " Invoice Workflow Request against Form ID#   " + lblMaxTransactionID.Text.ToString() + " has been rejected by " + ViewState["SessionUser"].ToString() + "<br><br> You are requested to review the Delivery Challan Workflow information " +
+                        "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                        "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                        "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                        "<br>Invoice Workflow Application <br> Information Systems Dashboard";
+                    SessionUser = Session["User_Name"].ToString();
+                    DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                    InsertEmail();
+                    ViewState["Status"] = "00"; // For Status Reject
+                    lblEmail.Text = "*Delivery Challan Workflow Request against Form ID # " + lblMaxTransactionID.Text.ToString() + " has been rejected by you";
+                    lblEmail.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    Page.MaintainScrollPositionOnPostBack = true;
                 }
-                ViewState["Status"] = "00"; // For Status Reject
             }
-        }
 
+        }
         private void EmailWorkSendMDA()
         {
-            try
+            string HierachyCategory = "4";
+            string HierachyCategoryStatus = "04"; // Allow based on reqierment if there is No MDA if other wise allow "4"//
+            ds = obj.MailForwardToAllFromMDA(lblMaxTransactionID.Text, FormID.ToString(), HierachyCategory.ToString());
+
+            if (ds.Tables["MailForwardToAllFromMDA"].Rows.Count > 0)
             {
-                string HierachyCategory = "3";
-                string HierachyCategoryStatus = "03"; // Allow based on reqierment if there is No MDA if other wise allow "4"//
-                ds = obj.MailForwardToAllFromMDA(lblMaxTransactionID.Text, FormID.ToString(), HierachyCategory.ToString());
-
-                if (ds.Tables["MailForwardToAllFromMDA"].Rows.Count > 0)
+                DataTableReader reader = ds.Tables["MailForwardToAllFromMDA"].CreateDataReader();
+                while (reader.Read())
                 {
-                    DataTableReader reader = ds.CreateDataReader();
-                    while (reader.Read())
-                    {
-                        var to = new MailAddress(reader["user_email"].ToString(),
-                                                   reader["user_name"].ToString());
-                        ViewState["UserName"] = reader["user_name"].ToString();
-                        string aa = Request.CurrentExecutionFilePath;
-                        string ab = HttpContext.Current.Request.Url.Authority;
-                        string aaa = ab + aa;
+                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                    TransactionID = reader["TransactionID"].ToString();
+                    FormCode = reader["FormID"].ToString();
+                    UserName = reader["user_name"].ToString();
+                    UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
+                    EmailSubject = "Invoice Workflow Request – Form ID # " + lblMaxTransactionID.Text + "";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " Invoice Workflow Request against Form ID#   " + lblMaxTransactionID.Text.ToString() + " has been reviewed by " + ViewState["SessionUser"].ToString() +
+                        "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                        "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                        "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                        "<br>Invoice Workflow Application <br> Information Systems Dashboard";
+                    SessionUser = Session["User_Name"].ToString();
+                    DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                    InsertEmail();
+                    InsertEmailHOD();
+                    lblmessage.Text = "Delivery Challan Workflow Request Form ID #  " + lblMaxTransactionID.Text + " has been reviewed by you";
 
-                        using (MailMessage mm = new MailMessage("dashboard@internationaltextile.com", reader["user_email"].ToString()))
-                        {
-                            mm.Subject = "Invoice Workflow Request – Form ID # " + lblMaxTransactionID.Text + "";
-                            //,<br> <br>   I have Following request againts " + " TransactionNo " + txtSMC.Text + " has been send. <br> Please See the following page ID:  " + "" + ViewState["FormId"].ToString() + " Form Name " + "" + ViewState["FormName"].ToString() + "URL of Page :<a href= " + "" + url.ToString() + "?MeterialNo=" + txtSMC.Text + ">  " + url.ToString() + "?MeterialNo=" + txtSMC.Text + "</a><br>  For more assistment feel free to cordinate. <br><br><br>     Regard<br> ABCDEG ";
-                            mm.Body = ViewState["UserName"].ToString(); //<a href= " + "" + url.ToString() + "?SMCode=" + txtSMC.Text + ">  " + url.ToString() + "?SMCode=" + txtSMC.Text + "</a> 
-                            string url = Request.Url.ToString();
-                            mm.Body = "Dear Mr " + "" + ViewState["UserName"] + ",<br> <br>  Invoice Workflow Request Form ID # " + lblMaxTransactionID.Text + " has been reviewed by reviewer. <br><br> The form can be reviewed at the following URL:<br> <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>  This is an auto-generated email from IS Dashboard, you do not need to reply to this message.<br>" +
-                            "<br>Finance Invoice Workflow Application<br> Information Systems Dashboard";
-                            mm.IsBodyHtml = true;
-                            SmtpClient smtp = new SmtpClient();
-                            smtp.Host = "smtp.gmail.com";
-                            smtp.EnableSsl = true;
-                            NetworkCredential NetworkCred = new NetworkCredential("dashboard@internationaltextile.com", "itldashboard$$");
-                            smtp.UseDefaultCredentials = true;
-                            smtp.Credentials = NetworkCred;
-                            smtp.Port = 587;
-                            smtp.Send(mm);
-                            lblEmail.Text = "Invoice Workflow Request Form ID #  " + lblMaxTransactionID.Text + " has been reviewed by you ";
-                            lblmessage.Text = "";
-                            lblUpError.Text = "";
-                            sucess.Visible = false;
-                            error.Visible = false;
-                            lblEmail.Focus();
-                            btnSaveSubmit.Style["visibility"] = "hidden";
-                            lblEmail.Focus();
-                            Page.MaintainScrollPositionOnPostBack = false;
-                            ViewState["Status"] = HierachyCategoryStatus.ToString();
-                        }
-                    }
+                    lblmessage.ForeColor = System.Drawing.Color.Green;
+                    conn.Close();
+                    sucess.Visible = true;
+                    error.Visible = false;
+                    lblmessage.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    ViewState["Status"] = HierachyCategoryStatus.ToString();
                 }
 
             }
-            catch (NullReferenceException ex)
+            else
             {
-                lblError.Text = "Email MDA" + ex.ToString();
+
             }
         }
 

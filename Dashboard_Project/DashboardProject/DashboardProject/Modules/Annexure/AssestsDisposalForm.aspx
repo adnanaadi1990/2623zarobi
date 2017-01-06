@@ -3,7 +3,7 @@
    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="../../Scripts/jquery-1.9.1.min.js"></script>
     <script src="../../Scripts/bootstrap.min.js"></script>
-        <%--<link href="../../Content/bootstrap.min.css" rel="stylesheet" />--%>
+    <%--<link href="../../Content/bootstrap.min.css" rel="stylesheet" />--%>
 
     <link href="../../Content/multiselect.css" rel="stylesheet" type="text/css" />
     <script src="../../Scripts/miltiselect.js" type="text/javascript"></script>
@@ -55,7 +55,7 @@
 
     <script type="text/javascript">
         function pageLoad() {
-            $('[id*=txtPostalCode],[id*=txtcustomerCode]').keyup(function () {
+            $('[id*=txtPostalCode],[id*=txtAssetCode]').keyup(function () {
                 if (this.value.match(/[^,.0-9 ]/g)) {
                     this.value = this.value.replace(/[^,.0-9 ]/g, '');
                 }
@@ -157,7 +157,7 @@
         <div class="row">
 
             <div class="col-sm-7">
-                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Assets Dispoal Form</p>
+                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Assets Disposal Form</p>
             </div>
         </div>
 
@@ -187,7 +187,7 @@
             <div class="panel panel-default" runat="server" id="dvADF">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        Assets Dispoal Form
+                        Assets Disposal Form
                     </h4>
                 </div>
 
@@ -204,11 +204,9 @@
                                         <asp:LinkButton ID="AddRowBtn" runat="server" OnClick="AddRowEvent" Text="Add"></asp:LinkButton>
                                     </FooterTemplate>
                                     <ItemStyle Width="1%" />
-
                                     <ItemStyle Width="1%" />
                                     <HeaderStyle Width="1%" />
                                 </asp:TemplateField>
-
                                   <asp:TemplateField HeaderText="S.No">
                                     <ItemTemplate>
                                       <%#Container.DataItemIndex+1 %>
@@ -218,7 +216,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Asset Code">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txtAssetCode" Width="100px" CssClass="form-control" runat="server">                                          
+                                        <asp:TextBox ID="txtAssetCode" Width="150px" CssClass="form-control" runat="server">                                          
                                         </asp:TextBox>
                                     </ItemTemplate>
                                     <ItemStyle />
@@ -226,72 +224,22 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Description & Category of Asset">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txtDescription" Width="100px" CssClass="form-control" runat="server">                                          
+                                        <asp:TextBox ID="txtDescription" Width="300px" CssClass="form-control" runat="server">                                          
                                         </asp:TextBox>
                                     </ItemTemplate>
                                     <ItemStyle />
                                     <HeaderStyle />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Date of Purchase / Capitalization">
-                                    <ItemTemplate>
-                                        <asp:TextBox ID="txtDateofPurchase" Width="150px" CssClass="form-control" runat="server" TextMode="Date"></asp:TextBox>
-                                    </ItemTemplate>
-                                    <ItemStyle Width="1%" />
-                                    <HeaderStyle Width="1%" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Cost (PKR)">
-                                    <ItemTemplate>
-                                        <asp:TextBox ID="txtCost" Width="150px" CssClass="form-control" runat="server" TextMode="Number" />
-                                    </ItemTemplate>
-                                    <ItemStyle Width="1%" />
-                                    <HeaderStyle Width="1%" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Accumulated Depreciation (PKR)">
-                                    <ItemTemplate>
-                                        <asp:TextBox ID="txtAccumulatedDepreciation" Width="150px" CssClass="form-control" runat="server" TextMode="Number" />
-                                    </ItemTemplate>
-                                    <ItemStyle Width="1%" />
-                                    <HeaderStyle Width="1%" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Net Book Value (NBV) PKR">
-                                    <ItemTemplate>
-                                        <asp:TextBox ID="txtNetBookValue" Width="150px" CssClass="form-control" runat="server" TextMode="Number" />
-                                    </ItemTemplate>
-
-                                    <ItemStyle Width="1%" />
-                                    <HeaderStyle Width="1%" />
-                                </asp:TemplateField>
+                                </asp:TemplateField>                                                 
                                 <asp:TemplateField HeaderText="Date of Disposal">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txtDateofDisposal" Width="150px" CssClass="form-control" runat="server" TextMode="Date" />
-                                    </ItemTemplate>
-                                    <ItemStyle Width="1%" />
-                                    <HeaderStyle Width="1%" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Mode of Disposal">
-                                    <ItemTemplate>
-                                        <asp:TextBox ID="txtModeofDisposal" Width="100px" CssClass="form-control" runat="server" />
-                                    </ItemTemplate>
-                                    <ItemStyle Width="1%" />
-                                    <HeaderStyle Width="1%" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Sales Proceeds (PKR)">
-                                    <ItemTemplate>
-                                        <asp:TextBox ID="txtSalesProceeds" Width="150px" CssClass="form-control" runat="server" TextMode="Number" />
-                                    </ItemTemplate>
-                                    <ItemStyle Width="1%" />
-                                    <HeaderStyle Width="1%" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Gain Or Loss on Disposal (PKR)">
-                                    <ItemTemplate>
-                                        <asp:TextBox ID="txtGainOrLossonDisposal" Width="150px" CssClass="form-control" runat="server" TextMode="Number" />
+                                        <asp:TextBox ID="txtDateofDisposal" Width="190px" CssClass="form-control" runat="server" TextMode="Date" />
                                     </ItemTemplate>
                                     <ItemStyle Width="1%" />
                                     <HeaderStyle Width="1%" />
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Reasons / Justification for Disposal">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txtReasonsJustificationforDisposal" Width="100px" CssClass="form-control" runat="server" />
+                                        <asp:TextBox ID="txtReasonsJustificationforDisposal" Width="350px" CssClass="form-control" runat="server" />
                                     </ItemTemplate>
                                     <ItemStyle Width="1%" />
                                     <HeaderStyle Width="1%" />
@@ -304,31 +252,53 @@
                 </div>
             </div>
         </div>
+
         <div id="divEmail" runat="server">
             <asp:Panel ID="pnlemail" runat="server">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Email Approval
                     </div>
-                    <div class="panel-body">
-                        <div class="row" style="text-align: center;">
-                            <div class="col-sm-4">
-                                Chief Opreating Officer
-                                      <asp:DropDownList ID="ddlApproval1" CssClass="form-control" runat="server"></asp:DropDownList>
+                    <div class="panel-body" style="text-align: center;">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                H.O.D
+                                <asp:Label ID="lblHOD" CssClass="form-control" runat="server"></asp:Label>
                             </div>
-                            <div class="col-sm-4">
-                               Chief Procurement Officer
-                                      <asp:DropDownList ID="ddlApproval2" CssClass="form-control" runat="server"></asp:DropDownList>
+                            <div class="col-sm-3">
+                                C.O.O
+                                <asp:DropDownList ID="ddlCOO" CssClass="form-control" runat="server"></asp:DropDownList>
                             </div>
-                            <div class="col-sm-4">
-                                 Chief Financial Officer
-                                      <asp:DropDownList ID="ddlApproval3" CssClass="form-control" runat="server"></asp:DropDownList>
-                                <br />
+                            <div class="col-sm-3">
+                                C.F.O
+                                <asp:DropDownList ID="ddlCFO" CssClass="form-control" runat="server"></asp:DropDownList>
+                            </div>
+                            <div class="col-sm-3">
+                                Asset MDA
+                                <asp:DropDownList ID="ddlReviewer" CssClass="form-control" runat="server"></asp:DropDownList>
                             </div>
                         </div>
                     </div>
                 </div>
             </asp:Panel>
+        </div>
+
+         <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <asp:TextBox ID="txtRemarksReview" runat="server" CssClass="form-control" Height="80px" TextMode="MultiLine" PlaceHolder="Comment Box" Visible="False" BackColor="AliceBlue"></asp:TextBox>
+                    </div>
+                </div>
+                <span class="help-block"></span>
+                <div class="col-sm-12" style="text-align: left;" runat="server" id="Div1">
+                    <%--<%# Eval("Numerator") %>--%>
+                    <asp:Label ID="Label1" runat="server" Font-Bold="False" ForeColor="Blue" Font-Names="Berlin Sans FB"></asp:Label>
+                    <asp:Label ID="Label2" runat="server" Font-Bold="False" ForeColor="Red" Font-Names="Berlin Sans FB"></asp:Label>
+                    <asp:Label ID="Label3" runat="server" Font-Bold="False" ForeColor="Black" Font-Names="Berlin Sans FB"></asp:Label>
+                </div>
+            </div>
+            <span class="help-block"></span>
         </div>
 
         <div class="panel panel-default" style="text-align: center;" runat="server" id="dvlbl">
@@ -346,15 +316,11 @@
     </div>
 
     <div class="col-sm-12" style="text-align: center;">
-        <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Text="Save" ValidationGroup="grpSa" Width="60px" OnClick="btnSave_Click" ></asp:Button>
-        <asp:Button ID="btnApproved" runat="server" CssClass="btn btn-primary" Text="Approval" CausesValidation="False" Width="100px" Visible="False" OnClick="btnApproved_Click"></asp:Button>
-
-        <asp:Button ID="btnReviwer" runat="server" CssClass="btn btn-primary" Text="Approval" CausesValidation="False" Width="100px" Visible="False" OnClick="btnReviwer_Click"></asp:Button>
-
-        <asp:LinkButton ID="LinkButton1" runat="server" class="btn btn-primary" data-target="#myModal" data-toggle="modal" Text="Reject" Visible="false" CssClass="btn btn-primary" Width="100px" ></asp:LinkButton>
-
-        <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-primary" Text="Reset Form" CausesValidation="False" Width="100px"></asp:Button>
-      
+        <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Text="Save" ValidationGroup="grpSa" Width="60px" OnClick="btnSave_Click"></asp:Button>
+        <asp:Button ID="btnApprover" runat="server" CssClass="btn btn-primary" Text="Approve" CausesValidation="False" Width="100px" Visible="False" OnClick="btnApproved_Click"></asp:Button>
+        <asp:Button ID="btnReviewed" runat="server" CssClass="btn btn-primary" Text="Submit" Width="100px" Visible="False" OnClick="btnReviewed_Click"></asp:Button>
+                    <asp:Button ID="btnReject" runat="server" CssClass="btn btn-primary" Text="Reject"  Width="100px" Visible="False" CausesValidation="False" OnClick="btnReject_Click"></asp:Button>
+        <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-primary" Text="Reset Form" CausesValidation="False" Width="100px" OnClick="btnCancel_Click"></asp:Button>
     </div>
 
     <div class="panel-body fixed-panel">
@@ -395,31 +361,6 @@
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Select Any Action</h4>
-                </div>
-                <div class="modal-body" style="height: 125px;">
-
-                    <div class="col-sm-2"><b>Remarks</b></div>
-                    <div class="col-sm-9" style="text-align: center;">
-                        <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" Height="50px" TextMode="MultiLine"></asp:TextBox>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <asp:Button ID="btnReject" runat="server" CssClass="btn btn-primary" Text="Reject"  Width="100px" Visible="False" CausesValidation="False" OnClick="btnReject_Click"></asp:Button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 60px;">Close</button>
-                </div>
             </div>
         </div>
     </div>

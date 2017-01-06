@@ -1,7 +1,8 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="AssetTransferFromReport.aspx.cs" Inherits="ITLDashboard.Modules.Reports.AssetTransferFromReport" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="AssetDisposalFormReport.aspx.cs" Inherits="DashboardProject.Modules.Reports.AssetDisposalFormReport" %>
+
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
     <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css"
         rel="stylesheet" type="text/css" />
@@ -33,11 +34,11 @@
             });
         };
     </script>
-      <script type="text/javascript">
-          history.pushState(null, null, document.URL);
-          window.addEventListener('popstate', function (event) {
-              history.pushState(null, null, document.URL);
-          });
+    <script type="text/javascript">
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function (event) {
+            history.pushState(null, null, document.URL);
+        });
 
     </script>
     <script type="text/javascript">
@@ -100,9 +101,7 @@
             height: auto;
         }
 
-        .AutoShrink {
-            width: 240px !important;
-        }
+        
     </style>
     <style type="text/css">
         .rgPageFirst, .rgPagePrev, .rgPageNext, .rgPageLast {
@@ -114,22 +113,21 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-        <div class="container" style="width: 100%; margin-top: 20px;">
+    <div class="container" style="width: 100%; margin-top: 20px;">
         <div class="row">
 
             <div class="col-sm-7">
-                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Asset Transfer Form Report</p>
+                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Asset Disposal Form Report</p>
             </div>
         </div>
 
 
 
         <div class="panel panel-default">
-            <div class="panel-heading">Asset Transfer Form Report</div>
+            <div class="panel-heading">Asset Disposal Form Report</div>
             <div class="panel-body">
 
                 <div class="row">
-
                     <div class="col-sm-4" runat="server" id="dvTransactionNo">
                         Form Id From 
                          <asp:TextBox ID="txtFormIDfrom" runat="server" CssClass="form-control"></asp:TextBox>
@@ -138,19 +136,18 @@
                         Form Id To
                           <asp:TextBox ID="txtFormIDto" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
-
-                    <div class="col-sm-4" runat="server" id="Div1">
+                    <div class="col-sm-4" runat="server" id="Div3">
                         User Name 
                            <asp:TextBox ID="txtUN" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
-                       <span class="help-block"></span>
-                    <div class="col-sm-4" runat="server" id="Div2">
-                        Date 
-                           <asp:TextBox ID="txtDate" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
+                     <span class="help-block"></span>
+                    <div class="col-sm-4" runat="server" id="Div1">
+                        Asset Code
+                           <asp:TextBox ID="txtAssetCode" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
-                    <div class="col-sm-4" runat="server" id="Div3">
-                        TagNo. 
-                           <asp:TextBox ID="txtTagNo" runat="server" CssClass="form-control"></asp:TextBox>
+                    <div class="col-sm-4" runat="server" id="Div2">
+                        Date of Disposal 
+                           <asp:TextBox ID="txtDateofDisposal" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
                     </div>
                 </div>
 
@@ -195,35 +192,13 @@
                                             </telerik:GridButtonColumn>
                                             <telerik:GridBoundColumn DataField="TransactionID" FilterControlAltText="Filter column column" FooterText="Form ID" HeaderText="Form ID" UniqueName="FormID">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Date" FilterControlAltText="Filter column2 column" HeaderText="Date" UniqueName="column2">
+                                            <telerik:GridBoundColumn DataField="AssetCode" FilterControlAltText="Filter column2 column" HeaderText="Asset Code" UniqueName="column2">
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="Description" FilterControlAltText="Filter column3 column" HeaderText="Description" UniqueName="column3">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="FromCurrentLocation" FilterControlAltText="Filter column4 column" HeaderText="From Current Location" UniqueName="column4">
+                                            <telerik:GridBoundColumn DataField="DateofDisposal" FilterControlAltText="Filter column4 column" HeaderText="Date of Disposal" UniqueName="column4">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="FromStore" FilterControlAltText="Filter column5 column" HeaderText="From Store" UniqueName="column5">
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="FromCostCenter" FilterControlAltText="Filter column6 column" HeaderText="From Cost Center" UniqueName="column6">
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="TonewLocation" FilterControlAltText="Filter column7 column" HeaderText="To new Location" UniqueName="column7">
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="ToStore" FilterControlAltText="Filter column8 column" HeaderText="To Store" UniqueName="column8">
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="ToCostCenter" FilterControlAltText="Filter column9 column" HeaderText="To Cost Center" UniqueName="column9">
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="ItemDescription" FilterControlAltText="Filter column10 column" HeaderText="Item Description" UniqueName="column10">
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="TagNo" FilterControlAltText="Filter column11 column" HeaderText="Tag No" UniqueName="column11">
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="SerialNo" FilterControlAltText="Filter column12 column" HeaderText="Serial No" UniqueName="column12">
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="ModelNoFarCodePartNo" FilterControlAltText="Filter column13 column" HeaderText="Model No Far Code Part No" UniqueName="column13">
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Make" FilterControlAltText="Filter column14 column" HeaderText="Make" UniqueName="column14">
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="UnitOfMeasure" FilterControlAltText="Filter column15 column" HeaderText="Unit Of Measure" UniqueName="column15">
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Quantity" FilterControlAltText="Filter column16 column" HeaderText="Quantity" UniqueName="column16">
+                                            <telerik:GridBoundColumn DataField="ReasonsJustificationforDisposal" FilterControlAltText="Filter column4 column" HeaderText="Reasons Justification for Disposal" UniqueName="column4">
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="RemarksAD" FilterControlAltText="Filter column17 column" HeaderText="Remarks" UniqueName="column17">
                                             </telerik:GridBoundColumn>
