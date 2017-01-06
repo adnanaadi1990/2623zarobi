@@ -828,7 +828,7 @@ namespace ITLDashboard.Classes
                         adp.Fill(ds, "ValuationCategory");
                     }
                     catch (Exception ex)
-                    { ex.ToString(); }
+                    { ex.ToString(); }   
                     finally
                     { conn.Close(); }
                     return ds;
