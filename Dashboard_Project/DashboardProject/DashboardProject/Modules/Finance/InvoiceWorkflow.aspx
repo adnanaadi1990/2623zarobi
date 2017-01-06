@@ -276,7 +276,7 @@
             </div>
 
             <div class="col-sm-12" style="text-align: center;">
-                <asp:Button ID="btnSave" runat="server" OnClientClick="return AllowOneClick()"  CssClass="btn btn-primary" Text="Save" Width="100px" OnClick="btnSave_Click" CausesValidation="False"></asp:Button>
+                <asp:Button ID="btnSave" runat="server" OnClientClick="return AllowOneClick()"  CssClass="btn btn-primary" Text="Save" Width="100px" OnClick="btnSave_Click"></asp:Button>
                 <asp:Button ID="btnSaveSubmit" runat="server" OnClientClick="return AllowOneClick()" CssClass="btn btn-primary" Text="Save / Submit" Width="100px" Visible="False" ValidationGroup="grpSave" CausesValidation="False" OnClick="btnSaveSubmit_Click"></asp:Button>
                 <asp:Button ID="btnApproved" OnClientClick="return AllowOneClick()" runat="server" CssClass="btn btn-primary" Text="Approve" OnClick="btnApproved_Click" Width="100px" Visible="False" CausesValidation="False"></asp:Button>
                 <asp:Button ID="btnReject" OnClientClick="return AllowOneClick()" runat="server" CssClass="btn btn-primary" Text="Reject" OnClick="btnReject_Click" Width="100px" Visible="False"></asp:Button>
