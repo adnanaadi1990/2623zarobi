@@ -143,6 +143,7 @@
                         User Name 
                            <asp:TextBox ID="txtUN" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
+                       <span class="help-block"></span>
                     <div class="col-sm-4" runat="server" id="Div2">
                         Date 
                            <asp:TextBox ID="txtDate" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>

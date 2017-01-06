@@ -10,7 +10,6 @@ using System.IO;
 using System;
 using System.Collections;
 using System.Configuration;
-using ComponentWizerd;
 using System.Net;
 using System.Net.Mail;
 using AjaxControlToolkit;
@@ -28,7 +27,7 @@ namespace DashboardProject.Modules.Annexure
         public string FormID = "AWOF501";
         private string value = "";
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString.ToString());
-        mastercomp obj = new mastercomp();
+
         DataTable dt = new DataTable();
         DataSet ds = new DataSet();
         SqlDataAdapter adp = new SqlDataAdapter();
@@ -58,10 +57,10 @@ namespace DashboardProject.Modules.Annexure
 
             if (Request.QueryString["TransactionNo"] != null)
             {
-                getDataWhenQueryStringPass();
-                GetHarcheyID();
-                GetStatusHierachyCategoryControls();
-                BindsysApplicationStatus();
+                //getDataWhenQueryStringPass();
+                //GetHarcheyID();
+                //GetStatusHierachyCategoryControls();
+                //BindsysApplicationStatus();
                 if (((string)ViewState["HID"]) == "1")
                 {
                     btnSave.Visible = false;
@@ -73,7 +72,7 @@ namespace DashboardProject.Modules.Annexure
                     GridView1.Visible = true;
                     dvFormID.Visible = true;
                     dvTransactionNo.Visible = false;
-                    DisableControls(Page, false);
+                    //DisableControls(Page, false);
 
                 }
                 if (((string)ViewState["HID"]) == "2")
@@ -87,7 +86,7 @@ namespace DashboardProject.Modules.Annexure
                     LinkButton1.Visible = true;
                     dvFormID.Visible = true;
                     dvTransactionNo.Visible = false;
-                    ClearInputscolor(Page.Controls);
+                    //ClearInputscolor(Page.Controls);
                 }
                 if (((string)ViewState["HID"]) == "3")
                 {
@@ -101,14 +100,14 @@ namespace DashboardProject.Modules.Annexure
                     LinkButton1.Visible = true;
                     dvFormID.Visible = true;
                     dvTransactionNo.Visible = false;
-                    ClearInputscolor(Page.Controls);
+                    //ClearInputscolor(Page.Controls);
                 }
             }
             else
             {
-                setinitialrow();
-                GetTransactionID();
-                getUser();
+                //setinitialrow();
+                //GetTransactionID();
+                //getUser();
             }
         }
 

@@ -19,7 +19,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
     <File Include="bin/DashboardProject.dll">
-      <publishTime>01/05/2017 18:06:18</publishTime>
+      <publishTime>01/06/2017 11:57:23</publishTime>
     </File>
     <File Include="bin/itextsharp.dll">
       <publishTime>01/04/2017 17:08:35</publishTime>
@@ -3297,6 +3297,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Modules/AdminPannel/AllowFormsToUsers.aspx">
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
+    <File Include="Modules/AdminPannel/AssetWriteOffForm.aspx">
+      <publishTime>01/06/2017 11:17:24</publishTime>
+    </File>
     <File Include="Modules/AdminPannel/MtypeAdminForm.aspx">
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
@@ -3310,7 +3313,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
     <File Include="Modules/Annexure/AssestsDisposalForm.aspx">
-      <publishTime>01/05/2017 13:04:39</publishTime>
+      <publishTime>01/06/2017 11:16:31</publishTime>
     </File>
     <File Include="Modules/Annexure/AssetCreationForm.aspx">
       <publishTime>01/04/2017 17:08:34</publishTime>
@@ -3318,8 +3321,14 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Modules/Annexure/AssetTransferFormApproval.aspx">
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
+    <File Include="Modules/Annexure/AssetWriteoffForm.aspx">
+      <publishTime>01/06/2017 11:17:24</publishTime>
+    </File>
     <File Include="Modules/Annexure/SearchAssetCreationForm.aspx">
       <publishTime>01/04/2017 17:08:34</publishTime>
+    </File>
+    <File Include="Modules/Annexure/SearchAssetsDisposalform.aspx">
+      <publishTime>01/06/2017 11:16:31</publishTime>
     </File>
     <File Include="Modules/Annexure/SearchAssetTransferFormApproval.aspx">
       <publishTime>01/04/2017 17:08:34</publishTime>
@@ -3334,7 +3343,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
     <File Include="Modules/Finance/InvoiceWorkflow.aspx">
-      <publishTime>01/05/2017 16:37:02</publishTime>
+      <publishTime>01/05/2017 18:30:58</publishTime>
     </File>
     <File Include="Modules/Finance/PettyCash.aspx">
       <publishTime>01/04/2017 17:08:34</publishTime>
@@ -3426,8 +3435,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Modules/Reports/AssetCreationFromReport.aspx">
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
+    <File Include="Modules/Reports/AssetDisposalFormReport.aspx">
+      <publishTime>01/06/2017 11:16:31</publishTime>
+    </File>
     <File Include="Modules/Reports/AssetTransferFromReport.aspx">
-      <publishTime>01/04/2017 17:08:34</publishTime>
+      <publishTime>01/06/2017 11:16:31</publishTime>
     </File>
     <File Include="Modules/Reports/BOMApprovalReport.aspx">
       <publishTime>01/04/2017 17:08:34</publishTime>
@@ -3625,7 +3637,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/05/2017 13:04:37</publishTime>
+      <publishTime>01/06/2017 11:57:24</publishTime>
     </File>
   </ItemGroup>
 </Project>
