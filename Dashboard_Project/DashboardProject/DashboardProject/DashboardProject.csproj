@@ -692,6 +692,7 @@
     <Content Include="Modules\AdminPannel\AdminEmailSending.aspx" />
     <Content Include="Modules\AdminPannel\Admin_Main.aspx" />
     <Content Include="Modules\AdminPannel\AllowFormsToUsers.aspx" />
+    <Content Include="Modules\AdminPannel\AssetWriteOffForm.aspx" />
     <Content Include="Modules\AdminPannel\MtypeAdminForm.aspx" />
     <Content Include="Modules\AdminPannel\PendingEmailSending.aspx" />
     <Content Include="Modules\AdminPannel\UserDetailList.aspx" />
@@ -699,6 +700,7 @@
     <Content Include="Modules\Annexure\AssestsDisposalForm.aspx" />
     <Content Include="Modules\Annexure\AssetCreationForm.aspx" />
     <Content Include="Modules\Annexure\AssetTransferFormApproval.aspx" />
+    <Content Include="Modules\Annexure\AssetWriteoffForm.aspx" />
     <Content Include="Modules\Annexure\SearchAssetCreationForm.aspx" />
     <Content Include="Modules\Annexure\SearchAssetsDisposalform.aspx" />
     <Content Include="Modules\Annexure\SearchAssetTransferFormApproval.aspx" />
@@ -944,6 +946,13 @@
     <Compile Include="Modules\AdminPannel\AllowFormsToUsers.aspx.designer.cs">
       <DependentUpon>AllowFormsToUsers.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\AdminPannel\AssetWriteOffForm.aspx.cs">
+      <DependentUpon>AssetWriteOffForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\AdminPannel\AssetWriteOffForm.aspx.designer.cs">
+      <DependentUpon>AssetWriteOffForm.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Modules\AdminPannel\MtypeAdminForm.aspx.cs">
       <DependentUpon>MtypeAdminForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -992,6 +1001,13 @@
     </Compile>
     <Compile Include="Modules\Annexure\AssetTransferFormApproval.aspx.designer.cs">
       <DependentUpon>AssetTransferFormApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Annexure\AssetWriteoffForm.aspx.cs">
+      <DependentUpon>AssetWriteoffForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Annexure\AssetWriteoffForm.aspx.designer.cs">
+      <DependentUpon>AssetWriteoffForm.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Annexure\SearchAssetCreationForm.aspx.cs">
       <DependentUpon>SearchAssetCreationForm.aspx</DependentUpon>
