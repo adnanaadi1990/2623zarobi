@@ -1003,8 +1003,14 @@ namespace ITLDashboard.Modules.Annexure
                             UserName = reader["user_name"].ToString();
                             UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                             EmailSubject = "Asset Transfer Form Request against  – Form ID # " + lblMaxTransactionID.Text + "";
-                            EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> Asset Transfer Form Request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by Mr. " + ViewState["SessionUser"].ToString().Replace(".", " ") + " <br><br> You are requested to review the Asset Transfer Form information on the following URL:<br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, you do not need to reply to this message.<br><br>" +
-                                 "<br>Assets Application<br> Information Systems Dashboard";
+                            EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() +
+                                ",<br> <br>  Asset Transfer Form Request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + 
+                                " has been approved by Mr." + ViewState["SessionUser"].ToString() +
+                                " <br><br> > You are requested to review the Asset Transfer Form information " + 
+                                "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() +
+                                "</a> <br> <br>" + "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + 
+                                "</a> <br> <br> " + "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                                "<br>Assets Application <br> Information Systems Dashboard";
                             SessionUser = Session["User_Name"].ToString();
                             DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                             InsertEmail();
