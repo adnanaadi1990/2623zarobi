@@ -36,9 +36,9 @@ namespace DashboardProject.Modules.Annexure
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            ddlApproval1.BackColor = System.Drawing.Color.AliceBlue;
+          //  ddlApproval1.BackColor = System.Drawing.Color.AliceBlue;
 
-            ddlApproval3.BackColor = System.Drawing.Color.AliceBlue;
+          //  ddlApproval3.BackColor = System.Drawing.Color.AliceBlue;
             //txtRemarksReview.Visible = false;
             if (Session["User_Name"] == null)
             {
@@ -67,7 +67,7 @@ namespace DashboardProject.Modules.Annexure
                     btnCancel.Visible = false;
                     grdDetail.Visible = true;
                     divEmail.Visible = false;
-                    LinkButton1.Visible = false;
+                 //   LinkButton1.Visible = false;
                     btnReject.Visible = false;
                     GridView1.Visible = true;
                     dvFormID.Visible = true;
@@ -83,7 +83,7 @@ namespace DashboardProject.Modules.Annexure
                     btnSave.Visible = false;
                     btnCancel.Visible = false;
                     divEmail.Visible = false;
-                    LinkButton1.Visible = true;
+                  //  LinkButton1.Visible = true;
                     dvFormID.Visible = true;
                     dvTransactionNo.Visible = false;
                     //ClearInputscolor(Page.Controls);
@@ -97,7 +97,7 @@ namespace DashboardProject.Modules.Annexure
                     btnSave.Visible = false;
                     btnCancel.Visible = false;
                     divEmail.Visible = false;
-                    LinkButton1.Visible = true;
+                    //LinkButton1.Visible = true;
                     dvFormID.Visible = true;
                     dvTransactionNo.Visible = false;
                     //ClearInputscolor(Page.Controls);

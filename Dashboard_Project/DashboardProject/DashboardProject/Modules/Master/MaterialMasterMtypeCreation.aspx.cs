@@ -3618,6 +3618,19 @@ namespace ITLDashboard.Modules.Master
                     txtStandardPrice.BackColor = System.Drawing.Color.Red;
                     return;
                 }
+                else if (ddlValuationType.SelectedValue == "")
+                {
+
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Valuation Type  should not be left blank";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    txtStandardPrice.BackColor = System.Drawing.Color.Red;
+                    return;
+                }
                 else
                 {
 
@@ -3647,7 +3660,7 @@ namespace ITLDashboard.Modules.Master
 
                     int aa = cmd.ExecuteNonQuery();
                     conn.Close();
-                    if (aa > 0)
+                    if (aa == -1)
                     {
                         lblmessage.Text = "Record updated sucessfully!";
                         lblmessage.Focus();
