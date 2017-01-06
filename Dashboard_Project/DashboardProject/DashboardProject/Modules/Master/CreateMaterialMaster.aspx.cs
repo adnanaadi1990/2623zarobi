@@ -1767,7 +1767,7 @@ namespace ITLDashboard.Modules.Master
                 {
                     ds.Clear();
                     cmd.CommandText = "SP_BindProductHierarchy";
-                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = conn;
                     adp.SelectCommand = cmd;
                     adp.Fill(ds, "ProductHierarchy");
@@ -1793,7 +1793,7 @@ namespace ITLDashboard.Modules.Master
                 {
                     ds.Clear();
                     cmd.CommandText = "SP_BindProductHierarchy2";
-                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = conn;
                     adp.SelectCommand = cmd;
                     adp.Fill(ds, "ProductHierarchyH2");
@@ -1820,7 +1820,7 @@ namespace ITLDashboard.Modules.Master
                 {
                     ds.Clear();
                     cmd.CommandText = "SP_BindProductHierarchy3";
-                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = conn;
                     //// cmd.Parameters.AddWithValue("@Materialtypcode", "%" + ProductHierarchyH3.ToString() + "%");
                     adp.SelectCommand = cmd;
@@ -2141,7 +2141,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_MaterialSubGroup";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "MeterialGroup");
@@ -2163,7 +2163,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_Volumeunit";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "Volumeunit");
@@ -2193,7 +2193,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_weightunit";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "weightunit");
@@ -2223,7 +2223,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_Division";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "Division");
@@ -2245,7 +2245,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_ItemCateguoryGroup";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "ItemCateguoryGroup");
@@ -2267,7 +2267,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_LoomType";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "LoomType");
@@ -2289,7 +2289,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_RoomReady";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "RoomReady");
@@ -2311,7 +2311,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_SubDivision";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "SubDivision");
@@ -2333,7 +2333,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_NOS";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "NOS");
@@ -2355,7 +2355,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_TransportionGroup";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "TransportionGroup");
@@ -2377,7 +2377,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_PackagingMaterialCateguory";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "PackagingMaterialCateguory");
@@ -2407,7 +2407,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_MrpGrp";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "MrpGrp");
