@@ -210,6 +210,13 @@ namespace ITLDashboard
 
         protected void btnProcu_Click(object sender, ImageClickEventArgs e)
         {
+         
+                Session["Module"] = "Proc";
+                Response.Redirect("Modules/Procurement/Procurment_Main.aspx");
+        }
+
+        protected void btnPP_Click(object sender, ImageClickEventArgs e)
+        {
             Session["Module"] = "PP";
             Response.Redirect("Modules/PP/PP_Main.aspx");
         }

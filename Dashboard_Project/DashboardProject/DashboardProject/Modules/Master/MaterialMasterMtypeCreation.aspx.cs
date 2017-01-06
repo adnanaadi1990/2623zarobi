@@ -517,6 +517,7 @@ namespace ITLDashboard.Modules.Master
                             cbML.Enabled = false;
                             controlForwardHide();
                         }
+                        btnForward.Visible = false;
                         controlForwardHide();
                     }
                     else
@@ -1264,6 +1265,18 @@ namespace ITLDashboard.Modules.Master
                         ddlTransferUser.DataSource = ds.Tables["getTransferUser"];      //assigning datasource to the dropdownlist
                         ddlTransferUser.DataBind();  //binding dropdownlist
                         ddlTransferUser.Items.Insert(0, new ListItem("------Select------", "0"));
+                        if (ds.Tables.Contains("BindsysApplicationStatus"))
+                        {
+                            if (ds.Tables["BindsysApplicationStatus"].Rows.Count > 0)
+                            {
+                                for (int i = 0; i < ds.Tables["BindsysApplicationStatus"].Rows.Count; i++)
+                                {
+                                    string val = ds.Tables["BindsysApplicationStatus"].Rows[i]["ID"].ToString().Trim();
+                                    ListItem removeItem = ddlTransferUser.Items.FindByValue(val.ToString());
+                                    ddlTransferUser.Items.Remove(removeItem);
+                                }
+                            }
+                        }
                     }
                 }
             }

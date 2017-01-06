@@ -35,7 +35,12 @@
     <![endif]-->
     <script type="text/javascript">
         
-
+        function DivClickedQAF() {
+            var DivClickedQAF = $('#<%= btnQAF.ClientID %>');
+              if (DivClickedQAF != null) {
+                  DivClickedQAF.click();
+              }
+          }
     </script>
 </head>
 
@@ -92,13 +97,13 @@
                 <div class="row no-gutter">
                     <div class="col-lg-4 col-sm-6">
                         <a href="#" class="portfolio-box">
-                            <asp:ImageButton ID="btn" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/SL.jpg" CausesValidation="False" />
-                            <%--<img src="../../img/portfolio/VMC.png" class="img-responsive" alt="">--%>
-                            <div class="portfolio-box-caption" onclick="javascript:DivClickedSL(); return true;">
+                            <asp:ImageButton ID="btnQAF" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/Q.A.jpg" CausesValidation="False" OnClick="btnQAF_Click" />
+                        <%--<img src="../../img/portfolio/VMC.png" class="img-responsive" alt="">--%>
+                            <div class="portfolio-box-caption" onclick="javascript:DivClickedQAF(); return true;">
                                 <div class="portfolio-box-caption-content">
                                     <div class="project-category text-faded">Form</div>
                                     <div class="project-name">
-                                        Short Leave
+                                     Quotation Approval Form
                                     </div>
                                 </div>
                             </div>

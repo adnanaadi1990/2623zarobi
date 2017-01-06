@@ -2892,9 +2892,9 @@ namespace ITLDashboard.Classes
                         //RoughtingUserID where TransactionID = '" + TransactionID + "' and FormID = '" + FormID + "' and Sequance >= (select Sequance from [sysWorkFlow] RoughtingUserID where RoughtingUserID like '" + user_name + "%' and TransactionID = '" + TransactionID + "' and FormID = '" + FormID + "' ) and HierachyCategory = '" + HID + "' order by HierachyCategory,Sequance asc";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
-                        cmd.Parameters.AddWithValue("@RoughtingUserID", "%" + user_name.ToString() + "%");
-                        cmd.Parameters.AddWithValue("@TransactionID", "%" + TransactionID.ToString() + "%");
-                        cmd.Parameters.AddWithValue("@FormID", "%" + FormID.ToString() + "%");
+                        cmd.Parameters.AddWithValue("@RoughtingUserID", user_name.ToString() );
+                        cmd.Parameters.AddWithValue("@TransactionID", TransactionID.ToString());
+                        cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "GetHarachyNextData");
                     }
