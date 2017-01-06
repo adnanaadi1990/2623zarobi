@@ -138,8 +138,11 @@ namespace ITLDashboard.Modules.Master
                         this.ddlStorageLocation.Attributes.Add("disabled", "");
                         this.pnlemail.Visible = false;
                         whenquerystringpass();
-                        getTransferUser();
+
                         BindsysApplicationStatus();
+                        getTransferUser();
+                       
+
                         GetHarcheyID();
                         getUserDetail();
                         GetStatusHierachyCategoryControls();
@@ -566,7 +569,7 @@ namespace ITLDashboard.Modules.Master
                             message = ds.Tables["Message"].Rows[0]["Dec"].ToString().Trim();
                             lblMaxTransactionID.Text = ds.Tables["Message1"].Rows[0]["TransactionID"].ToString().Trim();
                             lblmessage.Text = message + " # " + lblMaxTransactionID.Text;
-                            
+
                         }
                     }
                     catch (Exception ex)
@@ -963,6 +966,18 @@ namespace ITLDashboard.Modules.Master
                         ddlTransferUser.DataSource = ds.Tables["getTransferUser"];      //assigning datasource to the dropdownlist
                         ddlTransferUser.DataBind();  //binding dropdownlist
                         ddlTransferUser.Items.Insert(0, new ListItem("------Select------", "0"));
+                        if (ds.Tables.Contains("BindsysApplicationStatus"))
+                        {
+                            if (ds.Tables["BindsysApplicationStatus"].Rows.Count > 0)
+                            {
+                                for (int i = 0; i < ds.Tables["BindsysApplicationStatus"].Rows.Count; i++)
+                                {
+                                    string val = ds.Tables["BindsysApplicationStatus"].Rows[i]["ID"].ToString().Trim();
+                                    ListItem removeItem = ddlTransferUser.Items.FindByValue(val.ToString());
+                                    ddlTransferUser.Items.Remove(removeItem);
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -4698,8 +4713,8 @@ namespace ITLDashboard.Modules.Master
                 {
                     url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
                     urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
-                    TransactionID = reader["TransactionID"].ToString();
-                    FormCode = reader["FormID"].ToString();
+                    TransactionID = lblMaxTransactionID.Text;
+                    FormCode = FormID.ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
