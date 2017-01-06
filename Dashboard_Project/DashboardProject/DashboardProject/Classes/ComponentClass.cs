@@ -2450,7 +2450,7 @@ namespace ITLDashboard.Classes
 
                         ds.Clear();
                         cmd.CommandText = @"select * from tbluser where user_name = @UserID";
-                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandType = CommandType.Text;
                         cmd.Connection = connection;
                         cmd.Parameters.AddWithValue("@UserID", UserID.ToString());
                         adp.SelectCommand = cmd;
