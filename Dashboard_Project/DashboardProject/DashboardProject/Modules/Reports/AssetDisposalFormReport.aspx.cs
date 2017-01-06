@@ -28,7 +28,7 @@ namespace DashboardProject.Modules.Reports
         SqlDataAdapter adp = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
         DataTable table = new DataTable();
-        public string FormID = "ATFA501";
+        public string FormID = "ADF501";
         public int Coint = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -53,14 +53,15 @@ namespace DashboardProject.Modules.Reports
                 RadGrid1.Visible = true;
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = @"SP_AssetTransferFrom";
+                cmd.CommandText = @"SP_AssestsDisposalFormreport";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 cmd.Parameters.AddWithValue("@FormIDFrom", txtFormIDfrom.Text);
                 cmd.Parameters.AddWithValue("@FormIDto", txtFormIDto.Text);
                 cmd.Parameters.AddWithValue("@userName", txtUN.Text);
-                cmd.Parameters.AddWithValue("@Date", txtDate.Text);
-                cmd.Parameters.AddWithValue("@TagNo", txtTagNo.Text);
+                cmd.Parameters.AddWithValue("@AssetCode", txtAssetCode.Text);
+                cmd.Parameters.AddWithValue("@DateofDisposal", txtDateofDisposal.Text);
+
                 adp.SelectCommand = cmd;
                 adp.Fill(dt);
                 ViewState["data"] = dt;
