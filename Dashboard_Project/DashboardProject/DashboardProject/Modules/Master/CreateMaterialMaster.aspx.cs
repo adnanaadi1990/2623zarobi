@@ -1767,7 +1767,7 @@ namespace ITLDashboard.Modules.Master
                 {
                     ds.Clear();
                     cmd.CommandText = "SP_BindProductHierarchy";
-                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = conn;
                     adp.SelectCommand = cmd;
                     adp.Fill(ds, "ProductHierarchy");
@@ -1793,7 +1793,7 @@ namespace ITLDashboard.Modules.Master
                 {
                     ds.Clear();
                     cmd.CommandText = "SP_BindProductHierarchy2";
-                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = conn;
                     adp.SelectCommand = cmd;
                     adp.Fill(ds, "ProductHierarchyH2");
@@ -1820,7 +1820,7 @@ namespace ITLDashboard.Modules.Master
                 {
                     ds.Clear();
                     cmd.CommandText = "SP_BindProductHierarchy3";
-                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = conn;
                     //// cmd.Parameters.AddWithValue("@Materialtypcode", "%" + ProductHierarchyH3.ToString() + "%");
                     adp.SelectCommand = cmd;
@@ -2141,7 +2141,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_MaterialSubGroup";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "MeterialGroup");
@@ -2163,7 +2163,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_Volumeunit";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "Volumeunit");
@@ -2193,7 +2193,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_weightunit";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "weightunit");
@@ -2223,7 +2223,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_Division";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "Division");
@@ -2245,7 +2245,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_ItemCateguoryGroup";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "ItemCateguoryGroup");
@@ -2267,7 +2267,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_LoomType";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "LoomType");
@@ -2289,7 +2289,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_RoomReady";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "RoomReady");
@@ -2311,7 +2311,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_SubDivision";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "SubDivision");
@@ -2333,7 +2333,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_NOS";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "NOS");
@@ -2355,7 +2355,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_TransportionGroup";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "TransportionGroup");
@@ -2377,7 +2377,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_PackagingMaterialCateguory";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "PackagingMaterialCateguory");
@@ -2407,7 +2407,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_MrpGrp";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "MrpGrp");
@@ -2436,7 +2436,7 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 cmd.CommandText = "SP_BindMrpGroupMtype";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 cmd.Parameters.AddWithValue("@Materialtypcode", "%" + ddlMaterialType.SelectedValue + "%");
                 adp.SelectCommand = cmd;
@@ -2456,68 +2456,86 @@ namespace ITLDashboard.Modules.Master
 
         private void BindMRPControllerMtype()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                cmd.CommandText = "SP_BindMRPControllerMtype";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                cmd.Parameters.AddWithValue("@Materialtypcode", "%" + ddlMaterialType.SelectedValue.ToString() + "%");
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "BindMRPControllerMtype");
-                ddlMRPController.DataTextField = ds.Tables["BindMRPControllerMtype"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
-                ddlMRPController.DataValueField = ds.Tables["BindMRPControllerMtype"].Columns["mrpControllercode"].ToString();             // to retrive specific  textfield name 
-                ddlMRPController.DataSource = ds.Tables["BindMRPControllerMtype"];      //assigning datasource to the dropdownlist
-                ddlMRPController.DataBind();  //binding dropdownlist
-                ddlMRPController.Items.Insert(0, new ListItem("------Select------", "0"));
-            }
-            catch (SqlException ex)
-            {
-                dvemaillbl.Visible = true;
-                lblError.Text = ex.ToString();
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        cmd.CommandText = "SP_BindMRPControllerMtype";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        cmd.Parameters.AddWithValue("@Materialtypcode", "%" + ddlMaterialType.SelectedValue.ToString() + "%");
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "BindMRPControllerMtype");
+                        ddlMRPController.DataTextField = ds.Tables["BindMRPControllerMtype"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
+                        ddlMRPController.DataValueField = ds.Tables["BindMRPControllerMtype"].Columns["mrpControllercode"].ToString();             // to retrive specific  textfield name 
+                        ddlMRPController.DataSource = ds.Tables["BindMRPControllerMtype"];      //assigning datasource to the dropdownlist
+                        ddlMRPController.DataBind();  //binding dropdownlist
+                        ddlMRPController.Items.Insert(0, new ListItem("------Select------", "0"));
+                    }
+                    catch (SqlException ex)
+                    {
+                        dvemaillbl.Visible = true;
+                        lblError.Text = ex.ToString();
+                    }
+                }
             }
         }
 
         private void BindBackFlush()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                cmd.CommandText = "SP_BackFlush";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "BackFlush");
-                ddlBackFlush.DataTextField = ds.Tables["BackFlush"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
-                ddlBackFlush.DataValueField = ds.Tables["BackFlush"].Columns["BackFlushcode"].ToString();             // to retrive specific  textfield name 
-                ddlBackFlush.DataSource = ds.Tables["BackFlush"];      //assigning datasource to the dropdownlist
-                ddlBackFlush.DataBind();  //binding dropdownlist
-                ddlBackFlush.Items.Insert(0, new ListItem("------Select------", "0"));
-            }
-            catch (SqlException ex)
-            {
-                dvemaillbl.Visible = true;
-                lblError.Text = ex.ToString();
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        cmd.CommandText = "SP_BackFlush";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "BackFlush");
+                        ddlBackFlush.DataTextField = ds.Tables["BackFlush"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
+                        ddlBackFlush.DataValueField = ds.Tables["BackFlush"].Columns["BackFlushcode"].ToString();             // to retrive specific  textfield name 
+                        ddlBackFlush.DataSource = ds.Tables["BackFlush"];      //assigning datasource to the dropdownlist
+                        ddlBackFlush.DataBind();  //binding dropdownlist
+                        ddlBackFlush.Items.Insert(0, new ListItem("------Select------", "0"));
+                    }
+                    catch (SqlException ex)
+                    {
+                        dvemaillbl.Visible = true;
+                        lblError.Text = ex.ToString();
+                    }
+                }
             }
         }
 
         private void BindPackagingMaterialType()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                cmd.CommandText = "SP_PackagingMaterialType";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "PackagingMaterialType");
-                ddlPackagingMaterialType.DataTextField = ds.Tables["PackagingMaterialType"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
-                ddlPackagingMaterialType.DataValueField = ds.Tables["PackagingMaterialType"].Columns["PackagingMaterialTypecode"].ToString();             // to retrive specific  textfield name 
-                ddlPackagingMaterialType.DataSource = ds.Tables["PackagingMaterialType"];      //assigning datasource to the dropdownlist
-                ddlPackagingMaterialType.DataBind();  //binding dropdownlist
-                ddlPackagingMaterialType.Items.Insert(0, new ListItem("------Select------", "0"));
-            }
-            catch (SqlException ex)
-            {
-                dvemaillbl.Visible = true;
-                lblError.Text = ex.ToString();
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        cmd.CommandText = "SP_PackagingMaterialType";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "PackagingMaterialType");
+                        ddlPackagingMaterialType.DataTextField = ds.Tables["PackagingMaterialType"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
+                        ddlPackagingMaterialType.DataValueField = ds.Tables["PackagingMaterialType"].Columns["PackagingMaterialTypecode"].ToString();             // to retrive specific  textfield name 
+                        ddlPackagingMaterialType.DataSource = ds.Tables["PackagingMaterialType"];      //assigning datasource to the dropdownlist
+                        ddlPackagingMaterialType.DataBind();  //binding dropdownlist
+                        ddlPackagingMaterialType.Items.Insert(0, new ListItem("------Select------", "0"));
+                    }
+                    catch (SqlException ex)
+                    {
+                        dvemaillbl.Visible = true;
+                        lblError.Text = ex.ToString();
+                    }
+                }
             }
         }
 
@@ -2596,29 +2614,35 @@ namespace ITLDashboard.Modules.Master
 
         private void BindGrid()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                cmd.CommandText = "SP_AltUnitOfMeasureGrid" + " @TransactionID='" + lblMaxTransactionID.Text.ToString() + "'";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                ds.Clear();
-                adp.Fill(ds, "AltUnitOfMeasure");
-                GridView1.DataSource = ds.Tables["AltUnitOfMeasure"];
-                GridView1.DataBind();
-                if (GridView1.Rows.Count >= 1)
+                using (SqlCommand cmd = new SqlCommand())//
                 {
-                    GridView1.Visible = true;
+                    try
+                    {
+                        cmd.CommandText = "EXEC SP_AltUnitOfMeasureGrid" + " @TransactionID='" + lblMaxTransactionID.Text.ToString() + "'";
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Connection = connection;
+                        adp.SelectCommand = cmd;
+                        ds.Clear();
+                        adp.Fill(ds, "AltUnitOfMeasure");
+                        GridView1.DataSource = ds.Tables["AltUnitOfMeasure"];
+                        GridView1.DataBind();
+                        if (GridView1.Rows.Count >= 1)
+                        {
+                            GridView1.Visible = true;
+                        }
+                        else
+                        {
+                            GridView1.Visible = false;
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        dvemaillbl.Visible = true;
+                        lblError.Text = ex.ToString();
+                    }
                 }
-                else
-                {
-                    GridView1.Visible = false;
-                }
-            }
-            catch (SqlException ex)
-            {
-                dvemaillbl.Visible = true;
-                lblError.Text = ex.ToString();
             }
         }
 

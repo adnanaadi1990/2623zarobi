@@ -478,6 +478,18 @@ namespace DashboardProject.Modules.Master
                     Page.MaintainScrollPositionOnPostBack = false;
                     ddlStorageLocation.BackColor = System.Drawing.Color.Red;
                 }
+                else if (ddlEmailMDA.SelectedValue == "0")
+                {
+
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Please Select any MDA";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblUpError.Focus();
+                    error.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    ddlEmailMDA.BackColor = System.Drawing.Color.Red;
+                }
                 else if (txtBaseQuantity.Text != lblSum.Text)
                 {
                     lblmessage.Text = "";
@@ -1324,7 +1336,7 @@ namespace DashboardProject.Modules.Master
         {
             try
             {
-                cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'DSA'";
+                cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'BOM'";
                 //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;

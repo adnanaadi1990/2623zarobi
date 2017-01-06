@@ -103,7 +103,7 @@
                 <span class="help-block"></span>
                 <div class="col-sm-12" style="text-align: center;">
                     <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" ValidationGroup="grpSave" Width="100px" OnClick="btnSearch_Click"></asp:Button>
-                    <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-primary" Text="Reset Form" CausesValidation="False" Width="100px" OnClientClick="PrintGridData();"></asp:Button>
+                    <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-primary" Text="Reset Form" CausesValidation="False" Width="100px" OnClientClick="PrintGridData();" OnClick="btnCancel_Click"></asp:Button>
 
                     &nbsp;
                 </div>
