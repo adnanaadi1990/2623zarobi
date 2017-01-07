@@ -3021,6 +3021,17 @@ namespace ITLDashboard.Modules.Master
                     }
 
                 }
+                if (((string)ViewState["HID"]) == "2")
+                {
+                    for (int i = 0; i < ddlPlant.Items.Count; i++)
+                    {
+                        ddlPlant.Items[i].Attributes.Add("disabled", "disabled");
+                    }
+                    for (int i = 0; i < ddlStorageLocation.Items.Count; i++)
+                    {
+                        ddlStorageLocation.Items[i].Attributes.Add("disabled", "disabled");
+                    }
+                }
             }
             catch (Exception ex)
             {
