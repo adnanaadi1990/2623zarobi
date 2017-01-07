@@ -3045,19 +3045,6 @@ namespace ITLDashboard.Modules.Master
         {
             try
             {
-                //if (txtRemarksReview.Text == "")
-                //{
-
-                //    lblmessage.Text = "";
-                //    lblUpError.Text = "Remarks should not be left blank!";
-                //    sucess.Visible = false;
-                //    error.Visible = true;
-                //    lblmessage.Focus();
-                //    sucess.Focus();
-                //    Page.MaintainScrollPositionOnPostBack = false;
-                //    return;
-                //}
-                //else
                 {
                     error.Visible = false;
                     lblUpError.Text = "";
@@ -3587,7 +3574,6 @@ namespace ITLDashboard.Modules.Master
                     btnEdit.Visible = false;
                     btnForward.Visible = true;
                     btnTransfer.Visible = true;
-
                     controlForwardHide();
                 }
                 if (((string)ViewState["HID"]) == "2")
