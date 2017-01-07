@@ -359,6 +359,13 @@
                             <ItemStyle Width="14%" />
                             <HeaderStyle Width="14%" />
                         </asp:TemplateField>
+                                  <asp:TemplateField HeaderText="Remarks" SortExpression="Remarks">
+                            <ItemTemplate>
+                                <asp:Label runat="server" ID="lblRemarks" Text='<%# Bind("Remarks") %>'></asp:Label>
+                            </ItemTemplate>
+                            <ItemStyle Width="14%" />
+                            <HeaderStyle Width="14%" />
+                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
             </div>

@@ -19,7 +19,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
     <File Include="bin/DashboardProject.dll">
-      <publishTime>01/06/2017 14:37:02</publishTime>
+      <publishTime>01/06/2017 18:15:15</publishTime>
     </File>
     <File Include="bin/itextsharp.dll">
       <publishTime>01/04/2017 17:08:35</publishTime>
@@ -3169,7 +3169,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2017 17:08:35</publishTime>
     </File>
     <File Include="img/portfolio/Procu.jpg">
-      <publishTime>01/04/2017 17:08:35</publishTime>
+      <publishTime>01/06/2017 18:00:59</publishTime>
     </File>
     <File Include="img/portfolio/Q.A.jpg">
       <publishTime>01/04/2017 17:08:35</publishTime>
@@ -3271,7 +3271,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
     <File Include="Main.aspx">
-      <publishTime>01/04/2017 17:22:55</publishTime>
+      <publishTime>01/06/2017 18:00:58</publishTime>
     </File>
     <File Include="MasterPage.Master">
       <publishTime>01/04/2017 17:08:34</publishTime>
@@ -3298,7 +3298,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
     <File Include="Modules/AdminPannel/AssetWriteOffForm.aspx">
-      <publishTime>01/06/2017 11:17:24</publishTime>
+      <publishTime>01/06/2017 18:00:59</publishTime>
     </File>
     <File Include="Modules/AdminPannel/MtypeAdminForm.aspx">
       <publishTime>01/04/2017 17:08:34</publishTime>
@@ -3313,7 +3313,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
     <File Include="Modules/Annexure/AssestsDisposalForm.aspx">
-      <publishTime>01/06/2017 11:16:31</publishTime>
+      <publishTime>01/06/2017 18:00:59</publishTime>
     </File>
     <File Include="Modules/Annexure/AssetCreationForm.aspx">
       <publishTime>01/04/2017 17:08:34</publishTime>
@@ -3322,13 +3322,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
     <File Include="Modules/Annexure/AssetWriteoffForm.aspx">
-      <publishTime>01/06/2017 11:17:24</publishTime>
+      <publishTime>01/06/2017 18:00:59</publishTime>
     </File>
     <File Include="Modules/Annexure/SearchAssetCreationForm.aspx">
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
     <File Include="Modules/Annexure/SearchAssetsDisposalform.aspx">
-      <publishTime>01/06/2017 11:16:31</publishTime>
+      <publishTime>01/06/2017 18:00:59</publishTime>
     </File>
     <File Include="Modules/Annexure/SearchAssetTransferFormApproval.aspx">
       <publishTime>01/04/2017 17:08:34</publishTime>
@@ -3337,13 +3337,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
     <File Include="Modules/Finance/DeliveryChallanWorkflow.aspx">
-      <publishTime>01/05/2017 13:33:25</publishTime>
+      <publishTime>01/06/2017 18:00:59</publishTime>
     </File>
     <File Include="Modules/Finance/Finance_Main.aspx">
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
     <File Include="Modules/Finance/InvoiceWorkflow.aspx">
-      <publishTime>01/05/2017 18:30:58</publishTime>
+      <publishTime>01/06/2017 18:00:59</publishTime>
     </File>
     <File Include="Modules/Finance/PettyCash.aspx">
       <publishTime>01/04/2017 17:08:34</publishTime>
@@ -3352,10 +3352,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
     <File Include="Modules/Finance/SearchDeliveryChallanWorkflow.aspx">
-      <publishTime>01/05/2017 18:05:48</publishTime>
+      <publishTime>01/06/2017 18:00:59</publishTime>
     </File>
     <File Include="Modules/Finance/SearchInvoiceWorkflow.aspx">
-      <publishTime>01/05/2017 15:39:19</publishTime>
+      <publishTime>01/06/2017 18:00:59</publishTime>
     </File>
     <File Include="Modules/Finance/SearchPettyCash.aspx">
       <publishTime>01/04/2017 17:08:34</publishTime>
@@ -3388,7 +3388,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/05/2017 12:38:23</publishTime>
     </File>
     <File Include="Modules/Inventorymanagement/Inventorymanagement_Main.aspx">
-      <publishTime>01/04/2017 17:08:34</publishTime>
+      <publishTime>01/06/2017 18:00:58</publishTime>
     </File>
     <File Include="Modules/Inventorymanagement/QuotationApprovalWorkflow.aspx">
       <publishTime>01/04/2017 17:08:34</publishTime>
@@ -3430,13 +3430,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2017 17:09:07</publishTime>
     </File>
     <File Include="Modules/Procurement/Procurment_Main.aspx">
-      <publishTime>01/04/2017 17:08:34</publishTime>
+      <publishTime>01/06/2017 18:00:58</publishTime>
     </File>
     <File Include="Modules/Reports/AssetCreationFromReport.aspx">
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
     <File Include="Modules/Reports/AssetDisposalFormReport.aspx">
-      <publishTime>01/06/2017 11:16:31</publishTime>
+      <publishTime>01/06/2017 18:00:59</publishTime>
     </File>
     <File Include="Modules/Reports/AssetTransferFromReport.aspx">
       <publishTime>01/06/2017 11:16:31</publishTime>
@@ -3451,13 +3451,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
     <File Include="Modules/Reports/DeliveryChallanWorkflowReport.aspx">
-      <publishTime>01/05/2017 17:33:54</publishTime>
+      <publishTime>01/06/2017 18:00:59</publishTime>
     </File>
     <File Include="Modules/Reports/InventoryAdjustmentReport.aspx">
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
     <File Include="Modules/Reports/InvoiceWorkflowReport.aspx">
-      <publishTime>01/05/2017 17:33:54</publishTime>
+      <publishTime>01/06/2017 18:00:59</publishTime>
     </File>
     <File Include="Modules/Reports/MaterialMasterMtypeCreationReport.aspx">
       <publishTime>01/04/2017 17:08:34</publishTime>
@@ -3490,7 +3490,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
     <File Include="Modules/SBApp/SAPBasis_Main.aspx">
-      <publishTime>01/04/2017 17:08:34</publishTime>
+      <publishTime>01/06/2017 18:00:59</publishTime>
     </File>
     <File Include="Modules/SBApp/SearchSAPBasis.aspx">
       <publishTime>01/04/2017 17:08:34</publishTime>
@@ -3637,7 +3637,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/06/2017 14:37:03</publishTime>
+      <publishTime>01/06/2017 18:15:16</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="AssetWriteoffForm.aspx.cs" Inherits="DashboardProject.Modules.Annexure.AssetWriteoffForm" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="../../Scripts/jquery-1.9.1.min.js"></script>
@@ -11,8 +12,8 @@
     <link href="../../Style/footable.min.css"
         rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="../../Scripts/footable.min.js"></script>
-     <script src="http://jquerypriceformat.com/txt/jquery.price_format.2.0.js_.txt" type="text/javascript"></script>
-       <script src="http://jquerypriceformat.com/txt/jquery.price_format.2.0.min.js_.txt" type="text/javascript"></script>
+    <script src="http://jquerypriceformat.com/txt/jquery.price_format.2.0.js_.txt" type="text/javascript"></script>
+    <script src="http://jquerypriceformat.com/txt/jquery.price_format.2.0.min.js_.txt" type="text/javascript"></script>
 
 
     <script type="text/javascript">
@@ -36,7 +37,7 @@
 
     <script type="text/javascript">
         function pageLoad() {
-            $('[id*=txtPostalCode],[id*=txtcustomerCode]').keyup(function () {
+            $('[id*=txtPostalCode],[id*=txtAssetCode]').keyup(function () {
                 if (this.value.match(/[^,.0-9 ]/g)) {
                     this.value = this.value.replace(/[^,.0-9 ]/g, '');
                 }
@@ -73,13 +74,13 @@
         });
     </script>
 
-     <script type="text/javascript">
-         //function pageLoad() {
-         //$("[id*=txtNetBookValue]").priceFormat({
-         //        prefix: '',
-         //        thousandsSeparator: ''
-         //    });
-         //}
+    <script type="text/javascript">
+        //function pageLoad() {
+        //$("[id*=txtNetBookValue]").priceFormat({
+        //        prefix: '',
+        //        thousandsSeparator: ''
+        //    });
+        //}
     </script>
 
     <script type="text/javascript">
@@ -135,7 +136,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-<div class="container" style="width: 100%; margin-top: 20px;">
+    <div class="container" style="width: 100%; margin-top: 20px;">
 
         <div class="alert alert-success" id="sucess" runat="server" visible="false">
             <asp:Label ID="lblmessage" runat="server" Font-Bold="False" ForeColor="Green" Font-Names="Berlin Sans FB"></asp:Label>
@@ -171,7 +172,7 @@
 
                 </div>
                 <span class="help-block"></span>
-                
+
             </div>
         </div>
 
@@ -184,7 +185,7 @@
                 </div>
                 <div id="collapse3" class="panel-collapse collapse in" role="tabpanel">
                     <div class="panel-body fixed-panel">
-                        <asp:GridView ID="GridView1" runat="server" CssClass="table table-striped table-bordered footable" AutoGenerateColumns="False" ShowFooter="true" ShowHeaderWhenEmpty="True" Width="100%" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+                        <asp:GridView ID="GridView1" runat="server" CssClass="table table-striped table-bordered footable" AutoGenerateColumns="False" ShowFooter="true" ShowHeaderWhenEmpty="True" Width="94%">
                             <Columns>
                                 <asp:TemplateField HeaderStyle-Width="1%">
                                     <ItemTemplate>
@@ -220,34 +221,6 @@
                                     <ItemStyle />
                                     <HeaderStyle />
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Date of Purchase / Capitalization">
-                                    <ItemTemplate>
-                                        <asp:TextBox ID="txtDateofPurchase" Width="170px" CssClass="form-control" runat="server" TextMode="Date"></asp:TextBox>
-                                    </ItemTemplate>
-                                    <ItemStyle Width="1%" />
-                                    <HeaderStyle Width="1%" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Cost (PKR)">
-                                    <ItemTemplate>
-                                        <asp:TextBox ID="txtCost" Width="150px" CssClass="form-control" runat="server" TextMode="Number" >0</asp:TextBox>
-                                    </ItemTemplate>
-                                    <ItemStyle Width="1%" />
-                                    <HeaderStyle Width="1%" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Accumulated Depreciation (PKR)">
-                                    <ItemTemplate>
-                                        <asp:TextBox ID="txtAccumulatedDepreciation" Width="150px" CssClass="form-control" runat="server" TextMode="Number" >0</asp:TextBox>
-                                    </ItemTemplate>
-                                    <ItemStyle Width="1%" />
-                                    <HeaderStyle Width="1%" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Net Book Value (NBV) PKR">
-                                    <ItemTemplate>
-                                        <asp:TextBox ID="txtNetBookValue" Width="150px" CssClass="form-control" runat="server" TextMode="Number" >0</asp:TextBox>
-                                    </ItemTemplate>
-                                    <ItemStyle Width="1%" />
-                                    <HeaderStyle Width="1%" />
-                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Date of Write">
                                     <ItemTemplate>
                                         <asp:TextBox ID="txtDateofWriteOff" Width="170px" CssClass="form-control" runat="server" TextMode="Date" />
@@ -257,14 +230,14 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Reasons justification for writeoff">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txtReasonsjustificationforwriteoff" Width="100px" CssClass="form-control" runat="server" />
+                                        <asp:TextBox ID="txtReasonsjustificationforwriteoff" Width="300px" CssClass="form-control" runat="server" />
                                     </ItemTemplate>
                                     <ItemStyle Width="1%" />
                                     <HeaderStyle Width="1%" />
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Recommendation for Scrap/Disposal">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txtRecommendationforscrapdisposal" Width="100px" CssClass="form-control" runat="server" />
+                                        <asp:TextBox ID="txtRecommendationforscrapdisposal" Width="300px" CssClass="form-control" runat="server" />
                                     </ItemTemplate>
                                     <ItemStyle Width="1%" />
                                     <HeaderStyle Width="1%" />
@@ -284,22 +257,46 @@
                     <div class="panel-heading">
                         Email Approval
                     </div>
-                    <div class="panel-body"  style="text-align: center;">
+                    <div class="panel-body" style="text-align: center;">
                         <div class="row">
-                             <div class="col-sm-3"></div>
                             <div class="col-sm-3">
-                                Reviewed By
-                                      <asp:DropDownList ID="ddlApproval1" CssClass="form-control" runat="server"></asp:DropDownList>
+                                H.O.D
+                                <asp:Label ID="lblHOD" CssClass="form-control" runat="server"></asp:Label>
                             </div>
                             <div class="col-sm-3">
-                               Approved By<asp:DropDownList ID="ddlApproval3" CssClass="form-control" runat="server"></asp:DropDownList>
-                               
+                                C.O.O
+                                <asp:DropDownList ID="ddlCOO" CssClass="form-control" runat="server"></asp:DropDownList>
                             </div>
-                            <div class="col-sm-3"></div>
+                            <div class="col-sm-3">
+                                C.F.O
+                                <asp:DropDownList ID="ddlCFO" CssClass="form-control" runat="server"></asp:DropDownList>
+                            </div>
+                            <div class="col-sm-3">
+                                Asset MDA
+                                <asp:DropDownList ID="ddlReviewer" CssClass="form-control" runat="server"></asp:DropDownList>
+                            </div>
                         </div>
                     </div>
                 </div>
             </asp:Panel>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <asp:TextBox ID="txtRemarksReview" runat="server" CssClass="form-control" Height="80px" TextMode="MultiLine" PlaceHolder="Comment Box" Visible="False" BackColor="AliceBlue"></asp:TextBox>
+                    </div>
+                </div>
+                <span class="help-block"></span>
+                <div class="col-sm-12" style="text-align: left;" runat="server" id="Div1">
+                    <%--<%# Eval("Numerator") %>--%>
+                    <asp:Label ID="Label1" runat="server" Font-Bold="False" ForeColor="Blue" Font-Names="Berlin Sans FB"></asp:Label>
+                    <asp:Label ID="Label2" runat="server" Font-Bold="False" ForeColor="Red" Font-Names="Berlin Sans FB"></asp:Label>
+                    <asp:Label ID="Label3" runat="server" Font-Bold="False" ForeColor="Black" Font-Names="Berlin Sans FB"></asp:Label>
+                </div>
+            </div>
+            <span class="help-block"></span>
         </div>
 
         <div class="panel panel-default" style="text-align: center;" runat="server" id="dvlbl">
@@ -320,9 +317,8 @@
         <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Text="Save" ValidationGroup="grpSa" Width="60px" OnClick="btnSave_Click"></asp:Button>
         <asp:Button ID="btnApproved" runat="server" CssClass="btn btn-primary" Text="Approval" CausesValidation="False" Width="100px" Visible="False" OnClick="btnApproved_Click"></asp:Button>
 
-        <asp:Button ID="btnReviewed" runat="server" CssClass="btn btn-primary" Text="Reviewer" Width="100px" Visible="False" OnClick="btnReviewed_Click"></asp:Button>
-
-        <asp:Button ID="LinkButton1" runat="server" class="btn btn-primary" data-target="#myModal" data-toggle="modal" Text="Reject" Visible="false" CssClass="btn btn-primary" OnClick="LinkButton1_Click"></asp:Button>
+        <asp:Button ID="btnReviewed" runat="server" CssClass="btn btn-primary" Text="Submit" Width="100px" Visible="False" OnClick="btnReviewed_Click"></asp:Button>
+        <asp:Button ID="btnReject" runat="server" CssClass="btn btn-primary" Text="Reject" Width="100px" Visible="False" CausesValidation="False" OnClick="btnReject_Click"></asp:Button>
         <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-primary" Text="Reset Form" CausesValidation="False" Width="100px" OnClick="btnCancel_Click"></asp:Button>
     </div>
 
@@ -388,7 +384,6 @@
                 </div>
 
                 <div class="modal-footer">
-                    <asp:Button ID="btnReject" runat="server" CssClass="btn btn-primary" Text="Reject" Width="100px" Visible="False" CausesValidation="False" OnClick="btnReject_Click"></asp:Button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 60px;">Close</button>
                 </div>
             </div>

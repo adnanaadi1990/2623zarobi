@@ -136,7 +136,7 @@
                         </a>
                     </div>
 
-                       <div class="col-lg-4 col-sm-6">
+                       <div class="col-lg-4 col-sm-6" runat="server" visible="false">
                         <a href="#" class="portfolio-box">
                             <asp:ImageButton ID="btnQAF" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/Q.A.jpg" OnClick="btnQAF_Click" />
                             <%--<img src="../../img/portfolio/VMC.png" class="img-responsive" alt="">--%>
