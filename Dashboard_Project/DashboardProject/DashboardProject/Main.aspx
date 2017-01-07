@@ -304,7 +304,7 @@ documents and waste stationery.<br>
 
                     <div class="col-lg-4 col-sm-6">
                         <a href="#" class="portfolio-box">
-                              <asp:ImageButton ID="btnPP" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/module5-2.png" />
+                              <asp:ImageButton ID="btnPP" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/module5-2.png" OnClick="btnPP_Click" />
                    <div class="portfolio-box-caption" onclick="javascript:DivClickedPP(); return true;">
                                 <div class="portfolio-box-caption-content">
                                     <div class="project-category text-faded">APPLICATION</div>
