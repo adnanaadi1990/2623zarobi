@@ -2846,32 +2846,33 @@ namespace ITLDashboard.Modules.Master
 
                 Result = ddlMerchandiser.SelectedValue.ToString() + "," + ddlTaxes.SelectedValue.ToString() + "," + ddlMHOD.SelectedValue.ToString() + "," + ddlMarketingHOD.SelectedValue.ToString() + "," + ddlNotificationFI.SelectedValue.ToString() + "," + ddlNotificationMIS.SelectedValue.ToString();
                 cmd.CommandText = "";
-                cmd.CommandText = "EXEC SP_SYS_MaterialMasterMTYPE" + " @TransactionMain  ='" + lblMaxTransactionNo.Text + "', " +
-                " @MaterialType  ='" + ddlMaterialType.SelectedValue + "', " +
-                " @Plant ='" + Plant.ToString() + "', " +
-                " @Description ='" + txtDescription.Text + "', " +
-                " @BaseUnitofMeasure ='" + ddlMMBaseUnitOfMeasure.SelectedValue + "', " +
-                " @MaterialGroup ='" + ddlMG.SelectedValue + "', " +
-                " @MaterialSubGroup ='" + ddlMSG.SelectedValue + "', " +
-                " @GrossWeight ='" + txtGROSSWEIGHT.Text + "', " +
-                " @NetWeight ='" + txtNETWEIGHT.Text + "', " +
-                " @WeightUni ='" + ddlWeightunitBD.SelectedValue + "', " +
-                " @Volume ='" + txtVolume.Text + "', " +
-                " @VolumeUnit ='" + ddlVOLUMEUNIT.SelectedValue + "', " +
-                " @OldMaterailNo ='" + txtOldMaterialNumber.Text + "', " +
-                " @Size_Dimension ='" + txtSizeDimensions.Text + "', " +
-                " @Packeging_Material_Catg ='" + ddlBasicDataPackagingMaterialCateguory.SelectedValue + "', " +
-                " @Storage_Location ='" + StorageLocation.ToString() + "', " +
-                " @BatchManagmet ='" + chkBatchManagement.SelectedValue + "', " +
-                " @APPROVAL ='" + Result.ToString() + "', " +
-                " @MDA ='" + EmailMDA.ToString() + "', " +
-                " @ClosedBox ='" + RadioButtonList2.SelectedValue.ToString() + "', " +
-                " @CreatedBy ='" + Session["User_Name"].ToString() + "', " +
-                " @Remarks ='" + txtRemarksReview.Text.ToString() + "', " +
-                " @Status ='" + FormType.ToString() + "'";
+                cmd.CommandText = "SP_SYS_MaterialMasterMTYPE";
+                
+                cmd.CommandType = CommandType.StoredProcedure;
 
-
-                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@TransactionMain", lblMaxTransactionNo.Text);
+                cmd.Parameters.AddWithValue("@MaterialType", ddlMaterialType.SelectedValue);
+                cmd.Parameters.AddWithValue("@Plant", Plant.ToString());
+                cmd.Parameters.AddWithValue("@Description", txtDescription.Text);
+                cmd.Parameters.AddWithValue("@BaseUnitofMeasure", ddlMMBaseUnitOfMeasure.SelectedValue);
+                cmd.Parameters.AddWithValue("@MaterialGroup", ddlMG.SelectedValue);
+                cmd.Parameters.AddWithValue("@MaterialSubGroup", ddlMSG.SelectedValue);
+                cmd.Parameters.AddWithValue("@GrossWeight ", txtGROSSWEIGHT.Text);
+                cmd.Parameters.AddWithValue("@NetWeight ", txtNETWEIGHT.Text);
+                cmd.Parameters.AddWithValue("@WeightUni ", ddlWeightunitBD.SelectedValue);
+                cmd.Parameters.AddWithValue("@Volume ", txtVolume.Text);
+                cmd.Parameters.AddWithValue("@VolumeUnit ", ddlVOLUMEUNIT.SelectedValue);
+                cmd.Parameters.AddWithValue("@OldMaterailNo ", txtOldMaterialNumber.Text);
+                cmd.Parameters.AddWithValue("@Size_Dimension", txtSizeDimensions.Text);
+                cmd.Parameters.AddWithValue("@Packeging_Material_", ddlBasicDataPackagingMaterialCateguory.SelectedValue);
+                cmd.Parameters.AddWithValue("@Storage_Location ", StorageLocation.ToString());
+                cmd.Parameters.AddWithValue("@BatchManagmet ", chkBatchManagement.SelectedValue );
+                cmd.Parameters.AddWithValue("@APPROVAL ", Result.ToString());
+                cmd.Parameters.AddWithValue("@MDA ", EmailMDA.ToString());
+                cmd.Parameters.AddWithValue("@ClosedBox ", RadioButtonList2.SelectedValue.ToString());
+                cmd.Parameters.AddWithValue("@CreatedBy ", Session["User_Name"].ToString());
+                cmd.Parameters.AddWithValue("@Remarks ", txtRemarksReview.Text.ToString());
+                cmd.Parameters.AddWithValue("@Status ", FormType.ToString());
                 cmd.Connection = conn;
                 ds.Clear();
                 adp.SelectCommand = cmd;
