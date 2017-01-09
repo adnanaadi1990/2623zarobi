@@ -167,9 +167,9 @@ namespace ITLDashboard.Modules.Annexure
 
         protected void btnAWOF_Click(object sender, ImageClickEventArgs e)
         {
-            Session["Application"] = "AWOF";
+            Session["Application"] = "AWO";
             getFormsName();
-            if (((string)ViewState["FNAME"]) == "AWOF")
+            if (((string)ViewState["FNAME"]) == "AWO")
             {
                 Response.Redirect("~/Default.aspx");
             }
