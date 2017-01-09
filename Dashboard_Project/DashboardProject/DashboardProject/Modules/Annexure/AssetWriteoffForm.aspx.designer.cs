@@ -265,13 +265,13 @@ namespace DashboardProject.Modules.Annexure {
         protected global::System.Web.UI.WebControls.Button btnSave;
         
         /// <summary>
-        /// btnApproved control.
+        /// btnApprover control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnApproved;
+        protected global::System.Web.UI.WebControls.Button btnApprover;
         
         /// <summary>
         /// btnReviewed control.
@@ -308,14 +308,5 @@ namespace DashboardProject.Modules.Annexure {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grdWStatus;
-        
-        /// <summary>
-        /// txtRemarks control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRemarks;
     }
 }
