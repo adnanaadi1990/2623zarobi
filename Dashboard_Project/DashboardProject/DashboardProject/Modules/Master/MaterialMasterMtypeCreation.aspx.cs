@@ -3045,19 +3045,6 @@ namespace ITLDashboard.Modules.Master
         {
             try
             {
-                //if (txtRemarksReview.Text == "")
-                //{
-
-                //    lblmessage.Text = "";
-                //    lblUpError.Text = "Remarks should not be left blank!";
-                //    sucess.Visible = false;
-                //    error.Visible = true;
-                //    lblmessage.Focus();
-                //    sucess.Focus();
-                //    Page.MaintainScrollPositionOnPostBack = false;
-                //    return;
-                //}
-                //else
                 {
                     error.Visible = false;
                     lblUpError.Text = "";
@@ -3609,7 +3596,6 @@ namespace ITLDashboard.Modules.Master
                     btnEdit.Visible = false;
                     btnForward.Visible = true;
                     btnTransfer.Visible = true;
-
                     controlForwardHide();
                 }
             }
@@ -3661,7 +3647,7 @@ namespace ITLDashboard.Modules.Master
                     lblmessage.Focus();
                     sucess.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
-                    txtStandardPrice.BackColor = System.Drawing.Color.Red;
+                    ddlValuationType.BackColor = System.Drawing.Color.Red;
                     return;
                 }
                 else

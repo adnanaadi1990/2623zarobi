@@ -19,7 +19,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2017 17:13:45</publishTime>
     </File>
     <File Include="bin/DashboardProject.dll">
-      <publishTime>01/07/2017 13:59:55</publishTime>
+      <publishTime>01/07/2017 14:30:35</publishTime>
     </File>
     <File Include="bin/itextsharp.dll">
       <publishTime>01/04/2017 17:13:45</publishTime>
