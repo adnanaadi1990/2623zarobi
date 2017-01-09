@@ -70,7 +70,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-  <div class="container" style="width: 100%; margin-top: 20px;">
+    <div class="container" style="width: 100%; margin-top: 20px;">
 
         <div class="panel-group" id="dvPD" runat="server">
             <div id="dvAtt" class="panel panel-default">
@@ -135,6 +135,6 @@
             <asp:Button ID="btnView" runat="server" CssClass="btn btn-primary" Text="View Report" ValidationGroup="grpS" Width="100px" OnClick="btnView_Click"></asp:Button>
             <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-primary" Text="Reset Form" CausesValidation="False" Width="100px" OnClick="btnCancel_Click"></asp:Button>
         </div>
-   <%--    <rsweb:ReportViewer ID="ReportViewer1" runat="server" Visible="false"></rsweb:ReportViewer>--%>
+ <rsweb:ReportViewer ID="ReportViewer1" runat="server" Visible="false"></rsweb:ReportViewer>
     </div>
 </asp:Content>
