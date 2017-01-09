@@ -3524,6 +3524,17 @@ namespace ITLDashboard.Modules.Master
                     sucess.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
                     ddlRate.BackColor = System.Drawing.Color.Red;
+                    if (((string)ViewState["HID"]) == "2")
+                    {
+                        for (int i = 0; i < ddlPlant.Items.Count; i++)
+                        {
+                            ddlPlant.Items[i].Attributes.Add("disabled", "disabled");
+                        }
+                        for (int i = 0; i < ddlStorageLocation.Items.Count; i++)
+                        {
+                            ddlStorageLocation.Items[i].Attributes.Add("disabled", "disabled");
+                        }
+                    }
                     return;
                 }
 
@@ -3538,6 +3549,17 @@ namespace ITLDashboard.Modules.Master
                     sucess.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
                     ddlRebatecategoryRate.BackColor = System.Drawing.Color.Red;
+                    if (((string)ViewState["HID"]) == "2")
+                    {
+                        for (int i = 0; i < ddlPlant.Items.Count; i++)
+                        {
+                            ddlPlant.Items[i].Attributes.Add("disabled", "disabled");
+                        }
+                        for (int i = 0; i < ddlStorageLocation.Items.Count; i++)
+                        {
+                            ddlStorageLocation.Items[i].Attributes.Add("disabled", "disabled");
+                        }
+                    }
                     return;
                 }
 
@@ -3589,17 +3611,6 @@ namespace ITLDashboard.Modules.Master
                     btnTransfer.Visible = true;
 
                     controlForwardHide();
-                }
-                if (((string)ViewState["HID"]) == "2")
-                {
-                    for (int i = 0; i < ddlPlant.Items.Count; i++)
-                    {
-                        ddlPlant.Items[i].Attributes.Add("disabled", "disabled");
-                    }
-                    for (int i = 0; i < ddlStorageLocation.Items.Count; i++)
-                    {
-                        ddlStorageLocation.Items[i].Attributes.Add("disabled", "disabled");
-                    }
                 }
             }
             catch (Exception ex)
