@@ -704,6 +704,7 @@
     <Content Include="Modules\Annexure\SearchAssetCreationForm.aspx" />
     <Content Include="Modules\Annexure\SearchAssetsDisposalform.aspx" />
     <Content Include="Modules\Annexure\SearchAssetTransferFormApproval.aspx" />
+    <Content Include="Modules\Annexure\SearchAssetWritteoffForm.aspx" />
     <Content Include="Modules\Finance\CustomerMaster.aspx" />
     <Content Include="Modules\Finance\DeliveryChallanWorkflow.aspx" />
     <Content Include="Modules\Finance\Finance_Main.aspx" />
@@ -740,6 +741,7 @@
     <Content Include="Modules\Reports\AssetCreationFromReport.aspx" />
     <Content Include="Modules\Reports\AssetDisposalFormReport.aspx" />
     <Content Include="Modules\Reports\AssetTransferFromReport.aspx" />
+    <Content Include="Modules\Reports\AssetWriteoffFormReport.aspx" />
     <Content Include="Modules\Reports\BOMApprovalReport.aspx" />
     <Content Include="Modules\Reports\CustomerMasterReport.aspx" />
     <Content Include="Modules\Reports\DeadStockReport.aspx" />
@@ -1030,6 +1032,13 @@
     <Compile Include="Modules\Annexure\SearchAssetTransferFormApproval.aspx.designer.cs">
       <DependentUpon>SearchAssetTransferFormApproval.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Annexure\SearchAssetWritteoffForm.aspx.cs">
+      <DependentUpon>SearchAssetWritteoffForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Annexure\SearchAssetWritteoffForm.aspx.designer.cs">
+      <DependentUpon>SearchAssetWritteoffForm.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Finance\CustomerMaster.aspx.cs">
       <DependentUpon>CustomerMaster.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1281,6 +1290,13 @@
     </Compile>
     <Compile Include="Modules\Reports\AssetTransferFromReport.aspx.designer.cs">
       <DependentUpon>AssetTransferFromReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\AssetWriteoffFormReport.aspx.cs">
+      <DependentUpon>AssetWriteoffFormReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Reports\AssetWriteoffFormReport.aspx.designer.cs">
+      <DependentUpon>AssetWriteoffFormReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\BOMApprovalReport.aspx.cs">
       <DependentUpon>BOMApprovalReport.aspx</DependentUpon>
