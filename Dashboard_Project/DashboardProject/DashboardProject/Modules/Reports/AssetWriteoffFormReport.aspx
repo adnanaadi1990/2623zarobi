@@ -1,6 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="AssetDisposalFormReport.aspx.cs" Inherits="DashboardProject.Modules.Reports.AssetDisposalFormReport" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="AssetWriteoffFormReport.aspx.cs" Inherits="DashboardProject.Modules.Reports.AssetWriteoffFormReport" %>
 
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
@@ -100,8 +101,6 @@
             display: none !important;
             height: auto;
         }
-
-        
     </style>
     <style type="text/css">
         .rgPageFirst, .rgPagePrev, .rgPageNext, .rgPageLast {
@@ -111,6 +110,7 @@
         .btn-primary {
         }
     </style>
+
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -118,14 +118,14 @@
         <div class="row">
 
             <div class="col-sm-7">
-                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Asset Disposal Form Report</p>
+                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Asset WriteOff Form Report</p>
             </div>
         </div>
 
 
 
         <div class="panel panel-default">
-            <div class="panel-heading">Asset Disposal Form Report</div>
+            <div class="panel-heading">Asset WriteOff Form Report</div>
             <div class="panel-body">
 
                 <div class="row">
@@ -141,14 +141,14 @@
                         User Name 
                            <asp:TextBox ID="txtUN" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
-                     <span class="help-block"></span>
+                    <span class="help-block"></span>
                     <div class="col-sm-4" runat="server" id="Div1">
                         Asset Code
                            <asp:TextBox ID="txtAssetCode" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                     <div class="col-sm-4" runat="server" id="Div2">
-                        Date of Disposal 
-                           <asp:TextBox ID="txtDateofDisposal" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
+                        Date of Write
+                           <asp:TextBox ID="txtDateofWriteOff" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
                     </div>
                 </div>
 
@@ -197,9 +197,11 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="Description" FilterControlAltText="Filter column3 column" HeaderText="Description" UniqueName="column3">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="DateofDisposal" FilterControlAltText="Filter column4 column" HeaderText="Date of Disposal" UniqueName="column4">
+                                            <telerik:GridBoundColumn DataField="DateofWriteOff" FilterControlAltText="Filter column4 column" HeaderText="Date of WriteOff" UniqueName="column4">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="ReasonsJustificationforDisposal" FilterControlAltText="Filter column4 column" HeaderText="Reasons Justification for Disposal" UniqueName="column4">
+                                            <telerik:GridBoundColumn DataField="txtReasonsjustificationforwriteoff" FilterControlAltText="Filter column4 column" HeaderText="Reasons justification for writeoff" UniqueName="column4">
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="txtRecommendationforscrapdisposal" FilterControlAltText="Filter column4 column" HeaderText="Reasons Justification for Disposal" UniqueName="column4">
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="RemarksAD" FilterControlAltText="Filter column17 column" HeaderText="Remarks" UniqueName="column17">
                                             </telerik:GridBoundColumn>
