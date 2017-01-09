@@ -138,8 +138,11 @@ namespace ITLDashboard.Modules.Master
                         this.ddlStorageLocation.Attributes.Add("disabled", "");
                         this.pnlemail.Visible = false;
                         whenquerystringpass();
-                        getTransferUser();
+
                         BindsysApplicationStatus();
+                        getTransferUser();
+                       
+
                         GetHarcheyID();
                         getUserDetail();
                         GetStatusHierachyCategoryControls();
@@ -566,7 +569,7 @@ namespace ITLDashboard.Modules.Master
                             message = ds.Tables["Message"].Rows[0]["Dec"].ToString().Trim();
                             lblMaxTransactionID.Text = ds.Tables["Message1"].Rows[0]["TransactionID"].ToString().Trim();
                             lblmessage.Text = message + " # " + lblMaxTransactionID.Text;
-                            
+
                         }
                     }
                     catch (Exception ex)
@@ -963,6 +966,18 @@ namespace ITLDashboard.Modules.Master
                         ddlTransferUser.DataSource = ds.Tables["getTransferUser"];      //assigning datasource to the dropdownlist
                         ddlTransferUser.DataBind();  //binding dropdownlist
                         ddlTransferUser.Items.Insert(0, new ListItem("------Select------", "0"));
+                        if (ds.Tables.Contains("BindsysApplicationStatus"))
+                        {
+                            if (ds.Tables["BindsysApplicationStatus"].Rows.Count > 0)
+                            {
+                                for (int i = 0; i < ds.Tables["BindsysApplicationStatus"].Rows.Count; i++)
+                                {
+                                    string val = ds.Tables["BindsysApplicationStatus"].Rows[i]["ID"].ToString().Trim();
+                                    ListItem removeItem = ddlTransferUser.Items.FindByValue(val.ToString());
+                                    ddlTransferUser.Items.Remove(removeItem);
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -1135,6 +1150,7 @@ namespace ITLDashboard.Modules.Master
                     cbML.Enabled = false;
                     cbML.Visible = true;
                     chkLock.Visible = false;
+                    Button1.Enabled = false;
 
                 }
             }
@@ -1169,247 +1185,223 @@ namespace ITLDashboard.Modules.Master
         {
             try
             {
-                conn.Close();
-                string a = Request.QueryString["TransactionNo"].ToString();
-                cmd.CommandText = @"Select a.*,b.MaterialGroupcode +' '+ b.Description as SUBDescription  from tbl_SYS_MaterialMaster as a
-                    left outer join [dbo].[tblMaterialSubGroup] as b
-                    on CONVERT(char(10), (a.MaterialSubGroup)) = b.MaterialSubGroupcode
-                     where TransactionMain = '" + a.ToString() + "'";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-
-                adp.SelectCommand = cmd;
-                dt.Clear();
-                adp.Fill(dt);
-                DataTableReader reader = dt.CreateDataReader();
-                while (reader.Read())
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
                 {
-                    reader.Read();
-                    lblMaxTransactionNo.Text = reader[0].ToString();
-                    lblMaxTransactionID.Text = reader[1].ToString();
-                    ddlMaterialType.SelectedValue = reader[2].ToString();
-                    txtSMC.Text = reader[3].ToString();
-
-                    BindPlantMtype();
-
-                    for (int i = 0; i < ddlPlant.Items.Count; i++)
+                    using (SqlCommand cmdGetData = new SqlCommand())
                     {
-                        foreach (string category in reader[4].ToString().Split(','))
+
+                        conn.Close();
+                        string a = Request.QueryString["TransactionNo"].ToString();
+                        cmdGetData.CommandText = @"SP_GetMaterialData";
+                        cmdGetData.CommandType = CommandType.StoredProcedure;
+                        cmdGetData.Connection = connection;
+                        cmdGetData.Parameters.AddWithValue("@TMAIN", a.ToString());
+                        adp.SelectCommand = cmdGetData;
+                        dt.Clear();
+                        adp.Fill(dt);
+                        DataTableReader reader = dt.CreateDataReader();
+                        while (reader.Read())
                         {
-                            if (category != ddlPlant.Items[i].Value) continue;
-                            ddlPlant.Items[i].Selected = true;
-                            break;
+                            reader.Read();
+                            lblMaxTransactionNo.Text = reader["TransactionMain"].ToString();
+                            lblMaxTransactionID.Text = reader["TransactionID"].ToString();
+                            getTransferUser();
+                            ddlMaterialType.SelectedValue = reader["MaterialType"].ToString();
+                            txtSMC.Text = reader["SAPMaterialCode"].ToString();
+                            BindValuationCategoryMTYPE();
+                            BindPlantMtype();
+
+                            for (int i = 0; i < ddlPlant.Items.Count; i++)
+                            {
+                                foreach (string category in reader["Plant"].ToString().Split(','))
+                                {
+                                    if (category != ddlPlant.Items[i].Value) continue;
+                                    ddlPlant.Items[i].Selected = true;
+                                    break;
+                                }
+                            }
+                            txtDescription.Text = reader["Description"].ToString();
+                            BindBaseUnitOfMeasureMTYPR();
+                            ddlMMBaseUnitOfMeasure.SelectedValue = reader["BaseUnitofMeasure"].ToString();
+                            BindMaterialgroup();
+                            ddlMG.SelectedValue = reader["MaterialGroup"].ToString().Trim();
+                            ddlMSG.SelectedValue = reader["MaterialSubGroup"].ToString();
+                            txtGROSSWEIGHT.Text = reader["GrossWeight"].ToString();
+                            txtNETWEIGHT.Text = reader["NetWeight"].ToString();
+                            ddlWeightunitBD.SelectedValue = reader["WeightUni"].ToString();
+                            txtVolume.Text = reader["Volume"].ToString();
+                            ddlVOLUMEUNIT.SelectedValue = reader["VolumeUnit"].ToString();
+                            txtOldMaterialNumber.Text = reader["OldMaterailNo"].ToString();
+                            txtSizeDimensions.Text = reader["Size_Dimension"].ToString();
+                            ddlBasicDataPackagingMaterialCateguory.SelectedValue = reader["Packeging_Material_Catg"].ToString();
+                            chkBatchManagement.SelectedValue = reader["BatchManagmet"].ToString();
+                            string PH = reader["ProductHierarchy"].ToString();
+                            string[] lines = PH.Split(',');
+                            string aa = lines[0].Trim();
+                            string ab = lines[1].Trim();
+                            string ac = lines[2].Trim();
+                            ddlProdCatg.SelectedValue = aa.ToString();
+                            ddlProdCatgsub1.SelectedValue = ab.ToString();
+                            ddlProdCatgsub2.SelectedValue = ac.ToString();
+                            ddlDistributionChannel.SelectedValue = reader["DistributionChannel"].ToString();
+                            ddlSalesOrg.SelectedValue = reader["SalesOrg"].ToString();
+                            ddlSalesUnit.SelectedValue = reader["SalesUnit"].ToString();
+                            ddlDivision.SelectedValue = reader["Division"].ToString();
+                            ddlTaxClassification.SelectedValue = reader["TaxClasification"].ToString();
+                            ddlItemCateguoryGroup.SelectedValue = reader["Item_Catg_Group"].ToString();
+                            ddlLoomType.SelectedValue = reader["LoomType"].ToString();
+                            ddlRoomReady.SelectedValue = reader["RoomReady"].ToString();
+                            ddlSubDivision.SelectedValue = reader["SubDivision"].ToString();
+                            ddlNOS.SelectedValue = reader["NOS"].ToString();
+                            ddlAvailabilitycheck.SelectedValue = reader["Availabilitycheck"].ToString();
+                            ddlTransportionGroup.SelectedValue = reader["TransportaionGroup"].ToString();
+                            ddlLoadingGroup.SelectedValue = reader["LoadingGroup"].ToString();
+                            ddlProfitCenter.SelectedValue = reader["ProfitCenter"].ToString();
+                            txtSalesodertext.Text = reader["SalesOrderTax"].ToString();
+                            ddlRate.SelectedValue = reader["Material_Rebate_Rate"].ToString();
+                            ddlRebatecategoryRate.SelectedValue = reader["Rebate_Catg"].ToString();
+                            BindMRPTypeMTYPE();
+                            ddlMrpType.SelectedValue = reader["MRPType"].ToString();
+                            ddlMRPGroup.SelectedValue = reader["MRP_Group"].ToString();
+                            txtReoderPoint.Text = reader["ReoderPoint"].ToString();
+                            ddlMRPController.SelectedValue = reader["MRPController"].ToString();
+                            ddlProductionunit.SelectedValue = reader["Production_Unit_Of_Measure"].ToString();
+                            ddlUnitOfIssue.SelectedValue = reader["UnitOfIssue"].ToString();
+                            ddlProdsupervisor.SelectedValue = reader["Prodsupervisor"].ToString();
+                            ddlProdScheduleProfile.SelectedValue = reader["ProdScheduleProfile"].ToString();
+                            bindSLfromPlant();
+                            for (int i = 0; i < ddlStorageLocation.Items.Count; i++)
+                            {
+                                foreach (string StorageLocation in reader["Storage_Location"].ToString().Split(','))
+                                {
+                                    if (StorageLocation != ddlStorageLocation.Items[i].Value) continue;
+                                    ddlStorageLocation.Items[i].Selected = true;
+                                    break;
+                                }
+                            }
+                            txtUnderDeliveryTollerance.Text = reader["Under_Delivery_Tollerance"].ToString();
+                            txtOverDeliveryTollerance.Text = reader["Ove_Delivery_Tollerance"].ToString();
+                            ddlTaskListUsage.SelectedValue = reader["TaskListUsage"].ToString();
+                            ddlQMControlKey.SelectedValue = reader["QMControlKey"].ToString();
+                            string InspectionSetup = "";
+                            InspectionSetup = reader["InspectionSetup"].ToString();
+                            if (InspectionSetup == "1")
+                            {
+                                chkInspectionSetup.Checked = true;
+                            }
+                            else
+                            {
+                                chkInspectionSetup.Checked = false;
+                            }
+                            string QmProcActive = "";
+                            QmProcActive = reader["QMprocactive"].ToString();
+                            if (QmProcActive == "1")
+                            {
+                                chkQmProcActive.Checked = true;
+                            }
+                            else
+                            {
+                                chkQmProcActive.Checked = false;
+                            }
+                            txtMinimumLotSize.Text = reader["MinimumLotSize"].ToString();
+                            txtMaximumLotSize.Text = reader["MaximumLotSize"].ToString();
+                            txtMaximumstocklevel.Text = reader["Maximumstocklevel"].ToString();
+                            TxtSchedMarginkey.Text = reader["SchedMarginkey"].ToString();
+                            ddlPeriodIndicator.SelectedValue = reader["PeriodIndicator"].ToString();
+                            ddlStrategygroup.SelectedValue = reader["Strategygroup"].ToString().Trim();
+                            ddlLotsize.SelectedValue = reader["Lotsize"].ToString();
+                            BindValuationClass();
+                            ddlValuationClass.SelectedValue = reader["ValuationClass"].ToString();
+                            ddlValuationCategory.SelectedValue = reader["ValuationCategory"].ToString();
+                            BindSplitValueationMTYP();
+
+                            for (int i = 0; i < ddlValuationType.Items.Count; i++)
+                            {
+                                foreach (string ValuationType in reader["ValuationType"].ToString().Split(','))
+                                {
+                                    if (ValuationType != ddlValuationType.Items[i].Value) continue;
+                                    ddlValuationType.Items[i].Selected = true;
+                                    break;
+                                }
+                            }
+
+                            txtStandardPrice.Text = reader["StandardPrice"].ToString();
+                            RadioButtonList2.SelectedValue = reader["ClosedBox"].ToString();
+                            string MatLock = "";
+                            MatLock = reader["Materiallock"].ToString();
+                            if (MatLock == "1")
+                            {
+                                chkLock.Checked = true;
+                                cbML.SelectedValue = "1";
+                            }
+                            else
+                            {
+                                chkLock.Checked = false;
+                                cbML.SelectedValue = "0";
+                            }
+                            string ActionSelected = reader["Status"].ToString();
+
+                            for (int i = 0; i < ddlPlant.Items.Count; i++)
+                            {
+                                ddlPlant.Items[i].Attributes.Add("disabled", "disabled");
+                            }
+                            for (int i = 0; i < ddlStorageLocation.Items.Count; i++)
+                            {
+                                ddlStorageLocation.Items[i].Attributes.Add("disabled", "disabled");
+                            }
+                            for (int i = 0; i < ddlValuationType.Items.Count; i++)
+                            {
+                                ddlValuationType.Items[i].Attributes.Add("disabled", "disabled");
+                            }
+                            dtcon.Clear();
+                            cmd.CommandText = "";
+                            cmd.CommandText = "EXEC SP_AltUnitOfMeasureGrid " + " @TransactionID  ='" + lblMaxTransactionID.Text + "'";
+                            cmd.CommandType = CommandType.Text;
+                            cmd.Connection = conn;
+                            adp.SelectCommand = cmd;
+                            adp.Fill(dtcon);
+                            if (dtcon.Columns.Contains("sno"))
+                            {
+                                dtcon.Columns.Remove("sno");
+                            }
+                            DataColumn c = new DataColumn("sno", typeof(int));
+                            c.AutoIncrement = true;
+                            c.AutoIncrementSeed = 1;
+                            c.AutoIncrementStep = 1;
+                            dtcon.Columns.Add(c);
+                            DataColumn t = new DataColumn("TransactionID", typeof(string));
+                            dtcon.Columns.Add(t);
+                            t.SetOrdinal(0);// to put the column in position 0;
+                            GridView1.DataSource = dtcon;
+
+                            for (int count = 0; count < dtcon.Rows.Count; count++)
+                            {
+                                dtcon.Rows[count]["sno"] = count + 1;
+                                dtcon.Rows[count]["TransactionID"] = lblMaxTransactionID.Text;
+                            }
+
+                            ViewState["ConvertionFacter"] = dtcon;
+                            GridView1.DataSource = (DataTable)ViewState["ConvertionFacter"];
+                            GridView1.DataBind();
+                            if (GridView1.Rows.Count >= 1)
+                            {
+                                GridView1.Visible = true;
+                                GridView1.FooterRow.Visible = false;
+                                GridView1.Columns[0].Visible = false;
+                            }
+                            else
+                            {
+
+                                GridView1.Visible = false;
+                            }
                         }
+                        reader.Close();
                     }
-
-                    txtDescription.Text = reader[6].ToString();
-                    BindBaseUnitOfMeasureMTYPR();
-                    ddlMMBaseUnitOfMeasure.SelectedValue = reader[7].ToString();
-                    BindMaterialgroup();
-
-                    ddlMG.SelectedValue = reader[8].ToString().Trim();
-                    bindMSGfromMG();
-                    ddlMSG.SelectedValue = reader[9].ToString();
-                    txtGROSSWEIGHT.Text = reader[10].ToString();
-                    txtNETWEIGHT.Text = reader[11].ToString();
-                    ddlWeightunitBD.SelectedValue = reader[12].ToString();
-                    txtVolume.Text = reader[13].ToString();
-                    ddlVOLUMEUNIT.SelectedValue = reader[14].ToString();
-                    txtOldMaterialNumber.Text = reader[15].ToString();
-                    txtSizeDimensions.Text = reader[16].ToString();
-                    ddlBasicDataPackagingMaterialCateguory.SelectedValue = reader[17].ToString();
-                    chkBatchManagement.SelectedValue = reader[18].ToString();
-                    string PH = reader[19].ToString();
-                    string[] lines = PH.Split(',');
-                    string aa = lines[0].Trim();
-                    string ab = lines[1].Trim();
-                    string ac = lines[2].Trim();
-                    ddlProdCatg.SelectedValue = aa.ToString().Trim();
-                    ddlProdCatgsub1.SelectedValue = ab.ToString().Trim();
-                    ddlProdCatgsub2.SelectedValue = ac.ToString().Trim();
-                    ddlDistributionChannel.SelectedValue = reader[20].ToString();
-                    ddlSalesOrg.SelectedValue = reader[21].ToString();
-                    ddlSalesUnit.SelectedValue = reader[22].ToString();
-                    ddlDivision.SelectedValue = reader[23].ToString();
-                    ddlTaxClassification.SelectedValue = reader[24].ToString();
-                    ddlItemCateguoryGroup.SelectedValue = reader[25].ToString();
-                    ddlLoomType.SelectedValue = reader[26].ToString();
-                    ddlRoomReady.SelectedValue = reader[27].ToString();
-                    ddlSubDivision.SelectedValue = reader[28].ToString();
-                    ddlNOS.SelectedValue = reader[29].ToString();
-                    ddlAvailabilitycheck.SelectedValue = reader[30].ToString();
-                    ddlTransportionGroup.SelectedValue = reader[31].ToString();
-                    ddlLoadingGroup.SelectedValue = reader[32].ToString();
-                    ddlProfitCenter.SelectedValue = reader[33].ToString();
-                    txtSalesodertext.Text = reader[34].ToString();
-                    ddlRate.SelectedValue = reader[35].ToString();
-                    ddlRebatecategoryRate.SelectedValue = reader[36].ToString();
-                    BindPurchasingGroup();
-
-                    ddlPurchasingGroup.SelectedValue = reader[37].ToString();
-                    ddlOrderingUnit.SelectedValue = reader[38].ToString();
-                    txtPurchaseOrderText.Text = reader[39].ToString();
-                    BindMRPTypeMTYPE();
-                    ddlMrpType.SelectedValue = reader[40].ToString();
-                    ddlMRPGroup.SelectedValue = reader[41].ToString();
-                    txtReoderPoint.Text = reader[42].ToString();
-                    ddlMRPController.SelectedValue = reader[43].ToString();
-                    ddlBackFlush.SelectedValue = reader[44].ToString();
-                    txtPlannedDeliveryTimeInDays.Text = reader[45].ToString();
-                    txtInHouseProductionTimeInDays.Text = reader[46].ToString();
-                    txtGRPROCESSINGTIMEINDAYS.Text = reader[47].ToString();
-                    txtSafetyStock.Text = reader[48].ToString();
-                    ddlProductionunit.SelectedValue = reader[49].ToString();
-                    ddlUnitOfIssue.SelectedValue = reader[50].ToString();
-                    ddlProdsupervisor.SelectedValue = reader[51].ToString();
-                    ddlProdScheduleProfile.SelectedValue = reader[52].ToString();
-
-                    bindSLfromPlant();
-                    for (int i = 0; i < ddlStorageLocation.Items.Count; i++)
-                    {
-                        foreach (string StorageLocation in reader[53].ToString().Split(','))
-                        {
-                            if (StorageLocation != ddlStorageLocation.Items[i].Value) continue;
-                            ddlStorageLocation.Items[i].Selected = true;
-                            break;
-                        }
-                    }
-                    txtUnderDeliveryTollerance.Text = reader[54].ToString();
-                    txtOverDeliveryTollerance.Text = reader[55].ToString();
-                    ddlTaskListUsage.SelectedValue = reader[56].ToString();
-                    BindValuationClass();
-                    ddlValuationClass.SelectedValue = reader[57].ToString();
-                    BindValuationCategoryMTYPE();
-
-                    ddlValuationCategory.SelectedValue = reader[58].ToString();
-                    BindSplitValueationMTYP();
-                    ddlValuationType.Attributes.Remove("disabled");
-                    for (int i = 0; i < ddlValuationType.Items.Count; i++)
-                    {
-                        ddlValuationType.Items[i].Attributes.Add("disabled", "disabled");
-                    }
-                    for (int i = 0; i < ddlValuationType.Items.Count; i++)
-                    {
-                        foreach (string ValuationType in reader[59].ToString().Split(','))
-                        {
-                            if (ValuationType != ddlValuationType.Items[i].Value) continue;
-                            ddlValuationType.Items[i].Selected = true;
-                            break;
-                        }
-                    }
-                    //for (int i = 0; i < ddlValuationType.Items.Count; i++)
-                    //{
-                    //    foreach (string category1 in reader[59].ToString().Split(','))
-                    //    {
-                    //        if (category1 != ddlValuationType.Items[i].Value) continue;
-                    //        ddlValuationType.Items[i].Selected = true;
-                    //        break;
-                    //    }
-                    //}
-                    ddlQMControlKey.SelectedValue = reader[60].ToString();
-
-                    string InspectionSetup = "";
-                    InspectionSetup = reader[61].ToString();
-                    if (InspectionSetup == "1")
-                    {
-                        chkInspectionSetup.Checked = true;
-                    }
-                    else
-                    {
-                        chkInspectionSetup.Checked = false;
-                    }
-                    string QmProcActive = "";
-                    QmProcActive = reader[62].ToString();
-                    if (QmProcActive == "1")
-                    {
-                        chkQmProcActive.Checked = true;
-                    }
-                    else
-                    {
-                        chkQmProcActive.Checked = false;
-                    }
-                    txtStandardPrice.Text = reader[65].ToString();
-                    txtMinimumLotSize.Text = reader[64].ToString();
-                    txtMaximumLotSize.Text = reader[65].ToString();
-                    txtMaximumstocklevel.Text = reader[66].ToString();
-                    TxtSchedMarginkey.Text = reader[67].ToString();
-                    ddlPeriodIndicator.SelectedValue = reader[68].ToString();
-                    ddlStrategygroup.SelectedValue = reader[69].ToString().Trim();
-                    ddlLotsize.SelectedValue = reader[70].ToString();
-                    ddlPackagingMaterialCateguory.SelectedValue = reader[71].ToString();
-                    ddlPackagingMaterialType.SelectedValue = reader[72].ToString();
-                    txtAllowedPackagingWeight.Text = reader[73].ToString();
-                    ddlWeightUnit.SelectedValue = reader[74].ToString();
-                    txtAllowedPackagingVolme.Text = reader[75].ToString();
-                    ddlVolumUnit.SelectedValue = reader[76].ToString();
-                    txtExcessWeightTolerance.Text = reader[77].ToString();
-                    txtExcessVolumeTolerance.Text = reader[78].ToString();
-                    RadioButtonList2.SelectedValue = reader[82].ToString();
-                    txtRemarksReview.Text = reader["UpdateComment"].ToString();
-                    txtStandardPrice.Text = reader["StandardPrice"].ToString();
-                    string MatLock = "";
-                    MatLock = reader["Materiallock"].ToString();
-                    if (MatLock == "1")
-                    {
-                        chkLock.Checked = true;
-                        cbML.SelectedValue = "1";
-                    }
-                    else
-                    {
-                        chkLock.Checked = false;
-                        cbML.SelectedValue = "0";
-                    }
-
-                    string ActionSelected = reader["Status"].ToString();
-                    dtcon.Clear();
-                    cmd.CommandText = "";
-                    cmd.CommandText = "EXEC SP_AltUnitOfMeasureGrid " + " @TransactionID  ='" + lblMaxTransactionID.Text + "'";
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Connection = conn;
-                    adp.SelectCommand = cmd;
-                    adp.Fill(dtcon);
-                    if (dtcon.Columns.Contains("sno"))
-                    {
-                        dtcon.Columns.Remove("sno");
-                    }
-                    DataColumn c = new DataColumn("sno", typeof(int));
-                    c.AutoIncrement = true;
-                    c.AutoIncrementSeed = 1;
-                    c.AutoIncrementStep = 1;
-                    dtcon.Columns.Add(c);
-                    DataColumn t = new DataColumn("TransactionID", typeof(string));
-                    dtcon.Columns.Add(t);
-                    t.SetOrdinal(0);// to put the column in position 0;
-                    GridView1.DataSource = dtcon;
-
-                    for (int count = 0; count < dtcon.Rows.Count; count++)
-                    {
-                        dtcon.Rows[count]["sno"] = count + 1;
-                        dtcon.Rows[count]["TransactionID"] = lblMaxTransactionID.Text;
-                    }
-
-                    ViewState["ConvertionFacter"] = dtcon;
-                    GridView1.DataSource = (DataTable)ViewState["ConvertionFacter"];
-                    GridView1.DataBind();
-                    if (GridView1.Rows.Count >= 1)
-                    {
-                        GridView1.Visible = true;
-                        GridView1.FooterRow.Visible = false;
-                        GridView1.Columns[0].Visible = false;
-                    }
-                    else
-                    {
-
-                        GridView1.Visible = false;
-                    }
-
                 }
-                reader.Close();
             }
             catch (SqlException ex)
             {
-                dvemaillbl.Visible = true;
-                lblError.Text = ex.ToString();
+                lblError.Text = "whenquerystringpass" + ex.ToString();
             }
         }
 
@@ -4443,11 +4435,11 @@ namespace ITLDashboard.Modules.Master
                     InsertTransferEmail();
                     string HierachyCategoryStatus = "06";
                     ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
-                    ApplicationStatus();
-                    BindsysApplicationStatus();
+                   ApplicationStatus();
+                   BindsysApplicationStatus();
                     UpdateSerialNumberAll();
                     EMailForwardToForwarder();
-                    GetStatusHierachyCategoryControls();
+                   GetStatusHierachyCategoryControls();
 
                     lblEmail.Text = "*New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been transferred to " + ddlTransferUser.SelectedItem.Text + "";
                     Session["HC"] = "06";
@@ -4479,7 +4471,8 @@ namespace ITLDashboard.Modules.Master
             GetHarcheyID();
             DataTable HIDDataTable = (DataTable)ViewState["HIDDataSet"];
             ds = obj.GetHarachyNextData(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
-            ViewState["GetHarachyNextDataDataSet"] = ds.Tables["GetHarachyNextData"];
+          dt = ds.Tables["GetHarachyNextData"];
+          ViewState["GetHarachyNextDataDataSet"] = dt;
             if (HIDDataTable.Rows.Count > 0)
             {
                 using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
@@ -4698,8 +4691,8 @@ namespace ITLDashboard.Modules.Master
                 {
                     url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
                     urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
-                    TransactionID = reader["TransactionID"].ToString();
-                    FormCode = reader["FormID"].ToString();
+                    TransactionID = lblMaxTransactionID.Text;
+                    FormCode = FormID.ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
