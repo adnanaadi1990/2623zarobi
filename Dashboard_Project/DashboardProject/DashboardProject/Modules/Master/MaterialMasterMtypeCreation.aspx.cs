@@ -3636,7 +3636,7 @@ namespace ITLDashboard.Modules.Master
                     lblmessage.Focus();
                     sucess.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
-                    txtStandardPrice.BackColor = System.Drawing.Color.Red;
+                    ddlValuationType.BackColor = System.Drawing.Color.Red;
                     return;
                 }
                 else
