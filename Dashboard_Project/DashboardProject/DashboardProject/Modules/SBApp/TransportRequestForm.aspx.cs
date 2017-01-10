@@ -248,21 +248,6 @@ namespace ITLDashboard.Modules.SBApp
                     Page.MaintainScrollPositionOnPostBack = false;
                     return;
                 }
-
-                else if (txtRemarksReview.Text == "")
-                {
-
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Remarks should not be left blank!";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblmessage.Focus();
-                    sucess.Focus();
-                    txtRemarksReview.BackColor = System.Drawing.Color.Red;
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    return;
-                }
-
                 else
                 {
                     string Result = "";
