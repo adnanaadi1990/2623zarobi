@@ -8,7 +8,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
+<<<<<<< HEAD
           <StartPageUrl>Modules/HR/ShortLeave.aspx</StartPageUrl>
+=======
+          <StartPageUrl>Modules/SBApp/UserAuthorizationRequest.aspx</StartPageUrl>
+>>>>>>> 5004777ef9411d8e47679c391dc29034d9edb5cd
           <StartAction>SpecificPage</StartAction>
           <AspNetDebugging>True</AspNetDebugging>
           <SilverlightDebugging>False</SilverlightDebugging>

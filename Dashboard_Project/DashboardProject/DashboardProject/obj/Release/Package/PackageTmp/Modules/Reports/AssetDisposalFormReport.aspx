@@ -112,6 +112,7 @@
         }
     </style>
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container" style="width: 100%; margin-top: 20px;">
         <div class="row">

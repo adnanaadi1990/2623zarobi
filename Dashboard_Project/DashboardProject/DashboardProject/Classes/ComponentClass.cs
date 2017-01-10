@@ -2856,16 +2856,16 @@ namespace ITLDashboard.Classes
                 {
                     try
                     {
-                        cmd.CommandText = "";
-                        cmd.CommandText = @"SP_controlFowardControl";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
-                        cmd.Parameters.AddWithValue("@FormID", "%" + FormID.ToString() + "%");
-                        cmd.Parameters.AddWithValue("@TransactionID", "%" + TID.ToString() + "%");
-                        cmd.Parameters.AddWithValue("@HierarchyCateguory", "%" + HirCtg.ToString() + "%");
-                        cmd.Parameters.AddWithValue("@Status", "%" + Status.ToString() + "%");
-                        cmd.Parameters.AddWithValue("@RoutingID", "%" + UserName.ToString() + "%");
-                        adp.SelectCommand = cmd;
+                        cmdInsert.CommandText = "";
+                        cmdInsert.CommandText = @"SP_controlFowardControl";
+                        cmdInsert.CommandType = CommandType.StoredProcedure;
+                        cmdInsert.Connection = connection;
+                        cmdInsert.Parameters.AddWithValue("@FormID", "%" + FormID.ToString() + "%");
+                        cmdInsert.Parameters.AddWithValue("@TransactionID", "%" + TID.ToString() + "%");
+                        cmdInsert.Parameters.AddWithValue("@HierarchyCateguory", "%" + HirCtg.ToString() + "%");
+                        cmdInsert.Parameters.AddWithValue("@Status", "%" + Status.ToString() + "%");
+                        cmdInsert.Parameters.AddWithValue("@RoutingID", "%" + UserName.ToString() + "%");
+                        adp.SelectCommand = cmdInsert;
                         adp.Fill(ds, "controlFowardControl");
 
                     }

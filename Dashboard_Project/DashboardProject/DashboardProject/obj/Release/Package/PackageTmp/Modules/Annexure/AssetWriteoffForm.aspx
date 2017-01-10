@@ -12,8 +12,27 @@
     <link href="../../Style/footable.min.css"
         rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="../../Scripts/footable.min.js"></script>
-    <script src="http://jquerypriceformat.com/txt/jquery.price_format.2.0.js_.txt" type="text/javascript"></script>
-    <script src="http://jquerypriceformat.com/txt/jquery.price_format.2.0.min.js_.txt" type="text/javascript"></script>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css"
+        rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        function ShowPopup(message) {
+            $(function () {
+                $("#dialog").html(message);
+                $("#dialog").dialog({
+                    title: "jQuery Dialog Popup",
+                    buttons: {
+                        Close: function () {
+                            $(this).dialog('close');
+                        }
+                    },
+                    modal: true
+                });
+            });
+        };
+    </script>
 
 
     <script type="text/javascript">
@@ -60,7 +79,7 @@
     <script type="text/javascript">
         $(function () {
 
-            $('[id$=btnSave],[id$=btnSubmit],[id$=btnSaveSubmit],[id$=btnReviewed],[id$=btnReject],[id$=btnMDA],[id$=btnApproved]').click(function () {
+            $('[id$=btnSave],[id$=btnSubmit],[id$=btnSaveSubmit],[id$=btnReviwer],[id$=btnReject],[id$=btnMDA],[id$=btnApproved]').click(function () {
                 $('#<%=lblProgress.ClientID %>').show();
                 $('#<%=lblProgress.ClientID %>').html("Please wait a while, your form is being processed.");
 
@@ -74,14 +93,7 @@
         });
     </script>
 
-    <script type="text/javascript">
-        //function pageLoad() {
-        //$("[id*=txtNetBookValue]").priceFormat({
-        //        prefix: '',
-        //        thousandsSeparator: ''
-        //    });
-        //}
-    </script>
+
 
     <script type="text/javascript">
         $(function () {
@@ -129,8 +141,6 @@
             height: 36px;
         }
     </style>
-
-
 
 </asp:Content>
 
@@ -315,8 +325,7 @@
 
     <div class="col-sm-12" style="text-align: center;">
         <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Text="Save" ValidationGroup="grpSa" Width="60px" OnClick="btnSave_Click"></asp:Button>
-        <asp:Button ID="btnApproved" runat="server" CssClass="btn btn-primary" Text="Approval" CausesValidation="False" Width="100px" Visible="False" OnClick="btnApproved_Click"></asp:Button>
-
+        <asp:Button ID="btnApprover" runat="server" CssClass="btn btn-primary" Text="Approve" CausesValidation="False" Width="100px" Visible="False" OnClick="btnApproved_Click"></asp:Button>
         <asp:Button ID="btnReviewed" runat="server" CssClass="btn btn-primary" Text="Submit" Width="100px" Visible="False" OnClick="btnReviewed_Click"></asp:Button>
         <asp:Button ID="btnReject" runat="server" CssClass="btn btn-primary" Text="Reject" Width="100px" Visible="False" CausesValidation="False" OnClick="btnReject_Click"></asp:Button>
         <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-primary" Text="Reset Form" CausesValidation="False" Width="100px" OnClick="btnCancel_Click"></asp:Button>
@@ -358,37 +367,17 @@
                             <ItemStyle Width="14%" />
                             <HeaderStyle Width="14%" />
                         </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Remarks" SortExpression="Remarks">
+                            <ItemTemplate>
+                                <asp:Label runat="server" ID="lblRemarks" Text='<%# Bind("Remarks") %>'></asp:Label>
+                            </ItemTemplate>
+                            <ItemStyle Width="14%" />
+                            <HeaderStyle Width="14%" />
+                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
             </div>
         </div>
     </div>
-
-    <!-- Modal -->
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Select Any Action</h4>
-                </div>
-                <div class="modal-body" style="height: 125px;">
-
-                    <div class="col-sm-2"><b>Remarks</b></div>
-                    <div class="col-sm-9" style="text-align: center;">
-                        <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" Height="50px" TextMode="MultiLine"></asp:TextBox>
-                    </div>
-
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 60px;">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
 </asp:Content>
