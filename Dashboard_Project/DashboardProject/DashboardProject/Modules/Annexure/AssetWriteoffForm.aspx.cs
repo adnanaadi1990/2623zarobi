@@ -236,7 +236,6 @@ namespace DashboardProject.Modules.Annexure
             }
         }
 
-
         #region Grid_Working
 
         private void setinitialrow()
@@ -412,9 +411,7 @@ namespace DashboardProject.Modules.Annexure
 
         #endregion
 
-
         /////////////////////////////////////////////////Button Events///////////////////////////////////////////////////////
-
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
@@ -627,10 +624,6 @@ namespace DashboardProject.Modules.Annexure
             ClearInputs(Page.Controls);
             // setinitialrow();
         }
-
-        /////////////////////////////////////////////////Button Events///////////////////////////////////////////////////////
-
-
         /////////////////////////////////////////////////Methods///////////////////////////////////////////////////////////
 
         protected void madatorycolor()
