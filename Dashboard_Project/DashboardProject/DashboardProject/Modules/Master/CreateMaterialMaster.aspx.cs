@@ -4689,8 +4689,8 @@ namespace ITLDashboard.Modules.Master
                 DataTableReader reader = ds.Tables["MailForwardToForwarder"].CreateDataReader();
                 while (reader.Read())
                 {
-                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
-                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local");
+                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110");
                     TransactionID = lblMaxTransactionID.Text;
                     FormCode = FormID.ToString();
                     UserName = reader["user_name"].ToString();
