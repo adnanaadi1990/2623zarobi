@@ -161,7 +161,7 @@
 
                       <div class="col-lg-4 col-sm-6">
                             <a href="#" class="portfolio-box">
-                            <asp:ImageButton ID="btnAWOF" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/Assets Write Off Form.png" CausesValidation="False" OnClick="btnAWOF_Click" />
+                            <asp:ImageButton ID="btnAWOF" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/AWO.jpg" CausesValidation="False" OnClick="btnAWOF_Click" />
                             <%--<img src="../../img/portfolio/VMC.png" class="img-responsive" alt="">--%>
                             <div class="portfolio-box-caption" onclick="javascript:DivClickedAssetsWriteOff(); return true;">
                                 <div class="portfolio-box-caption-content">
