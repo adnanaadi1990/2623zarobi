@@ -722,6 +722,7 @@
     <Content Include="Modules\HR\FindEmployee.aspx" />
     <Content Include="Modules\HR\HR_Main.aspx" />
     <Content Include="Modules\HR\MonthlyAttendance.aspx" />
+    <Content Include="Modules\HR\ShortLeave.aspx" />
     <Content Include="Modules\Inventorymanagement\DeadStock.aspx" />
     <Content Include="Modules\Inventorymanagement\InventoryAdjustmentApproval.aspx" />
     <Content Include="Modules\Inventorymanagement\Inventorymanagement_Main.aspx" />
@@ -1151,6 +1152,13 @@
     </Compile>
     <Compile Include="Modules\HR\MonthlyAttendance.aspx.designer.cs">
       <DependentUpon>MonthlyAttendance.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\HR\ShortLeave.aspx.cs">
+      <DependentUpon>ShortLeave.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\HR\ShortLeave.aspx.designer.cs">
+      <DependentUpon>ShortLeave.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Inventorymanagement\DeadStock.aspx.cs">
       <DependentUpon>DeadStock.aspx</DependentUpon>
