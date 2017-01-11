@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="AssetWriteoffForm.aspx.cs" Inherits="DashboardProject.Modules.Annexure.AssetWriteoffForm" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="ShortLeave.aspx.cs" Inherits="DashboardProject.Modules.HR.ShortLeave" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -56,7 +56,7 @@
 
     <script type="text/javascript">
         function pageLoad() {
-            $('[id*=txtPostalCode],[id*=txtAssetCode]').keyup(function () {
+            $('[id*=txtPostalCode],[id*=txtcustomerCode]').keyup(function () {
                 if (this.value.match(/[^,.0-9 ]/g)) {
                     this.value = this.value.replace(/[^,.0-9 ]/g, '');
                 }
@@ -79,7 +79,7 @@
     <script type="text/javascript">
         $(function () {
 
-            $('[id$=btnSave],[id$=btnSubmit],[id$=btnSaveSubmit],[id$=btnReviwer],[id$=btnReject],[id$=btnMDA],[id$=btnApproved]').click(function () {
+            $('[id$=btnSave],[id$=btnSubmit],[id$=btnSaveSubmit],[id$=btnReviewed],[id$=btnReject],[id$=btnMDA],[id$=btnApproved]').click(function () {
                 $('#<%=lblProgress.ClientID %>').show();
                 $('#<%=lblProgress.ClientID %>').html("Please wait a while, your form is being processed.");
 
@@ -142,10 +142,10 @@
         }
     </style>
 
+
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
     <div class="container" style="width: 100%; margin-top: 20px;">
 
         <div class="alert alert-success" id="sucess" runat="server" visible="false">
@@ -159,7 +159,7 @@
         <div class="row">
 
             <div class="col-sm-7">
-                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Assets Write Off Form</p>
+                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Short Leave</p>
 
             </div>
         </div>
@@ -182,80 +182,106 @@
 
                 </div>
                 <span class="help-block"></span>
-
+                <div class="row" runat="server" visible="false" id="dvCustomerCode">
+                    <%--<%# Eval("Lenght") %>--%>
+                </div>
             </div>
         </div>
 
-        <div class="panel-group" id="accordion3">
-            <div class="panel panel-default" runat="server" id="dvADF">
+        <div class="panel-group" id="dvGD" runat="server">
+            <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4 class="panel-title">Assets Write Off Form
-                       <%-- <a data-toggle="collapse" data-parent="#accordion3" href="#collapse3">Assets Dispoal Form</a>--%>
-                    </h4>
+                    General Data(To be filled by user)             
                 </div>
-                <div id="collapse3" class="panel-collapse collapse in" role="tabpanel">
-                    <div class="panel-body fixed-panel">
-                        <asp:GridView ID="GridView1" runat="server" CssClass="table table-striped table-bordered footable" AutoGenerateColumns="False" ShowFooter="true" ShowHeaderWhenEmpty="True" Width="94%">
-                            <Columns>
-                                <asp:TemplateField HeaderStyle-Width="1%">
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="btnDelete" runat="server" OnClick="deleteRowEvent" OnClientClick="return ConfirmOnDelete();" Text="Delete"></asp:LinkButton>
-                                    </ItemTemplate>
-                                    <FooterTemplate>
-                                        <asp:LinkButton ID="AddRowBtn" runat="server" OnClick="AddRowEvent" Text="Add"></asp:LinkButton>
-                                    </FooterTemplate>
-                                    <ItemStyle Width="1%" />
-                                    <ItemStyle Width="1%" />
-                                    <HeaderStyle Width="1%" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="S.No">
-                                    <ItemTemplate>
-                                        <%#Container.DataItemIndex+1 %>
-                                    </ItemTemplate>
-                                    <ItemStyle />
-                                    <HeaderStyle />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Asset Code">
-                                    <ItemTemplate>
-                                        <asp:TextBox ID="txtAssetCode" Width="100px" CssClass="form-control" runat="server">                                          
-                                        </asp:TextBox>
-                                    </ItemTemplate>
-                                    <ItemStyle />
-                                    <HeaderStyle />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Description & Category of Asset">
-                                    <ItemTemplate>
-                                        <asp:TextBox ID="txtDescription" Width="180px" CssClass="form-control" runat="server">                                        
-                                        </asp:TextBox>
-                                    </ItemTemplate>
-                                    <ItemStyle />
-                                    <HeaderStyle />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Date of Write">
-                                    <ItemTemplate>
-                                        <asp:TextBox ID="txtDateofWriteOff" Width="170px" CssClass="form-control" runat="server" TextMode="Date" />
-                                    </ItemTemplate>
-                                    <ItemStyle Width="1%" />
-                                    <HeaderStyle Width="1%" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Reasons justification for writeoff">
-                                    <ItemTemplate>
-                                        <asp:TextBox ID="txtReasonsjustificationforwriteoff" Width="300px" CssClass="form-control" runat="server" />
-                                    </ItemTemplate>
-                                    <ItemStyle Width="1%" />
-                                    <HeaderStyle Width="1%" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Recommendation for Scrap/Disposal">
-                                    <ItemTemplate>
-                                        <asp:TextBox ID="txtRecommendationforscrapdisposal" Width="300px" CssClass="form-control" runat="server" />
-                                    </ItemTemplate>
-                                    <ItemStyle Width="1%" />
-                                    <HeaderStyle Width="1%" />
-                                </asp:TemplateField>
-                            </Columns>
-                        </asp:GridView>
-                        <asp:GridView ID="grdDetail" runat="server" CssClass="table table-striped table-bordered footable" AutoGenerateColumns="true" ShowFooter="false" Visible="false" Width="200%">
-                        </asp:GridView>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                Location:
+                                <asp:RadioButtonList ID="rbType" runat="server" OnSelectedIndexChanged="rbType_SelectedIndexChanged" RepeatDirection="Horizontal" AutoPostBack="True">
+                                    <asp:ListItem Value="Unit-1" Selected="True">Unit 1</asp:ListItem>
+                                    <asp:ListItem Value="Unit-2">Unit 2</asp:ListItem>
+                                    <asp:ListItem Value="H.O">Head Office</asp:ListItem>
+                                </asp:RadioButtonList>
+
+                            </div>
+                            </div>
+                           <span class="help-block"></span>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                Employee Name
+                                    &nbsp;<asp:TextBox ID="txtEmployeeName" runat="server" CssClass="form-control">                                   
+                                    </asp:TextBox>
+                            </div>
+
+                            <div class="col-sm-4">
+                                Employee Card No
+
+                                    <asp:TextBox ID="txtEmployeeCardNo" runat="server" CssClass="form-control" CausesValidation="True" MaxLength="8"></asp:TextBox>
+                            </div>
+
+                            <div class="col-sm-4">
+                                Department
+                                    <%--<%# Eval("Lenght") %>--%>
+                                <asp:TextBox ID="txtDepartment" runat="server" CssClass="form-control">
+                                </asp:TextBox>
+                                <%--<%# Eval("Lenght") %>--%>
+                            </div>
+                        </div>
+                        <span class="help-block"></span>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                Division
+                                    <asp:TextBox ID="txtDivision" runat="server" CssClass="form-control">
+                                    </asp:TextBox>
+                            </div>
+                            <div class="col-sm-3">
+                                Date
+                                    <asp:TextBox ID="txtDate" Width="200px" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                            </div>
+
+
+                            <div class="col-sm-6">
+                                Reason(s) of Leaving
+                                 
+                                     <asp:RadioButtonList ID="RBList" runat="server" RepeatDirection="Horizontal">
+                                         <asp:ListItem Selected="True">Unit 1</asp:ListItem>
+                                         <asp:ListItem>Unit 2</asp:ListItem>
+                                         <asp:ListItem>Official Work</asp:ListItem>
+                                         <asp:ListItem>Personal Work</asp:ListItem>
+                                     </asp:RadioButtonList>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel-group" id="dvGK" runat="server">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Gate Keeper
+                </div>
+                <div id="Div7" class="panel-collapse collapse in" role="tabpanel">
+                    <div class="panel-body">
+                        <div class="row">
+                        </div>
+                        <span class="help-block"></span>
+                        <div class="row">
+
+                            <div class="col-sm-3">
+                                Time Out
+                                    &nbsp;<asp:TextBox ID="txtTimeOut" Width="150px" runat="server" CssClass="form-control" TextMode="Time" Enabled="False"></asp:TextBox>
+                            </div>
+
+                            <div class="col-sm-3">
+                                Time In
+                                          <asp:TextBox ID="txtTimeIn" Width="150px" runat="server" CssClass="form-control" CausesValidation="True" TextMode="Time" Enabled="False"></asp:TextBox>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -269,21 +295,17 @@
                     </div>
                     <div class="panel-body" style="text-align: center;">
                         <div class="row">
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 H.O.D
                                 <asp:Label ID="lblHOD" CssClass="form-control" runat="server"></asp:Label>
                             </div>
-                            <div class="col-sm-3">
-                                C.O.O
-                                <asp:DropDownList ID="ddlCOO" CssClass="form-control" runat="server"></asp:DropDownList>
+                            <div class="col-sm-4">
+                                HR & OD
+                                <asp:DropDownList ID="ddlHr" CssClass="form-control" runat="server" OnSelectedIndexChanged="ddlHr_SelectedIndexChanged"></asp:DropDownList>
                             </div>
-                            <div class="col-sm-3">
-                                C.F.O
-                                <asp:DropDownList ID="ddlCFO" CssClass="form-control" runat="server"></asp:DropDownList>
-                            </div>
-                            <div class="col-sm-3">
-                                Asset MDA
-                                <asp:DropDownList ID="ddlReviewer" CssClass="form-control" runat="server"></asp:DropDownList>
+                            <div class="col-sm-4">
+                                Corporate Service Department
+                                <asp:DropDownList ID="ddlCSD" CssClass="form-control" runat="server"></asp:DropDownList>
                             </div>
                         </div>
                     </div>
@@ -291,26 +313,13 @@
             </asp:Panel>
         </div>
 
-        <div class="panel panel-default">
+        <div class="panel panel-default" style="text-align: center;" runat="server" id="dvlbl">
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-12">
                         <asp:TextBox ID="txtRemarksReview" runat="server" CssClass="form-control" Height="80px" TextMode="MultiLine" PlaceHolder="Comment Box" Visible="False" BackColor="AliceBlue"></asp:TextBox>
                     </div>
                 </div>
-                <span class="help-block"></span>
-                <div class="col-sm-12" style="text-align: left;" runat="server" id="Div1">
-                    <%--<%# Eval("Numerator") %>--%>
-                    <asp:Label ID="Label1" runat="server" Font-Bold="False" ForeColor="Blue" Font-Names="Berlin Sans FB"></asp:Label>
-                    <asp:Label ID="Label2" runat="server" Font-Bold="False" ForeColor="Red" Font-Names="Berlin Sans FB"></asp:Label>
-                    <asp:Label ID="Label3" runat="server" Font-Bold="False" ForeColor="Black" Font-Names="Berlin Sans FB"></asp:Label>
-                </div>
-            </div>
-            <span class="help-block"></span>
-        </div>
-
-        <div class="panel panel-default" style="text-align: center;" runat="server" id="dvlbl">
-            <div class="panel-body">
                 <span class="help-block"></span>
                 <div class="col-sm-12" style="text-align: left;" runat="server" id="dvemaillbl">
                     <%--<%# Eval("Lenght") %>--%>
@@ -325,10 +334,12 @@
 
     <div class="col-sm-12" style="text-align: center;">
         <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Text="Save" ValidationGroup="grpSa" Width="60px" OnClick="btnSave_Click"></asp:Button>
-        <asp:Button ID="btnApprover" runat="server" CssClass="btn btn-primary" Text="Approve" CausesValidation="False" Width="100px" Visible="False" OnClick="btnApproved_Click"></asp:Button>
-        <asp:Button ID="btnReviewed" runat="server" CssClass="btn btn-primary" Text="Submit" Width="100px" Visible="False" OnClick="btnReviewed_Click"></asp:Button>
-        <asp:Button ID="btnReject" runat="server" CssClass="btn btn-primary" Text="Reject" Width="100px" Visible="False" CausesValidation="False" OnClick="btnReject_Click"></asp:Button>
+        <asp:Button ID="btnMDA" runat="server" CssClass="btn btn-primary" Text="Save / Submit" Width="120px" ValidationGroup="grpSave" CausesValidation="False" OnClick="btnMDA_Click" Visible="False"></asp:Button>
+        <asp:Button ID="btnApproved" runat="server" CssClass="btn btn-primary" Text="Approval" CausesValidation="False" Width="100px" Visible="False" OnClick="btnApproved_Click"></asp:Button>
+
+        <asp:Button ID="btnReject" runat="server" CssClass="btn btn-primary" Text="Reject" OnClick="btnReject_Click" Width="100px" Visible="False" CausesValidation="False"></asp:Button>
         <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-primary" Text="Reset Form" CausesValidation="False" Width="100px" OnClick="btnCancel_Click"></asp:Button>
+        <asp:Label ID="lbltest" runat="server" Font-Bold="False" ForeColor="Blue" Font-Names="Berlin Sans FB"></asp:Label>
     </div>
 
     <div class="panel-body fixed-panel">
@@ -367,17 +378,11 @@
                             <ItemStyle Width="14%" />
                             <HeaderStyle Width="14%" />
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Remarks" SortExpression="Remarks">
-                            <ItemTemplate>
-                                <asp:Label runat="server" ID="lblRemarks" Text='<%# Bind("Remarks") %>'></asp:Label>
-                            </ItemTemplate>
-                            <ItemStyle Width="14%" />
-                            <HeaderStyle Width="14%" />
-                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
             </div>
         </div>
     </div>
+    <!-- Modal -->
 
 </asp:Content>

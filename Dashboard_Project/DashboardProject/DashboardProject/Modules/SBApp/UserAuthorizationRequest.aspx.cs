@@ -1246,13 +1246,26 @@ namespace ITLDashboard.Modules.SBApp
 
                         for (int i = 0; i < ddlTCode.Items.Count; i++)
                         {
-                            foreach (string category1 in reader[3].ToString().Trim().Split(','))
+                            foreach (string TCode in reader["TCode"].ToString().Split(','))
                             {
-                                if (category1 != ddlTCode.Items[i].Value) continue;
+                                if (TCode != ddlTCode.Items[i].Value.ToString().Trim()) continue;
                                 ddlTCode.Items[i].Selected = true;
                                 break;
                             }
                         }
+
+
+
+                        for (int i = 0; i < ddlPlant.Items.Count; i++)
+                        {
+                            foreach (string category in reader["Plant"].ToString().Split(','))
+                            {
+                                if (category != ddlPlant.Items[i].Value) continue;
+                                ddlPlant.Items[i].Selected = true;
+                                break;
+                            }
+                        }
+
                         if (reader[3].ToString().Trim() != "")
                         {
                             for (int i = 0; i < ddlTCode.Items.Count; i++)
