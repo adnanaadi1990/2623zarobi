@@ -19,7 +19,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
     <File Include="bin/DashboardProject.dll">
-      <publishTime>01/11/2017 13:13:31</publishTime>
+      <publishTime>01/10/2017 10:43:57</publishTime>
     </File>
     <File Include="bin/itextsharp.dll">
       <publishTime>01/04/2017 17:08:35</publishTime>
@@ -3646,7 +3646,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2017 17:08:34</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/11/2017 13:13:32</publishTime>
+      <publishTime>01/10/2017 10:43:58</publishTime>
     </File>
   </ItemGroup>
 </Project>

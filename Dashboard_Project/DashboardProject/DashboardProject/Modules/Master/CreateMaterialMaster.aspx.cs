@@ -141,7 +141,7 @@ namespace ITLDashboard.Modules.Master
 
                         BindsysApplicationStatus();
                         getTransferUser();
-
+                       
 
                         GetHarcheyID();
                         getUserDetail();
@@ -1260,15 +1260,6 @@ namespace ITLDashboard.Modules.Master
                             txtSalesodertext.Text = reader["SalesOrderTax"].ToString();
                             ddlRate.SelectedValue = reader["Material_Rebate_Rate"].ToString();
                             ddlRebatecategoryRate.SelectedValue = reader["Rebate_Catg"].ToString();
-                            BindPurchasingGroup();
-                            ddlPurchasingGroup.SelectedValue = reader["Purchasing_Group"].ToString();
-
-                            ddlOrderingUnit.SelectedValue = reader["OrderingUnit"].ToString();
-
-
-                            txtPurchaseOrderText.Text = reader["PurchaseOrderText"].ToString();
-
-
                             BindMRPTypeMTYPE();
                             ddlMrpType.SelectedValue = reader["MRPType"].ToString();
                             ddlMRPGroup.SelectedValue = reader["MRP_Group"].ToString();
@@ -4444,11 +4435,11 @@ namespace ITLDashboard.Modules.Master
                     InsertTransferEmail();
                     string HierachyCategoryStatus = "06";
                     ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
-                    ApplicationStatus();
-                    BindsysApplicationStatus();
+                   ApplicationStatus();
+                   BindsysApplicationStatus();
                     UpdateSerialNumberAll();
                     EMailForwardToForwarder();
-                    GetStatusHierachyCategoryControls();
+                   GetStatusHierachyCategoryControls();
 
                     lblEmail.Text = "*New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been transferred to " + ddlTransferUser.SelectedItem.Text + "";
                     Session["HC"] = "06";
@@ -4480,8 +4471,8 @@ namespace ITLDashboard.Modules.Master
             GetHarcheyID();
             DataTable HIDDataTable = (DataTable)ViewState["HIDDataSet"];
             ds = obj.GetHarachyNextData(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
-            dt = ds.Tables["GetHarachyNextData"];
-            ViewState["GetHarachyNextDataDataSet"] = dt;
+          dt = ds.Tables["GetHarachyNextData"];
+          ViewState["GetHarachyNextDataDataSet"] = dt;
             if (HIDDataTable.Rows.Count > 0)
             {
                 using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
