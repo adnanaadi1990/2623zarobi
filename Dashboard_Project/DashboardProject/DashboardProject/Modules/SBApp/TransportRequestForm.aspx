@@ -176,6 +176,7 @@
                                 Tr No
                                    <asp:TextBox ID="TxtTRNo" runat="server" CssClass="form-control" CausesValidation="True"></asp:TextBox>
                             </div>
+                            
                             <div class="col-sm-4" runat="server" id="DvDes">
                                 Description
                                    <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control" CausesValidation="True"></asp:TextBox>
@@ -246,7 +247,7 @@
         <div class="col-sm-12" style="text-align: center;">
 
             <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Text="Save" ValidationGroup="grpSa" Width="60px" OnClick="btnSave_Click"></asp:Button>
-            <asp:Button ID="btnApprover" runat="server" CssClass="btn btn-primary" Text="Approve" Visible="False" CausesValidation="False" OnClick="btnApprover_Click" />
+            <asp:Button ID="btnApprover" runat="server" CssClass="btn btn-primary" Text="Approve" Visible="False" Width="100px" CausesValidation="False" OnClick="btnApprover_Click" />
             <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-primary" Text="Submit" CausesValidation="False" OnClick="btnSubmit_Click" Width="100px" Visible="False"></asp:Button>
             <asp:Button ID="btnSubmitFC" runat="server" CssClass="btn btn-primary" Text="Submit" CausesValidation="False" Width="100px" Visible="False" OnClick="btnSubmitFC_Click"></asp:Button>
             <asp:Button ID="Button1" runat="server" CssClass="btn btn-primary" Text="Reject" OnClick="btnReject_Click" Width="100px" CausesValidation="False" Visible="False"></asp:Button>

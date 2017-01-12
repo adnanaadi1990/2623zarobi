@@ -58,7 +58,9 @@ namespace ITLDashboard.Modules.SBApp
             Page.MaintainScrollPositionOnPostBack = true;
             if (!IsPostBack)
             {
-                txtRemarksReview.Visible = true;
+                txtRemarksReview.Visible = false; ;
+                ddlApplicableArea.BackColor = System.Drawing.Color.AliceBlue;
+                txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
                 //txtRemarksReview.Visible = false;
                 if (Session["User_Name"] == null)
                 {
@@ -93,7 +95,8 @@ namespace ITLDashboard.Modules.SBApp
                         btnCancel.Visible = false;
                         ddlApplicableArea.Visible = true;
                         ddlTransportTo.Visible = true;
-                        txtRemarksReview.Visible = true;
+                        txtRemarksReview.Enabled = false;
+                        txtRemarksReview.Visible = false;
                         this.pnlemail.Visible = false;
                         whenquerystringpass();
                         BindsysApplicationStatus();
@@ -107,7 +110,8 @@ namespace ITLDashboard.Modules.SBApp
                             btnSubmit.Visible = false;
                             btnApprover.Visible = false;
                             Button1.Visible = false;
-                            txtRemarksReview.Visible = false;
+                            txtRemarksReview.Enabled = true;
+                            txtRemarksReview.Visible = true;
                             ddlApplicableArea.BackColor = System.Drawing.Color.AliceBlue;
                             txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
                             for (int i = 0; i < ddlApplicableArea.Items.Count; i++)
@@ -120,17 +124,22 @@ namespace ITLDashboard.Modules.SBApp
                             btnApprover.Visible = true;
                             btnSubmit.Visible = false;
                             txtRemarksReview.Enabled = true;
+                            txtRemarksReview.Visible = true;
+                            ddlApplicableArea.BackColor = System.Drawing.Color.AliceBlue;
+                            txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
                             Button1.Visible = true;
                             txtRemarks.Enabled = true;
                             btnSubmitFC.Visible = false;
+
                             if (((string)ViewState["Sequance"]) == "3")
                             {
                                 btnApprover.Visible = true;
-                                txtRemarksReview.Enabled = true;
                                 btnSubmit.Visible = false;
                                 Button1.Visible = true;
                                 txtRemarks.Enabled = true;
                                 btnSubmitFC.Visible = false;
+                                txtRemarksReview.Enabled = true;
+                                txtRemarksReview.Visible = true;
                                 ddlApplicableArea.BackColor = System.Drawing.Color.AliceBlue;
                                 txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
                                 for (int i = 0; i < ddlTransportTo.Items.Count; i++)
@@ -147,12 +156,12 @@ namespace ITLDashboard.Modules.SBApp
                         }
                         if (((string)ViewState["HID"]) == "4")
                         {
-                            txtRemarksReview.Enabled = true;
                             btnApprover.Visible = false;
                             Button1.Visible = true;
                             txtRemarks.Enabled = true;
                             btnSubmit.Visible = true;
-
+                            txtRemarksReview.Enabled = true;
+                            txtRemarksReview.Visible = true;
                             ddlApplicableArea.BackColor = System.Drawing.Color.AliceBlue;
                             txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
 
@@ -314,30 +323,15 @@ namespace ITLDashboard.Modules.SBApp
         {
             try
             {
-                if (txtRemarksReview.Text == "")
+                whenquerystringpass();
+                for (int i = 0; i < ddlApplicableArea.Items.Count; i++)
                 {
-
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Remarks should not be left blank!";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblmessage.Focus();
-                    sucess.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    txtRemarksReview.BackColor = System.Drawing.Color.Red;
-                    whenquerystringpass();
-                    for (int i = 0; i < ddlApplicableArea.Items.Count; i++)
-                    {
-                        ddlApplicableArea.Items[i].Attributes.Add("disabled", "disabled");
-                    }
-                    for (int i = 0; i < ddlTransportTo.Items.Count; i++)
-                    {
-                        ddlTransportTo.Items[i].Attributes.Add("disabled", "disabled");
-                    }
-
-                    return;
+                    ddlApplicableArea.Items[i].Attributes.Add("disabled", "disabled");
                 }
-                else
+                for (int i = 0; i < ddlTransportTo.Items.Count; i++)
+                {
+                    ddlTransportTo.Items[i].Attributes.Add("disabled", "disabled");
+                }
                 {
 
                     EmailWorkFirstHaracheyMDA();
@@ -401,22 +395,22 @@ namespace ITLDashboard.Modules.SBApp
         {
             try
             {
-                if (txtRemarksReview.Text == "")
-                {
+                //if (txtRemarksReview.Text == "")
+                //{
 
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Remarks should not be left blank!";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblmessage.Focus();
-                    sucess.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    txtRemarksReview.BackColor = System.Drawing.Color.Red;
-                    whenquerystringpass();
-                    // bindSLfromPlant();
-                    return;
-                }
-                else
+                //    lblmessage.Text = "";
+                //    lblUpError.Text = "Remarks should not be left blank!";
+                //    sucess.Visible = false;
+                //    error.Visible = true;
+                //    lblmessage.Focus();
+                //    sucess.Focus();
+                //    Page.MaintainScrollPositionOnPostBack = false;
+                //    txtRemarksReview.BackColor = System.Drawing.Color.Red;
+                //    whenquerystringpass();
+                //    // bindSLfromPlant();
+                //    return;
+                //}
+                //else
                 {
                     error.Visible = false;
                     lblUpError.Text = "";
@@ -956,7 +950,7 @@ namespace ITLDashboard.Modules.SBApp
                 while (reader.Read())
                 {
                     url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
-                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + ""; 
+                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
                     TransactionID = reader["TransactionID"].ToString();
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();

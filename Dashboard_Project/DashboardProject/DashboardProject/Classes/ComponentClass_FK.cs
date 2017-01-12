@@ -94,8 +94,8 @@ namespace ITLDashboard.Classes
             {
                 ds.Clear();
                 cmd.CommandText = "";
-                cmd.CommandText = "select Materialgrpcode,Materialgrpcode + ' ' + Description as Description from tblMaterialgrp";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SP_BindMaterialService";
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 adp.SelectCommand = cmd;
                 adp.Fill(ds, "tblMaterialgrp");
