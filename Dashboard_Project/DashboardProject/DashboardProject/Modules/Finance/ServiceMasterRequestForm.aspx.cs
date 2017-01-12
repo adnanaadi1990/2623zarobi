@@ -687,7 +687,7 @@ namespace DashboardProject.Modules.Finance
             try
             {
                 cmd.CommandText = "";
-                cmd.CommandText = "Select user_name,DisplayName from tblusermodulecategory where Category like '%SAP Basis Consultant%'";
+                cmd.CommandText = "Select user_name,DisplayName from tblusermodulecategory where Category like '%SMRF%'";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
                 conn.Open();
@@ -699,7 +699,7 @@ namespace DashboardProject.Modules.Finance
 
 
                 cmd.CommandText = "";
-                cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserReviwer where FormName = 'MM'";
+                cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserReviwer where FormName = 'SMRF'";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
                 conn.Open();
