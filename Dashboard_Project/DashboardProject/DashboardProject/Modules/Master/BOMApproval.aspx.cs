@@ -318,22 +318,37 @@ namespace DashboardProject.Modules.Master
                     }
                     else
                     {
-                        DataTable dt = (DataTable)ViewState["BOMGrid"];
-                        dt.Rows.Add("", customerName.ToString().Trim(), companyName2.ToString().Trim(), companyName3.ToString().Trim(),
-                           companyName4.ToString().Trim(), companyName5.ToString().Trim(), companyName6.ToString().Trim());
-                        ViewState["BOMGrid"] = dt;
-                        GridView1.DataSource = (DataTable)ViewState["BOMGrid"];
-                        GridView1.DataBind();
-                        GridView1.Columns[0].Visible = true;
 
-
-                        float GTotal = 0f;
-                        for (int i = 0; i < GridView1.Rows.Count; i++)
+                        if (customerName == "Scrap Material")
                         {
-                            String total = (GridView1.Rows[i].FindControl("lblQuantity") as Label).Text;
-                            GTotal += Convert.ToSingle(total);
+                            companyName4 = "-" + companyName4.ToString();
+                        
                         }
-                        lblSum.Text = GTotal.ToString();
+                        else
+                        {
+                            companyName4 = companyName4.ToString();
+                            DataTable dt = (DataTable)ViewState["BOMGrid"];
+                            dt.Rows.Add("", customerName.ToString().Trim(), companyName2.ToString().Trim(), companyName3.ToString().Trim(),
+                               companyName4.ToString().Trim(), companyName5.ToString().Trim(), companyName6.ToString().Trim());
+                            ViewState["BOMGrid"] = dt;
+                            GridView1.DataSource = (DataTable)ViewState["BOMGrid"];
+                            GridView1.DataBind();
+                            GridView1.Columns[0].Visible = true;
+
+
+                            float GTotal = 0f;
+                            for (int i = 0; i < GridView1.Rows.Count; i++)
+                            {
+                                if ((GridView1.Rows[i].FindControl("lblComponentType") as Label).Text == "Input Material" || (GridView1.Rows[i].FindControl("lblComponentType") as Label).Text == "Scrap Material")
+                                {
+                                    String total = (GridView1.Rows[i].FindControl("lblQuantity") as Label).Text;
+                                    GTotal += Convert.ToSingle(total);
+                                }
+                            }
+                            lblSum.Text = GTotal.ToString();
+
+                        }
+
                     }
                 }
                 else
@@ -651,11 +666,6 @@ namespace DashboardProject.Modules.Master
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
 
         }
@@ -1430,6 +1440,43 @@ namespace DashboardProject.Modules.Master
                 lblError.Text = ex.ToString();
             }
         }
+
+        protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            try
+            {
+                var id = ((Label)GridView1.Rows[e.RowIndex].FindControl("Label1")).Text;
+
+                DataTable dt = (DataTable)ViewState["BOMGrid"];
+                DataColumn[] keyColumns = new DataColumn[1];
+                keyColumns[0] = dt.Columns["sno"];
+                dt.PrimaryKey = keyColumns;
+                dt.Rows.Find(id).Delete();
+                dt.AcceptChanges();
+                ViewState["BOMGrid"] = dt;
+                GridView1.DataSource = ViewState["BOMGrid"] as DataTable;
+                GridView1.DataBind();
+
+                float GTotal = 0f;
+                for (int i = 0; i < GridView1.Rows.Count; i++)
+                {
+                    if ((GridView1.Rows[i].FindControl("lblComponentType") as Label).Text == "Input Material" || (GridView1.Rows[i].FindControl("lblComponentType") as Label).Text == "Scrap Material")
+                    {
+                        String total = (GridView1.Rows[i].FindControl("lblQuantity") as Label).Text;
+                        GTotal += Convert.ToSingle(total);
+                    }
+                }
+                lblSum.Text = GTotal.ToString();
+
+            }
+            catch (SqlException ex)
+            {
+                dvemaillbl.Visible = true;
+                lblError.Text = ex.ToString();
+            }
+        }
+
+      
     }
 
 }
