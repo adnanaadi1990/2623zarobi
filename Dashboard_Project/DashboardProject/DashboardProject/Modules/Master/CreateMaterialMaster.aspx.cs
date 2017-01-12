@@ -1262,6 +1262,14 @@ namespace ITLDashboard.Modules.Master
                             ddlRebatecategoryRate.SelectedValue = reader["Rebate_Catg"].ToString();
                             BindMRPTypeMTYPE();
                             ddlMrpType.SelectedValue = reader["MRPType"].ToString();
+
+
+                            BindPurchasingGroup();
+                            ddlPurchasingGroup.SelectedValue = reader["Purchasing_Group"].ToString();
+
+                            ddlOrderingUnit.SelectedValue = reader["OrderingUnit"].ToString();
+
+                            txtPurchaseOrderText.Text = reader["PurchaseOrderText"].ToString();
                             ddlMRPGroup.SelectedValue = reader["MRP_Group"].ToString();
                             txtReoderPoint.Text = reader["ReoderPoint"].ToString();
                             ddlMRPController.SelectedValue = reader["MRPController"].ToString();
