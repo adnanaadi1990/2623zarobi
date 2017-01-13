@@ -197,12 +197,13 @@
 
 
                                 <input id="btnShow" type="button" class="btn btn-primary" value="Show Document" style="display: none" />
+                                <asp:Button ID="btnDownload" CssClass="btn btn-primary" Text="Download Document" runat="server" OnClick="btnDownload_Click" Visible="False"></asp:Button>
                                 <input runat="server" value="Print" type="button" id="btnPrint" class="btn btn-primary" onclick="PrintDivContent('dialog');" visible="false" /><br />
                             </div>               
                              </div>
                          <span class="help-block"></span>
                              <div class="row">
-                            <div class="col-sm-5">
+                            <div class="col-sm-12">
                                 <asp:Label ID="lblMSGDCW" runat="server" Text="Note: Please first upload DCW before saving the form"></asp:Label>
                             </div>
                         </div>

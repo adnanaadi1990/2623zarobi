@@ -1022,11 +1022,19 @@ namespace DashboardProject.Modules.Finance
         protected void btnDownload_Click(object sender, EventArgs e)
         {
             FilePath = "~/DashboardDocument/InvoiceWorkFlow/" + lblFileName.Text.ToString();
-            string pathDelete = Server.MapPath(FilePath.ToString());
-            Response.ContentType = "Application/pdf";
-            Response.AppendHeader("Content-Disposition", "attachment; filename= " + lblFileName.Text.ToString() + "");
-            Response.TransmitFile(pathDelete.ToString());
-            Response.End(); 
+            string fileName = this.Server.MapPath(FilePath.ToString());
+            if (System.IO.File.Exists(fileName))
+            {
+                string pathDelete = Server.MapPath(FilePath.ToString());
+                Response.ContentType = "Application/pdf";
+                Response.AppendHeader("Content-Disposition", "attachment; filename= " + lblFileName.Text.ToString() + "");
+                Response.TransmitFile(pathDelete.ToString());
+                Response.End();
+            }
+            else
+            {
+                lblError.Text = "File does not exist";
+            }
         }
     }
 }

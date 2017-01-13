@@ -688,14 +688,22 @@
     <Content Include="Modules\AdminPannel\PendingEmailSending.aspx" />
     <Content Include="Modules\AdminPannel\UserDetailList.aspx" />
     <Content Include="Modules\Annexure\Annexure_Main.aspx" />
+    <Content Include="Modules\Annexure\AssestsDisposalForm.aspx" />
     <Content Include="Modules\Annexure\AssetCreationForm.aspx" />
     <Content Include="Modules\Annexure\AssetTransferFormApproval.aspx" />
+    <Content Include="Modules\Annexure\AssetWriteoffForm.aspx" />
     <Content Include="Modules\Annexure\SearchAssetCreationForm.aspx" />
+    <Content Include="Modules\Annexure\SearchAssetsDisposalform.aspx" />
     <Content Include="Modules\Annexure\SearchAssetTransferFormApproval.aspx" />
+    <Content Include="Modules\Annexure\SearchAssetWritteoffForm.aspx" />
     <Content Include="Modules\Finance\CustomerMaster.aspx" />
+    <Content Include="Modules\Finance\DeliveryChallanWorkflow.aspx" />
     <Content Include="Modules\Finance\Finance_Main.aspx" />
+    <Content Include="Modules\Finance\InvoiceWorkflow.aspx" />
     <Content Include="Modules\Finance\PettyCash.aspx" />
     <Content Include="Modules\Finance\SearchCustomerMaster.aspx" />
+    <Content Include="Modules\Finance\SearchDeliveryChallanWorkflow.aspx" />
+    <Content Include="Modules\Finance\SearchInvoiceWorkflow.aspx" />
     <Content Include="Modules\Finance\SearchPettyCash.aspx" />
     <Content Include="Modules\Finance\SearchServiceMasterRequestForm.aspx" />
     <Content Include="Modules\Finance\SearchVendorMaster.aspx" />
@@ -704,18 +712,24 @@
     <Content Include="Modules\HR\FindEmployee.aspx" />
     <Content Include="Modules\HR\HR_Main.aspx" />
     <Content Include="Modules\HR\MonthlyAttendance.aspx" />
+    <Content Include="Modules\HR\ShortLeave.aspx" />
     <Content Include="Modules\Inventorymanagement\DeadStock.aspx" />
     <Content Include="Modules\Inventorymanagement\InventoryAdjustmentApproval.aspx" />
     <Content Include="Modules\Inventorymanagement\Inventorymanagement_Main.aspx" />
+    <Content Include="Modules\Inventorymanagement\QuotationApprovalWorkflow.aspx" />
     <Content Include="Modules\Inventorymanagement\SearchDeadStock.aspx" />
     <Content Include="Modules\Inventorymanagement\SearchInventoryAdjustment.aspx" />
+    <Content Include="Modules\Inventorymanagement\SearchQuotationApprovalrequests.aspx" />
     <Content Include="Modules\Master\BOMApproval.aspx" />
     <Content Include="Modules\Master\CreateMaterialMaster.aspx" />
     <Content Include="Modules\Master\MaterialMasterMtypeCreation.aspx" />
     <Content Include="Modules\Master\MM_Main.aspx" />
+    <Content Include="Modules\Master\SearchBOMApproval.aspx" />
     <Content Include="Modules\Master\SearchMaterialMasterMtypeCreation.aspx" />
     <Content Include="Modules\Master\SearchMeterialMaster.aspx" />
     <Content Include="Modules\Master\WebForm1.aspx" />
+    <Content Include="Modules\PP\PP_Main.aspx" />
+    <Content Include="Modules\Procurement\Procurment_Main.aspx" />
     <Content Include="Modules\Reports\AssetCreationFromReport.aspx" />
     <Content Include="Modules\Reports\AssetTransferFromReport.aspx" />
     <Content Include="Modules\Reports\CustomerMasterReport.aspx" />
@@ -2146,6 +2160,13 @@
     <Compile Include="Modules\Annexure\Annexure_Main.aspx.designer.cs">
       <DependentUpon>Annexure_Main.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Annexure\AssestsDisposalForm.aspx.cs">
+      <DependentUpon>AssestsDisposalForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Annexure\AssestsDisposalForm.aspx.designer.cs">
+      <DependentUpon>AssestsDisposalForm.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Annexure\AssetCreationForm.aspx.cs">
       <DependentUpon>AssetCreationForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2160,12 +2181,26 @@
     <Compile Include="Modules\Annexure\AssetTransferFormApproval.aspx.designer.cs">
       <DependentUpon>AssetTransferFormApproval.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Annexure\AssetWriteoffForm.aspx.cs">
+      <DependentUpon>AssetWriteoffForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Annexure\AssetWriteoffForm.aspx.designer.cs">
+      <DependentUpon>AssetWriteoffForm.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Annexure\SearchAssetCreationForm.aspx.cs">
       <DependentUpon>SearchAssetCreationForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Modules\Annexure\SearchAssetCreationForm.aspx.designer.cs">
       <DependentUpon>SearchAssetCreationForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Annexure\SearchAssetsDisposalform.aspx.cs">
+      <DependentUpon>SearchAssetsDisposalform.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Annexure\SearchAssetsDisposalform.aspx.designer.cs">
+      <DependentUpon>SearchAssetsDisposalform.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Annexure\SearchAssetTransferFormApproval.aspx.cs">
       <DependentUpon>SearchAssetTransferFormApproval.aspx</DependentUpon>
@@ -2174,6 +2209,13 @@
     <Compile Include="Modules\Annexure\SearchAssetTransferFormApproval.aspx.designer.cs">
       <DependentUpon>SearchAssetTransferFormApproval.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Annexure\SearchAssetWritteoffForm.aspx.cs">
+      <DependentUpon>SearchAssetWritteoffForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Annexure\SearchAssetWritteoffForm.aspx.designer.cs">
+      <DependentUpon>SearchAssetWritteoffForm.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Finance\CustomerMaster.aspx.cs">
       <DependentUpon>CustomerMaster.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2181,12 +2223,26 @@
     <Compile Include="Modules\Finance\CustomerMaster.aspx.designer.cs">
       <DependentUpon>CustomerMaster.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Finance\DeliveryChallanWorkflow.aspx.cs">
+      <DependentUpon>DeliveryChallanWorkflow.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Finance\DeliveryChallanWorkflow.aspx.designer.cs">
+      <DependentUpon>DeliveryChallanWorkflow.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Finance\Finance_Main.aspx.cs">
       <DependentUpon>Finance_Main.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Modules\Finance\Finance_Main.aspx.designer.cs">
       <DependentUpon>Finance_Main.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Finance\InvoiceWorkflow.aspx.cs">
+      <DependentUpon>InvoiceWorkflow.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Finance\InvoiceWorkflow.aspx.designer.cs">
+      <DependentUpon>InvoiceWorkflow.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Finance\PettyCash.aspx.cs">
       <DependentUpon>PettyCash.aspx</DependentUpon>
@@ -2201,6 +2257,20 @@
     </Compile>
     <Compile Include="Modules\Finance\SearchCustomerMaster.aspx.designer.cs">
       <DependentUpon>SearchCustomerMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Finance\SearchDeliveryChallanWorkflow.aspx.cs">
+      <DependentUpon>SearchDeliveryChallanWorkflow.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Finance\SearchDeliveryChallanWorkflow.aspx.designer.cs">
+      <DependentUpon>SearchDeliveryChallanWorkflow.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Finance\SearchInvoiceWorkflow.aspx.cs">
+      <DependentUpon>SearchInvoiceWorkflow.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Finance\SearchInvoiceWorkflow.aspx.designer.cs">
+      <DependentUpon>SearchInvoiceWorkflow.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Finance\SearchPettyCash.aspx.cs">
       <DependentUpon>SearchPettyCash.aspx</DependentUpon>
@@ -2258,6 +2328,13 @@
     <Compile Include="Modules\HR\MonthlyAttendance.aspx.designer.cs">
       <DependentUpon>MonthlyAttendance.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\HR\ShortLeave.aspx.cs">
+      <DependentUpon>ShortLeave.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\HR\ShortLeave.aspx.designer.cs">
+      <DependentUpon>ShortLeave.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Inventorymanagement\DeadStock.aspx.cs">
       <DependentUpon>DeadStock.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2279,6 +2356,13 @@
     <Compile Include="Modules\Inventorymanagement\Inventorymanagement_Main.aspx.designer.cs">
       <DependentUpon>Inventorymanagement_Main.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Inventorymanagement\QuotationApprovalWorkflow.aspx.cs">
+      <DependentUpon>QuotationApprovalWorkflow.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Inventorymanagement\QuotationApprovalWorkflow.aspx.designer.cs">
+      <DependentUpon>QuotationApprovalWorkflow.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Inventorymanagement\SearchDeadStock.aspx.cs">
       <DependentUpon>SearchDeadStock.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2292,6 +2376,13 @@
     </Compile>
     <Compile Include="Modules\Inventorymanagement\SearchInventoryAdjustment.aspx.designer.cs">
       <DependentUpon>SearchInventoryAdjustment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Inventorymanagement\SearchQuotationApprovalrequests.aspx.cs">
+      <DependentUpon>SearchQuotationApprovalrequests.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Inventorymanagement\SearchQuotationApprovalrequests.aspx.designer.cs">
+      <DependentUpon>SearchQuotationApprovalrequests.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Master\BOMApproval.aspx.cs">
       <DependentUpon>BOMApproval.aspx</DependentUpon>
@@ -2321,6 +2412,13 @@
     <Compile Include="Modules\Master\MM_Main.aspx.designer.cs">
       <DependentUpon>MM_Main.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Master\SearchBOMApproval.aspx.cs">
+      <DependentUpon>SearchBOMApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Master\SearchBOMApproval.aspx.designer.cs">
+      <DependentUpon>SearchBOMApproval.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Master\SearchMaterialMasterMtypeCreation.aspx.cs">
       <DependentUpon>SearchMaterialMasterMtypeCreation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2341,6 +2439,20 @@
     </Compile>
     <Compile Include="Modules\Master\WebForm1.aspx.designer.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PP\PP_Main.aspx.cs">
+      <DependentUpon>PP_Main.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\PP\PP_Main.aspx.designer.cs">
+      <DependentUpon>PP_Main.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Procurement\Procurment_Main.aspx.cs">
+      <DependentUpon>Procurment_Main.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Procurement\Procurment_Main.aspx.designer.cs">
+      <DependentUpon>Procurment_Main.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\AssetCreationFromReport.aspx.cs">
       <DependentUpon>AssetCreationFromReport.aspx</DependentUpon>

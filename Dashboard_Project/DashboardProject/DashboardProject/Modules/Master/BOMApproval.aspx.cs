@@ -332,37 +332,34 @@ namespace DashboardProject.Modules.Master
                     }
                     else
                     {
-
-                        if (customerName == "Scrap Material")
+                        if (customerName.ToString() == "Scrap Material")
                         {
                             companyName4 = "-" + companyName4.ToString();
-                        
                         }
                         else
                         {
                             companyName4 = companyName4.ToString();
-                            DataTable dt = (DataTable)ViewState["BOMGrid"];
-                            dt.Rows.Add("", customerName.ToString().Trim(), companyName2.ToString().Trim(), companyName3.ToString().Trim(),
-                               companyName4.ToString().Trim(), companyName5.ToString().Trim(), companyName6.ToString().Trim());
-                            ViewState["BOMGrid"] = dt;
-                            GridView1.DataSource = (DataTable)ViewState["BOMGrid"];
-                            GridView1.DataBind();
-                            GridView1.Columns[0].Visible = true;
-
-
-                            float GTotal = 0f;
-                            for (int i = 0; i < GridView1.Rows.Count; i++)
-                            {
-                                if ((GridView1.Rows[i].FindControl("lblComponentType") as Label).Text == "Input Material" || (GridView1.Rows[i].FindControl("lblComponentType") as Label).Text == "Scrap Material")
-                                {
-                                    String total = (GridView1.Rows[i].FindControl("lblQuantity") as Label).Text;
-                                    GTotal += Convert.ToSingle(total);
-                                }
-                            }
-                            lblSum.Text = GTotal.ToString();
-
                         }
 
+                        DataTable dt = (DataTable)ViewState["BOMGrid"];
+                        dt.Rows.Add("", customerName.ToString().Trim(), companyName2.ToString().Trim(), companyName3.ToString().Trim(),
+                           companyName4.ToString().Trim(), companyName5.ToString().Trim(), companyName6.ToString().Trim());
+                        ViewState["BOMGrid"] = dt;
+                        GridView1.DataSource = (DataTable)ViewState["BOMGrid"];
+                        GridView1.DataBind();
+                        GridView1.Columns[0].Visible = true;
+
+
+                        float GTotal = 0f;
+                        for (int i = 0; i < GridView1.Rows.Count; i++)
+                        {
+                            if ((GridView1.Rows[i].FindControl("lblComponentType") as Label).Text == "Input Material" || (GridView1.Rows[i].FindControl("lblComponentType") as Label).Text == "Scrap Material")
+                            {
+                                    String total = (GridView1.Rows[i].FindControl("lblQuantity") as Label).Text;
+                                    GTotal += Convert.ToSingle(total);
+                            }
+                        }
+                        lblSum.Text = GTotal.ToString();
                     }
                 }
                 else
@@ -1406,7 +1403,7 @@ namespace DashboardProject.Modules.Master
                 ddlNotification.DataBind();
                 conn.Close();
 
-              
+
 
             }
             catch (Exception ex)
@@ -1526,7 +1523,7 @@ namespace DashboardProject.Modules.Master
             }
         }
 
-      
+
     }
 
 }

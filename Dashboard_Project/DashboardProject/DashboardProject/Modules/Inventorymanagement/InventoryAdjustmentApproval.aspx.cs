@@ -54,7 +54,7 @@ namespace DashboardProject.Modules.Inventorymanagement
         SqlCommand cmd = new SqlCommand();
         ComponentClass_AD objAD = new ComponentClass_AD();
         ComponentClass obj = new ComponentClass();
-
+        ComponentClass_FD objFD = new ComponentClass_FD();
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -228,11 +228,6 @@ namespace DashboardProject.Modules.Inventorymanagement
                     dvemaillbl.Visible = true;
                 }
             }
-            for (int i = 0; i < ddlNotification.Items.Count; i++)
-            {
-                ddlNotification.Items[i].Selected = true;
-                ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
-            }
         }
 
         private void GetSockDetail()
@@ -343,41 +338,9 @@ namespace DashboardProject.Modules.Inventorymanagement
 
         private void BindUser()
         {
-<<<<<<< HEAD
+
             try
-=======
-            cmd.CommandText = "SELECT * FROM tblEmailSequanceWise where FormID = @FormID order by Sequance asc";
-            //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = conn;
-
-            conn.Open();
-            ddlNotification.DataSource = cmd.ExecuteReader();
-            cmd.Parameters.AddWithValue("@FormID",FormID.ToString());
-            ddlNotification.DataTextField = "DisplayName";
-            ddlNotification.DataValueField = "user_name";
-            ddlNotification.DataBind();
-            conn.Close();
-            for (int i = 0; i < ddlNotification.Items.Count; i++)
->>>>>>> refs/remotes/origin/Development
             {
-                cmd.CommandText = "SP_getFormID";
-                //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = conn;
-                cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
-                conn.Open();
-                ddlNotification.DataSource = cmd.ExecuteReader();
-                ddlNotification.DataTextField = "DisplayName";
-                ddlNotification.DataValueField = "user_name";
-                ddlNotification.DataBind();
-                conn.Close();
-                for (int i = 0; i < ddlNotification.Items.Count; i++)
-                {
-                    ddlNotification.Items[i].Selected = true;
-                    ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
-                }
-
                 cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'IAA'";
                 //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
                 cmd.CommandType = CommandType.Text;
@@ -584,14 +547,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                     return;
 
                 }
-                if (ddlNotification.SelectedValue == "")
-                {
-                    ddlNotification.BackColor = System.Drawing.Color.Red;
-                    lblUpError.Text = "Please select any Person for Notification";
-                    error.Visible = true;
-                    return;
-
-                }
+                
                 if (txtDescription.Text == "")
                 {
                     txtDescription.BackColor = System.Drawing.Color.Red;
@@ -600,20 +556,9 @@ namespace DashboardProject.Modules.Inventorymanagement
                     return;
 
                 }
-                string Notification = "";
-
-                for (int i = 0; i <= ddlNotification.Items.Count - 1; i++)
-                {
-                    if (ddlNotification.Items[i].Selected)
-                    {
-                        if (Notification == "") { Notification = ddlNotification.Items[i].Value; }
-                        else { Notification += "," + ddlNotification.Items[i].Value; }
-                    }
-
-                }
-
+               
                 FilePath = "~/DashboardDocument/InventoryAdjustment/" + "InventoryAdjustment" + lblFileName.Text.ToString();
-                string Approval = ViewState["HOD"].ToString() + "," + Notification.ToString();
+                string Approval = ViewState["HOD"].ToString();
                 cmd.CommandText = "Exec SP_SYS_create_InventoryManagment" + " @TransactionMain='" + lblMaxTransactionNo.Text + "', " +
                         " @FileName='" + lblFileName.Text + "', " +
                         " @Description='" + txtDescription.Text + "', " +
@@ -646,12 +591,6 @@ namespace DashboardProject.Modules.Inventorymanagement
                 lblFileName.Text = "";
                 txtRemarksReview.Text = "";
                 txtDescription.Text = "";
-
-                for (int i = 0; i < ddlNotification.Items.Count; i++)
-                {
-                    ddlNotification.Items[i].Selected = true;
-                    ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
-                }
             }
 
             catch (Exception ex)
@@ -703,6 +642,7 @@ namespace DashboardProject.Modules.Inventorymanagement
         {
             try
             {
+                ds = objFD.InsertAllHODS(FormID.ToString(), lblMaxTransactionID.Text, Session["User_Name"].ToString());
                 EmailWorkApproved();
                 ApplicationStatus();
                 BindsysApplicationStatus();
