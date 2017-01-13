@@ -203,6 +203,22 @@ namespace DashboardProject.Modules.Inventorymanagement
                             txtRemarksReview.Visible = true;
                             btnPrint.Visible = true;
                         }
+                        if (((string)ViewState["HID"]) == "5")
+                        {
+                            btnApproved.Visible = false;
+                            btnReject.Visible = false;
+                            btnSave.Visible = false;
+                            btnCancel.Visible = false;
+                            btnMDA.Visible = false;
+                            divEmail.Visible = false;
+                            dvFormID.Visible = true;
+                            dvTransactionNo.Visible = false;
+                            dvTransactionNo.Visible = false;
+                            btnShowFile.Visible = true;
+                            ViewState["Status"] = "05";
+                            ApplicationStatus();
+                            BindsysApplicationStatus();
+                        }
 
                     }
                     else
@@ -345,6 +361,16 @@ namespace DashboardProject.Modules.Inventorymanagement
                 ddlEmailMDA.DataBind();
                 conn.Close();
                 ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
+
+                cmd.CommandText = "SELECT user_name,DisplayName FROM tbl_EmailToSpecificPerson where FormID = 'QAF01'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                conn.Open();
+                ddlNotification.DataSource = cmd.ExecuteReader();
+                ddlNotification.DataTextField = "DisplayName";
+                ddlNotification.DataValueField = "user_name";
+                ddlNotification.DataBind();
+                conn.Close();
             }
 
             catch (SqlException ex)
@@ -643,6 +669,15 @@ namespace DashboardProject.Modules.Inventorymanagement
                 }
                 string Notification = "";
 
+                for (int i = 0; i <= ddlNotification.Items.Count - 1; i++)
+                {
+                    if (ddlNotification.Items[i].Selected)
+                    {
+                        if (Notification == "") { Notification = ddlNotification.Items[i].Value; }
+                        else { Notification += "," + ddlNotification.Items[i].Value; }
+                    }
+
+                }
 
                 FilePath = "~/DashboardDocument/QuotationApprovalWorkflow/" + lblFileName.Text.ToString();
                 string Approval = ViewState["HOD"].ToString();
@@ -652,6 +687,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                         " @FilePath='" + FilePath.ToString() + "', " +
                         " @APPROVAL='" + Approval.ToString() + "', " +
                         " @REVIEWER='', " +
+                        " @Notification='" + Notification.ToString() + "', " +
                         " @MDA='" + ddlEmailMDA.SelectedValue + "', " +
                         " @CreatedBy='" + Session["User_Name"].ToString() + "', " +
                         " @Remarks = '" + txtRemarksReview.Text.ToString() + "'";

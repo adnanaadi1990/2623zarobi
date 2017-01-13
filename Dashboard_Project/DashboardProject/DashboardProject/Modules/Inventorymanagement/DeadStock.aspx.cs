@@ -230,10 +230,18 @@ namespace ITLDashboard.Modules.Inventorymanagement
         }
         private void GetSockDetail()
         {
-            ds = objAD.getDeadStock(lblMaxTransactionID.Text.ToString());
-            grdDetail.DataSource = ds.Tables["getDeadStock"];
-            grdDetail.DataBind();
+            try
+            {
+                ds = objAD.getDeadStock(lblMaxTransactionID.Text.ToString());
+                grdDetail.DataSource = ds.Tables["getDeadStock"];
+                grdDetail.DataBind();
 
+            }
+            catch (Exception ex) 
+            {
+
+                lblError.Text = "GetSockDetail" + ex.ToString();
+            }
         }
         private void BindsysApplicationStatus()
         {
@@ -463,7 +471,7 @@ namespace ITLDashboard.Modules.Inventorymanagement
                 javaScript.Append("pdfReportWindow.focus();\n");
                 javaScript.Append("\n");
                 javaScript.Append("</script>\n");
-
+         
                 this.RegisterStartupScript("PdfReportScript", javaScript.ToString());
             }
             else

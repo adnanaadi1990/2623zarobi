@@ -87,7 +87,6 @@
 
             <div class="omb_login">
                 <h3 class="omb_authTitle">
-                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" Visible="False" />
                     <asp:LinkButton ID="btnShowPopup" runat="server" Text="Show Popup" OnClick="btnShowPopup_Click" class="btn btn-primary btn-lg"
                         data-toggle="modal" data-target="#myModal" Visible="False"></asp:LinkButton>
                 </h3>

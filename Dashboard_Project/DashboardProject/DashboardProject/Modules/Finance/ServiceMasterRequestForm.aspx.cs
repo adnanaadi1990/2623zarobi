@@ -54,189 +54,165 @@ namespace DashboardProject.Modules.Finance
         public string SessionUser = "";
         public string DateTimeNow = "";
         public string url = "";
-        public string urlMobile = "";
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
+            Page.MaintainScrollPositionOnPostBack = true;
+            if (!IsPostBack)
             {
-                Page.MaintainScrollPositionOnPostBack = true;
-                if (!IsPostBack)
+                txtRemarksReview.Visible = true;
+                //txtRemarksReview.Visible = false;
+                if (Session["User_Name"] == null)
                 {
-                    txtRemarksReview.Visible = false;
-                    //txtRemarksReview.Visible = false;
-                    if (Session["User_Name"] == null)
+                    HttpContext con = HttpContext.Current;
+                    con.Request.Url.ToString();
+
+                    Session["Test"] = con.Request.Url.ToString();
+
+                    //  Response.Redirect("~/SingleLogin.aspx");
+                }
+
+                if (Session["User_Name"] == null)
+                {
+                    Response.Redirect("~/SingleLogin.aspx");
+                }
+
+                try
+                {
+
+                    txtDescription.BackColor = System.Drawing.Color.AliceBlue;
+                    txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
+                    txtSMC.BackColor = System.Drawing.Color.AliceBlue;
+
+                    if (Request.QueryString["TransactionNo"] != null)
                     {
-                        HttpContext con = HttpContext.Current;
-                        con.Request.Url.ToString();
+                        ////dvType.Visible = false;
+                        BindPageLoad();
+                        BindValuationMethod();
+                        dvFormID.Visible = true;
+                        dvTransactionNo.Visible = false;
+                        grdWStatus.Visible = true;
+                        DisableControls(Page, false);
+                        txtRemarks.Enabled = true;
+                        btnSave.Visible = false;
+                        btnCancel.Visible = false;
+                        ddlServiceCategory.Visible = true;
+                        ddlBUOM.Visible = true;
+                        ddlMSG.Visible = true;
+                        ddlDivision.Visible = true;
+                        ddlValuation.Visible = true;
+                        txtRemarksReview.Visible = true;                  
+                        this.pnlemail.Visible = false;
+                        this.ddlServiceCategory.Attributes.Add("disabled", "");
+                        this.ddlBUOM.Attributes.Add("disabled", "");
+                        this.ddlMSG.Attributes.Add("disabled", "");
+                        this.ddlDivision.Attributes.Add("disabled", "");
+                        //this.ddlValuation.Attributes.Add("disabled", "");
 
-                        Session["Test"] = con.Request.Url.ToString();
+                        whenquerystringpass();
+                        BindsysApplicationStatus();
+                        GetHarcheyID();
+                        getUserDetail();
+                        GetStatusHierachyCategoryControls();
 
-                        //  Response.Redirect("~/SingleLogin.aspx");
-                    }
-
-                    if (Session["User_Name"] == null)
-                    {
-                        Response.Redirect("~/SingleLogin.aspx");
-                    }
-
-                    try
-                    {
-
-                        txtDescription.BackColor = System.Drawing.Color.AliceBlue;
-                        txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
-                        txtSMC.BackColor = System.Drawing.Color.AliceBlue;
-
-                        if (Request.QueryString["TransactionNo"] != null)
+                        if (((string)ViewState["HID"]) == "1")
                         {
-                            ////dvType.Visible = false;
-                            BindPageLoad();
-                            BindValuationMethod();
-                            dvFormID.Visible = true;
-                            dvTransactionNo.Visible = false;
-                            grdWStatus.Visible = true;
-                            DisableControls(Page, false);
-                            txtRemarks.Enabled = false;
+                            //txtDescription.BackColor = System.Drawing.Color.AliceBlue;
+                            txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
+                            //txtSMC.BackColor = System.Drawing.Color.AliceBlue;
                             btnSave.Visible = false;
                             btnCancel.Visible = false;
-                            ddlServiceCategory.Visible = true;
-                            ddlBUOM.Visible = true;
-                            ddlMSG.Visible = true;
-                            ddlDivision.Visible = true;
-                            ddlValuation.Visible = true;
+                            btnSubmit.Visible = false;
+                            btnApprover.Visible = false;
+                            btnReject.Visible = false;
                             txtRemarksReview.Visible = false;
-                            this.pnlemail.Visible = false;
+                            ddlValuation.Enabled = false;
+                            ddlValuation.Visible = true;      
+                            controlForwardHide();
+                        }
+
+                        if (((string)ViewState["HID"]).StartsWith("2"))
+                        {
+                            txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
+                            btnApprover.Visible = true;
+                            btnSubmit.Visible = false;
+                            txtRemarksReview.Enabled = true;
+                            btnReject.Visible = true;
+                            txtRemarks.Enabled = true;
+                            btnFUpdate.Visible = false;
+                            ddlValuation.Enabled = false;
+                            ddlValuation.Visible = true;
+                            controlForwardHide();
+                        }
+
+                        if (((string)ViewState["HID"]) == "4")
+                        {
+                            txtSMC.BackColor = System.Drawing.Color.AliceBlue;
+                            txtDescription.BackColor = System.Drawing.Color.AliceBlue;
+                            txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
+                            txtRemarksReview.Visible = true;
+                            txtRemarksReview.Enabled = true;
+                            btnFUpdate.Visible = false;
+                            btnApprover.Visible = false;
+                            btnReject.Visible = true;
+                            txtRemarks.Enabled = false;
+                            btnSubmit.Visible = true;
+                            txtSMC.Enabled = true;
+                            txtSMC.Visible = true;
+                            //lblSap.Visible = false;
+                          ////  ddlValuation.Attributes.Add("disabled", "false");
+                            btnEdit.Visible = false;
+                            //dvVC.Visible = true;
+                            ddlValuation.Enabled = true;
+                            ddlValuation.Visible = true;
+                            divSMC.Visible = true;
+                            ///this.ddlValuation.Attributes.Add("disabled", "false");          
                             this.ddlServiceCategory.Attributes.Add("disabled", "");
                             this.ddlBUOM.Attributes.Add("disabled", "");
                             this.ddlMSG.Attributes.Add("disabled", "");
                             this.ddlDivision.Attributes.Add("disabled", "");
                             //this.ddlValuation.Attributes.Add("disabled", "");
 
-                            whenquerystringpass();
-                            BindsysApplicationStatus();
-                            GetHarcheyID();
+                            controlForwardHide();
+                        }
+                    }
+                    else
+                    {
+                        ds = obj.CheckSapID(Session["User_Name"].ToString());
+                        string Value = ds.Tables["SAPID"].Rows[0]["SAPID"].ToString();
+                        if (Value != "")
+                        {
+                            ////dvType.Visible = true;
                             getUserDetail();
-                            GetStatusHierachyCategoryControls();
-
-                            if (((string)ViewState["HID"]) == "1")
-                            {
-                                //txtDescription.BackColor = System.Drawing.Color.AliceBlue;
-                                txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
-                                //txtSMC.BackColor = System.Drawing.Color.AliceBlue;
-                                btnSave.Visible = false;
-                                btnCancel.Visible = false;
-                                btnSubmit.Visible = false;
-                                btnApprover.Visible = false;
-                                btnReject.Visible = false;
-                                txtRemarksReview.Enabled = true;
-                                txtRemarksReview.Visible = true;
-                                ddlValuation.Enabled = false;
-                                ddlValuation.Visible = true;
-                                controlForwardHide();
-                            }
-
-                            if (((string)ViewState["HID"]).StartsWith("2"))
-                            {
-                                txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
-                                btnApprover.Visible = true;
-                                btnSubmit.Visible = false;
-                                txtRemarksReview.Enabled = true;
-                                txtRemarksReview.Visible = true;
-                                btnReject.Visible = true;
-                                txtRemarks.Enabled = true;
-                                btnFUpdate.Visible = false;
-                                ddlValuation.Enabled = false;
-                                ddlValuation.Visible = true;
-                                controlForwardHide();
-                            }
-
-                            if (((string)ViewState["HID"]) == "4")
-                            {
-                                txtSMC.BackColor = System.Drawing.Color.AliceBlue;
-                                txtDescription.BackColor = System.Drawing.Color.AliceBlue;
-                                txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
-                                txtRemarksReview.Visible = true;
-                                txtRemarksReview.Enabled = true;
-                                btnFUpdate.Visible = false;
-                                btnApprover.Visible = false;
-                                btnReject.Visible = true;
-                                txtRemarks.Enabled = false;
-                                btnSubmit.Visible = true;
-                                txtSMC.Enabled = true;
-                                txtSMC.Visible = true;
-                                //lblSap.Visible = false;
-                                ////  ddlValuation.Attributes.Add("disabled", "false");
-                                btnEdit.Visible = false;
-                                //dvVC.Visible = true;
-                                ddlValuation.Enabled = true;
-                                ddlValuation.Visible = true;
-                                divSMC.Visible = true;
-                                ///this.ddlValuation.Attributes.Add("disabled", "false");          
-                                this.ddlServiceCategory.Attributes.Add("disabled", "");
-                                this.ddlBUOM.Attributes.Add("disabled", "");
-                                this.ddlMSG.Attributes.Add("disabled", "");
-                                this.ddlDivision.Attributes.Add("disabled", "");
-                                //this.ddlValuation.Attributes.Add("disabled", "");
-
-                                controlForwardHide();
-                            }
+                            getUser();
+                            getUserHOD();
+                            madatorycolor();
+                            GetTransactionID();
+                            BindPageLoad();
                         }
                         else
                         {
-                            ds = obj.CheckSapID(Session["User_Name"].ToString());
-                            if (ds.Tables["SAPID"].Rows.Count > 0)
-                            {
-                                string Value = ds.Tables["SAPID"].Rows[0]["SAPID"].ToString();
-                                if (Value != "")
-                                {
-                                    ////dvType.Visible = true;
-                                    getUserDetail();
-                                    getUser();
-                                    getUserHOD();
-                                    madatorycolor();
-                                    GetTransactionID();
-                                    BindPageLoad();
-                                }
-                                else
-                                {
-                                    Response.Redirect("~/AccessDenied.aspx");
-                                }
-                            }
-                            else
-                            {
-                                Response.Redirect("~/AccessDenied.aspx");
-                            }
-
+                            Response.Redirect("~/AccessDenied.aspx");
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        lblError.Text = "Page_Load" + ex.ToString();
-                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "Page_Load" + ex.ToString();
+                catch (Exception ex)
+                {
+                    ex.ToString();
+                }
             }
         }
 
 
         private void BindPageLoad()
         {
-            try
-            {
-                getUserSAPID();
-                BindDivision();
-                BindMaterialGroup();
-                BindServiceCategory();
-                // BindValuation();
-                BindBaseUnit();
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "BindPageLoad" + ex.ToString();
-            }
+            getUserSAPID();
+            BindDivision();
+            BindMaterialGroup();
+            BindServiceCategory();
+            // BindValuation();
+            BindBaseUnit();
+
         }
 
         ///////////////////////////////////////////////////BTN EVENT///////////////////////////////////////////////////////////
@@ -290,19 +266,19 @@ namespace DashboardProject.Modules.Finance
                     return;
                 }
 
-                //else if (txtRemarksReview.Text == "")
-                //{
+                else if (txtRemarksReview.Text == "")
+                {
 
-                //    lblmessage.Text = "";
-                //    lblUpError.Text = "Remarks should not be left blank!";
-                //    sucess.Visible = false;
-                //    error.Visible = true;
-                //    lblmessage.Focus();
-                //    sucess.Focus();
-                //    txtRemarksReview.BackColor = System.Drawing.Color.Red;
-                //    Page.MaintainScrollPositionOnPostBack = false;
-                //    return;
-                //}
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Remarks should not be left blank!";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    txtRemarksReview.BackColor = System.Drawing.Color.Red;
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    return;
+                }
 
                 else
                 {
@@ -349,9 +325,10 @@ namespace DashboardProject.Modules.Finance
                     madatorycolor();
                 }
             }
+
             catch (Exception ex)
             {
-                lblError.Text = "btnSave_Click" + ex.ToString();
+                lblError.Text = ex.ToString();
             }
         }
 
@@ -359,21 +336,22 @@ namespace DashboardProject.Modules.Finance
         {
             try
             {
-                //if (txtRemarksReview.Text == "")
-                //{
+                if (txtRemarksReview.Text == "")
+                {
 
-                //    lblmessage.Text = "";
-                //    lblUpError.Text = "Remarks should not be left blank!";
-                //    sucess.Visible = false;
-                //    error.Visible = true;
-                //    lblmessage.Focus();
-                //    sucess.Focus();
-                //    Page.MaintainScrollPositionOnPostBack = false;
-                //    txtRemarksReview.BackColor = System.Drawing.Color.Red;
-                //    whenquerystringpass();
-                //    // bindSLfromPlant();
-                //    return;
-                //}
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Remarks should not be left blank!";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    txtRemarksReview.BackColor = System.Drawing.Color.Red;
+                    whenquerystringpass();
+                    // bindSLfromPlant();
+                    return;
+                }
+                else
                 {
                     error.Visible = false;
                     lblUpError.Text = "";
@@ -389,9 +367,10 @@ namespace DashboardProject.Modules.Finance
                     whenquerystringpass();
                 }
             }
+
             catch (Exception ex)
             {
-                lblError.Text = "btnApprover_Click" + ex.ToString();
+                lblError.Text = "Approver" + ex.ToString();
             }
         }
 
@@ -402,19 +381,19 @@ namespace DashboardProject.Modules.Finance
             lblError.Text = "";
             try
             {
-                //if (txtRemarksReview.Text == "")
-                //{
+                if (txtRemarksReview.Text == "")
+                {
 
-                //    lblmessage.Text = "";
-                //    lblUpError.Text = "Remarks should not be left blank!";
-                //    sucess.Visible = false;
-                //    error.Visible = true;
-                //    lblmessage.Focus();
-                //    sucess.Focus();
-                //    Page.MaintainScrollPositionOnPostBack = false;
-                //    txtRemarksReview.BackColor = System.Drawing.Color.Red;
-                //    return;
-                //}
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Remarks should not be left blank!";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    txtRemarksReview.BackColor = System.Drawing.Color.Red;
+                    return;
+                }
 
                 if (ddlValuation.SelectedValue == "")
                 {
@@ -464,7 +443,7 @@ namespace DashboardProject.Modules.Finance
                         BindsysApplicationStatus();
                         GetStatusHierachyCategoryControls();
                         sucess.Visible = true;
-                        error.Visible = false;
+                        error.Visible = false;                    
                         this.ddlValuation.Attributes.Add("disabled", "");
                         Page.MaintainScrollPositionOnPostBack = false;
 
@@ -479,9 +458,8 @@ namespace DashboardProject.Modules.Finance
             }
             catch (Exception ex)
             {
-                lblError.Text = "btnSubmit_Click" + ex.ToString();
+                lblError.Text = "MDA" + ex.ToString();
             }
-
         }
 
         protected void btnReject_Click(object sender, EventArgs e)
@@ -513,25 +491,19 @@ namespace DashboardProject.Modules.Finance
                     lblEmail.Focus();
                 }
             }
+
             catch (Exception ex)
             {
-                lblError.Text = "btnReject_Click" + ex.ToString();
+                lblError.Text = "Reject" + ex.ToString();
             }
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            try
-            {
-                string url = HttpContext.Current.Request.Url.ToString();
-                Response.Redirect(url.ToString());
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "btnCancel_Click" + ex.ToString();
-            }
+            string url = HttpContext.Current.Request.Url.ToString();
+            Response.Redirect(url.ToString());
         }
-
+ 
         protected void btnEdit_Click(object sender, EventArgs e)
         {
 
@@ -539,84 +511,67 @@ namespace DashboardProject.Modules.Finance
 
         protected void UpdateSerialNumberAll()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+                using (SqlCommand cmdInsertEmail = new SqlCommand())//
                 {
-                    using (SqlCommand cmdInsertEmail = new SqlCommand())//
+
+                    cmdInsertEmail.CommandText = "UpdateSerialNo";
+                    cmdInsertEmail.CommandType = CommandType.StoredProcedure;
+                    cmdInsertEmail.Connection = connection;
+                    adp.SelectCommand = cmdInsertEmail;
+                    cmdInsertEmail.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
+                    cmdInsertEmail.Parameters.AddWithValue("@FormID", FormID.ToString());
+
+                    try
                     {
+                        connection.Open();
+                        cmdInsertEmail.ExecuteNonQuery();
 
-                        cmdInsertEmail.CommandText = "UpdateSerialNo";
-                        cmdInsertEmail.CommandType = CommandType.StoredProcedure;
-                        cmdInsertEmail.Connection = connection;
-                        adp.SelectCommand = cmdInsertEmail;
-                        cmdInsertEmail.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
-                        cmdInsertEmail.Parameters.AddWithValue("@FormID", FormID.ToString());
-
-                        try
-                        {
-                            connection.Open();
-                            cmdInsertEmail.ExecuteNonQuery();
-
-                        }
+                    }
 
 
-                        catch (SqlException ex)
-                        {
-                            lblError.Text = "UpdateSerialNumberAll" + ex.ToString();
-                        }
-                        finally
-                        {
-                            connection.Close();
-                        }
+                    catch (SqlException e)
+                    {
+                        lblError.Text = e.ToString();
+                    }
+                    finally
+                    {
+                        connection.Close();
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "UpdateSerialNumberAll" + ex.ToString();
             }
         }
 
         private void EMailForwardToForwarder()
         {
-            try
+
+            ds = obj.MailForwardToForwarder(ddlTransferUser.SelectedValue.ToString());
+
+            if (ds.Tables["MailForwardToForwarder"].Rows.Count > 0)
             {
-
-                ds = obj.MailForwardToForwarder(ddlTransferUser.SelectedValue.ToString());
-
-                if (ds.Tables["MailForwardToForwarder"].Rows.Count > 0)
+                DataTableReader reader = ds.Tables["MailForwardToForwarder"].CreateDataReader();
+                while (reader.Read())
                 {
-                    DataTableReader reader = ds.Tables["MailForwardToForwarder"].CreateDataReader();
-                    while (reader.Read())
-                    {
-
-                        url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
-                        urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
-                        TransactionID = lblMaxTransactionID.Text.ToString();
-                        FormCode = FormID.ToString();
-                        UserName = reader["DisplayName"].ToString();
-                        UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
-                        EmailSubject = "New Service Master Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + "has forward you a New Service Master Request against  Form ID #   " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required" + "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
-                        "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
-                        "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                        "<br>Service Master Application <br> Information Systems Dashboard";
-                        SessionUser = Session["User_Name"].ToString();
-                        DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-                        InsertEmail();
-                    }
-                }
-                //}
-                else
-                {
-
+                    string url = Request.Url.ToString();
+                    TransactionID = lblMaxTransactionID.Text.ToString();
+                    FormCode = FormID.ToString();
+                    UserName = reader["DisplayName"].ToString();
+                    UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
+                    EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " has forward you a New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL: <br><br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, <br>you do not need to reply to this message.<br>" +
+                        "<br>Material Master Application <br> Information Systems Dashboard";
+                    SessionUser = Session["User_Name"].ToString();
+                    DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                    InsertEmail();
                 }
             }
-            catch (Exception ex)
+            //}
+            else
             {
-                lblError.Text = "EMailForwardToForwarder" + ex.ToString();
+
             }
+
         }
 
         protected void btnForward_Click(object sender, EventArgs e)
@@ -676,7 +631,7 @@ namespace DashboardProject.Modules.Finance
             }
             catch (Exception ex)
             {
-                lblError.Text = "btnForward_Click" + ex.ToString();
+
             }
         }
 
@@ -684,71 +639,57 @@ namespace DashboardProject.Modules.Finance
 
         protected void getUser()
         {
-            try
-            {
-                cmd.CommandText = "";
-                cmd.CommandText = "Select user_name,DisplayName from tblusermodulecategory where Category like '%SMRF%'";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                conn.Open();
-                ddlEmailMDA.DataSource = cmd.ExecuteReader();
-                ddlEmailMDA.DataTextField = "DisplayName";
-                ddlEmailMDA.DataValueField = "user_name";
-                ddlEmailMDA.DataBind();
-                conn.Close();
+            cmd.CommandText = "";
+            cmd.CommandText = "select * from tbluserMDA where FormName = 'SMRF'";
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = conn;
+            conn.Open();
+            ddlEmailMDA.DataSource = cmd.ExecuteReader();
+            ddlEmailMDA.DataTextField = "DisplayName";
+            ddlEmailMDA.DataValueField = "user_name";
+            ddlEmailMDA.DataBind();
+            conn.Close();
 
 
-                cmd.CommandText = "";
-                cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserReviwer where FormName = 'SMRF'";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                conn.Open();
-                ddlReviewer.DataSource = cmd.ExecuteReader();
-                ddlReviewer.DataTextField = "DisplayName";
-                ddlReviewer.DataValueField = "user_name";
-                ddlReviewer.DataBind();
-                conn.Close();
+            cmd.CommandText = "";
+            cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserReviwer where FormName = 'SMRF'";
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = conn;
+            conn.Open();
+            ddlReviewer.DataSource = cmd.ExecuteReader();
+            ddlReviewer.DataTextField = "DisplayName";
+            ddlReviewer.DataValueField = "user_name";
+            ddlReviewer.DataBind();
+            conn.Close();
 
 
-                ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
-                ddlReviewer.Items.Insert(0, new ListItem("------Select------", "0"));
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "getUser" + ex.ToString();
-            }
+            ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
+            ddlReviewer.Items.Insert(0, new ListItem("------Select------", "0"));
+
         }
 
         protected void getTransferUser()
-        {
-            try
+        {//SELECT user_name,DisplayName FROM tbluser where user_name not in ('" + Session["User_Name"].ToString() + "')
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                //SELECT user_name,DisplayName FROM tbluser where user_name not in ('" + Session["User_Name"].ToString() + "')
-                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+                using (SqlCommand cmdgetTransferUser = new SqlCommand())
                 {
-                    using (SqlCommand cmdgetTransferUser = new SqlCommand())
-                    {
-                        cmdgetTransferUser.CommandText = @"SELECT User_name,DisplayName
+                    cmdgetTransferUser.CommandText = @"SELECT User_name,DisplayName
                                 FROM tbluser WHERE User_name not IN
                                ((SELECT RoutingID 
                                FROM [tbl_SysHierarchyControl]
 	                           where FormID = '" + FormID.ToString() + "' and TransactionID = '" + lblMaxTransactionID.Text + "'" +
-                                           "and Status = '06' ))";
-                        cmdgetTransferUser.CommandType = CommandType.Text;
-                        cmdgetTransferUser.Connection = conn;
-                        adp.SelectCommand = cmdgetTransferUser;
-                        adp.Fill(ds, "getTransferUser");
-                        ddlTransferUser.DataTextField = ds.Tables["getTransferUser"].Columns["DisplayName"].ToString(); // text field name of table dispalyed in dropdown
-                        ddlTransferUser.DataValueField = ds.Tables["getTransferUser"].Columns["User_name"].ToString();             // to retrive specific  textfield name 
-                        ddlTransferUser.DataSource = ds.Tables["getTransferUser"];      //assigning datasource to the dropdownlist
-                        ddlTransferUser.DataBind();  //binding dropdownlist
-                        ddlTransferUser.Items.Insert(0, new ListItem("------Select------", "0"));
-                    }
+                                       "and Status = '06' ))";
+                    cmdgetTransferUser.CommandType = CommandType.Text;
+                    cmdgetTransferUser.Connection = conn;
+                    adp.SelectCommand = cmdgetTransferUser;
+                    adp.Fill(ds, "getTransferUser");
+                    ddlTransferUser.DataTextField = ds.Tables["getTransferUser"].Columns["DisplayName"].ToString(); // text field name of table dispalyed in dropdown
+                    ddlTransferUser.DataValueField = ds.Tables["getTransferUser"].Columns["User_name"].ToString();             // to retrive specific  textfield name 
+                    ddlTransferUser.DataSource = ds.Tables["getTransferUser"];      //assigning datasource to the dropdownlist
+                    ddlTransferUser.DataBind();  //binding dropdownlist
+                    ddlTransferUser.Items.Insert(0, new ListItem("------Select------", "0"));
                 }
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "getTransferUser" + ex.ToString();
             }
         }
 
@@ -775,82 +716,60 @@ namespace DashboardProject.Modules.Finance
 
         protected void getUserSAPID()
         {
-            try
-            {
-                string strQuery = @"Select SAPID from tbluser where user_name = '" + Session["user_name"].ToString() + "'";
+            string strQuery = @"Select SAPID from tbluser where user_name = '" + Session["user_name"].ToString() + "'";
 
-                ds.Clear();
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = strQuery;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                conn.Open();
-                ds.Clear();
-                adp.Fill(ds, "tbl_UserSAPID");
+            ds.Clear();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = strQuery;
+            cmd.Connection = conn;
+            adp.SelectCommand = cmd;
+            conn.Open();
+            ds.Clear();
+            adp.Fill(ds, "tbl_UserSAPID");
 
-                string Value = ds.Tables["tbl_UserSAPID"].Rows[0]["SAPID"].ToString();
-                txtSAPID.Text = Value.ToString();
-                conn.Close();
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "getUserSAPID" + ex.ToString();
-            }
+            string Value = ds.Tables["tbl_UserSAPID"].Rows[0]["SAPID"].ToString();
+            txtSAPID.Text = Value.ToString();
+            conn.Close();
         }
 
         private void GetHarcheyID()
         {
+            ds = obj.GetHarachyCustomerMaster(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
+            dt = ds.Tables["HID"];
+            ViewState["HIDDataSet"] = dt;
 
-            try
+            if (ds.Tables["HID"].Rows.Count > 0)
             {
-                ds = obj.GetHarachyCustomerMaster(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
-                dt = ds.Tables["HID"];
-                ViewState["HIDDataSet"] = dt;
-
-                if (ds.Tables["HID"].Rows.Count > 0)
-                {
-                    lblMaxTransactionID.Text = ds.Tables["HID"].Rows[0]["TransactionID"].ToString();
-                    ViewState["HID"] = ds.Tables["HID"].Rows[0]["HierachyCategory"].ToString();
-                    ViewState["RoughtingUserID"] = ds.Tables["HID"].Rows[0]["RoughtingUserID"].ToString();
-                    ViewState["Sequance"] = ds.Tables["HID"].Rows[0]["Sequance"].ToString();
-                    ViewState["FormCreatedBy"] = ds.Tables["HID"].Rows[0]["CreatedBy"].ToString();
-                    ViewState["SerialNo"] = ds.Tables["HID"].Rows[0]["SerialNo"].ToString();
-                    ViewState["Status"] = ds.Tables["HID"].Rows[0]["Status"].ToString();
-                }
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "GetHarcheyID" + ex.ToString();
+                lblMaxTransactionID.Text = ds.Tables["HID"].Rows[0]["TransactionID"].ToString();
+                ViewState["HID"] = ds.Tables["HID"].Rows[0]["HierachyCategory"].ToString();
+                ViewState["RoughtingUserID"] = ds.Tables["HID"].Rows[0]["RoughtingUserID"].ToString();
+                ViewState["Sequance"] = ds.Tables["HID"].Rows[0]["Sequance"].ToString();
+                ViewState["FormCreatedBy"] = ds.Tables["HID"].Rows[0]["CreatedBy"].ToString();
+                ViewState["SerialNo"] = ds.Tables["HID"].Rows[0]["SerialNo"].ToString();
+                ViewState["Status"] = ds.Tables["HID"].Rows[0]["Status"].ToString();
             }
         }
 
         private void GetStatusHierachyCategoryControls()
         {
-            try
+            ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
+            if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
             {
-                ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
-                if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
-                {
-                    ViewState["StatusHierachyCategory"] = ds.Tables["tbl_SysHierarchyControl"].Rows[0]["Status"].ToString();
-                }
-                if (((string)ViewState["StatusHierachyCategory"]) == "01" || ((string)ViewState["StatusHierachyCategory"]) == "02" || ((string)ViewState["StatusHierachyCategory"]) == "03" || ((string)ViewState["StatusHierachyCategory"]) == "04" || ((string)ViewState["StatusHierachyCategory"]) == "00" || ((string)ViewState["StatusHierachyCategory"]) == "06")
-                {
-                    btnSave.Enabled = false;
-                    //btnApproved.Enabled = false;
-                    txtSMC.Attributes.Add("disabled", "true");
-                    ddlValuation.Attributes.Add("disabled", "true");
-                    btnReject.Attributes.Add("disabled", "true");
-                    btnApprover.Enabled = false;
-                    btnSubmit.Enabled = false;
-                    btnCancel.Enabled = false;
-                    ////btnSubmitFC.Enabled = false;
-                    txtRemarksReview.Attributes.Add("disabled", "true");
-                    ////disabledListItem();
-                }
+                ViewState["StatusHierachyCategory"] = ds.Tables["tbl_SysHierarchyControl"].Rows[0]["Status"].ToString();
             }
-            catch (Exception ex)
+            if (((string)ViewState["StatusHierachyCategory"]) == "01" || ((string)ViewState["StatusHierachyCategory"]) == "02" || ((string)ViewState["StatusHierachyCategory"]) == "03" || ((string)ViewState["StatusHierachyCategory"]) == "04" || ((string)ViewState["StatusHierachyCategory"]) == "00" || ((string)ViewState["StatusHierachyCategory"]) == "06")
             {
-                lblError.Text = "GetStatusHierachyCategoryControls" + ex.ToString();
+                btnSave.Enabled = false;
+                //btnApproved.Enabled = false;
+                txtSMC.Attributes.Add("disabled", "true");
+                ddlValuation.Attributes.Add("disabled", "true");
+                btnReject.Attributes.Add("disabled", "true");
+                btnApprover.Enabled = false;
+                btnSubmit.Enabled = false;
+                btnCancel.Enabled = false;
+                ////btnSubmitFC.Enabled = false;
+                txtRemarksReview.Attributes.Add("disabled", "true");
+                ////disabledListItem();
             }
         }
 
@@ -894,272 +813,113 @@ namespace DashboardProject.Modules.Finance
 
         protected void madatorycolor()
         {
-            try
-            {
-                ddlServiceCategory.BackColor = System.Drawing.Color.AliceBlue;
-                ddlBUOM.BackColor = System.Drawing.Color.AliceBlue;
-                ddlMSG.BackColor = System.Drawing.Color.AliceBlue;
-                ddlDivision.BackColor = System.Drawing.Color.AliceBlue;
-                ddlValuation.BackColor = System.Drawing.Color.AliceBlue;
-                txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "madatorycolor" + ex.ToString();
-            }
+            ddlServiceCategory.BackColor = System.Drawing.Color.AliceBlue;
+            ddlBUOM.BackColor = System.Drawing.Color.AliceBlue;
+            ddlMSG.BackColor = System.Drawing.Color.AliceBlue;
+            ddlDivision.BackColor = System.Drawing.Color.AliceBlue;
+            ddlValuation.BackColor = System.Drawing.Color.AliceBlue;
+            txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
+
         }
 
         private void ClearInputs(ControlCollection ctrls)
         {
-            try
+            foreach (Control ctrl in ctrls)
             {
-                foreach (Control ctrl in ctrls)
-                {
-                    if (ctrl is TextBox)
-                        ((TextBox)ctrl).Text = string.Empty;
-                    else if (ctrl is DropDownList)
-                        ((DropDownList)ctrl).ClearSelection();
-                    else if (ctrl is ListBox)
-                        ((ListBox)ctrl).ClearSelection();
+                if (ctrl is TextBox)
+                    ((TextBox)ctrl).Text = string.Empty;
+                else if (ctrl is DropDownList)
+                    ((DropDownList)ctrl).ClearSelection();
+                else if (ctrl is ListBox)
+                    ((ListBox)ctrl).ClearSelection();
 
 
-                    ClearInputs(ctrl.Controls);
-                }
-                Page.MaintainScrollPositionOnPostBack = false;
+                ClearInputs(ctrl.Controls);
             }
-            catch (Exception ex)
-            {
-                lblError.Text = "ClearInputs" + ex.ToString();
-            }
+            Page.MaintainScrollPositionOnPostBack = false;
         }
 
         protected void DisableControls(Control parent, bool State)
         {
-            try
+            foreach (Control c in parent.Controls)
             {
-                foreach (Control c in parent.Controls)
+                if (c is DropDownList)
                 {
-                    if (c is DropDownList)
-                    {
-                        ((DropDownList)(c)).Enabled = State;
-                    }
-
-                    if (c is TextBox)
-                    {
-                        ((TextBox)(c)).Enabled = State;
-                    }
-
-                    if (c is RadioButtonList)
-                    {
-                        ((RadioButtonList)(c)).Enabled = State;
-                    }
-
-                    if (c is ListBox)
-                    {
-                        ((ListBox)(c)).Enabled = State;
-                    }
-
-                    DisableControls(c, State);
-
-                    ClearInputscolor(Page.Controls);
-
+                    ((DropDownList)(c)).Enabled = State;
                 }
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "DisableControls" + ex.ToString();
+
+                if (c is TextBox)
+                {
+                    ((TextBox)(c)).Enabled = State;
+                }
+
+                if (c is RadioButtonList)
+                {
+                    ((RadioButtonList)(c)).Enabled = State;
+                }
+
+                if (c is ListBox)
+                {
+                    ((ListBox)(c)).Enabled = State;
+                }
+
+                DisableControls(c, State);
+
+                ClearInputscolor(Page.Controls);
+
             }
         }
 
         void ClearInputscolor(ControlCollection ctrlss)
         {
-            try
+            foreach (Control ctrlsss in ctrlss)
             {
-                foreach (Control ctrlsss in ctrlss)
-                {
-                    if (ctrlsss is TextBox)
-                        ((TextBox)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
-                    if (ctrlsss is DropDownList)
-                        ((DropDownList)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
-                    if (ctrlsss is ListBox)
-                        ((ListBox)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
-                    if (ctrlsss is RadioButtonList)
-                        ((RadioButtonList)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
-                    ClearInputscolor(ctrlsss.Controls);
-                }
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "ClearInputscolor" + ex.ToString();
+                if (ctrlsss is TextBox)
+                    ((TextBox)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
+                if (ctrlsss is DropDownList)
+                    ((DropDownList)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
+                if (ctrlsss is ListBox)
+                    ((ListBox)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
+                if (ctrlsss is RadioButtonList)
+                    ((RadioButtonList)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
+                ClearInputscolor(ctrlsss.Controls);
             }
         }
 
         protected void refreshpage()
         {
-            try
-            {
-                //ScriptManager.RegisterStartupScript(this, typeof(Page), "myscript", "setTimeout(function(){location.href='MeterialMaster.aspx';},15000);", true);
-                ClearInputs(Page.Controls);
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "refreshpage" + ex.ToString();
-            }
+            //ScriptManager.RegisterStartupScript(this, typeof(Page), "myscript", "setTimeout(function(){location.href='MeterialMaster.aspx';},15000);", true);
+            ClearInputs(Page.Controls);
         }
 
         private void BindsysApplicationStatus()
         {
-            try
-            {
-                ds = obj.BindsysApplicationStatus(lblMaxTransactionID.Text, FormID.ToString());
-                grdWStatus.DataSource = ds.Tables["BindsysApplicationStatus"];
-                grdWStatus.DataBind();
-                grdWStatus.Visible = true;
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "BindsysApplicationStatus" + ex.ToString();
-            }
+            ds = obj.BindsysApplicationStatus(lblMaxTransactionID.Text, FormID.ToString());
+            grdWStatus.DataSource = ds.Tables["BindsysApplicationStatus"];
+            grdWStatus.DataBind();
+            grdWStatus.Visible = true;
         }
 
         private void GetHarcheyNextData()
         {
-            try
+            ds = obj.GetHarachyNextData(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
+            if (ds.Tables["GetHarachyNextData"].Rows.Count > 0)
             {
-                ds = obj.GetHarachyNextData(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
-                if (ds.Tables["GetHarachyNextData"].Rows.Count > 0)
+                for (int i = 0; i < ds.Tables["GetHarachyNextData"].Rows.Count; i++)
                 {
-                    for (int i = 0; i < ds.Tables["GetHarachyNextData"].Rows.Count; i++)
+                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
                     {
-                        using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+                        using (SqlCommand cmdInsertEmail = new SqlCommand())
                         {
-                            using (SqlCommand cmdInsertEmail = new SqlCommand())
-                            {
-                                int value = (int)ds.Tables["GetHarachyNextData"].Rows[i]["Sequance"] + 1;
-                                cmdInsertEmail.Connection = connection;
-                                cmdInsertEmail.CommandType = CommandType.Text;
-                                cmdInsertEmail.CommandText = @"update sysWorkFlow set Sequance = '" + value + "' where TransactionID = '" + lblMaxTransactionID.Text + "' and FormID = '" + FormID.ToString() + "' and HierachyCategory = '" + ViewState["HID"].ToString() + "'  and RoughtingUserID like '" + ds.Tables["GetHarachyNextData"].Rows[i]["RoughtingUserID"] + "%'";
-
-                                try
-                                {
-                                    connection.Open();
-                                    cmdInsertEmail.ExecuteNonQuery();
-
-                                }
-                                catch (SqlException ex)
-                                {
-                                    lblError.Text = "GetHarcheyNextData" + ex.ToString();
-                                }
-                                finally
-                                {
-                                    connection.Close();
-                                }
-                            }
-                        }
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "GetHarcheyNextData" + ex.ToString();
-            }
-        }
-
-        protected void InsertTransferEmail()
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
-                {
-                    using (SqlCommand cmdInsertEmail = new SqlCommand())//
-                    {
-                        int ResultSequance = 0;
-                        int Value = Convert.ToInt32(ViewState["Sequance"]);
-
-                        int _Temp = Convert.ToInt32(1);
-
-                        ResultSequance = Value + _Temp;
-                        DateTime today = DateTime.Today;
-                        cmdInsertEmail.Connection = connection;
-                        cmdInsertEmail.CommandType = CommandType.Text;
-                        cmdInsertEmail.CommandText = @"INSERT INTO sysWorkFlow
-           (FormID
-           ,TransactionID
-           ,CreatedBy
-           ,HierachyCategory
-           ,RoughtingUserID
-           ,Sequance
-           ,DateTime) VALUES 
-          ('" + FormID.ToString() + "','" + lblMaxTransactionID.Text.ToString() + "','" + ViewState["FormCreatedBy"].ToString() + "','" + ViewState["HID"] + "','" + ddlTransferUser.SelectedValue.ToString() + "','" + ResultSequance + "','" + today.ToString() + "')";
-
-                        try
-                        {
-                            connection.Open();
-                            cmdInsertEmail.ExecuteNonQuery();
-
-                        }
-                        catch (SqlException ex)
-                        {
-                            lblError.Text = "InsertTransferEmail" + ex.ToString();
-                        }
-                        finally
-                        {
-                            connection.Close();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "InsertTransferEmail" + ex.ToString();
-            }
-
-        }
-
-        private void ApplicationStatus()
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
-                {
-                    using (SqlCommand cmdInsert = new SqlCommand())
-                    {
-
-
-                        string TransatcionID = "";
-                        string HierachyCategory = "";
-                        string Status = "";
-                        string Remarks = "";
-                        if (Request.QueryString["TransactionNo"].ToString() == null)
-                        {
-                            TransatcionID = ViewState["MaterialMaxID"].ToString();
-                            HierachyCategory = "1";
-                        }
-                        else
-                        {
-                            TransatcionID = lblMaxTransactionID.Text;
-                            HierachyCategory = ViewState["HID"].ToString();
-                            Status = ViewState["Status"].ToString();
-                            ds.Clear();
-                            cmdInsert.CommandText = "";
-                            cmdInsert.CommandText = @"SP_SYS_UpdateApplicationStatus";
-                            cmdInsert.CommandType = CommandType.StoredProcedure;
-                            cmdInsert.Connection = connection;
-                            cmdInsert.Parameters.AddWithValue("@FormID", FormID.ToString());
-                            cmdInsert.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text.ToString());
-                            cmdInsert.Parameters.AddWithValue("@HierachyCategory", HierachyCategory.ToString());
-                            cmdInsert.Parameters.AddWithValue("@RoughtingUserID", Session["User_Name"].ToString());
-                            cmdInsert.Parameters.AddWithValue("@Status", Status.ToString());
-                            cmdInsert.Parameters.AddWithValue("@TransferredTo", "");
-                            cmdInsert.Parameters.AddWithValue("@SerialNo", ViewState["SerialNo"]);
-                            cmdInsert.Parameters.AddWithValue("@Sequence", ViewState["Sequance"]);
-                            cmdInsert.Parameters.AddWithValue("@Remarks", txtRemarksReview.Text);
+                            int value = (int)ds.Tables["GetHarachyNextData"].Rows[i]["Sequance"] + 1;
+                            cmdInsertEmail.Connection = connection;
+                            cmdInsertEmail.CommandType = CommandType.Text;
+                            cmdInsertEmail.CommandText = @"update sysWorkFlow set Sequance = '" + value + "' where TransactionID = '" + lblMaxTransactionID.Text + "' and FormID = '" + FormID.ToString() + "' and HierachyCategory = '" + ViewState["HID"].ToString() + "'  and RoughtingUserID like '" + ds.Tables["GetHarachyNextData"].Rows[i]["RoughtingUserID"] + "%'";
 
                             try
                             {
                                 connection.Open();
-                                cmdInsert.ExecuteNonQuery();
+                                cmdInsertEmail.ExecuteNonQuery();
 
                             }
                             catch (SqlException e)
@@ -1173,75 +933,157 @@ namespace DashboardProject.Modules.Finance
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "ApplicationStatus" + ex.ToString();
+
             }
         }
 
+        protected void InsertTransferEmail()
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            {
+                using (SqlCommand cmdInsertEmail = new SqlCommand())//
+                {
+                    int ResultSequance = 0;
+                    int Value = Convert.ToInt32(ViewState["Sequance"]);
+
+                    int _Temp = Convert.ToInt32(1);
+
+                    ResultSequance = Value + _Temp;
+                    DateTime today = DateTime.Today;
+                    cmdInsertEmail.Connection = connection;
+                    cmdInsertEmail.CommandType = CommandType.Text;
+                    cmdInsertEmail.CommandText = @"INSERT INTO sysWorkFlow
+           (FormID
+           ,TransactionID
+           ,CreatedBy
+           ,HierachyCategory
+           ,RoughtingUserID
+           ,Sequance
+           ,DateTime) VALUES 
+          ('" + FormID.ToString() + "','" + lblMaxTransactionID.Text.ToString() + "','" + ViewState["FormCreatedBy"].ToString() + "','" + ViewState["HID"] + "','" + ddlTransferUser.SelectedValue.ToString() + "','" + ResultSequance + "','" + today.ToString() + "')";
+
+                    try
+                    {
+                        connection.Open();
+                        cmdInsertEmail.ExecuteNonQuery();
+
+                    }
+                    catch (SqlException e)
+                    {
+                        lblError.Text = e.ToString();
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+
+        }
+
+        private void ApplicationStatus()
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            {
+                using (SqlCommand cmdInsert = new SqlCommand())
+                {
+
+
+                    string TransatcionID = "";
+                    string HierachyCategory = "";
+                    string Status = "";
+                    string Remarks = "";
+                    if (Request.QueryString["TransactionNo"].ToString() == null)
+                    {
+                        TransatcionID = ViewState["MaterialMaxID"].ToString();
+                        HierachyCategory = "1";
+                    }
+                    else
+                    {
+                        TransatcionID = lblMaxTransactionID.Text;
+                        HierachyCategory = ViewState["HID"].ToString();
+                        Status = ViewState["Status"].ToString();
+                        ds.Clear();
+                        cmdInsert.CommandText = "";
+                        cmdInsert.CommandText = @"SP_SYS_UpdateApplicationStatus";
+                        cmdInsert.CommandType = CommandType.StoredProcedure;
+                        cmdInsert.Connection = connection;
+                        cmdInsert.Parameters.AddWithValue("@FormID", FormID.ToString());
+                        cmdInsert.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text.ToString());
+                        cmdInsert.Parameters.AddWithValue("@HierachyCategory", HierachyCategory.ToString());
+                        cmdInsert.Parameters.AddWithValue("@RoughtingUserID", Session["User_Name"].ToString());
+                        cmdInsert.Parameters.AddWithValue("@Status", Status.ToString());
+                        cmdInsert.Parameters.AddWithValue("@TransferredTo", "");
+                        cmdInsert.Parameters.AddWithValue("@SerialNo", ViewState["SerialNo"]);
+                        cmdInsert.Parameters.AddWithValue("@Sequence", ViewState["Sequance"]);
+                        cmdInsert.Parameters.AddWithValue("@Remarks", txtRemarksReview.Text);
+
+                        try
+                        {
+                            connection.Open();
+                            cmdInsert.ExecuteNonQuery();
+
+                        }
+                        catch (SqlException e)
+                        {
+                            lblError.Text = e.ToString();
+                        }
+                        finally
+                        {
+                            connection.Close();
+                        }
+                    }
+                }
+            }
+        }
 
         void ClearInputss(ControlCollection ctrlss)
         {
-            try
+            foreach (Control ctrlsss in ctrlss)
             {
-                foreach (Control ctrlsss in ctrlss)
-                {
-                    if (ctrlsss is TextBox)
-                        ((TextBox)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
-                    if (ctrlsss is DropDownList)
-                        ((DropDownList)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
-                    if (ctrlsss is ListBox)
-                        ((ListBox)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
-                    ClearInputss(ctrlsss.Controls);
-                }
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "ClearInputss" + ex.ToString();
+                if (ctrlsss is TextBox)
+                    ((TextBox)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
+                if (ctrlsss is DropDownList)
+                    ((DropDownList)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
+                if (ctrlsss is ListBox)
+                    ((ListBox)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
+                ClearInputss(ctrlsss.Controls);
             }
         }
 
         private void whenquerystringpass()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+                using (SqlCommand cmdGetData = new SqlCommand())
                 {
-                    using (SqlCommand cmdGetData = new SqlCommand())
-                    {
-                        conn.Close();
-                        string a = Request.QueryString["TransactionNo"].ToString();
-                        cmdGetData.CommandText = @"Select * from tbl_FI_ServiceMasterRequest
+                    conn.Close();
+                    string a = Request.QueryString["TransactionNo"].ToString();
+                    cmdGetData.CommandText = @"Select * from tbl_FI_ServiceMasterRequest
                             where TransactionMain = '" + a.ToString() + "'";
-                        cmdGetData.CommandType = CommandType.Text;
-                        cmdGetData.Connection = connection;
+                    cmdGetData.CommandType = CommandType.Text;
+                    cmdGetData.Connection = connection;
 
-                        adp.SelectCommand = cmdGetData;
-                        dt.Clear();
-                        adp.Fill(dt);
-                        ViewState["DATA"] = dt;
-                        DataTableReader reader = dt.CreateDataReader();
-                        while (reader.Read())
-                        {
-                            reader.Read();
-                            lblMaxTransactionNo.Text = reader[0].ToString();
-                            lblMaxTransactionID.Text = reader[1].ToString();
-                            txtSMC.Text = reader[2].ToString();
-                            txtSAPID.Text = reader[3].ToString();
-                            txtDescription.Text = reader["Description"].ToString();
-                            ddlServiceCategory.SelectedValue = reader["ServiceCategory"].ToString();
-                            ddlBUOM.SelectedValue = reader["BUOM"].ToString();
-                            ddlMSG.SelectedValue = reader["MSG"].ToString();
-                            ddlValuation.SelectedValue = reader["ValuationClass"].ToString();
-                        }
-                        reader.Close();
+                    adp.SelectCommand = cmdGetData;
+                    dt.Clear();
+                    adp.Fill(dt);
+                    ViewState["DATA"] = dt;
+                    DataTableReader reader = dt.CreateDataReader();
+                    while (reader.Read())
+                    {
+                        reader.Read();
+                        lblMaxTransactionNo.Text = reader[0].ToString();
+                        lblMaxTransactionID.Text = reader[1].ToString();
+                        txtSMC.Text = reader[2].ToString();
+                        txtSAPID.Text = reader[3].ToString();
+                        txtDescription.Text = reader["Description"].ToString();
+                        ddlServiceCategory.SelectedValue = reader["ServiceCategory"].ToString();
+                        ddlBUOM.SelectedValue = reader["BUOM"].ToString();
+                        ddlMSG.SelectedValue = reader["MSG"].ToString();
+                        ddlValuation.SelectedValue = reader["ValuationClass"].ToString();
                     }
+                    reader.Close();
                 }
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "whenquerystringpass" + ex.ToString();
             }
         }
 
@@ -1262,150 +1104,109 @@ namespace DashboardProject.Modules.Finance
             }
             catch (Exception ex)
             {
-                lblError.Text = "controlForwardHide" + ex.ToString();
+                lblError.Text = "Ha ID Error" + ex.ToString();
             }
         }
 
         private void BindServiceCategory()
         {
-            try
-            {
-                ds = objFK.BindServiceCategory();
-                ddlServiceCategory.DataTextField = ds.Tables["tbl_ServiceCategory"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
-                ddlServiceCategory.DataValueField = ds.Tables["tbl_ServiceCategory"].Columns["ServiceCategoryCode"].ToString();             // to retrive specific  textfield name 
-                ddlServiceCategory.DataSource = ds.Tables["tbl_ServiceCategory"];      //assigning datasource to the dropdownlist
-                ddlServiceCategory.DataBind();  //binding dropdownlist
-                ddlServiceCategory.Items.Insert(0, new ListItem("------Select------", "0"));
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "BindServiceCategory" + ex.ToString();
-            }
+            ds = objFK.BindServiceCategory();
+            ddlServiceCategory.DataTextField = ds.Tables["tbl_ServiceCategory"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
+            ddlServiceCategory.DataValueField = ds.Tables["tbl_ServiceCategory"].Columns["ServiceCategoryCode"].ToString();             // to retrive specific  textfield name 
+            ddlServiceCategory.DataSource = ds.Tables["tbl_ServiceCategory"];      //assigning datasource to the dropdownlist
+            ddlServiceCategory.DataBind();  //binding dropdownlist
+            ddlServiceCategory.Items.Insert(0, new ListItem("------Select------", "0"));
         }
 
         private void BindBaseUnit()
         {
-            try
-            {
-                ds = objFK.BindBaseUnit();
-                ddlBUOM.DataTextField = ds.Tables["tblBaseunitofmeasure"].Columns["Baseuom"].ToString(); // text field name of table dispalyed in dropdown
-                ddlBUOM.DataValueField = ds.Tables["tblBaseunitofmeasure"].Columns["Baseuom"].ToString();             // to retrive specific  textfield name 
-                ddlBUOM.DataSource = ds.Tables["tblBaseunitofmeasure"];      //assigning datasource to the dropdownlist
-                ddlBUOM.DataBind();  //binding dropdownlist
-                ddlBUOM.Items.Insert(0, new ListItem("------Select------", "0"));
-                ddlBUOM.SelectedValue = "AU";
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "BindBaseUnit" + ex.ToString();
-            }
+            ds = objFK.BindBaseUnit();
+            ddlBUOM.DataTextField = ds.Tables["tblBaseunitofmeasure"].Columns["Baseuom"].ToString(); // text field name of table dispalyed in dropdown
+            ddlBUOM.DataValueField = ds.Tables["tblBaseunitofmeasure"].Columns["Baseuom"].ToString();             // to retrive specific  textfield name 
+            ddlBUOM.DataSource = ds.Tables["tblBaseunitofmeasure"];      //assigning datasource to the dropdownlist
+            ddlBUOM.DataBind();  //binding dropdownlist
+            ddlBUOM.Items.Insert(0, new ListItem("------Select------", "0"));
+            ddlBUOM.SelectedValue = "AU";
         }
 
         private void BindMaterialGroup()
         {
-            try
-            {
-                ds = objFK.BindMaterialService();
-                ddlMSG.DataTextField = ds.Tables["tblMaterialgrp"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
-                ddlMSG.DataValueField = ds.Tables["tblMaterialgrp"].Columns["Materialgrpcode"].ToString();             // to retrive specific  textfield name 
-                ddlMSG.DataSource = ds.Tables["tblMaterialgrp"];      //assigning datasource to the dropdownlist
-                ddlMSG.DataBind();  //binding dropdownlist
-                ddlMSG.Items.Insert(0, new ListItem("------Select------", "0"));
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "BindMaterialGroup" + ex.ToString();
-            }
+            ds = objFK.BindMaterialService();
+            ddlMSG.DataTextField = ds.Tables["tblMaterialgrp"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
+            ddlMSG.DataValueField = ds.Tables["tblMaterialgrp"].Columns["Materialgrpcode"].ToString();             // to retrive specific  textfield name 
+            ddlMSG.DataSource = ds.Tables["tblMaterialgrp"];      //assigning datasource to the dropdownlist
+            ddlMSG.DataBind();  //binding dropdownlist
+            ddlMSG.Items.Insert(0, new ListItem("------Select------", "0"));
         }
 
         private void BindDivision()
         {
-            try
-            {
-                ds = objFK.BindDivision();
-                ddlDivision.DataTextField = ds.Tables["tblDivision"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
-                ddlDivision.DataValueField = ds.Tables["tblDivision"].Columns["Divisioncode"].ToString();             // to retrive specific  textfield name 
-                ddlDivision.DataSource = ds.Tables["tblDivision"];      //assigning datasource to the dropdownlist
-                ddlDivision.DataBind();  //binding dropdownlist
-                ddlDivision.Items.Insert(0, new ListItem("------Select------", "0"));
-                ddlDivision.SelectedValue = "10";
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "BindDivision" + ex.ToString();
-            }
+            ds = objFK.BindDivision();
+            ddlDivision.DataTextField = ds.Tables["tblDivision"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
+            ddlDivision.DataValueField = ds.Tables["tblDivision"].Columns["Divisioncode"].ToString();             // to retrive specific  textfield name 
+            ddlDivision.DataSource = ds.Tables["tblDivision"];      //assigning datasource to the dropdownlist
+            ddlDivision.DataBind();  //binding dropdownlist
+            ddlDivision.Items.Insert(0, new ListItem("------Select------", "0"));
+            ddlDivision.SelectedValue = "10";
         }
 
         private void BindValuationMethod()
         {
-            try
-            {
-                ds.Clear();
-                //ds = objFK.BindValuation();
-                //ddlValuationClass.DataTextField = ds.Tables["tblValuationClass"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
-                //ddlValuationClass.DataValueField = ds.Tables["tblValuationClass"].Columns["ValuationClasscode"].ToString();             // to retrive specific  textfield name 
-                //ddlValuationClass.DataSource = ds.Tables["tblValuationClass"];      //assigning datasource to the dropdownlist
-                //ddlValuationClass.DataBind();  //binding dropdownlist
+            ds.Clear();
+            //ds = objFK.BindValuation();
+            //ddlValuationClass.DataTextField = ds.Tables["tblValuationClass"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
+            //ddlValuationClass.DataValueField = ds.Tables["tblValuationClass"].Columns["ValuationClasscode"].ToString();             // to retrive specific  textfield name 
+            //ddlValuationClass.DataSource = ds.Tables["tblValuationClass"];      //assigning datasource to the dropdownlist
+            //ddlValuationClass.DataBind();  //binding dropdownlist
 
 
-                cmd.CommandText = "";
-                cmd.CommandText = "select  ValuationClasscode,ValuationClasscode +' '+ Description as Description from tblValuationClass";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                conn.Open();
-                ddlValuation.DataSource = cmd.ExecuteReader();
-                ddlValuation.DataTextField = "Description";
-                ddlValuation.DataValueField = "ValuationClasscode";
-                ddlValuation.DataBind();
-                conn.Close();
+            cmd.CommandText = "";
+            cmd.CommandText = "select  ValuationClasscode,ValuationClasscode +' '+ Description as Description from tblValuationClass";
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = conn;
+            conn.Open();
+            ddlValuation.DataSource = cmd.ExecuteReader();
+            ddlValuation.DataTextField = "Description";
+            ddlValuation.DataValueField = "ValuationClasscode";
+            ddlValuation.DataBind();
+            conn.Close();
 
-                ddlValuation.Items.Insert(0, new ListItem("------Select------", ""));
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "BindValuationMethod" + ex.ToString();
-            }
+            ddlValuation.Items.Insert(0, new ListItem("------Select------", ""));
+
         }
 
         protected void InsertEmail()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+                using (SqlCommand cmdInsertEmail = new SqlCommand())
                 {
-                    using (SqlCommand cmdInsertEmail = new SqlCommand())
+                    cmdInsertEmail.Connection = connection;
+                    cmdInsertEmail.CommandType = CommandType.StoredProcedure;
+                    cmdInsertEmail.CommandText = @"SP_InsertEmail";
+
+                    try
                     {
-                        cmdInsertEmail.Connection = connection;
-                        cmdInsertEmail.CommandType = CommandType.StoredProcedure;
-                        cmdInsertEmail.CommandText = @"SP_InsertEmail";
+                        connection.Open();
+                        cmdInsertEmail.Parameters.AddWithValue("@TransactionID", TransactionID.ToString());
+                        cmdInsertEmail.Parameters.AddWithValue("@FormCode", FormID.ToString());
+                        cmdInsertEmail.Parameters.AddWithValue("@UserName", UserName.ToString());
+                        cmdInsertEmail.Parameters.AddWithValue("@UserEmail", UserEmail.ToString());
+                        cmdInsertEmail.Parameters.AddWithValue("@EmailSubject", EmailSubject.ToString());
+                        cmdInsertEmail.Parameters.AddWithValue("@EmailBody", EmailBody.ToString());
+                        cmdInsertEmail.Parameters.AddWithValue("@SessionUser", SessionUser.ToString());
+                        cmdInsertEmail.ExecuteNonQuery();
 
-                        try
-                        {
-                            connection.Open();
-                            cmdInsertEmail.Parameters.AddWithValue("@TransactionID", TransactionID.ToString());
-                            cmdInsertEmail.Parameters.AddWithValue("@FormCode", FormID.ToString());
-                            cmdInsertEmail.Parameters.AddWithValue("@UserName", UserName.ToString());
-                            cmdInsertEmail.Parameters.AddWithValue("@UserEmail", UserEmail.ToString());
-                            cmdInsertEmail.Parameters.AddWithValue("@EmailSubject", EmailSubject.ToString());
-                            cmdInsertEmail.Parameters.AddWithValue("@EmailBody", EmailBody.ToString());
-                            cmdInsertEmail.Parameters.AddWithValue("@SessionUser", SessionUser.ToString());
-                            cmdInsertEmail.ExecuteNonQuery();
-
-                        }
-                        catch (SqlException ex)
-                        {
-                            lblError.Text = "InsertEmail" + ex.ToString();
-                        }
-                        finally
-                        {
-                            connection.Close();
-                        }
+                    }
+                    catch (SqlException e)
+                    {
+                        lblError.Text = e.ToString();
+                    }
+                    finally
+                    {
+                        connection.Close();
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "InsertEmail" + ex.ToString();
             }
 
         }
@@ -1427,19 +1228,14 @@ namespace DashboardProject.Modules.Finance
                 DataTableReader reader = ds.Tables["MailForwardUserToApprover"].CreateDataReader();
                 while (reader.Read())
                 {
-                   
-                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
-                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                    url = HttpContext.Current.Request.Url.AbsoluteUri + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
                     TransactionID = reader["TransactionID"].ToString();
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "Service Master Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + "has sent you a Service Master Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required" +
-                        "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() +"</a> <br> <br>" +
-                        "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
-                        "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                        "<br>Service Master Application <br> Information Systems Dashboard";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " has sent you a Service Master Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL: <br><br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, <br>you do not need to reply to this message.<br>" +
+                        "<br>Service Master Finance Application<br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     //   InsertEmail();
@@ -1465,19 +1261,14 @@ namespace DashboardProject.Modules.Finance
                 DataTableReader reader = ds.Tables["MailForwardToAllFromMDA"].CreateDataReader();
                 while (reader.Read())
                 {
-                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
-                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                    url = Request.Url.ToString();
                     TransactionID = reader["TransactionID"].ToString();
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "Service Master Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br><br>  SAP material code " + txtSMC.Text.Trim() + 
-                        " has been issued against Service Master Request Form ID # " + lblMaxTransactionID.Text.ToString() +
-                        "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() +"</a> <br> <br>" +
-                        "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
-                        "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                        "<br>Service Master Application <br> Information Systems Dashboard";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br><br>  SAP material code " + txtSMC.Text.Trim() + " has been issued against Service Master Request Form ID # " + lblMaxTransactionID.Text.ToString() + " <br><br> The form can be reviewed at the following URL:<br> <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>  This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                    "<br>Service Master Finance Application <br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     //   InsertEmail();
@@ -1512,20 +1303,14 @@ namespace DashboardProject.Modules.Finance
             {
                 while (reader.Read())
                 {
-                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
-                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                    url = Request.Url.ToString();
                     TransactionID = reader["TransactionID"].ToString();
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "Service Master Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A Service Master Request against  Form ID #  " + lblMaxTransactionID.Text.ToString() +
-                        " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to provide authorization for the information" +
-                        "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() +"</a> <br> <br>" +
-                        "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
-                        "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                        "<br>Service Master Application <br> Information Systems Dashboard";
-
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A Service Master Request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to provide authorization for the information on the following URL: <br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                        "<br>Service Master Finance Application<br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     //   InsertEmail();
@@ -1547,19 +1332,14 @@ namespace DashboardProject.Modules.Finance
                     while (reader.Read())
                     {
 
-                        url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
-                        urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                        url = Request.Url.ToString();
                         TransactionID = reader["TransactionID"].ToString();
                         FormCode = reader["FormID"].ToString();
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                         EmailSubject = "Service Master Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                       EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A Service Master Request against Form ID #  " + lblMaxTransactionID.Text.ToString() + 
-                           " has been approved by " + ViewState["SessionUser"].ToString() + " <br><br> You can Create Code for this person " +
-                           "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() +"</a> <br> <br>" +
-                           "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
-                           "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                           "<br>Service Master Application <br> Information Systems Dashboard";
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A Service Master Request against Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br><br> You can authorized a person on the following URL:<br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message.<br>" +
+                             "Service Master Finance Application<br> Information Systems Dashboard";
                         SessionUser = Session["User_Name"].ToString();
                         DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                         InsertEmail();
@@ -1583,20 +1363,16 @@ namespace DashboardProject.Modules.Finance
                 DataTableReader reader = ds.Tables["MailForwardToUserOnRejection"].CreateDataReader();
                 while (reader.Read())
                 {
-                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
-                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                    url = Request.Url.ToString();
                     TransactionID = reader["TransactionID"].ToString();
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "Service Master Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>  Your Service Master Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + 
-                        " has been disapproved by  " + ViewState["SessionUser"].ToString() + " <br><br> The reason of rejection is given below you can review your form " +
-                        "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() +"</a> <br> <br>" +
-                        "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
-                        "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                        "<br>Service Master Application <br> Information Systems Dashboard";
-
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>  Your Service Master Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been disapproved by  " + ViewState["SessionUser"].ToString() + " <br><br> The reason of rejection is given below you can review your form on following url:<br><br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a>" +
+                            "<br> <br> <br><b>Reject Remarks: " + txtRemarksReview.Text + "</b> " +
+                          " <br> <br> This is an auto-generated email from IS Dashboard, you do not need to reply to this message.<br>" +
+                        "<br>Service Master Finance Application<br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
