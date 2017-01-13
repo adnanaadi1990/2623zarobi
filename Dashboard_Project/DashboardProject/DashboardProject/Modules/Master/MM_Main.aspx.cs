@@ -91,8 +91,12 @@ namespace ITLDashboard.Modules.Master
         }
         protected void getFormsName()
         {
+            string ColumnName = "";
             ds = FIELDV.AllowForms(Session["User_Name"].ToString(), Session["Application"].ToString());
-            string ColumnName = ds.Tables["AllowForm"].Columns[0].ColumnName;
+            if (ds.Tables["AllowForm"].Columns.Contains("Restricted"))
+            {
+                ColumnName = ds.Tables["AllowForm"].Columns["Restricted"].ColumnName;
+            }
             if (ds.Tables["AllowForm"].Rows.Count > 0)
             {
                 if (ColumnName.ToString() != "Restricted")
@@ -116,7 +120,6 @@ namespace ITLDashboard.Modules.Master
                 Response.Redirect("~/AccessDenied.aspx");
             }
         }
-
         protected void btnFG_Click(object sender, ImageClickEventArgs e)
         {
             Session["Application"] = "FG";

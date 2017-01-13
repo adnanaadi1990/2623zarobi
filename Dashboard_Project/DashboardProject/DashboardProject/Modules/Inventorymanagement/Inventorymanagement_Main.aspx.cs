@@ -51,9 +51,12 @@ namespace ITLDashboard.Modules.Inventorymanagement
         }
         protected void getFormsName()
         {
-            ds.Clear();
+            string ColumnName = "";
             ds = FIELDV.AllowForms(Session["User_Name"].ToString(), Session["Application"].ToString());
-            string ColumnName = ds.Tables["AllowForm"].Columns[0].ColumnName;
+            if (ds.Tables["AllowForm"].Columns.Contains("Restricted"))
+            {
+                ColumnName = ds.Tables["AllowForm"].Columns["Restricted"].ColumnName;
+            }
             if (ds.Tables["AllowForm"].Rows.Count > 0)
             {
                 if (ColumnName.ToString() != "Restricted")
@@ -77,7 +80,6 @@ namespace ITLDashboard.Modules.Inventorymanagement
                 Response.Redirect("~/AccessDenied.aspx");
             }
         }
-      
         protected void btnDS_Click(object sender, ImageClickEventArgs e)
         {
             Session["Application"] = "DSA";

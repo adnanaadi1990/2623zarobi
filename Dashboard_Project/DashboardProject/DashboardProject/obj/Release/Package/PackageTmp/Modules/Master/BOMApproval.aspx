@@ -284,7 +284,7 @@
                          <div class="col-sm-12">
 
                                                         <asp:GridView ID="GridView1" CssClass="table table-striped table-bordered footable" runat="server" AutoGenerateColumns="false" Width="1200px"
-                                                            AlternatingRowStyle-BackColor="#f05f40" HeaderStyle-BackColor="" ShowFooter="true" OnRowDataBound="OnRowDataBound" >
+                                                            AlternatingRowStyle-BackColor="#f05f40" HeaderStyle-BackColor="" ShowFooter="true" OnRowDataBound="OnRowDataBound" OnRowDeleting="GridView1_RowDeleting" >
                                                             <Columns>
                                                                 <asp:TemplateField ShowHeader="False">
                                                                     <ItemTemplate>
@@ -485,7 +485,7 @@
                                   <div class="col-sm-2"></div>
                                   <div class="col-sm-2"></div>
                                   <div class="col-sm-2"></div>
-                                  <div class="col-sm-4">Total Quantity: <asp:Label ID="lblSum" runat="server" CssClass="form-control"></asp:Label></div>
+                                  <div class="col-sm-4">Total Base Quantity: <asp:Label ID="lblSum" runat="server" CssClass="form-control"></asp:Label></div>
                                 </div>
                         </div>
                     </div>

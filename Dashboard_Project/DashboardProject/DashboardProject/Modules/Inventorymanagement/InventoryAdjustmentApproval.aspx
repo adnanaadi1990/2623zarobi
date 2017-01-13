@@ -115,7 +115,7 @@
 
             <div class="row">
 
-                <div class="col-sm-7" id="pnlHD">
+                <div class="col-sm-12" id="pnlHD">
                     <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Inventory Adjustment Approval</p>
                 </div>
             </div>
@@ -200,6 +200,11 @@
                           <div class="col-sm-4">
                                 Head Of Deparment
                                        <asp:Label ID="lblHOD" runat="server" CssClass="form-control"></asp:Label>
+                            </div>
+                                  <div class="col-sm-4">
+                               Director
+                                      <asp:DropDownList ID="ddlDirector" CssClass="form-control" runat="server">
+                                       </asp:DropDownList>
                             </div>
      
                              
