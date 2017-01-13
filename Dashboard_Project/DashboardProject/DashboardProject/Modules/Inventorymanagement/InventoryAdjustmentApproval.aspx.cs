@@ -352,6 +352,18 @@ namespace DashboardProject.Modules.Inventorymanagement
                 ddlEmailMDA.DataBind();
                 conn.Close();
                 ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
+                cmd.CommandText = "SP_getDirectorUser";
+                //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = conn;
+                conn.Open();
+                ddlDirector.DataSource = cmd.ExecuteReader();
+                ddlDirector.DataTextField = "DisplayName";
+                ddlDirector.DataValueField = "user_name";
+                ddlDirector.DataBind();
+                conn.Close();
+                ddlDirector.Items.Insert(0, new ListItem("------Select------", "0"));
+                ddlDirector.SelectedIndex = 1;
             }
             catch (Exception ex)
             {
