@@ -471,10 +471,7 @@ namespace DashboardProject.Modules.Finance
             ddlNotification.DataValueField = "user_name";
             ddlNotification.DataBind();
             conn.Close();
-            for (int i = 0; i < ddlNotification.Items.Count; i++)
-            {
-                ddlNotification.Items[i].Selected = true;
-            }
+           
 
         }
 

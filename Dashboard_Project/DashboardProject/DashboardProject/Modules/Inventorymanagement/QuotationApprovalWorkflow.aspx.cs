@@ -1068,7 +1068,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                         FormCode = reader["FormID"].ToString();
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
-                        EmailSubject = "Quotation Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
+                        EmailSubject = "Documnet No Created Quotation Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
                         EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ",<br> <br>  Documnet No " + txtDocNo.Text + " has been  created by " + ViewState["SessionUser"].ToString().Replace(".", " ") + " Quotation Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + " <br><br> The form can be reviewed at the following URL: " +
                         "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                         "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +

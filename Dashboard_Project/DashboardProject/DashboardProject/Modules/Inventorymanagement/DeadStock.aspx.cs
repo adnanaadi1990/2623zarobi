@@ -1082,5 +1082,15 @@ namespace ITLDashboard.Modules.Inventorymanagement
         {
 
         }
+
+        protected void btnDownload_Click(object sender, EventArgs e)
+        {
+            FilePath = "~/DashboardDocument/DeadStockDoc/" + "DeadStock_" + lblFileName.Text.ToString();
+            string pathDelete = Server.MapPath(FilePath.ToString());
+            Response.ContentType = "Application/pdf";
+            Response.AppendHeader("Content-Disposition", "attachment; filename=Your_Pdf_File.pdf");
+            Response.TransmitFile(pathDelete.ToString());
+            Response.End(); 
+        }
         }
     }

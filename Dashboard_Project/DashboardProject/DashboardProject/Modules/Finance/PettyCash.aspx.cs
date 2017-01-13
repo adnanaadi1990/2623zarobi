@@ -266,44 +266,45 @@ namespace ITLDashboard.Modules.Finance
 
         protected void btnUpload_Click(object sender, EventArgs e)
         {
-            try{
-            lblmessage.Text = "";
-            error.Visible = false;
-            sucess.Visible = false;
-            lblError.Text = "";
-            lblUpError.Text = "";
-            bool hasfile = fleUpload.HasFile;
-            filename = Path.GetFileName(fleUpload.PostedFile.FileName);
-            if (fleUpload.FileName == "")
+            try
             {
-                lblError.Text = "Please select file.";
-            }
-            else
-            {
-                string fileExt = Path.GetExtension(fleUpload.PostedFile.FileName);
-                if (fileExt != ".pdf")
+                lblmessage.Text = "";
+                error.Visible = false;
+                sucess.Visible = false;
+                lblError.Text = "";
+                lblUpError.Text = "";
+                bool hasfile = fleUpload.HasFile;
+                filename = Path.GetFileName(fleUpload.PostedFile.FileName);
+                if (fleUpload.FileName == "")
                 {
-                    lblError.Text = "Please select only PDF file.";
+                    lblError.Text = "Please select file.";
                 }
                 else
                 {
-                    string character = Guid.NewGuid().ToString().Substring(0, Guid.NewGuid().ToString().IndexOf("-"));
-                    fleUpload.PostedFile.SaveAs(Server.MapPath("~/DashboardDocument/PettyCash/" + character.ToString() + "_" + filename));
-                    lblFileName.Text = character.ToString() + "_" + filename.ToString();
-                    lblmessage.Text = "File uploaded successfully!";
+                    string fileExt = Path.GetExtension(fleUpload.PostedFile.FileName);
+                    if (fileExt != ".pdf")
+                    {
+                        lblError.Text = "Please select only PDF file.";
+                    }
+                    else
+                    {
+                        string character = Guid.NewGuid().ToString().Substring(0, Guid.NewGuid().ToString().IndexOf("-"));
+                        fleUpload.PostedFile.SaveAs(Server.MapPath("~/DashboardDocument/PettyCash/" + character.ToString() + "_" + filename));
+                        lblFileName.Text = character.ToString() + "_" + filename.ToString();
+                        lblmessage.Text = "File uploaded successfully!";
 
 
-                    lblmessage.Focus();
-                    error.Visible = false;
-                    lblmessage.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    sucess.Visible = true;
-                    btnShowFile.Visible = true;
-                    btnUpload.Visible = false;
-                    btnDelete.Visible = true;
+                        lblmessage.Focus();
+                        error.Visible = false;
+                        lblmessage.Focus();
+                        Page.MaintainScrollPositionOnPostBack = false;
+                        sucess.Visible = true;
+                        btnShowFile.Visible = true;
+                        btnUpload.Visible = false;
+                        btnDelete.Visible = true;
 
+                    }
                 }
-            }
             }
             catch (Exception ex)
             {
@@ -314,15 +315,16 @@ namespace ITLDashboard.Modules.Finance
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            try{
-            string url = HttpContext.Current.Request.Url.ToString();
-            Response.Redirect(url.ToString());
+            try
+            {
+                string url = HttpContext.Current.Request.Url.ToString();
+                Response.Redirect(url.ToString());
             }
             catch (Exception ex)
             {
                 lblError.Text = "btnCancel_Click" + ex.ToString();
             }
-            }
+        }
         protected void btnSave_Click(object sender, EventArgs e)
         {
             sucess.Visible = false;
@@ -467,75 +469,76 @@ namespace ITLDashboard.Modules.Finance
         }
         private void BindUser()
         {
-            try{
-            cmd.CommandText = "SELECT * FROM tbluserApprovalHOD where Designation = 'SMCS' and FormID = 'PC'";
-            //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = conn;
-            conn.Open();
-            ddlEmailApproval.DataSource = cmd.ExecuteReader();
-            ddlEmailApproval.DataTextField = "DisplayName";
-            ddlEmailApproval.DataValueField = "user_name";
-            ddlEmailApproval.DataBind();
-            // ddlEmailApproval.Items.Insert(0, new ListItem("------Select------", "0"));
-
-
-
-            conn.Close();
-            cmd.CommandText = "SELECT * FROM tbluser where Designation = 'C.O.O'";
-            //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'farrukh.aslam'";
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = conn;
-            conn.Open();
-            ddlEmailApproval2nd.DataSource = cmd.ExecuteReader();
-            ddlEmailApproval2nd.DataTextField = "DisplayName";
-            ddlEmailApproval2nd.DataValueField = "user_name";
-            ddlEmailApproval2nd.DataBind();
-            // ddlEmailApproval2nd.Items.Insert(0, new ListItem("------Select------", "0"));
-
-
-            conn.Close();
-
-            cmd.CommandText = "SELECT * FROM tbluser where Designation = 'Cheif Accountant'";
-         //   cmd.CommandText = "SELECT * FROM tbluser where user_name = 'test.two'";
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = conn;
-            conn.Open();
-            ddlEmailApproval3rd.DataSource = cmd.ExecuteReader();
-            ddlEmailApproval3rd.DataTextField = "DisplayName";
-            ddlEmailApproval3rd.DataValueField = "user_name";
-            ddlEmailApproval3rd.DataBind();
-            //ddlEmailApproval3rd.Items.Insert(0, new ListItem("------Select------", "0"));
-
-            conn.Close();
-
-
-            cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserReviwer where FormName = 'PC'";
-            //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = conn;
-            conn.Open();
-            ddlEmailMDA.DataSource = cmd.ExecuteReader();
-            ddlEmailMDA.DataTextField = "DisplayName";
-            ddlEmailMDA.DataValueField = "user_name";
-            ddlEmailMDA.DataBind();
-            conn.Close();
-            //  ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
-
-           cmd.CommandText = " SELECT user_name,DisplayName FROM tbl_EmailToSpecificPerson where FormID = '201'";
-            //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = conn;
-            conn.Open();
-            ddlNotification.DataSource = cmd.ExecuteReader();
-            ddlNotification.DataTextField = "DisplayName";
-            ddlNotification.DataValueField = "user_name";
-            ddlNotification.DataBind();
-            conn.Close();
-            for (int i = 0; i < ddlNotification.Items.Count; i++)
+            try
             {
-                ddlNotification.Items[i].Selected = true;
-            }
+                cmd.CommandText = "SELECT * FROM tbluserApprovalHOD where Designation = 'SMCS' and FormID = 'PC'";
+                //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                conn.Open();
+                ddlEmailApproval.DataSource = cmd.ExecuteReader();
+                ddlEmailApproval.DataTextField = "DisplayName";
+                ddlEmailApproval.DataValueField = "user_name";
+                ddlEmailApproval.DataBind();
+                // ddlEmailApproval.Items.Insert(0, new ListItem("------Select------", "0"));
+
+
+
+                conn.Close();
+                cmd.CommandText = "SELECT * FROM tbluser where Designation = 'C.O.O'";
+                //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'farrukh.aslam'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                conn.Open();
+                ddlEmailApproval2nd.DataSource = cmd.ExecuteReader();
+                ddlEmailApproval2nd.DataTextField = "DisplayName";
+                ddlEmailApproval2nd.DataValueField = "user_name";
+                ddlEmailApproval2nd.DataBind();
+                // ddlEmailApproval2nd.Items.Insert(0, new ListItem("------Select------", "0"));
+
+
+                conn.Close();
+
+                cmd.CommandText = "SELECT * FROM tbluser where Designation = 'Cheif Accountant'";
+                //   cmd.CommandText = "SELECT * FROM tbluser where user_name = 'test.two'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                conn.Open();
+                ddlEmailApproval3rd.DataSource = cmd.ExecuteReader();
+                ddlEmailApproval3rd.DataTextField = "DisplayName";
+                ddlEmailApproval3rd.DataValueField = "user_name";
+                ddlEmailApproval3rd.DataBind();
+                //ddlEmailApproval3rd.Items.Insert(0, new ListItem("------Select------", "0"));
+
+                conn.Close();
+
+
+                cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserReviwer where FormName = 'PC'";
+                //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                conn.Open();
+                ddlEmailMDA.DataSource = cmd.ExecuteReader();
+                ddlEmailMDA.DataTextField = "DisplayName";
+                ddlEmailMDA.DataValueField = "user_name";
+                ddlEmailMDA.DataBind();
+                conn.Close();
+                //  ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
+
+                cmd.CommandText = " SELECT user_name,DisplayName FROM tbl_EmailToSpecificPerson where FormID = '201'";
+                //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                conn.Open();
+                ddlNotification.DataSource = cmd.ExecuteReader();
+                ddlNotification.DataTextField = "DisplayName";
+                ddlNotification.DataValueField = "user_name";
+                ddlNotification.DataBind();
+                conn.Close();
+                for (int i = 0; i < ddlNotification.Items.Count; i++)
+                {
+                    ddlNotification.Items[i].Selected = true;
+                }
             }
             catch (Exception ex)
             {
@@ -545,35 +548,37 @@ namespace ITLDashboard.Modules.Finance
 
         private void GetTransactionMain()
         {
-            try{
-            ds = obj.GetTransactionMaxPettyCash(FormID.ToString());
-            lblMaxTransactionNo.Text = ds.Tables["MaterialMaxID"].Rows[0]["TransactionID"].ToString();
-            ViewState["MaterialMaxID"] = ds.Tables["MaterialMaxID"].Rows[0]["TransactionID"].ToString();
+            try
+            {
+                ds = obj.GetTransactionMaxPettyCash(FormID.ToString());
+                lblMaxTransactionNo.Text = ds.Tables["MaterialMaxID"].Rows[0]["TransactionID"].ToString();
+                ViewState["MaterialMaxID"] = ds.Tables["MaterialMaxID"].Rows[0]["TransactionID"].ToString();
             }
             catch (Exception ex)
             {
                 lblError.Text = "GetTransactionMain" + ex.ToString();
             }
-            }
+        }
 
         private void GetStatusHierachyCategoryControls()
         {
-            try{
-            ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString(), ViewState["SerialNo"].ToString(), ViewState["Status"].ToString());
-            if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
+            try
             {
-                ViewState["StatusHierachyCategory"] = ds.Tables["tbl_SysHierarchyControl"].Rows[0]["Status"].ToString();
-            }
-            if (((string)ViewState["StatusHierachyCategory"]) == "01" || ((string)ViewState["StatusHierachyCategory"]) == "02" || ((string)ViewState["StatusHierachyCategory"]) == "03" || ((string)ViewState["StatusHierachyCategory"]) == "04" || ((string)ViewState["StatusHierachyCategory"]) == "00" || ((string)ViewState["StatusHierachyCategory"]) == "06")
-            {
-                btnSave.Enabled = false;
-                btnReject.Attributes.Add("disabled", "true");
-                btnApproved.Enabled = false;
-                btnMDA.Enabled = false;
-                btnCancel.Enabled = false;
-                btnSaveSubmit.Enabled = false;
+                ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString(), ViewState["SerialNo"].ToString(), ViewState["Status"].ToString());
+                if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
+                {
+                    ViewState["StatusHierachyCategory"] = ds.Tables["tbl_SysHierarchyControl"].Rows[0]["Status"].ToString();
+                }
+                if (((string)ViewState["StatusHierachyCategory"]) == "01" || ((string)ViewState["StatusHierachyCategory"]) == "02" || ((string)ViewState["StatusHierachyCategory"]) == "03" || ((string)ViewState["StatusHierachyCategory"]) == "04" || ((string)ViewState["StatusHierachyCategory"]) == "00" || ((string)ViewState["StatusHierachyCategory"]) == "06")
+                {
+                    btnSave.Enabled = false;
+                    btnReject.Attributes.Add("disabled", "true");
+                    btnApproved.Enabled = false;
+                    btnMDA.Enabled = false;
+                    btnCancel.Enabled = false;
+                    btnSaveSubmit.Enabled = false;
 
-            }
+                }
             }
             catch (Exception ex)
             {
@@ -601,10 +606,11 @@ namespace ITLDashboard.Modules.Finance
 
         private void GetDetailPettyCash()
         {
-            try{
-            ds = obj.getPettyCashDetail(lblMaxTransactionID.Text.ToString());
-            grdDetail.DataSource = ds.Tables["tblPettyCash"];
-            grdDetail.DataBind();
+            try
+            {
+                ds = obj.getPettyCashDetail(lblMaxTransactionID.Text.ToString());
+                grdDetail.DataSource = ds.Tables["tblPettyCash"];
+                grdDetail.DataBind();
             }
             catch (Exception ex)
             {
@@ -613,36 +619,38 @@ namespace ITLDashboard.Modules.Finance
         }
         private void ClearCont()
         {
-            try{
-            ddlEmailApproval.SelectedIndex = -1;
-            ddlEmailApproval2nd.SelectedIndex = -1;
-            ddlEmailMDA.SelectedIndex = -1;
-            lblFileName.Text = "";
-            FilePath = "";
+            try
+            {
+                ddlEmailApproval.SelectedIndex = -1;
+                ddlEmailApproval2nd.SelectedIndex = -1;
+                ddlEmailMDA.SelectedIndex = -1;
+                lblFileName.Text = "";
+                FilePath = "";
             }
             catch (Exception ex)
             {
                 lblError.Text = "ClearCont" + ex.ToString();
             }
-            }
+        }
         private void GetHarcheyID()
         {
-            try{
-            ds = obj.GetHarachyCustomerMaster(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
-            dt = ds.Tables["HID"];
-            ViewState["HIDDataSet"] = dt;
-
-            if (ds.Tables["HID"].Rows.Count > 0)
+            try
             {
-                lblMaxTransactionID.Text = ds.Tables["HID"].Rows[0]["TransactionID"].ToString();
-                ViewState["HID"] = ds.Tables["HID"].Rows[0]["HierachyCategory"].ToString();
-                ViewState["RoughtingUserID"] = ds.Tables["HID"].Rows[0]["RoughtingUserID"].ToString();
-                ViewState["Sequance"] = ds.Tables["HID"].Rows[0]["Sequance"].ToString();
-                ViewState["FormCreatedBy"] = ds.Tables["HID"].Rows[0]["CreatedBy"].ToString();
-                ViewState["SerialNo"] = ds.Tables["HID"].Rows[0]["SerialNo"].ToString();
+                ds = obj.GetHarachyCustomerMaster(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
+                dt = ds.Tables["HID"];
+                ViewState["HIDDataSet"] = dt;
 
-                ViewState["Status"] = ds.Tables["HID"].Rows[0]["Status"].ToString();
-            }
+                if (ds.Tables["HID"].Rows.Count > 0)
+                {
+                    lblMaxTransactionID.Text = ds.Tables["HID"].Rows[0]["TransactionID"].ToString();
+                    ViewState["HID"] = ds.Tables["HID"].Rows[0]["HierachyCategory"].ToString();
+                    ViewState["RoughtingUserID"] = ds.Tables["HID"].Rows[0]["RoughtingUserID"].ToString();
+                    ViewState["Sequance"] = ds.Tables["HID"].Rows[0]["Sequance"].ToString();
+                    ViewState["FormCreatedBy"] = ds.Tables["HID"].Rows[0]["CreatedBy"].ToString();
+                    ViewState["SerialNo"] = ds.Tables["HID"].Rows[0]["SerialNo"].ToString();
+
+                    ViewState["Status"] = ds.Tables["HID"].Rows[0]["Status"].ToString();
+                }
             }
             catch (Exception ex)
             {
@@ -654,11 +662,11 @@ namespace ITLDashboard.Modules.Finance
         protected void btnApproved_Click(object sender, EventArgs e)
         {
             try
-            {               
-                    EmailWorkApproval();
-                    ApplicationStatus();
-                    BindsysApplicationStatus();
-                    GetStatusHierachyCategoryControls();
+            {
+                EmailWorkApproval();
+                ApplicationStatus();
+                BindsysApplicationStatus();
+                GetStatusHierachyCategoryControls();
             }
             catch (Exception ex)
             {
@@ -681,7 +689,7 @@ namespace ITLDashboard.Modules.Finance
                     {
                         url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
                         urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
-                        TransactionIDEmail = reader["TransactionID"].ToString(); 
+                        TransactionIDEmail = reader["TransactionID"].ToString();
                         FormCode = reader["FormID"].ToString();
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
@@ -777,39 +785,40 @@ namespace ITLDashboard.Modules.Finance
 
         private void EmailWorkReject()
         {
-            try{
-            ds = obj.MailForwardToUserOnRejection(lblMaxTransactionID.Text, FormID.ToString());
-            string HierachyCategoryStatus = "00";
-            if (ds.Tables["MailForwardToUserOnRejection"].Rows.Count > 0)
+            try
             {
-                DataTableReader reader = ds.Tables["MailForwardToUserOnRejection"].CreateDataReader();
-                while (reader.Read())
+                ds = obj.MailForwardToUserOnRejection(lblMaxTransactionID.Text, FormID.ToString());
+                string HierachyCategoryStatus = "00";
+                if (ds.Tables["MailForwardToUserOnRejection"].Rows.Count > 0)
                 {
-                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local");
-                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110");
-                    TransactionIDEmail = reader["TransactionID"].ToString();
-                    FormCode = reader["FormID"].ToString();
-                    UserName = reader["user_name"].ToString();
-                    UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
-                    EmailSubject = "Petty Cash Request – Form ID #  " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + "Petty Cash Request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been disapproved by  " + Session["User_Name"].ToString().Replace(".", " ") + " <br><br> The reason of rejection is given below you can review your form on following url:" +
-                    "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
-                    "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
-                    "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                    "<br> <br> <br>Reject Remarks: " + txtRemarksReview.Text +
-                    "<br>Finance Petty Cash Application<br> Information Systems Dashboard";
-                    SessionUser = Session["User_Name"].ToString();
-                    DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-                    InsertEmail();
-                    ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
-                    lblEmail.Text = "Petty Cash Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been rejected by you";
-                    lblEmail.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    Page.MaintainScrollPositionOnPostBack = true;
-                    lblEmail.Focus();
-                }
+                    DataTableReader reader = ds.Tables["MailForwardToUserOnRejection"].CreateDataReader();
+                    while (reader.Read())
+                    {
+                        url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local");
+                        urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110");
+                        TransactionIDEmail = reader["TransactionID"].ToString();
+                        FormCode = reader["FormID"].ToString();
+                        UserName = reader["user_name"].ToString();
+                        UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
+                        EmailSubject = "Petty Cash Request – Form ID #  " + lblMaxTransactionID.Text.ToString() + "";
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + "Petty Cash Request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been disapproved by  " + Session["User_Name"].ToString().Replace(".", " ") + " <br><br> The reason of rejection is given below you can review your form on following url:" +
+                        "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                        "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                        "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                        "<br> <br> <br>Reject Remarks: " + txtRemarksReview.Text +
+                        "<br>Finance Petty Cash Application<br> Information Systems Dashboard";
+                        SessionUser = Session["User_Name"].ToString();
+                        DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                        InsertEmail();
+                        ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
+                        lblEmail.Text = "Petty Cash Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been rejected by you";
+                        lblEmail.Focus();
+                        Page.MaintainScrollPositionOnPostBack = false;
+                        Page.MaintainScrollPositionOnPostBack = true;
+                        lblEmail.Focus();
+                    }
 
-            }
+                }
             }
             catch (Exception ex)
             {
@@ -893,59 +902,60 @@ namespace ITLDashboard.Modules.Finance
         }
         private void ApplicationStatus()
         {
-            try{
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            try
             {
-                using (SqlCommand cmdInsert = new SqlCommand())
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
                 {
-
-
-                    string TransatcionID = "";
-                    string HierachyCategory = "";
-                    string Status = "";
-                    string Remarks = "";
-                    if (Request.QueryString["TransactionNo"].ToString() == null)
+                    using (SqlCommand cmdInsert = new SqlCommand())
                     {
-                        TransatcionID = ViewState["MaterialMaxID"].ToString();
-                        HierachyCategory = "1";
-                    }
-                    else
-                    {
-                        TransatcionID = lblMaxTransactionID.Text;
-                        HierachyCategory = ViewState["HID"].ToString();
-                        Status = ViewState["Status"].ToString();
-                        ds.Clear();
-                        cmdInsert.CommandText = "";
-                        cmdInsert.CommandText = @"SP_SYS_UpdateApplicationStatus";
-                        cmdInsert.CommandType = CommandType.StoredProcedure;
-                        cmdInsert.Connection = connection;
-                        cmdInsert.Parameters.AddWithValue("@FormID", FormID.ToString());
-                        cmdInsert.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text.ToString());
-                        cmdInsert.Parameters.AddWithValue("@HierachyCategory", HierachyCategory.ToString());
-                        cmdInsert.Parameters.AddWithValue("@RoughtingUserID", Session["User_Name"].ToString());
-                        cmdInsert.Parameters.AddWithValue("@Status", Status.ToString());
-                        cmdInsert.Parameters.AddWithValue("@TransferredTo", "");
-                        cmdInsert.Parameters.AddWithValue("@SerialNo", ViewState["SerialNo"]);
-                        cmdInsert.Parameters.AddWithValue("@Sequence", ViewState["Sequance"]);
-                        cmdInsert.Parameters.AddWithValue("@Remarks", txtRemarksReview.Text);
 
-                        try
-                        {
-                            connection.Open();
-                            cmdInsert.ExecuteNonQuery();
 
-                        }
-                        catch (SqlException e)
+                        string TransatcionID = "";
+                        string HierachyCategory = "";
+                        string Status = "";
+                        string Remarks = "";
+                        if (Request.QueryString["TransactionNo"].ToString() == null)
                         {
-                            lblError.Text = e.ToString();
+                            TransatcionID = ViewState["MaterialMaxID"].ToString();
+                            HierachyCategory = "1";
                         }
-                        finally
+                        else
                         {
-                            connection.Close();
+                            TransatcionID = lblMaxTransactionID.Text;
+                            HierachyCategory = ViewState["HID"].ToString();
+                            Status = ViewState["Status"].ToString();
+                            ds.Clear();
+                            cmdInsert.CommandText = "";
+                            cmdInsert.CommandText = @"SP_SYS_UpdateApplicationStatus";
+                            cmdInsert.CommandType = CommandType.StoredProcedure;
+                            cmdInsert.Connection = connection;
+                            cmdInsert.Parameters.AddWithValue("@FormID", FormID.ToString());
+                            cmdInsert.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text.ToString());
+                            cmdInsert.Parameters.AddWithValue("@HierachyCategory", HierachyCategory.ToString());
+                            cmdInsert.Parameters.AddWithValue("@RoughtingUserID", Session["User_Name"].ToString());
+                            cmdInsert.Parameters.AddWithValue("@Status", Status.ToString());
+                            cmdInsert.Parameters.AddWithValue("@TransferredTo", "");
+                            cmdInsert.Parameters.AddWithValue("@SerialNo", ViewState["SerialNo"]);
+                            cmdInsert.Parameters.AddWithValue("@Sequence", ViewState["Sequance"]);
+                            cmdInsert.Parameters.AddWithValue("@Remarks", txtRemarksReview.Text);
+
+                            try
+                            {
+                                connection.Open();
+                                cmdInsert.ExecuteNonQuery();
+
+                            }
+                            catch (SqlException e)
+                            {
+                                lblError.Text = e.ToString();
+                            }
+                            finally
+                            {
+                                connection.Close();
+                            }
                         }
                     }
                 }
-            }
             }
             catch (Exception ex)
             {
@@ -954,38 +964,39 @@ namespace ITLDashboard.Modules.Finance
         }
         private void ApplicationStatusSpecific()
         {
-            try{
-            SqlCommand command = new SqlCommand();
-            command.CommandText = "";
-            string TransatcionID = "";
-            string HierachyCategory = "";
-            string Status = "";
-            string Remarks = "";
-            if (Request.QueryString["TransactionNo"].ToString() == null)
+            try
             {
-                TransatcionID = ViewState["MaterialMaxID"].ToString();
-                HierachyCategory = "1";
-            }
-            else
-            {
-                TransatcionID = lblMaxTransactionID.Text;
-                HierachyCategory = ViewState["HID"].ToString();
-                Status = ViewState["Status"].ToString();
-
-                ds.Clear();
+                SqlCommand command = new SqlCommand();
                 command.CommandText = "";
-                command.CommandText = @"SP_SYS_UpdateApplicationStatusSpecific";
-                command.CommandType = CommandType.StoredProcedure;
-                command.Connection = conn;
-                command.Parameters.AddWithValue("@FormID", FormID.ToString());
-                command.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text.ToString());
-                command.Parameters.AddWithValue("@HierachyCategory", HierachyCategory.ToString());
-                command.Parameters.AddWithValue("@RoughtingUserID", Session["User_Name"].ToString());
-                command.Parameters.AddWithValue("@Status", Status.ToString());
-                conn.Open();
-                command.ExecuteNonQuery();
-                conn.Close();
-            }
+                string TransatcionID = "";
+                string HierachyCategory = "";
+                string Status = "";
+                string Remarks = "";
+                if (Request.QueryString["TransactionNo"].ToString() == null)
+                {
+                    TransatcionID = ViewState["MaterialMaxID"].ToString();
+                    HierachyCategory = "1";
+                }
+                else
+                {
+                    TransatcionID = lblMaxTransactionID.Text;
+                    HierachyCategory = ViewState["HID"].ToString();
+                    Status = ViewState["Status"].ToString();
+
+                    ds.Clear();
+                    command.CommandText = "";
+                    command.CommandText = @"SP_SYS_UpdateApplicationStatusSpecific";
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Connection = conn;
+                    command.Parameters.AddWithValue("@FormID", FormID.ToString());
+                    command.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text.ToString());
+                    command.Parameters.AddWithValue("@HierachyCategory", HierachyCategory.ToString());
+                    command.Parameters.AddWithValue("@RoughtingUserID", Session["User_Name"].ToString());
+                    command.Parameters.AddWithValue("@Status", Status.ToString());
+                    conn.Open();
+                    command.ExecuteNonQuery();
+                    conn.Close();
+                }
             }
             catch (Exception ex)
             {
@@ -1047,42 +1058,43 @@ namespace ITLDashboard.Modules.Finance
         }
         protected void InsertEmailHOD()
         {
-            try{
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            try
             {
-                using (SqlCommand cmdInsertEmail = new SqlCommand())
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
                 {
-                    cmdInsertEmail.Connection = connection;
-                    cmdInsertEmail.CommandType = CommandType.StoredProcedure;
-                    cmdInsertEmail.CommandText = @"SP_InsertEmailHOD";
+                    using (SqlCommand cmdInsertEmail = new SqlCommand())
+                    {
+                        cmdInsertEmail.Connection = connection;
+                        cmdInsertEmail.CommandType = CommandType.StoredProcedure;
+                        cmdInsertEmail.CommandText = @"SP_InsertEmailHOD";
 
-                    try
-                    {
-                        //string SplitString = "";
-                        //string input = EmailBody.ToString(); ;
-                        //SplitString = input.Substring(input.IndexOf(',') + 1);
-                        connection.Open();
-                        cmdInsertEmail.Parameters.AddWithValue("@TransactionID", TransactionIDEmail.ToString());
-                        cmdInsertEmail.Parameters.AddWithValue("@FormCode", FormID.ToString());
-                        cmdInsertEmail.Parameters.AddWithValue("@UserName", UserName.ToString());
-                        cmdInsertEmail.Parameters.AddWithValue("@UserEmail", UserEmail.ToString());
-                        cmdInsertEmail.Parameters.AddWithValue("@EmailSubject", EmailSubject.ToString());
-                        cmdInsertEmail.Parameters.AddWithValue("@EmailBody", EmailBody.ToString());
-                        cmdInsertEmail.Parameters.AddWithValue("@SessionUser", SessionUser.ToString());
-                        cmdInsertEmail.Parameters.AddWithValue("@HID", ViewState["HID"].ToString());
-                        cmdInsertEmail.ExecuteNonQuery();
+                        try
+                        {
+                            //string SplitString = "";
+                            //string input = EmailBody.ToString(); ;
+                            //SplitString = input.Substring(input.IndexOf(',') + 1);
+                            connection.Open();
+                            cmdInsertEmail.Parameters.AddWithValue("@TransactionID", TransactionIDEmail.ToString());
+                            cmdInsertEmail.Parameters.AddWithValue("@FormCode", FormID.ToString());
+                            cmdInsertEmail.Parameters.AddWithValue("@UserName", UserName.ToString());
+                            cmdInsertEmail.Parameters.AddWithValue("@UserEmail", UserEmail.ToString());
+                            cmdInsertEmail.Parameters.AddWithValue("@EmailSubject", EmailSubject.ToString());
+                            cmdInsertEmail.Parameters.AddWithValue("@EmailBody", EmailBody.ToString());
+                            cmdInsertEmail.Parameters.AddWithValue("@SessionUser", SessionUser.ToString());
+                            cmdInsertEmail.Parameters.AddWithValue("@HID", ViewState["HID"].ToString());
+                            cmdInsertEmail.ExecuteNonQuery();
 
-                    }
-                    catch (SqlException e)
-                    {
-                        lblError.Text = e.ToString();
-                    }
-                    finally
-                    {
-                        connection.Close();
+                        }
+                        catch (SqlException e)
+                        {
+                            lblError.Text = e.ToString();
+                        }
+                        finally
+                        {
+                            connection.Close();
+                        }
                     }
                 }
-            }
             }
             catch (Exception ex)
             {
@@ -1092,29 +1104,31 @@ namespace ITLDashboard.Modules.Finance
         }
         private void BindsysApplicationStatus()
         {
-            try{
-            ds = obj.BindsysApplicationStatus(lblMaxTransactionID.Text, FormID.ToString());
-            grdWStatus.DataSource = ds.Tables["BindsysApplicationStatus"];
-            grdWStatus.DataBind();
-            grdWStatus.Visible = true;
+            try
+            {
+                ds = obj.BindsysApplicationStatus(lblMaxTransactionID.Text, FormID.ToString());
+                grdWStatus.DataSource = ds.Tables["BindsysApplicationStatus"];
+                grdWStatus.DataBind();
+                grdWStatus.Visible = true;
             }
             catch (Exception ex)
             {
                 lblError.Text = "BindsysApplicationStatus" + ex.ToString();
             }
-            }
+        }
 
         void ClearInputss(ControlCollection ctrlss)
         {
-            try{
-            foreach (Control ctrlsss in ctrlss)
+            try
             {
-                if (ctrlsss is DropDownList)
-                    ((DropDownList)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
-                if (ctrlsss is TextBox)
-                    ((TextBox)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
-                ClearInputss(ctrlsss.Controls);
-            }
+                foreach (Control ctrlsss in ctrlss)
+                {
+                    if (ctrlsss is DropDownList)
+                        ((DropDownList)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
+                    if (ctrlsss is TextBox)
+                        ((TextBox)ctrlsss).BackColor = System.Drawing.ColorTranslator.FromHtml("White");
+                    ClearInputss(ctrlsss.Controls);
+                }
             }
             catch (Exception ex)
             {
@@ -1123,64 +1137,66 @@ namespace ITLDashboard.Modules.Finance
         }
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-           try{
-            FilePath = "~/DashboardDocument/PettyCash/" + lblFileName.Text.ToString();
-            string pathDelete = Server.MapPath(FilePath.ToString());
-            FileInfo file = new FileInfo(pathDelete);
-            if (file.Exists)
+            try
             {
-                file.Delete();
-                lblmessage.Text = lblFileName.Text + "  has deleted successfully!";
-                sucess.Visible = true;
-                lblFileName.Text = "";
-                btnDelete.Visible = false;
-                btnUpload.Visible = true;
-                btnDelete.Visible = false;
+                FilePath = "~/DashboardDocument/PettyCash/" + lblFileName.Text.ToString();
+                string pathDelete = Server.MapPath(FilePath.ToString());
+                FileInfo file = new FileInfo(pathDelete);
+                if (file.Exists)
+                {
+                    file.Delete();
+                    lblmessage.Text = lblFileName.Text + "  has deleted successfully!";
+                    sucess.Visible = true;
+                    lblFileName.Text = "";
+                    btnDelete.Visible = false;
+                    btnUpload.Visible = true;
+                    btnDelete.Visible = false;
+                }
+                else
+                {
+                    lblError.Text = "File does not exists";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                lblError.Text = "File does not exists";
+                lblError.Text = "btnDelete_Click" + ex.ToString();
             }
-           }
-           catch (Exception ex)
-           {
-               lblError.Text = "btnDelete_Click" + ex.ToString();
-           }
         }
 
         protected void btnShowFile_Click(object sender, EventArgs e)
         {
-            try{
-            int x = (Request.Browser.ScreenPixelsWidth) * 2 - 100;
-            
-            lblError.Text = "";
-            string pdfFileToDisplay = "../../DashboardDocument/PettyCash/" + lblFileName.Text;
-            string pdfFileToDisplay1 = "DashboardDocument/PettyCash/" + lblFileName.Text;
-            // Create the fully qualified file path...
-            string fileName = this.Server.MapPath(pdfFileToDisplay.ToString());
-
-            if (System.IO.File.Exists(fileName))
+            try
             {
-                // Convert the filename into a URL...
-                fileName = this.Request.Url.GetLeftPart(UriPartial.Authority) +
-                 this.Request.ApplicationPath + "/" + pdfFileToDisplay1;
+                int x = (Request.Browser.ScreenPixelsWidth) * 2 - 100;
 
-                System.Text.StringBuilder javaScript = new System.Text.StringBuilder();
+                lblError.Text = "";
+                string pdfFileToDisplay = "../../DashboardDocument/PettyCash/" + lblFileName.Text;
+                string pdfFileToDisplay1 = "DashboardDocument/PettyCash/" + lblFileName.Text;
+                // Create the fully qualified file path...
+                string fileName = this.Server.MapPath(pdfFileToDisplay.ToString());
 
-                javaScript.Append("<script language=JavaScript>\n");
-                // winFeatures could = position, menubars, etc. Google for more info...
-                javaScript.Append("var winFeatures = '';\n");
-                javaScript.Append("pdfReportWindow = window.open('" + fileName + "', 'PDFReport', winFeatures);\n");
-                javaScript.Append("pdfReportWindow.focus();\n");
-                javaScript.Append("\n");
-                javaScript.Append("</script>\n");
+                if (System.IO.File.Exists(fileName))
+                {
+                    // Convert the filename into a URL...
+                    fileName = this.Request.Url.GetLeftPart(UriPartial.Authority) +
+                     this.Request.ApplicationPath + "/" + pdfFileToDisplay1;
 
-                this.RegisterStartupScript("PdfReportScript", javaScript.ToString());
-            }
-            else
-            {
-                lblError.Text = "File Cannot display or may be deleted.";
-            }
+                    System.Text.StringBuilder javaScript = new System.Text.StringBuilder();
+
+                    javaScript.Append("<script language=JavaScript>\n");
+                    // winFeatures could = position, menubars, etc. Google for more info...
+                    javaScript.Append("var winFeatures = '';\n");
+                    javaScript.Append("pdfReportWindow = window.open('" + fileName + "', 'PDFReport', winFeatures);\n");
+                    javaScript.Append("pdfReportWindow.focus();\n");
+                    javaScript.Append("\n");
+                    javaScript.Append("</script>\n");
+
+                    this.RegisterStartupScript("PdfReportScript", javaScript.ToString());
+                }
+                else
+                {
+                    lblError.Text = "File Cannot display or may be deleted.";
+                }
             }
             catch (Exception ex)
             {
@@ -1190,37 +1206,38 @@ namespace ITLDashboard.Modules.Finance
         }
         private void UpdateWorking()
         {
-            try{
-            cmd.CommandText = @"update tbl_FI_PettyCash set ChequeNo = @CNo,Amount = @Amount
-                               where TransactionID = @TransID ";
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = conn;
-            cmd.Parameters.AddWithValue("@CNo", txtChequeNo.Text);
-            cmd.Parameters.AddWithValue("@TransID", lblMaxTransactionID.Text);
-            cmd.Parameters.AddWithValue("@Amount", txtAmount.Text.ToString().Replace(",", ""));
-            conn.Open();
-            int a = cmd.ExecuteNonQuery();
-            if (a == 1)
+            try
             {
-                EmailWorkSendMDA();
-                ApplicationStatus();
-                BindsysApplicationStatus();
-                //  EmailWorkSendSpecificPerson();
-                InsertEmailHOD();
-                GetStatusHierachyCategoryControls();
+                cmd.CommandText = @"update tbl_FI_PettyCash set ChequeNo = @CNo,Amount = @Amount
+                               where TransactionID = @TransID ";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@CNo", txtChequeNo.Text);
+                cmd.Parameters.AddWithValue("@TransID", lblMaxTransactionID.Text);
+                cmd.Parameters.AddWithValue("@Amount", txtAmount.Text.ToString().Replace(",", ""));
+                conn.Open();
+                int a = cmd.ExecuteNonQuery();
+                if (a == 1)
+                {
+                    EmailWorkSendMDA();
+                    ApplicationStatus();
+                    BindsysApplicationStatus();
+                    //  EmailWorkSendSpecificPerson();
+                    InsertEmailHOD();
+                    GetStatusHierachyCategoryControls();
 
 
-                lblmessage.Text = "Cheque No " + txtChequeNo.Text + " has been issued against  New Petty Cash Request Form ID #  " + lblMaxTransactionID.Text + " ";
-                lblmessage.ForeColor = System.Drawing.Color.Green;
-                conn.Close();
-                sucess.Visible = true;
-                error.Visible = false;
-                lblmessage.Focus();
-                Page.MaintainScrollPositionOnPostBack = false;
-                btnPrint.Visible = true;
-                dvCheque.Visible = true;
-                GetDetailPettyCash();
-            }
+                    lblmessage.Text = "Cheque No " + txtChequeNo.Text + " has been issued against  New Petty Cash Request Form ID #  " + lblMaxTransactionID.Text + " ";
+                    lblmessage.ForeColor = System.Drawing.Color.Green;
+                    conn.Close();
+                    sucess.Visible = true;
+                    error.Visible = false;
+                    lblmessage.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    btnPrint.Visible = true;
+                    dvCheque.Visible = true;
+                    GetDetailPettyCash();
+                }
             }
             catch (Exception ex)
             {
@@ -1230,25 +1247,26 @@ namespace ITLDashboard.Modules.Finance
 
         private void insertSpecificPerson()
         {
-            try{
-            conn.Close();
-            cmd.CommandText = "SP_InsertsysApplicationStatusSpecificPerson";
-
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Connection = conn;
-            cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
-            cmd.Parameters.AddWithValue("@HierachyCategory", ViewState["HierachyCategory"].ToString());
-            cmd.Parameters.AddWithValue("@RoughtingUserID", ViewState["HID"].ToString());
-            cmd.Parameters.AddWithValue("@Status", ViewState["Status"].ToString());
-            cmd.Parameters.AddWithValue("@Remarks", "Notification");
-            cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
-
-            conn.Open();
-            int a = cmd.ExecuteNonQuery();
-            if (a == 1)
+            try
             {
+                conn.Close();
+                cmd.CommandText = "SP_InsertsysApplicationStatusSpecificPerson";
 
-            }
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
+                cmd.Parameters.AddWithValue("@HierachyCategory", ViewState["HierachyCategory"].ToString());
+                cmd.Parameters.AddWithValue("@RoughtingUserID", ViewState["HID"].ToString());
+                cmd.Parameters.AddWithValue("@Status", ViewState["Status"].ToString());
+                cmd.Parameters.AddWithValue("@Remarks", "Notification");
+                cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
+
+                conn.Open();
+                int a = cmd.ExecuteNonQuery();
+                if (a == 1)
+                {
+
+                }
             }
             catch (Exception ex)
             {
@@ -1292,35 +1310,36 @@ namespace ITLDashboard.Modules.Finance
 
         protected void ClosedFormAfterReject()
         {
-            try{
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            try
             {
-                using (SqlCommand cmdClosedFormAfterReject = new SqlCommand())
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
                 {
-                    cmdClosedFormAfterReject.Connection = connection;
-                    cmdClosedFormAfterReject.CommandType = CommandType.StoredProcedure;
-                    cmdClosedFormAfterReject.CommandText = @"SP_ClosedFormAfterReject";
+                    using (SqlCommand cmdClosedFormAfterReject = new SqlCommand())
+                    {
+                        cmdClosedFormAfterReject.Connection = connection;
+                        cmdClosedFormAfterReject.CommandType = CommandType.StoredProcedure;
+                        cmdClosedFormAfterReject.CommandText = @"SP_ClosedFormAfterReject";
 
-                    try
-                    {
-                        connection.Open();
-                        cmdClosedFormAfterReject.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text.ToString());
-                        cmdClosedFormAfterReject.Parameters.AddWithValue("@FormID", FormID.ToString());
-                        cmdClosedFormAfterReject.Parameters.AddWithValue("@SerialNo", ViewState["SerialNo"].ToString());
-                        cmdClosedFormAfterReject.Parameters.AddWithValue("@Remarks", txtRemarksReview.Text);
-                        cmdClosedFormAfterReject.ExecuteNonQuery();
+                        try
+                        {
+                            connection.Open();
+                            cmdClosedFormAfterReject.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text.ToString());
+                            cmdClosedFormAfterReject.Parameters.AddWithValue("@FormID", FormID.ToString());
+                            cmdClosedFormAfterReject.Parameters.AddWithValue("@SerialNo", ViewState["SerialNo"].ToString());
+                            cmdClosedFormAfterReject.Parameters.AddWithValue("@Remarks", txtRemarksReview.Text);
+                            cmdClosedFormAfterReject.ExecuteNonQuery();
 
-                    }
-                    catch (SqlException e)
-                    {
-                        lblError.Text = e.ToString();
-                    }
-                    finally
-                    {
-                        connection.Close();
+                        }
+                        catch (SqlException e)
+                        {
+                            lblError.Text = e.ToString();
+                        }
+                        finally
+                        {
+                            connection.Close();
+                        }
                     }
                 }
-            }
             }
             catch (Exception ex)
             {
@@ -1331,20 +1350,21 @@ namespace ITLDashboard.Modules.Finance
 
         private void ClearInputs(ControlCollection ctrls)
         {
-            try{
-            foreach (Control ctrl in ctrls)
+            try
             {
-                if (ctrl is TextBox)
-                    ((TextBox)ctrl).Text = string.Empty;
-                else if (ctrl is DropDownList)
-                    ((DropDownList)ctrl).ClearSelection();
-                else if (ctrl is ListBox)
-                    ((ListBox)ctrl).ClearSelection();
+                foreach (Control ctrl in ctrls)
+                {
+                    if (ctrl is TextBox)
+                        ((TextBox)ctrl).Text = string.Empty;
+                    else if (ctrl is DropDownList)
+                        ((DropDownList)ctrl).ClearSelection();
+                    else if (ctrl is ListBox)
+                        ((ListBox)ctrl).ClearSelection();
 
 
-                ClearInputs(ctrl.Controls);
-            }
-            Page.MaintainScrollPositionOnPostBack = false;
+                    ClearInputs(ctrl.Controls);
+                }
+                Page.MaintainScrollPositionOnPostBack = false;
             }
             catch (Exception ex)
             {
@@ -1354,32 +1374,33 @@ namespace ITLDashboard.Modules.Finance
 
         protected void InsertEmail()
         {
-            try{
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            try
             {
-                using (SqlCommand cmdInsertEmail = new SqlCommand())
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
                 {
-                    cmdInsertEmail.Connection = connection;
-                    cmdInsertEmail.CommandType = CommandType.Text;
-                    cmdInsertEmail.CommandText = @"INSERT INTO tblEmailContentSending
+                    using (SqlCommand cmdInsertEmail = new SqlCommand())
+                    {
+                        cmdInsertEmail.Connection = connection;
+                        cmdInsertEmail.CommandType = CommandType.Text;
+                        cmdInsertEmail.CommandText = @"INSERT INTO tblEmailContentSending
            (TransactionID,FormCode,UserName,UserEmail,EmailSubject,EmailBody,DateTime,SessionUser) VALUES ('" + TransactionIDEmail.ToString() + "','" + FormCode.ToString() + "','" + UserName.ToString() + "','" + UserEmail.ToString() + "','" + EmailSubject.ToString() + "','" + EmailBody.ToString() + "','" + DateTimeNow.ToString() + "','" + SessionUser.ToString() + "')";
 
-                    try
-                    {
-                        connection.Open();
-                        cmdInsertEmail.ExecuteNonQuery();
+                        try
+                        {
+                            connection.Open();
+                            cmdInsertEmail.ExecuteNonQuery();
 
-                    }
-                    catch (SqlException e)
-                    {
-                        lblError.Text = e.ToString();
-                    }
-                    finally
-                    {
-                        connection.Close();
+                        }
+                        catch (SqlException e)
+                        {
+                            lblError.Text = e.ToString();
+                        }
+                        finally
+                        {
+                            connection.Close();
+                        }
                     }
                 }
-            }
             }
             catch (Exception ex)
             {
@@ -1391,6 +1412,16 @@ namespace ITLDashboard.Modules.Finance
         protected void btnSaveSubmit_Click(object sender, EventArgs e)
         {
 
+        }
+
+        protected void btnDownload_Click(object sender, EventArgs e)
+        {
+            FilePath = "~/DashboardDocument/InventoryAdjustment/" + lblFileName.Text.ToString();
+            string pathDelete = Server.MapPath(FilePath.ToString());
+            Response.ContentType = "Application/pdf";
+            Response.AppendHeader("Content-Disposition", "attachment; filename= " + lblFileName.Text.ToString() + "");
+            Response.TransmitFile(pathDelete.ToString());
+            Response.End();
         }
     }
 }

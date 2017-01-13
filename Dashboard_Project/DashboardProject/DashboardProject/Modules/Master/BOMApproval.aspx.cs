@@ -144,7 +144,21 @@ namespace DashboardProject.Modules.Master
                             txtRemarksReview.Enabled = true;
                             txtRemarksReview.Visible = true;
                         }
-
+                        if (((string)ViewState["HID"]) == "5")
+                        {
+                            btnApproved.Visible = false;
+                            btnReject.Visible = false;
+                            btnSave.Visible = false;
+                            btnCancel.Visible = false;
+                            btnMDA.Visible = false;
+                            divEmail.Visible = false;
+                            dvFormID.Visible = true;
+                            dvTransactionNo.Visible = false;
+                            dvTransactionNo.Visible = false;
+                            ViewState["Status"] = "05";
+                            ApplicationStatus();
+                            BindsysApplicationStatus();
+                        }
 
                     }
                     else
@@ -505,6 +519,18 @@ namespace DashboardProject.Modules.Master
                     Page.MaintainScrollPositionOnPostBack = false;
                     ddlEmailMDA.BackColor = System.Drawing.Color.Red;
                 }
+                else if (ddlNotification.SelectedValue == "")
+                {
+
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Please select any Person for Notification";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblUpError.Focus();
+                    error.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    ddlEmailMDA.BackColor = System.Drawing.Color.Red;
+                }
                 else if (txtBaseQuantity.Text != lblSum.Text)
                 {
                     lblmessage.Text = "";
@@ -517,6 +543,17 @@ namespace DashboardProject.Modules.Master
                 }
                 else
                 {
+                    string Notification = "";
+
+                    for (int i = 0; i <= ddlNotification.Items.Count - 1; i++)
+                    {
+                        if (ddlNotification.Items[i].Selected)
+                        {
+                            if (Notification == "") { Notification = ddlNotification.Items[i].Value; }
+                            else { Notification += "," + ddlNotification.Items[i].Value; }
+                        }
+
+                    }
 
 
                     string conString = ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString;
@@ -544,6 +581,7 @@ namespace DashboardProject.Modules.Master
                             cmd.Parameters.AddWithValue("@APPROVAL", Approval.ToString());
                             cmd.Parameters.AddWithValue("@REVIEWER", "");
                             cmd.Parameters.AddWithValue("@MDA", ddlEmailMDA.SelectedValue.ToString());
+                            cmd.Parameters.AddWithValue("@Notification", Notification.ToString());
                             cmd.Parameters.AddWithValue("@CreatedBy", Session["User_Name"].ToString());
                             cmd.Parameters.AddWithValue("@Remarks", txtRemarksReview.Text.ToString());
                             sda.SelectCommand = cmd;
@@ -1357,6 +1395,18 @@ namespace DashboardProject.Modules.Master
                 ddlEmailMDA.DataBind();
                 conn.Close();
                 ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
+
+                cmd.CommandText = " SELECT user_name,DisplayName FROM tbl_EmailToSpecificPerson where FormID = '102'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                conn.Open();
+                ddlNotification.DataSource = cmd.ExecuteReader();
+                ddlNotification.DataTextField = "DisplayName";
+                ddlNotification.DataValueField = "user_name";
+                ddlNotification.DataBind();
+                conn.Close();
+
+              
 
             }
             catch (Exception ex)

@@ -81,6 +81,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                         btnCancel.Visible = false;
                         btnSave.Visible = false;
                         btnShowFile.Visible = true;
+                        btnDownload.Visible = true;
                         btnApproved.Visible = false;
                         btnReject.Visible = false;
                         btnPrint.Visible = false;
@@ -139,7 +140,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                             txtRemarksReview.Visible = true;
                             txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
                             dvTransactionNo.Visible = false;
-                            //txtRemarksReview.Enabled = false;
+                            btnDownload.Visible = true;
                         }
                         if (((string)ViewState["HID"]) == "2")
                         {
@@ -161,6 +162,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                             txtRemarksReview.Enabled = true;
                             txtDocNo.Enabled = false;
                             txtRemarksReview.Visible = true;
+                            btnDownload.Visible = true;
 
                         }
                         if (((string)ViewState["HID"]) == "4")
@@ -182,6 +184,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                             txtRemarksReview.Enabled = true;
                             txtRemarksReview.Visible = true;
                             txtDocNo.Enabled = true;
+                            btnDownload.Visible = true;
                         }
                         if (((string)ViewState["HID"]) == "3")
                         {
@@ -203,6 +206,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                             txtRemarksReview.Enabled = true;
                             txtRemarksReview.Visible = true;
                             btnPrint.Visible = true;
+                            btnDownload.Visible = true;
                         }
 
                     }
@@ -1199,6 +1203,16 @@ namespace DashboardProject.Modules.Inventorymanagement
         protected void btnSaveSubmit_Click(object sender, EventArgs e)
         {
 
+        }
+
+        protected void btnDownload_Click(object sender, EventArgs e)
+        {
+            FilePath = "~/DashboardDocument/InventoryAdjustment/" + lblFileName.Text.ToString();
+            string pathDelete = Server.MapPath(FilePath.ToString());
+            Response.ContentType = "Application/pdf";
+            Response.AppendHeader("Content-Disposition", "attachment; filename= " + lblFileName.Text.ToString() + "");
+            Response.TransmitFile(pathDelete.ToString());
+            Response.End(); 
         }
     }
 }

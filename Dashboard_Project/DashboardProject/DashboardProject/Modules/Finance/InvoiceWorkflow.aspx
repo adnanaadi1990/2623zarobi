@@ -152,6 +152,9 @@
                                 <asp:Button ID="btnShowFile" CssClass="btn btn-primary" Text="Show Document" runat="server" OnClick="btnShowFile_Click" Visible="False"></asp:Button>
 
 
+                                <asp:Button ID="btnDownload" CssClass="btn btn-primary" Text="Download Document" runat="server" OnClick="btnDownload_Click" Visible="False"></asp:Button>
+
+
                                 <input id="btnShow" type="button" class="btn btn-primary" value="Show Document" style="display: none" />
                                 <input runat="server" value="Print" type="button" id="btnPrint" class="btn btn-primary" onclick="PrintDivContent('dialog');" visible="false" />
                             </div>
