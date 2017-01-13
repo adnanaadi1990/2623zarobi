@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="InvoiceWorkflow.aspx.cs" Inherits="DashboardProject.Modules.Finance.InvoiceWorkflow" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="../../Scripts/jquery-1.9.1.min.js"></script>
@@ -13,7 +14,7 @@
     <link href="../../Style/footable.min.css"
         rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="../../Scripts/footable.min.js"></script>
-    
+
 
     <script type="text/javascript">
         $(function () {
@@ -86,7 +87,8 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    &nbsp;<p id="dvH" style="font-family: inherit; display: none; font-size: 35px !important; font-weight: bold; color: black; text-align: center;">Invoice Workflow Report<br />
+    &nbsp;<p id="dvH" style="font-family: inherit; display: none; font-size: 35px !important; font-weight: bold; color: black; text-align: center;">
+        Invoice Workflow Report<br />
         <br />
     </p>
     <div id="pnlHD">
@@ -118,14 +120,14 @@
                 <div id="collapse6" class="panel-collapse collapse in">
                     <div class="panel-body">
                         <div class="row">
-                         <div class="col-sm-3" runat="server" id="dvTransactionNo">
-                                   Transaction No
+                            <div class="col-sm-3" runat="server" id="dvTransactionNo">
+                                Transaction No
                                  <asp:Label ID="lblMaxTransactionNo" runat="server" CssClass="form-control"></asp:Label>
-                                </div>
-                                <div class="col-sm-3" runat="server" id="dvFormID" visible="false">
-                                    Form ID
+                            </div>
+                            <div class="col-sm-3" runat="server" id="dvFormID" visible="false">
+                                Form ID
                                  <asp:Label ID="lblMaxTransactionID" runat="server" CssClass="form-control"></asp:Label>
-                                </div>
+                            </div>
                             <div class="col-sm-7">
                                 File Name
                                 
@@ -157,8 +159,14 @@
 
                                 <input id="btnShow" type="button" class="btn btn-primary" value="Show Document" style="display: none" />
                                 <input runat="server" value="Print" type="button" id="btnPrint" class="btn btn-primary" onclick="PrintDivContent('dialog');" visible="false" />
+                                <br />
                             </div>
-
+                        </div>
+                        <span class="help-block"></span>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <asp:Label ID="lblMSGIWF" runat="server" Text="Note: Please first upload IWF before saving the form"></asp:Label>
+                            </div>
                         </div>
                     </div>
 
@@ -226,28 +234,28 @@
                                        </asp:DropDownList>
                                 </div>
 
-                                 <div class="col-sm-4">
-                                  11th Approver  
+                                <div class="col-sm-4">
+                                    11th Approver  
                                        <asp:DropDownList ID="DropDownList9" CssClass="form-control" runat="server">
                                        </asp:DropDownList>
                                 </div>
-                                 <div class="col-sm-4">
-                                  12th Approver  
+                                <div class="col-sm-4">
+                                    12th Approver  
                                        <asp:DropDownList ID="DropDownList10" CssClass="form-control" runat="server">
                                        </asp:DropDownList>
                                 </div>
-                                 <div class="col-sm-4">
-                                  13th Approver  
+                                <div class="col-sm-4">
+                                    13th Approver  
                                        <asp:DropDownList ID="DropDownList11" CssClass="form-control" runat="server">
                                        </asp:DropDownList>
                                 </div>
-                                 <div class="col-sm-4">
-                                 14th Approver  
+                                <div class="col-sm-4">
+                                    14th Approver  
                                        <asp:DropDownList ID="DropDownList12" CssClass="form-control" runat="server">
                                        </asp:DropDownList>
                                 </div>
-                                 <div class="col-sm-4">
-                                  Reviwer
+                                <div class="col-sm-4">
+                                    Reviwer
                                        <asp:DropDownList ID="ddlEmailMDA" CssClass="form-control" runat="server">
                                        </asp:DropDownList>
                                 </div>
@@ -261,10 +269,10 @@
             <div class="panel panel-default" style="text-align: center;">
                 <div class="panel-body">
                     <div class="row">
-                            <div class="col-sm-12">
-                                <asp:TextBox ID="txtRemarksReview" runat="server" CssClass="form-control" Height="80px" TextMode="MultiLine" PlaceHolder="Comment Box" Visible="true" BackColor="AliceBlue"></asp:TextBox>
-                            </div>
+                        <div class="col-sm-12">
+                            <asp:TextBox ID="txtRemarksReview" runat="server" CssClass="form-control" Height="80px" TextMode="MultiLine" PlaceHolder="Comment Box" Visible="true" BackColor="AliceBlue"></asp:TextBox>
                         </div>
+                    </div>
                     <div class="col-sm-12" style="text-align: left;" runat="server" id="dvemaillbl">
                         <%-- <iframe src="../../AA/Files/VendorCreationForm.version1.0.pdf" width="400"></iframe>--%>
 
@@ -279,7 +287,7 @@
             </div>
 
             <div class="col-sm-12" style="text-align: center;">
-                <asp:Button ID="btnSave" runat="server" OnClientClick="return AllowOneClick()"  CssClass="btn btn-primary" Text="Save" Width="100px" OnClick="btnSave_Click"></asp:Button>
+                <asp:Button ID="btnSave" runat="server" OnClientClick="return AllowOneClick()" CssClass="btn btn-primary" Text="Save" Width="100px" OnClick="btnSave_Click"></asp:Button>
                 <asp:Button ID="btnSaveSubmit" runat="server" OnClientClick="return AllowOneClick()" CssClass="btn btn-primary" Text="Save / Submit" Width="100px" Visible="False" ValidationGroup="grpSave" CausesValidation="False" OnClick="btnSaveSubmit_Click"></asp:Button>
                 <asp:Button ID="btnApproved" OnClientClick="return AllowOneClick()" runat="server" CssClass="btn btn-primary" Text="Approve" OnClick="btnApproved_Click" Width="100px" Visible="False" CausesValidation="False"></asp:Button>
                 <asp:Button ID="btnReject" OnClientClick="return AllowOneClick()" runat="server" CssClass="btn btn-primary" Text="Reject" OnClick="btnReject_Click" Width="100px" Visible="False"></asp:Button>
