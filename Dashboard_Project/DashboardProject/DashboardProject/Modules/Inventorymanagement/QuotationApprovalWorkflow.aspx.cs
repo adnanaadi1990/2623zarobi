@@ -225,7 +225,6 @@ namespace DashboardProject.Modules.Inventorymanagement
                             BindsysApplicationStatus();
                             btnDownload.Visible = true;
                         }
-
                     }
                     else
                     {
@@ -244,7 +243,9 @@ namespace DashboardProject.Modules.Inventorymanagement
                 }
             }
         }
+
         #region Methods
+
         //////////////////////////////////////////--------------Methods---------------//////////////////////////////////////////////////////
         //--///Bind Application Method///
         private void BindsysApplicationStatus()
@@ -519,6 +520,7 @@ namespace DashboardProject.Modules.Inventorymanagement
             }
         }
         #endregion
+
         ///////////////----------------------------------Events---------------------------------//////////////////////////////
         //-------------------------------------------Upload Button------------------------///////////////////
         protected void btnUpload_Click(object sender, EventArgs e)
