@@ -59,6 +59,7 @@ namespace DashboardProject.Modules.Finance
         {
             if (!IsPostBack)
             {
+                btnUpload.Visible = true;
                 //ddlEmailApproval.BackColor = System.Drawing.Color.AliceBlue;
                 //ddlEmailApproval2nd.BackColor = System.Drawing.Color.AliceBlue;
 
@@ -80,6 +81,8 @@ namespace DashboardProject.Modules.Finance
                 {
                     if (Request.QueryString["TransactionNo"] != null)
                     {
+                        txtSAPDNo.Enabled = false;
+                        btnDownload.Visible = true;
                         btnSave.Visible = false;
                         btnApproved.Visible = false;
                         btnReject.Visible = false;
@@ -104,6 +107,7 @@ namespace DashboardProject.Modules.Finance
                             lblMaxTransactionNo.Text = reader["TransactionMain"].ToString();
                             lblMaxTransactionID.Text = reader["TransactionID"].ToString();
                             lblFileName.Text = reader["FileName"].ToString();
+                            txtSAPDNo.Text = reader["SAPDocNo"].ToString();
                         }
                          GetHarcheyID();
                         GetStatusHierachyCategoryControls();
@@ -124,6 +128,7 @@ namespace DashboardProject.Modules.Finance
                             btnShowFile.Visible = true;
                             dvFormID.Visible = true;
                             dvTransactionNo.Visible = false;
+                            btnDownload.Visible = true;
                         }
                         if (((string)ViewState["HID"]) == "2")
                         {
@@ -139,6 +144,7 @@ namespace DashboardProject.Modules.Finance
                             btnShowFile.Visible = true;
                             dvFormID.Visible = true;
                             dvTransactionNo.Visible = false;
+                            btnDownload.Visible = true;
                         }
                         if (((string)ViewState["HID"]) == "4")
                         {
@@ -154,6 +160,8 @@ namespace DashboardProject.Modules.Finance
                             btnShowFile.Visible = true;
                             dvFormID.Visible = true;
                             dvTransactionNo.Visible = false;
+                            btnDownload.Visible = true;
+                            
                         }
                         if (((string)ViewState["HID"]) == "3")
                         {
@@ -169,6 +177,8 @@ namespace DashboardProject.Modules.Finance
                             btnShowFile.Visible = true;
                             dvFormID.Visible = true;
                             dvTransactionNo.Visible = false;
+                            txtSAPDNo.Enabled = true;
+                            btnDownload.Visible = true;
                         }
                     }
                     else
@@ -228,6 +238,7 @@ namespace DashboardProject.Modules.Finance
                     sucess.Visible = true;
                     lblError.Text = "";
                     btnShowFile.Visible = true;
+                    btnUpload.Visible = false;
                 }
             }
 
@@ -739,7 +750,7 @@ namespace DashboardProject.Modules.Finance
                     FormCode = reader["FormID"].ToString();
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
-                    EmailSubject = "Invoice Workflow Request – Form ID # " + lblMaxTransactionID.Text + "";
+                    EmailSubject = "SAP Documnet No Created Invoice Workflow Request – Form ID # " + lblMaxTransactionID.Text + "";
                     EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " Invoice Workflow Request against Form ID#   " + lblMaxTransactionID.Text.ToString() + " has been reviewed by " + ViewState["SessionUser"].ToString() +
                         "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                         "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
@@ -827,6 +838,7 @@ namespace DashboardProject.Modules.Finance
         {
             try
             {
+                UpddateWorking();
                 EmailWorkSendMDA();
                 ApplicationStatus();
                 BindsysApplicationStatus();
@@ -1036,5 +1048,40 @@ namespace DashboardProject.Modules.Finance
                 lblError.Text = "File does not exist";
             }
         }
+        protected void UpddateWorking()
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            {
+                using (SqlCommand Update_DocNo_tbl_FI_InvoiceWorkflow = new SqlCommand())
+                {
+                    Update_DocNo_tbl_FI_InvoiceWorkflow.Connection = connection;
+                    Update_DocNo_tbl_FI_InvoiceWorkflow.CommandType = CommandType.StoredProcedure;
+                    Update_DocNo_tbl_FI_InvoiceWorkflow.CommandText = @"Update_DocNo_tbl_FI_InvoiceWorkflow";
+
+                    try
+                    {
+                        //string SplitString = "";
+                        //string input = EmailBody.ToString(); ;
+                        //SplitString = input.Substring(input.IndexOf(',') + 1);
+                        connection.Open();
+                        Update_DocNo_tbl_FI_InvoiceWorkflow.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text.ToString());
+                        Update_DocNo_tbl_FI_InvoiceWorkflow.Parameters.AddWithValue("@SAPDocNo", txtSAPDNo.Text.ToString());
+                        Update_DocNo_tbl_FI_InvoiceWorkflow.ExecuteNonQuery();
+
+                    }
+                    catch (SqlException e)
+                    {
+                        lblError.Text = e.ToString();
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+
+        }
+
+
     }
 }

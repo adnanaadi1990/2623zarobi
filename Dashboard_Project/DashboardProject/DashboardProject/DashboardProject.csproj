@@ -733,15 +733,21 @@
     <Content Include="Modules\PP\PP_Main.aspx" />
     <Content Include="Modules\Procurement\Procurment_Main.aspx" />
     <Content Include="Modules\Reports\AssetCreationFromReport.aspx" />
+    <Content Include="Modules\Reports\AssetDisposalFormReport.aspx" />
     <Content Include="Modules\Reports\AssetTransferFromReport.aspx" />
+    <Content Include="Modules\Reports\AssetWriteoffFormReport.aspx" />
+    <Content Include="Modules\Reports\BOMApprovalReport.aspx" />
     <Content Include="Modules\Reports\CustomerMasterReport.aspx" />
     <Content Include="Modules\Reports\DeadStockReport.aspx" />
+    <Content Include="Modules\Reports\DeliveryChallanWorkflowReport.aspx" />
     <Content Include="Modules\Reports\InventoryAdjustmentReport.aspx" />
+    <Content Include="Modules\Reports\InvoiceWorkflowReport.aspx" />
     <Content Include="Modules\Reports\MaterialMasterMtypeCreationReport.aspx" />
     <Content Include="Modules\Reports\MaterialMasterReport.aspx" />
     <Content Include="Modules\Reports\PendingList.aspx" />
     <Content Include="Modules\Reports\PendingListByUser.aspx" />
     <Content Include="Modules\Reports\PettyCashMasterReport.aspx" />
+    <Content Include="Modules\Reports\QuotationApprovalReport.aspx" />
     <Content Include="Modules\Reports\SAPAuthorizationRequest.aspx" />
     <Content Include="Modules\Reports\ServiceMasterRequestformReport.aspx" />
     <Content Include="Modules\Reports\TransportRequestReport.aspx" />
@@ -777,6 +783,28 @@
     <Content Include="DashboardDocument\DeadStockDoc\b5013066_8fa2940_5155smart.pdf" />
     <Content Include="DashboardDocument\DeadStockDoc\e8a608cf_11e62940_4606smart.pdf" />
     <Content Include="DashboardDocument\DeadStockDoc\fc8357b7_8fa2940_5155smart.pdf" />
+    <Content Include="DashboardDocument\QuotationApprovalWorkflow\3e1c1bd4_accp-pro.pdf" />
+    <Content Include="DashboardDocument\QuotationApprovalWorkflow\49ce6809_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\QuotationApprovalWorkflow\c2d8279a_accp-pro.pdf" />
+    <Content Include="DashboardDocument\QuotationApprovalWorkflow\QuotationApprovalWorkflow38f39588_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\QuotationApprovalWorkflow\QuotationApprovalWorkflow43251d74_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\QuotationApprovalWorkflow\QuotationApprovalWorkflow727231b1_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\QuotationApprovalWorkflow\QuotationApprovalWorkflow9de8f94c_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\QuotationApprovalWorkflow\QuotationApprovalWorkflowcf67a398_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\InvoiceWorkflow\10711806_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\InvoiceWorkflow\3fb4fe7f_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\InvoiceWorkflow\52e594de_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\InvoiceWorkflow\6780282d_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\InvoiceWorkflow\69a4e93e_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\InvoiceWorkflow\6a438d21_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\InvoiceWorkflow\835393d8_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\InvoiceWorkflow\965e55a8_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\InvoiceWorkflow\b152fa2a_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\InvoiceWorkflow\bccc2500_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\InvoiceWorkflow\c2044c46_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\InvoiceWorkflow\c8e84763_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\InvoiceWorkflow\cd4c3e86_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\InvoiceWorkflow\cfe33b3b_11e62940_4606smart.pdf" />
     <None Include="Properties\PublishProfiles\PublishDashboard.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
@@ -1264,12 +1292,33 @@
     <Compile Include="Modules\Reports\AssetCreationFromReport.aspx.designer.cs">
       <DependentUpon>AssetCreationFromReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Reports\AssetDisposalFormReport.aspx.cs">
+      <DependentUpon>AssetDisposalFormReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Reports\AssetDisposalFormReport.aspx.designer.cs">
+      <DependentUpon>AssetDisposalFormReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Reports\AssetTransferFromReport.aspx.cs">
       <DependentUpon>AssetTransferFromReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Modules\Reports\AssetTransferFromReport.aspx.designer.cs">
       <DependentUpon>AssetTransferFromReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\AssetWriteoffFormReport.aspx.cs">
+      <DependentUpon>AssetWriteoffFormReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Reports\AssetWriteoffFormReport.aspx.designer.cs">
+      <DependentUpon>AssetWriteoffFormReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\BOMApprovalReport.aspx.cs">
+      <DependentUpon>BOMApprovalReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Reports\BOMApprovalReport.aspx.designer.cs">
+      <DependentUpon>BOMApprovalReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\CustomerMasterReport.aspx.cs">
       <DependentUpon>CustomerMasterReport.aspx</DependentUpon>
@@ -1285,12 +1334,26 @@
     <Compile Include="Modules\Reports\DeadStockReport.aspx.designer.cs">
       <DependentUpon>DeadStockReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Reports\DeliveryChallanWorkflowReport.aspx.cs">
+      <DependentUpon>DeliveryChallanWorkflowReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Reports\DeliveryChallanWorkflowReport.aspx.designer.cs">
+      <DependentUpon>DeliveryChallanWorkflowReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Reports\InventoryAdjustmentReport.aspx.cs">
       <DependentUpon>InventoryAdjustmentReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Modules\Reports\InventoryAdjustmentReport.aspx.designer.cs">
       <DependentUpon>InventoryAdjustmentReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\InvoiceWorkflowReport.aspx.cs">
+      <DependentUpon>InvoiceWorkflowReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Reports\InvoiceWorkflowReport.aspx.designer.cs">
+      <DependentUpon>InvoiceWorkflowReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\MaterialMasterMtypeCreationReport.aspx.cs">
       <DependentUpon>MaterialMasterMtypeCreationReport.aspx</DependentUpon>
@@ -1326,6 +1389,13 @@
     </Compile>
     <Compile Include="Modules\Reports\PettyCashMasterReport.aspx.designer.cs">
       <DependentUpon>PettyCashMasterReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\QuotationApprovalReport.aspx.cs">
+      <DependentUpon>QuotationApprovalReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Reports\QuotationApprovalReport.aspx.designer.cs">
+      <DependentUpon>QuotationApprovalReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\SAPAuthorizationRequest.aspx.cs">
       <DependentUpon>SAPAuthorizationRequest.aspx</DependentUpon>
@@ -1820,11 +1890,9 @@
     <Content Include="DashboardDocument\PettyCash\0a4b4e01_MMD Final Version.pdf" />
     <Content Include="DashboardDocument\PettyCash\0b7e44c8_petty cash unit 1.pdf" />
     <Content Include="DashboardDocument\PettyCash\0c133b2c_Petty Cash.pdf" />
-    <Content Include="DashboardDocument\PettyCash\10a19d9b_MMD Final Version.pdf" />
     <Content Include="DashboardDocument\PettyCash\11a4cac9_Petty Cash.pdf" />
     <Content Include="DashboardDocument\PettyCash\26655cd4_MMD Final Version.pdf" />
     <Content Include="DashboardDocument\PettyCash\29d2a1a0_Testing File.pdf" />
-    <Content Include="DashboardDocument\PettyCash\2b8ae984_MMD Final Version.pdf" />
     <Content Include="DashboardDocument\PettyCash\2f9d00b8_Petty Cash.pdf" />
     <Content Include="DashboardDocument\PettyCash\3901d91c_MMD Final Version.pdf" />
     <Content Include="DashboardDocument\PettyCash\3d115736_MMD Final Version.pdf" />
@@ -1963,6 +2031,7 @@
     <Folder Include="js\fonts\" />
     <Folder Include="js\Images\" />
     <Folder Include="js\img\" />
+    <Folder Include="obj\" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">

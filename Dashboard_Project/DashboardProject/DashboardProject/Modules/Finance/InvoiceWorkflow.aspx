@@ -15,7 +15,15 @@
         rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="../../Scripts/footable.min.js"></script>
 
-
+    <script type="text/javascript">
+        $(function () {
+            $('[id*=txtSAPDNo').keyup(function () {
+                if (this.value.match(/[^,.0-9 ]/g)) {
+                    this.value = this.value.replace(/[^,.0-9 ]/g, '');
+                }
+            });
+        });
+       </script>
     <script type="text/javascript">
         $(function () {
             /*
@@ -87,7 +95,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    &nbsp;<p id="dvH" style="font-family: inherit; display: none; font-size: 35px !important; font-weight: bold; color: black; text-align: center;">
+    <p id="dvH" style="font-family: inherit; display: none; font-size: 35px !important; font-weight: bold; color: black; text-align: center;">
         Invoice Workflow Report<br />
         <br />
     </p>
@@ -128,6 +136,10 @@
                                 Form ID
                                  <asp:Label ID="lblMaxTransactionID" runat="server" CssClass="form-control"></asp:Label>
                             </div>
+                            <div class="col-sm-3">
+                                SAP Document No
+                                 <asp:TextBox ID="txtSAPDNo" runat="server" CssClass="form-control" Enabled="False"></asp:TextBox>
+                            </div>
                             <div class="col-sm-7">
                                 File Name
                                 
@@ -164,7 +176,7 @@
                         </div>
                         <span class="help-block"></span>
                         <div class="row">
-                            <div class="col-sm-5">
+                            <div class="col-sm-12">
                                 <asp:Label ID="lblMSGIWF" runat="server" Text="Note: Please first upload IWF before saving the form"></asp:Label>
                             </div>
                         </div>
