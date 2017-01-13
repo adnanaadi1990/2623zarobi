@@ -53,11 +53,11 @@ namespace DashboardProject.Modules.Inventorymanagement
         SqlDataAdapter adp = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
         ComponentClass_AD objAD = new ComponentClass_AD();
-        ComponentClass_FD objFD = new ComponentClass_FD();
         ComponentClass obj = new ComponentClass();
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!IsPostBack)
             {
                 if (Session["User_Name"] == null)
@@ -218,28 +218,31 @@ namespace DashboardProject.Modules.Inventorymanagement
 
                     }
                 }
-                catch (SqlException ex)
+                catch (Exception ex)
                 {
+                    lblError.Text = ex.ToString();
                     dvemaillbl.Visible = true;
-                    lblError.Text = "Page_Load" + ex.ToString();
                 }
             }
-
+            for (int i = 0; i < ddlNotification.Items.Count; i++)
+            {
+                ddlNotification.Items[i].Selected = true;
+                ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
+            }
         }
 
         private void GetSockDetail()
         {
             try
             {
-                ds = objFD.getInventory(lblMaxTransactionID.Text.ToString());
-                grdDetail.DataSource = ds.Tables["getInventory"];
+                ds = objAD.getDeadStock(lblMaxTransactionID.Text.ToString());
+                grdDetail.DataSource = ds.Tables["getDeadStock"];
                 grdDetail.DataBind();
             }
-
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                dvemaillbl.Visible = true;
                 lblError.Text = "GetSockDetail" + ex.ToString();
+                dvemaillbl.Visible = true;
             }
         }
 
@@ -252,21 +255,17 @@ namespace DashboardProject.Modules.Inventorymanagement
                 grdWStatus.DataBind();
                 grdWStatus.Visible = true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                dvemaillbl.Visible = true;
                 lblError.Text = "BindsysApplicationStatus" + ex.ToString();
             }
-
-
         }
 
         private void GetStatusHierachyCategoryControls()
         {
-
             try
             {
-                ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
+                ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString(), ViewState["SerialNo"].ToString(), ViewState["Status"].ToString());
                 if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
                 {
                     ViewState["StatusHierachyCategory"] = ds.Tables["tbl_SysHierarchyControl"].Rows[0]["Status"].ToString();
@@ -284,10 +283,8 @@ namespace DashboardProject.Modules.Inventorymanagement
 
                 }
             }
-
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                dvemaillbl.Visible = true;
                 lblError.Text = "GetStatusHierachyCategoryControls" + ex.ToString();
             }
         }
@@ -308,12 +305,12 @@ namespace DashboardProject.Modules.Inventorymanagement
             catch (SqlException ex)
             {
                 dvemaillbl.Visible = true;
-                lblError.Text = "getUserDetail" + ex.ToString();
+                lblError.Text = "User Detail" + ex.ToString();
             }
         }
+
         private void GetHarcheyID()
         {
-
             try
             {
 
@@ -333,24 +330,51 @@ namespace DashboardProject.Modules.Inventorymanagement
                     ViewState["Status"] = ds.Tables["HID"].Rows[0]["Status"].ToString();
 
                 }
-                else
-                {
-                    ViewState["HID"] = "1";
-                }
             }
-
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                dvemaillbl.Visible = true;
                 lblError.Text = "GetHarcheyID" + ex.ToString();
             }
         }
 
         private void BindUser()
         {
+<<<<<<< HEAD
             try
+=======
+            cmd.CommandText = "SELECT * FROM tblEmailSequanceWise where FormID = @FormID order by Sequance asc";
+            //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = conn;
+
+            conn.Open();
+            ddlNotification.DataSource = cmd.ExecuteReader();
+            cmd.Parameters.AddWithValue("@FormID",FormID.ToString());
+            ddlNotification.DataTextField = "DisplayName";
+            ddlNotification.DataValueField = "user_name";
+            ddlNotification.DataBind();
+            conn.Close();
+            for (int i = 0; i < ddlNotification.Items.Count; i++)
+>>>>>>> refs/remotes/origin/Development
             {
-                cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'IAF'";
+                cmd.CommandText = "SP_getFormID";
+                //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
+                conn.Open();
+                ddlNotification.DataSource = cmd.ExecuteReader();
+                ddlNotification.DataTextField = "DisplayName";
+                ddlNotification.DataValueField = "user_name";
+                ddlNotification.DataBind();
+                conn.Close();
+                for (int i = 0; i < ddlNotification.Items.Count; i++)
+                {
+                    ddlNotification.Items[i].Selected = true;
+                    ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
+                }
+
+                cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'IAA'";
                 //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
@@ -361,24 +385,9 @@ namespace DashboardProject.Modules.Inventorymanagement
                 ddlEmailMDA.DataBind();
                 conn.Close();
                 ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
-
-                cmd.CommandText = "SP_getDirectorUser";
-                //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = conn;
-                conn.Open();
-                ddlDirector.DataSource = cmd.ExecuteReader();
-                ddlDirector.DataTextField = "DisplayName";
-                ddlDirector.DataValueField = "user_name";
-                ddlDirector.DataBind();
-                conn.Close();
-                ddlDirector.Items.Insert(0, new ListItem("------Select------", "0"));
-                ddlDirector.SelectedIndex = 1;
             }
-
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                dvemaillbl.Visible = true;
                 lblError.Text = "BindUser" + ex.ToString();
             }
         }
@@ -400,7 +409,7 @@ namespace DashboardProject.Modules.Inventorymanagement
             catch (Exception ex)
             {
                 dvemaillbl.Visible = true;
-                lblError.Text = "getUserHOD" + ex.ToString();
+                lblError.Text = "User HOD" + ex.ToString();
             }
         }
 
@@ -418,13 +427,15 @@ namespace DashboardProject.Modules.Inventorymanagement
             catch (Exception ex)
             {
                 dvemaillbl.Visible = true;
-                lblError.Text = "GetTransactionID" + ex.ToString();
+                lblError.Text = "Transaction ID" + ex.ToString();
             }
         }
+
         protected void btnUpload_Click(object sender, EventArgs e)
         {
             try
             {
+
                 lblmessage.Text = "";
                 error.Visible = false;
                 sucess.Visible = false;
@@ -463,16 +474,15 @@ namespace DashboardProject.Modules.Inventorymanagement
                     }
                 }
             }
-
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                dvemaillbl.Visible = true;
                 lblError.Text = "btnUpload_Click" + ex.ToString();
             }
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
+
             try
             {
                 FilePath = "~/DashboardDocument/InventoryAdjustment/" + lblFileName.Text.ToString();
@@ -493,10 +503,8 @@ namespace DashboardProject.Modules.Inventorymanagement
                     lblError.Text = "File does not exists";
                 }
             }
-
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                dvemaillbl.Visible = true;
                 lblError.Text = "btnDelete_Click" + ex.ToString();
             }
         }
@@ -534,10 +542,8 @@ namespace DashboardProject.Modules.Inventorymanagement
                     lblError.Text = "File Cannot display or may be deleted.";
                 }
             }
-
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                dvemaillbl.Visible = true;
                 lblError.Text = "btnShowFile_Click" + ex.ToString();
             }
         }
@@ -574,15 +580,14 @@ namespace DashboardProject.Modules.Inventorymanagement
                     return;
 
                 }
-                if (ddlDirector.SelectedValue == "0")
+                if (ddlNotification.SelectedValue == "")
                 {
-                    ddlDirector.BackColor = System.Drawing.Color.Red;
-                    lblUpError.Text = "Please select Director";
+                    ddlNotification.BackColor = System.Drawing.Color.Red;
+                    lblUpError.Text = "Please select any Person for Notification";
                     error.Visible = true;
                     return;
 
                 }
-
                 if (txtDescription.Text == "")
                 {
                     txtDescription.BackColor = System.Drawing.Color.Red;
@@ -591,9 +596,20 @@ namespace DashboardProject.Modules.Inventorymanagement
                     return;
 
                 }
+                string Notification = "";
+
+                for (int i = 0; i <= ddlNotification.Items.Count - 1; i++)
+                {
+                    if (ddlNotification.Items[i].Selected)
+                    {
+                        if (Notification == "") { Notification = ddlNotification.Items[i].Value; }
+                        else { Notification += "," + ddlNotification.Items[i].Value; }
+                    }
+
+                }
 
                 FilePath = "~/DashboardDocument/InventoryAdjustment/" + "InventoryAdjustment" + lblFileName.Text.ToString();
-                string Approval = ViewState["HOD"].ToString() + "," + ddlDirector.SelectedValue.ToString();
+                string Approval = ViewState["HOD"].ToString() + "," + Notification.ToString();
                 cmd.CommandText = "Exec SP_SYS_create_InventoryManagment" + " @TransactionMain='" + lblMaxTransactionNo.Text + "', " +
                         " @FileName='" + lblFileName.Text + "', " +
                         " @Description='" + txtDescription.Text + "', " +
@@ -627,13 +643,17 @@ namespace DashboardProject.Modules.Inventorymanagement
                 txtRemarksReview.Text = "";
                 txtDescription.Text = "";
 
+                for (int i = 0; i < ddlNotification.Items.Count; i++)
+                {
+                    ddlNotification.Items[i].Selected = true;
+                    ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
+                }
             }
 
-
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                dvemaillbl.Visible = true;
-                lblError.Text = "btnSave_Click" + ex.ToString();
+                lblError.Text = ex.ToString();
+
             }
 
             finally
@@ -669,11 +689,9 @@ namespace DashboardProject.Modules.Inventorymanagement
                     GetSockDetail();
                 }
             }
-
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                dvemaillbl.Visible = true;
-                lblError.Text = "btnMDA_Click" + ex.ToString();
+                lblError.Text = "MDA Working" + ex.ToString();
             }
         }
 
@@ -681,24 +699,19 @@ namespace DashboardProject.Modules.Inventorymanagement
         {
             try
             {
-                ds = objFD.InsertAllHODS(FormID.ToString(), lblMaxTransactionID.Text, Session["User_Name"].ToString());
                 EmailWorkApproved();
                 ApplicationStatus();
                 BindsysApplicationStatus();
                 GetStatusHierachyCategoryControls();
             }
-
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                dvemaillbl.Visible = true;
-                lblError.Text = "btnApproved_Click" + ex.ToString();
+                lblError.Text = "Approver" + ex.ToString();
             }
         }
 
         protected void ClosedFormAfterReject()
         {
-
-
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
                 using (SqlCommand cmdClosedFormAfterReject = new SqlCommand())
@@ -717,11 +730,9 @@ namespace DashboardProject.Modules.Inventorymanagement
                         cmdClosedFormAfterReject.ExecuteNonQuery();
 
                     }
-
-                    catch (SqlException ex)
+                    catch (SqlException e)
                     {
-                        dvemaillbl.Visible = true;
-                        lblError.Text = "ClosedFormAfterReject" + ex.ToString();
+                        lblError.Text = e.ToString();
                     }
                     finally
                     {
@@ -758,11 +769,9 @@ namespace DashboardProject.Modules.Inventorymanagement
                     GetStatusHierachyCategoryControls();
                 }
             }
-
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                dvemaillbl.Visible = true;
-                lblError.Text = "btnReject_Click" + ex.ToString();
+                lblError.Text = "Reject" + ex.ToString();
             }
         }
 
@@ -806,12 +815,11 @@ namespace DashboardProject.Modules.Inventorymanagement
                     GetSockDetail();
                 }
             }
-
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                dvemaillbl.Visible = true;
                 lblError.Text = "UpdateWorking" + ex.ToString();
             }
+
         }
 
         #region methodEmailWorks
@@ -820,7 +828,6 @@ namespace DashboardProject.Modules.Inventorymanagement
 
         protected void InsertEmailHOD()
         {
-
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
                 using (SqlCommand cmdInsertEmail = new SqlCommand())
@@ -846,11 +853,9 @@ namespace DashboardProject.Modules.Inventorymanagement
                         cmdInsertEmail.ExecuteNonQuery();
 
                     }
-
-                    catch (SqlException ex)
+                    catch (SqlException e)
                     {
-                        dvemaillbl.Visible = true;
-                        lblError.Text = "InsertEmailHOD" + ex.ToString();
+                        lblError.Text = e.ToString();
                     }
                     finally
                     {
@@ -860,209 +865,182 @@ namespace DashboardProject.Modules.Inventorymanagement
             }
 
         }
+
         private void EmailWorkSendFirstApproval()
         {
-            try
+
+            ds = obj.MailForwardUserToApprover(lblMaxTransactionID.Text, FormID.ToString());
+
+            if (ds.Tables["MailForwardUserToApprover"].Rows.Count > 0)
             {
-                ds = obj.MailForwardUserToApprover(lblMaxTransactionID.Text, FormID.ToString());
-
-                if (ds.Tables["MailForwardUserToApprover"].Rows.Count > 0)
+                DataTableReader reader = ds.Tables["MailForwardUserToApprover"].CreateDataReader();
+                while (reader.Read())
                 {
-                    DataTableReader reader = ds.Tables["MailForwardUserToApprover"].CreateDataReader();
-                    while (reader.Read())
-                    {
-                        url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
-                        urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
-                        TransactionIDEmail = reader["TransactionID"].ToString();
-                        FormCode = reader["FormID"].ToString();
-                        UserName = reader["user_name"].ToString();
-                        UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
-                        EmailSubject = "Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " has sent you a Inventory Adjustment Approval Request against Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL: " +
-                        "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
-                        "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
-                        "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                            "<br>Inventory Management Application <br> Information Systems Dashboard";
-                        SessionUser = Session["User_Name"].ToString();
-                        DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-                        InsertEmail();
+                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+                    TransactionIDEmail = reader["TransactionID"].ToString();
+                    FormCode = reader["FormID"].ToString();
+                    UserName = reader["user_name"].ToString();
+                    UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
+                    EmailSubject = "Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " has sent you a Inventory Adjustment Approval Request against Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL: " +
+                    "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                    "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                    "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                        "<br>Inventory Management Application <br> Information Systems Dashboard";
+                    SessionUser = Session["User_Name"].ToString();
+                    DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                    InsertEmail();
 
-                    }
                 }
             }
-
-            catch (SqlException ex)
+            //}
+            else
             {
-                dvemaillbl.Visible = true;
-                lblError.Text = "EmailWorkSendFirstApproval" + ex.ToString();
+
             }
 
         }
 
         private void EmailWorkFirstHaracheyMDA()
         {
-            try
+            string HierachyCategory = "4";
+            string HierachyCategoryStatus = "04"; // Allow based on reqierment if there is No MDA if other wise allow "4"//
+            ds = obj.MailForwardToAllFromMDA(lblMaxTransactionID.Text, FormID.ToString(), HierachyCategory.ToString());
+
+            if (ds.Tables["MailForwardToAllFromMDA"].Rows.Count > 0)
+            {
+                DataTableReader reader = ds.Tables["MailForwardToAllFromMDA"].CreateDataReader();
+                while (reader.Read())
+                {
+                    url = Request.Url.ToString();
+                    TransactionIDEmail = reader["TransactionID"].ToString();
+                    FormCode = reader["FormID"].ToString();
+                    UserName = reader["user_name"].ToString();
+                    UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
+                    EmailSubject = "Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " has sent you a Inventory Adjustment Approval Request against Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL: <br><br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, <br>you do not need to reply to this message.<br>" +
+                        "<br>Inventory Management Application <br> Information Systems Dashboard";
+                    SessionUser = Session["User_Name"].ToString();
+                    DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                    InsertEmail();
+
+                    lblmessage.Text = " has been saved against  Form ID # " + lblMaxTransactionID.Text;
+
+                    lblmessage.ForeColor = System.Drawing.Color.Green;
+                    conn.Close();
+                    sucess.Visible = true;
+                    error.Visible = false;
+                    lblmessage.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    ViewState["Status"] = HierachyCategoryStatus.ToString();
+                }
+
+            }
+            else
             {
 
-                string HierachyCategory = "4";
-                string HierachyCategoryStatus = "04"; // Allow based on reqierment if there is No MDA if other wise allow "4"//
-                ds = obj.MailForwardToAllFromMDA(lblMaxTransactionID.Text, FormID.ToString(), HierachyCategory.ToString());
+            }
+        }
 
-                if (ds.Tables["MailForwardToAllFromMDA"].Rows.Count > 0)
+        private void EmailWorkApproved()
+        {
+            string HierachyCategoryStatus = "02";
+            ds = obj.MailForwardFormApprover(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
+            string Value = ds.Tables["MailForwardFormApprover"].Rows[0]["HierachyCategory"].ToString();
+            DataTableReader reader = ds.Tables["MailForwardFormApprover"].CreateDataReader();
+            if (ds.Tables["MailForwardFormApprover"].Rows.Count > 0 && Value == "2")
+            {
+                while (reader.Read())
                 {
-                    DataTableReader reader = ds.Tables["MailForwardToAllFromMDA"].CreateDataReader();
+                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local");
+                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110");
+                    TransactionIDEmail = reader["TransactionID"].ToString();
+                    FormCode = reader["FormID"].ToString();
+                    UserName = reader["user_name"].ToString();
+                    UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
+                    EmailSubject = "Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + "has sent you a Inventory Adjustment Approval Request against Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL: " +
+                    "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                    "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                    "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                        "<br>Inventory Management Application<br> Information Systems Dashboard";
+                    SessionUser = Session["User_Name"].ToString();
+                    DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                    InsertEmail();
+                    lblEmail.Text = "Inventory Adjustment Approval Request Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
+                    ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
+                    lblEmail.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    Page.MaintainScrollPositionOnPostBack = true;
+                    lblEmail.Focus();
+                }
+
+
+            }
+            else
+            {
+                if (ds.Tables["MailForwardFormApprover"].Rows.Count > 0)
+                {
                     while (reader.Read())
                     {
+
                         url = Request.Url.ToString();
                         TransactionIDEmail = reader["TransactionID"].ToString();
                         FormCode = reader["FormID"].ToString();
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                         EmailSubject = "Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " has sent you a Inventory Adjustment Approval Request against Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL: <br><br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, <br>you do not need to reply to this message.<br>" +
-                            "<br>Inventory Management Application <br> Information Systems Dashboard";
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " has sent you a Inventory Adjustment Approval Request against Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> You can create a Document No on the following URL: <br><br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, <br>you do not need to reply to this message.<br>" +
+                        "<br>Inventory Management Application <br> Information Systems Dashboard";
                         SessionUser = Session["User_Name"].ToString();
                         DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                         InsertEmail();
-
-                        lblmessage.Text = " has been saved against  Form ID # " + lblMaxTransactionID.Text;
-
-                        lblmessage.ForeColor = System.Drawing.Color.Green;
-                        conn.Close();
-                        sucess.Visible = true;
-                        error.Visible = false;
-                        lblmessage.Focus();
-                        Page.MaintainScrollPositionOnPostBack = false;
-                        Page.MaintainScrollPositionOnPostBack = false;
-                        ViewState["Status"] = HierachyCategoryStatus.ToString();
-                    }
-
-                }
-            }
-
-            catch (SqlException ex)
-            {
-                dvemaillbl.Visible = true;
-                lblError.Text = "EmailWorkFirstHaracheyMDA" + ex.ToString();
-            }
-
-        }
-
-        private void EmailWorkApproved()
-        {
-            try
-            {
-
-                string HierachyCategoryStatus = "02";
-                ds = obj.MailForwardFormApprover(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
-                string Value = ds.Tables["MailForwardFormApprover"].Rows[0]["HierachyCategory"].ToString();
-                DataTableReader reader = ds.Tables["MailForwardFormApprover"].CreateDataReader();
-                if (ds.Tables["MailForwardFormApprover"].Rows.Count > 0 && Value == "2")
-                {
-                    while (reader.Read())
-                    {
-                        url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local");
-                        urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110");
-                        TransactionIDEmail = reader["TransactionID"].ToString();
-                        FormCode = reader["FormID"].ToString();
-                        UserName = reader["user_name"].ToString();
-                        UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
-                        EmailSubject = "Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + "has sent you a Inventory Adjustment Approval Request against Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL: " +
-                        "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
-                        "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
-                        "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                            "<br>Inventory Management Application<br> Information Systems Dashboard";
-                        SessionUser = Session["User_Name"].ToString();
-                        DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-                        InsertEmail();
-                        lblEmail.Text = "Inventory Adjustment Approval Request Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
                         ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
+                        lblEmail.Text = "Inventory Adjustment Approval Request Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
                         lblEmail.Focus();
                         Page.MaintainScrollPositionOnPostBack = false;
                         Page.MaintainScrollPositionOnPostBack = true;
                         lblEmail.Focus();
                     }
-
-
                 }
-                else
-                {
-                    if (ds.Tables["MailForwardFormApprover"].Rows.Count > 0)
-                    {
-                        while (reader.Read())
-                        {
-
-                            url = Request.Url.ToString();
-                            TransactionIDEmail = reader["TransactionID"].ToString();
-                            FormCode = reader["FormID"].ToString();
-                            UserName = reader["user_name"].ToString();
-                            UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
-                            EmailSubject = "Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                            EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " has sent you a Inventory Adjustment Approval Request against Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> You can create a Document No on the following URL: <br><br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, <br>you do not need to reply to this message.<br>" +
-                            "<br>Inventory Management Application <br> Information Systems Dashboard";
-                            SessionUser = Session["User_Name"].ToString();
-                            DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-                            InsertEmail();
-                            ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
-                            lblEmail.Text = "Inventory Adjustment Approval Request Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
-                            lblEmail.Focus();
-                            Page.MaintainScrollPositionOnPostBack = false;
-                            Page.MaintainScrollPositionOnPostBack = true;
-                            lblEmail.Focus();
-                        }
-                    }
-                }
-            }
-
-            catch (SqlException ex)
-            {
-                dvemaillbl.Visible = true;
-                lblError.Text = "EmailWorkApproved" + ex.ToString();
             }
         }
 
         private void EmailWorkReject()
         {
-            try
-            {
-                ds = obj.MailForwardToUserOnRejection(lblMaxTransactionID.Text, FormID.ToString());
+            ds = obj.MailForwardToUserOnRejection(lblMaxTransactionID.Text, FormID.ToString());
 
-                if (ds.Tables["MailForwardToUserOnRejection"].Rows.Count > 0)
+            if (ds.Tables["MailForwardToUserOnRejection"].Rows.Count > 0)
+            {
+                DataTableReader reader = ds.Tables["MailForwardToUserOnRejection"].CreateDataReader();
+                while (reader.Read())
                 {
-                    DataTableReader reader = ds.Tables["MailForwardToUserOnRejection"].CreateDataReader();
-                    while (reader.Read())
-                    {
-                        url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local");
-                        urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110");
-                        TransactionIDEmail = reader["TransactionID"].ToString();
-                        FormCode = reader["FormID"].ToString();
-                        UserName = reader["user_name"].ToString();
-                        UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
-                        EmailSubject = "Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + ",<br> <br> Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + " has been disapproved by  " + ViewState["SessionUser"].ToString() + " <br><br> The reason of rejection is given below you can review your form on following url: " +
-                        "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
-                        "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
-                        "<br> <br> <br><b>Reject Remarks: " + txtRemarksReview.Text +
-                        "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                            "<br>Inventory Management Application  <br> Information Systems Dashboard";
-                        SessionUser = Session["User_Name"].ToString();
-                        DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-                        InsertEmail();
-                        ViewState["Status"] = "00"; // For Status Reject
-                        lblEmail.Text = "Dead Stock Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been rejected by you";
-                        lblEmail.Focus();
-                        Page.MaintainScrollPositionOnPostBack = false;
-                        Page.MaintainScrollPositionOnPostBack = true;
-                    }
+                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local");
+                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110");
+                    TransactionIDEmail = reader["TransactionID"].ToString();
+                    FormCode = reader["FormID"].ToString();
+                    UserName = reader["user_name"].ToString();
+                    UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
+                    EmailSubject = "Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + ",<br> <br> Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + " has been disapproved by  " + ViewState["SessionUser"].ToString() + " <br><br> The reason of rejection is given below you can review your form on following url: " +
+                    "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                    "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                    "<br> <br> <br><b>Reject Remarks: " + txtRemarksReview.Text +
+                    "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                        "<br>Inventory Management Application  <br> Information Systems Dashboard";
+                    SessionUser = Session["User_Name"].ToString();
+                    DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                    InsertEmail();
+                    ViewState["Status"] = "00"; // For Status Reject
+                    lblEmail.Text = "Dead Stock Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been rejected by you";
+                    lblEmail.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    Page.MaintainScrollPositionOnPostBack = true;
                 }
             }
 
-            catch (SqlException ex)
-            {
-                dvemaillbl.Visible = true;
-                lblError.Text = "EmailWorkReject" + ex.ToString();
-            }
         }
 
         private void EmailWorkSendMDA()
@@ -1101,12 +1079,12 @@ namespace DashboardProject.Modules.Inventorymanagement
             }
             catch (NullReferenceException ex)
             {
-                lblError.Text = "EmailWorkSendMDA" + ex.ToString();
+                lblError.Text = "Email MDA" + ex.ToString();
             }
         }
+
         private void ApplicationStatus()
         {
-
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
                 using (SqlCommand cmdInsert = new SqlCommand())
@@ -1148,11 +1126,9 @@ namespace DashboardProject.Modules.Inventorymanagement
                             cmdInsert.ExecuteNonQuery();
 
                         }
-
-                        catch (SqlException ex)
+                        catch (SqlException e)
                         {
-                            dvemaillbl.Visible = true;
-                            lblError.Text = "ApplicationStatus" + ex.ToString();
+                            lblError.Text = e.ToString();
                         }
                         finally
                         {
@@ -1180,11 +1156,9 @@ namespace DashboardProject.Modules.Inventorymanagement
                         cmdInsertEmail.ExecuteNonQuery();
 
                     }
-
-                    catch (SqlException ex)
+                    catch (SqlException e)
                     {
-                        dvemaillbl.Visible = true;
-                        lblError.Text = "InsertEmail" + ex.ToString();
+                        lblError.Text = e.ToString();
                     }
                     finally
                     {

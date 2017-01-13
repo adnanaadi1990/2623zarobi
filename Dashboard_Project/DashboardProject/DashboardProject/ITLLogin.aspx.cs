@@ -35,48 +35,6 @@ namespace ITLDashboard
         protected void Page_Load(object sender, EventArgs e)
         {
 
-
-            //string aa =   User.Identity.Name;
-            //Label1.Text = aa.ToString();
-            //string s = Request.ServerVariables["AUTH_USER"];
-            //Label1.Text = s.ToString();
-            //Label1.Text = HttpContext.Current.Request.LogonUserIdentity.Name.ToString();
-            //  //if (!IsPostBack)
-            //  //{
-            //  //    string user = System.Web.HttpContext.Current.User.Identity.Name;
-            //  //    String u1 = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-            //  //    string principal = this.Context.User.Identity.Name;
-            //  //    string username = Convert.ToString(Request.LogonUserIdentity.Name.ToString());
-            //  //    if (Session["Test"] != null)
-            //  //    {
-            //  //        Session["User_Name"] = Environment.UserName.ToString();
-            //  //        Response.Redirect(Session["Test"].ToString());
-            //  //    }
-            //  //    else
-            //  //    {
-            //  //        using (SqlConnection conn = new SqlConnection(connstring))
-            //  //        {
-            //  //            string UserName = Environment.UserName.ToString();
-
-            //  //            string query = "SELECT user_name,user_email,Server FROM tbluser where user_name = '" + UserName.ToString() + "'";
-            //  //            conn.Open();
-            //  //            SqlCommand cmd = new SqlCommand(query, conn);
-            //  //            cmd.Connection = conn;
-            //  //            SqlDataReader dr = cmd.ExecuteReader();
-            //  //            if (dr.HasRows)
-            //  //            {
-            //  //                dr.Read();
-            //  //                Session["User_Name"] = dr[0].ToString();
-            //  //                Response.Redirect("Main.aspx");
-            //  //            }
-            //  //            else
-            //  //            {
-            //  //                Response.Redirect("ITLLogin.aspx");
-            //  //            }
-            //  //        }
-            //  //        //Response.Redirect("ITLLogin.aspx");
-            //  //    }
-            //  //}
         }
 
         protected void btnShowPopup_Click(object sender, EventArgs e)
@@ -86,26 +44,6 @@ namespace ITLDashboard
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            try
-            {
-                ds = obj.createuser(txtUserID.Text.Trim(), txtusername.Text.Trim(), txtPassword.Text.Trim(), txtemail.Text.Trim(), ddlDesignation.SelectedValue.ToString(), ddlDept.SelectedValue.ToString());
-
-                ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup2();", true);
-                lblmessage.Text = ds.Tables["Message"].Rows[0]["Dec"].ToString();
-                // lblmessage.Text = "User Created Sucessfully!";
-                txtusername.Text = "";
-                txtPassword.Text = "";
-                txtemail.Text = "";
-                ddlDept.SelectedIndex = -1;
-                ddlDesignation.SelectedIndex = -1;
-
-
-
-            }
-            catch (Exception ex)
-            { ex.ToString(); }
-
-
 
         }
         protected void btnlogin_Click(object sender, EventArgs e)
@@ -166,18 +104,6 @@ namespace ITLDashboard
             catch
             {
                 return false;
-            }
-        }
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            DirectoryEntry entry = new DirectoryEntry("LDAP://internationaltextile.com");
-            //DirectoryEntry entry = new DirectoryEntry("LDAP://ho.com");
-            DirectorySearcher dSearch = new DirectorySearcher(entry);
-            dSearch.Filter = "(objectClass=user)";
-            foreach (SearchResult sResultSet in dSearch.FindAll())
-            {
-                if (sResultSet.Properties["mail"].Count > 0)
-                    Response.Write(sResultSet.Properties["mail"][0].ToString() + "<br/>");
             }
         }
     }
