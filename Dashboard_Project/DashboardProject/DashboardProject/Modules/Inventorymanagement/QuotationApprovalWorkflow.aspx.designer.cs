@@ -229,6 +229,15 @@ namespace DashboardProject.Modules.Inventorymanagement {
         protected global::System.Web.UI.WebControls.DropDownList ddlEmailMDA;
         
         /// <summary>
+        /// ddlNotification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox ddlNotification;
+        
+        /// <summary>
         /// txtRemarksReview control.
         /// </summary>
         /// <remarks>

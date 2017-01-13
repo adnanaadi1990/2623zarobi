@@ -297,7 +297,7 @@ namespace DashboardProject.Modules.Finance
                 //}
                 if (txtDescription.Text == "")
                 {
-                    ddlNotification.BackColor = System.Drawing.Color.Red;
+                    txtDescription.BackColor = System.Drawing.Color.Red;
                     lblUpError.Text = "Description Box should not be left blank";
                     error.Visible = true;
                     return;
@@ -462,7 +462,7 @@ namespace DashboardProject.Modules.Finance
             conn.Close();
             ddlEmailMDA.Items.Insert(0, new ListItem("------------Select------------", "0"));
 
-            cmd.CommandText = " SELECT user_name,DisplayName FROM tbl_EmailToSpecificPerson where FormID = '202'";
+            cmd.CommandText = "SELECT user_name,DisplayName FROM tbl_EmailToSpecificPerson where FormID = '202'";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
             conn.Open();

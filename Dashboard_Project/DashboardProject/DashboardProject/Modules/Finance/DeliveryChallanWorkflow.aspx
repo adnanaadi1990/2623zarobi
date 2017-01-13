@@ -203,7 +203,7 @@
                          <span class="help-block"></span>
                              <div class="row">
                             <div class="col-sm-5">
-                                <asp:Label ID="lblMSGDCW" runat="server" Text=" Please first upload DCW before saving the form"></asp:Label>
+                                <asp:Label ID="lblMSGDCW" runat="server" Text="Note: Please first upload DCW before saving the form"></asp:Label>
                             </div>
                         </div>
                     </div>
