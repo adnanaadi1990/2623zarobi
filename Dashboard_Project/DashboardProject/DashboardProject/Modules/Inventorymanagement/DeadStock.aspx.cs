@@ -463,7 +463,7 @@ namespace ITLDashboard.Modules.Inventorymanagement
                 javaScript.Append("pdfReportWindow.focus();\n");
                 javaScript.Append("\n");
                 javaScript.Append("</script>\n");
-
+         
                 this.RegisterStartupScript("PdfReportScript", javaScript.ToString());
             }
             else
