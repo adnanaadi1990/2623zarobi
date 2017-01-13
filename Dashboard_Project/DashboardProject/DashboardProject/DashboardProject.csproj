@@ -85,7 +85,6 @@
   <ItemGroup>
     <Content Include="AccessDenied.aspx" />
     <Content Include="bin\AjaxControlToolkit.dll" />
-    <Content Include="bin\AjaxControlToolkit.pdb" />
     <Content Include="bin\AJAXExtensionsToolbox.dll" />
     <Content Include="bin\itextsharp.dll" />
     <Content Include="bin\Telerik.Web.Design.dll" />
@@ -754,7 +753,6 @@
     <Content Include="obj\Release\DashboardProject.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Release\DashboardProject.dll" />
     <Content Include="obj\Release\DashboardProject.pdb" />
-    <Content Include="obj\Release\Package\PackageTmp\AccessDenied.aspx" />
     <Content Include="obj\Release\Package\PackageTmp\bin\AjaxControlToolkit.dll" />
     <Content Include="obj\Release\Package\PackageTmp\bin\AJAXExtensionsToolbox.dll" />
     <Content Include="obj\Release\Package\PackageTmp\bin\DashboardProject.dll" />
@@ -1221,8 +1219,6 @@
     <Content Include="obj\Release\Package\PackageTmp\DashboardDocument\PettyCash\c35a8228_Pettcash demo.png" />
     <Content Include="obj\Release\Package\PackageTmp\DashboardDocument\PettyCash\e1f8ddbe_Multiple-Product-Receipt-Template-for-Word.png" />
     <Content Include="obj\Release\Package\PackageTmp\DashboardDocument\PettyCash\ee061682_Multiple-Product-Receipt-Template-for-Word.png" />
-    <Content Include="obj\Release\Package\PackageTmp\Default.aspx" />
-    <Content Include="obj\Release\Package\PackageTmp\Default_New.aspx" />
     <Content Include="obj\Release\Package\PackageTmp\dist\css\sb-admin-2.css" />
     <Content Include="obj\Release\Package\PackageTmp\dist\css\timeline.css" />
     <Content Include="obj\Release\Package\PackageTmp\dist\js\sb-admin-2.js" />
@@ -1342,8 +1338,6 @@
     <Content Include="obj\Release\Package\PackageTmp\img\portfolio\UserRightsApp.jpg" />
     <Content Include="obj\Release\Package\PackageTmp\img\portfolio\VMC.png" />
     <Content Include="obj\Release\Package\PackageTmp\img\TLogo.png" />
-    <Content Include="obj\Release\Package\PackageTmp\index.html" />
-    <Content Include="obj\Release\Package\PackageTmp\ITLLogin.aspx" />
     <Content Include="obj\Release\Package\PackageTmp\js\bootstrap.js" />
     <Content Include="obj\Release\Package\PackageTmp\js\bootstrap.min.js" />
     <Content Include="obj\Release\Package\PackageTmp\js\cbpAnimatedHeader.js" />
@@ -1355,8 +1349,6 @@
     <Content Include="obj\Release\Package\PackageTmp\js\jquery.js" />
     <Content Include="obj\Release\Package\PackageTmp\js\morris-data.js" />
     <Content Include="obj\Release\Package\PackageTmp\js\wow.min.js" />
-    <Content Include="obj\Release\Package\PackageTmp\Logout.aspx" />
-    <Content Include="obj\Release\Package\PackageTmp\Main.aspx" />
     <Content Include="obj\Release\Package\PackageTmp\Modules\AdminPannel\AdminApprovalForm.aspx" />
     <Content Include="obj\Release\Package\PackageTmp\Modules\AdminPannel\AdminApprovalHOD.aspx" />
     <Content Include="obj\Release\Package\PackageTmp\Modules\AdminPannel\AdminApprovalMtypeFields.aspx" />
@@ -1414,7 +1406,6 @@
     <Content Include="obj\Release\Package\PackageTmp\Modules\SBApp\SearchTransportRequestForm.aspx" />
     <Content Include="obj\Release\Package\PackageTmp\Modules\SBApp\TransportRequestForm.aspx" />
     <Content Include="obj\Release\Package\PackageTmp\Modules\SBApp\UserAuthorizationRequest.aspx" />
-    <Content Include="obj\Release\Package\PackageTmp\NoRightsUser.aspx" />
     <Content Include="obj\Release\Package\PackageTmp\pages\blank.html" />
     <Content Include="obj\Release\Package\PackageTmp\pages\buttons.html" />
     <Content Include="obj\Release\Package\PackageTmp\pages\flot.html" />
@@ -1449,9 +1440,6 @@
     <Content Include="obj\Release\Package\PackageTmp\Scripts\popup.css" />
     <Content Include="obj\Release\Package\PackageTmp\Scripts\popup1.js" />
     <Content Include="obj\Release\Package\PackageTmp\Scripts\popup2.js" />
-    <Content Include="obj\Release\Package\PackageTmp\SessionExp.aspx" />
-    <Content Include="obj\Release\Package\PackageTmp\SingleLogin.aspx" />
-    <Content Include="obj\Release\Package\PackageTmp\StatusDetail.aspx" />
     <Content Include="obj\Release\Package\PackageTmp\Style\footable.min.css" />
     <Content Include="obj\Release\Package\PackageTmp\Style\GridStyleSheet.css" />
     <Content Include="obj\Release\Package\PackageTmp\Style\jquery-ui.css" />
@@ -1968,7 +1956,6 @@
     <Content Include="obj\Release\Package\PackageTmp\MasterPage_New.Master" />
     <Content Include="obj\Release\Package\PackageTmp\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="obj\Release\Package\PackageTmp\Scripts\jquery-1.9.1.min.map" />
-    <Content Include="obj\Release\Package\PackageTmp\Web.config" />
     <Content Include="obj\Release\RdlCompile.cache" />
     <Content Include="obj\Release\RdlCompile.compiled" />
     <Content Include="obj\Release\TransformWebConfig\assist\Web.config" />
