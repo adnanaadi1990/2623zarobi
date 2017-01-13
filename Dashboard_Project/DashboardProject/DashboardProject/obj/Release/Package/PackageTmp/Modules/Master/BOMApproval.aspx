@@ -518,6 +518,11 @@
                                        <asp:DropDownList ID="ddlEmailMDA" CssClass="form-control" runat="server">
                                        </asp:DropDownList>
                                     </div>
+                                       <div class="col-sm-4">
+                                         Notification  
+                                       <asp:ListBox ID="ddlNotification" SelectionMode="Multiple"  runat="server">
+                                         </asp:ListBox>
+                                    </div>
                                 </div>
 
                             </div>

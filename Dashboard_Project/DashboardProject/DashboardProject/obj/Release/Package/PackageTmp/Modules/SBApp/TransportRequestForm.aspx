@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="TransportRequestForm.aspx.cs" Inherits="ITLDashboard.Modules.SBApp.TransportRequestForm" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="../../Scripts/jquery-1.9.1.min.js"></script>
@@ -137,7 +138,7 @@
         <div class="panel-group" id="dvGD" runat="server">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Tcode Authorization
+                    Transport Request Form
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel">
                     <div class="panel-body">
@@ -173,12 +174,23 @@
                                  <asp:ListBox ID="ddlTransportTo" runat="server" CssClass="form-control" SelectionMode="Multiple" AppendDataBoundItems="True"></asp:ListBox>
                             </div>
                             <div class="col-sm-4" runat="server" id="dvTRNo">
-                                Tr No
+                                 Transport No
                                    <asp:TextBox ID="TxtTRNo" runat="server" CssClass="form-control" CausesValidation="True"></asp:TextBox>
                             </div>
-                            <div class="col-sm-4" runat="server" id="DvDes">
+
+                        </div>
+                         <span class="help-block"></span>
+                        <div class="row">
+                            <div class="col-sm-8" runat="server" id="DvDes">
                                 Description
                                    <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control" CausesValidation="True"></asp:TextBox>
+                            </div>
+                        </div>
+                         <span class="help-block"></span>
+                        <div class="row">
+                            <div class="col-sm-8" runat="server" id="DvLT">
+                                Long Text
+                                   <asp:TextBox ID="txtLT" runat="server" CssClass="form-control" CausesValidation="True"></asp:TextBox>
                             </div>
                         </div>
                         <span class="help-block"></span>
@@ -246,7 +258,7 @@
         <div class="col-sm-12" style="text-align: center;">
 
             <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Text="Save" ValidationGroup="grpSa" Width="60px" OnClick="btnSave_Click"></asp:Button>
-            <asp:Button ID="btnApprover" runat="server" CssClass="btn btn-primary" Text="Approve" Visible="False" CausesValidation="False" OnClick="btnApprover_Click" />
+            <asp:Button ID="btnApprover" runat="server" CssClass="btn btn-primary" Text="Approve" Visible="False" Width="100px" CausesValidation="False" OnClick="btnApprover_Click" />
             <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-primary" Text="Submit" CausesValidation="False" OnClick="btnSubmit_Click" Width="100px" Visible="False"></asp:Button>
             <asp:Button ID="btnSubmitFC" runat="server" CssClass="btn btn-primary" Text="Submit" CausesValidation="False" Width="100px" Visible="False" OnClick="btnSubmitFC_Click"></asp:Button>
             <asp:Button ID="Button1" runat="server" CssClass="btn btn-primary" Text="Reject" OnClick="btnReject_Click" Width="100px" CausesValidation="False" Visible="False"></asp:Button>

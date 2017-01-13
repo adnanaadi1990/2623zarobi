@@ -1,11 +1,9 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="QuotationApprovalReport.aspx.cs" Inherits="DashboardProject.Modules.Reports.QuotationApprovalReport" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="TransportRequestReport.aspx.cs" Inherits="DashboardProject.Modules.Reports.TransportRequestReport" %>
+
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
-    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css"
-        rel="stylesheet" type="text/css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="../../Scripts/jquery-1.9.1.min.js"></script>
     <script src="../../Scripts/bootstrap.min.js"></script>
     <%--<link href="../../Content/bootstrap.min.css" rel="stylesheet" />--%>
 
@@ -15,6 +13,7 @@
     <link href="../../Style/footable.min.css"
         rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="../../Scripts/footable.min.js"></script>
+
     <script type="text/javascript">
         function ShowPopup() {
             $(function () {
@@ -33,11 +32,31 @@
                 });
             });
         };
+        function pageLoad() {
+            $('[id*=ddlTransportTo],[id*=ddlStorageLocation],[id*=ddlPlant],[id*=ddlSAPID]').multiselect({
+                includeSelectAllOption: true,
+                buttonWidth: '100%',
+                enableFiltering: true,
+                filterPlaceholder: 'Search for something...',
+                maxHeight: 200,
+                enableCaseInsensitiveFiltering: true
+            });
+
+        }
     </script>
+    <script type="text/javascript">
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function (event) {
+            history.pushState(null, null, document.URL);
+        });
+
+    </script>
+
     <script type="text/javascript">
         $(function () {
             $('[id*=grdWStatus]').footable();
         });
+
     </script>
     <style type="text/css">
         body {
@@ -93,10 +112,6 @@
             display: none !important;
             height: auto;
         }
-
-        /*.AutoShrink {
-            width: 240px !important;
-        }*/
     </style>
     <style type="text/css">
         .rgPageFirst, .rgPagePrev, .rgPageNext, .rgPageLast {
@@ -106,23 +121,18 @@
         .btn-primary {
         }
     </style>
-
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
-         <div class="container" style="width: 100%; margin-top: 20px;">
+    <div class="container" style="width: 100%; margin-top: 20px;">
         <div class="row">
 
             <div class="col-sm-7">
-                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Quotation Approval Report</p>
+                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Transport Request Form Report</p>
             </div>
         </div>
-
-
-
         <div class="panel panel-default">
-            <div class="panel-heading"></div>
+            <div class="panel-heading">Transport Request Form Report</div>
             <div class="panel-body">
 
                 <div class="row">
@@ -135,13 +145,30 @@
                         Form Id To
                           <asp:TextBox ID="txtFormIDto" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
-
                     <div class="col-sm-4" runat="server" id="Div1">
-                        User Name 
-                           <asp:TextBox ID="txtUN" runat="server" CssClass="form-control"></asp:TextBox>
+                        Applicable Area
+                                     <asp:DropDownList ID="ddlApplicableArea" runat="server" CssClass="form-control" AutoPostBack="True">
+                                         <asp:ListItem Value="0">-----Select-----</asp:ListItem>
+                                         <asp:ListItem Value="MM">MM Material Management</asp:ListItem>
+                                         <asp:ListItem Value="PP">PP Production Planing</asp:ListItem>
+                                         <asp:ListItem Value="SD">SD Sales Distribution</asp:ListItem>
+                                         <asp:ListItem Value="QM">QM Quality Management</asp:ListItem>
+                                         <asp:ListItem Value="FICO">FICO (Financial Accounting) and CO (Controlling)</asp:ListItem>
+                                     </asp:DropDownList>
                     </div>
-                  </div>
-              
+                    <div class="col-sm-4" runat="server" id="Div2">
+                        TransportTo
+                                 <asp:ListBox ID="ddlTransportTo" runat="server" CssClass="form-control"></asp:ListBox>
+                    </div>
+                    <div class="col-sm-4" runat="server" id="dvRR" >
+                        TRNo
+                                 <asp:TextBox ID="txtTRNo" runat="server" CssClass="form-control" CausesValidation="True"></asp:TextBox>
+                    </div>
+                       <div class="col-sm-4" runat="server" id="Div3">
+                        Description
+                                 <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control" CausesValidation="True"></asp:TextBox>
+                    </div>
+                </div>
 
                 <div class="panel-body">
                     <div class="row">
@@ -162,7 +189,7 @@
                                     OnPreRender="RadGrid1_PreRender"
                                     OnItemCommand="RadGrid1_ItemCommand"
                                     OnGroupsChanging="RadGrid1_GroupsChanging"
-                                    AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" CellSpacing="0" Vertical="None" ShowGroupPanel="True" Visible="False" OnItemCreated="RadGrid1_ItemCreated">
+                                    AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" CellSpacing="0" vertical="None" ShowGroupPanel="True" Visible="False" OnItemCreated="RadGrid1_ItemCreated">
                                     <ClientSettings AllowColumnsReorder="true" AllowDragToGroup="true" EnableRowHoverStyle="true" AllowGroupExpandCollapse="True" ReorderColumnsOnClient="True" ColumnsReorderMethod="Reorder" Selecting-AllowRowSelect="true" EnablePostBackOnRowClick="true">
                                         <Animation AllowColumnReorderAnimation="true" AllowColumnRevertAnimation="true" ColumnReorderAnimationDuration="2000" />
                                         <Selecting AllowRowSelect="true" />
@@ -184,15 +211,20 @@
                                             </telerik:GridButtonColumn>
                                             <telerik:GridBoundColumn DataField="TransactionID" FilterControlAltText="Filter column column" FooterText="Form ID" HeaderText="Form ID" UniqueName="FormID">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="DocumentNo" FilterControlAltText="Filter column2 column" HeaderText="Document No" UniqueName="column2">
+                                            <telerik:GridBoundColumn DataField="ApplicableArea" FilterControlAltText="Filter column2 column" HeaderText="Applicable Area" UniqueName="column2">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Description" FilterControlAltText="Filter column3 column" HeaderText="File Name" UniqueName="column3">
+                                            <telerik:GridBoundColumn DataField="TransportTo" FilterControlAltText="Filter column2 column" HeaderText="Transport To" UniqueName="column2">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="FilePath" FilterControlAltText="Filter column4 column" HeaderText="File Location" UniqueName="column4">
+                                            <telerik:GridBoundColumn DataField="TRNo" FilterControlAltText="Filter column3 column" HeaderText="TRNo" UniqueName="column3">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="CreatedBy" FilterControlAltText="Filter column5 column" HeaderText="Created By" UniqueName="column5">
+                                            <telerik:GridBoundColumn DataField="Description" FilterControlAltText="Filter column4 column" HeaderText="Description" UniqueName="column4">
+                                            </telerik:GridBoundColumn>  
+                                            <telerik:GridBoundColumn DataField="Approver" FilterControlAltText="Filter column6 column" HeaderText="Approver" UniqueName="column6">
                                             </telerik:GridBoundColumn>
-              
+                                            <telerik:GridBoundColumn DataField="MDA" FilterControlAltText="Filter column7 column" HeaderText="MDA" UniqueName="column7">
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="CreatedBy" FilterControlAltText="Filter column20 column" HeaderText="Created By" UniqueName="column20">
+                                            </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="CreatedDateTime" FilterControlAltText="Filter column20 column" HeaderText="Created Date Time" UniqueName="column20">
                                             </telerik:GridBoundColumn>
                                         </Columns>
@@ -213,15 +245,11 @@
                         </div>
                     </div>
                 </div>
-
                 <span class="help-block"></span>
-
             </div>
         </div>
 
         <!-- Panel -->
-
-
         <div class="panel-body">
             <div class="col-sm-12" style="text-align: left;">
                 <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" ValidationGroup="grpSave" DisplayMode="BulletList" />
@@ -230,14 +258,11 @@
             <div class="col-sm-12" style="text-align: center;">
                 <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" ValidationGroup="grpSave" Width="100px" OnClick="btnSearch_Click" UseSubmitBehavior="False" ViewStateMode="Enabled"></asp:Button>
                 <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-primary" Text="Reset Form" CausesValidation="False" Width="100px" OnClick="btnCancel_Click"></asp:Button>
+                <asp:Button ID="btnExport" runat="server" CssClass="btn btn-primary" OnClick="btnExport_Click" Text="Export To Excel" Visible="False" />
             </div>
-
         </div>
         <span class="help-block"></span>
-
     </div>
     <telerik:RadWindowManager ID="RadWindowManager1" runat="server">
     </telerik:RadWindowManager>
-
-
 </asp:Content>

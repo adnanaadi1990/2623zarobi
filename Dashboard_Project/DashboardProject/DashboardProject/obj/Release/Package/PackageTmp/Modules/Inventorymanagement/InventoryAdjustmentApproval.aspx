@@ -115,7 +115,7 @@
 
             <div class="row">
 
-                <div class="col-sm-7" id="pnlHD">
+                <div class="col-sm-12" id="pnlHD">
                     <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Inventory Adjustment Approval</p>
                 </div>
             </div>
@@ -178,8 +178,9 @@
 
                                 <input id="btnShow" type="button" class="btn btn-primary" value="Show Document" style="display: none;" />
                                 <asp:Button ID="btnShowFile" CssClass="btn btn-primary" Text="Show Document" runat="server" OnClick="btnShowFile_Click" Visible="False"></asp:Button>
+                                <asp:Button ID="btnDownload" CssClass="btn btn-primary" Text="Download Document" runat="server" OnClick="btnDownload_Click" Visible="False"></asp:Button>
                                 <input runat="server" value="Print" type="button" id="btnPrint" class="btn btn-primary" onclick="PrintDivContent('dialog');" visible="False" />
-                                <%--<%# Eval("Numerator") %>--%>
+                                <%-- <iframe src="../../AA/Files/VendorCreationForm.version1.0.pdf" width="400"></iframe>--%>
                             </div>
 
                         </div>
@@ -200,6 +201,11 @@
                           <div class="col-sm-4">
                                 Head Of Deparment
                                        <asp:Label ID="lblHOD" runat="server" CssClass="form-control"></asp:Label>
+                            </div>
+                                  <div class="col-sm-4">
+                               Director
+                                      <asp:DropDownList ID="ddlDirector" CssClass="form-control" runat="server">
+                                       </asp:DropDownList>
                             </div>
      
                              
@@ -225,7 +231,7 @@
                     </div>
                     <span class="help-block"></span>
                     <div class="col-sm-12" style="text-align: left;" runat="server" id="dvemaillbl">
-                        <%-- <iframe src="../../AA/Files/VendorCreationForm.version1.0.pdf" width="400"></iframe>--%>
+                        <%--<asp:Button ID="btnReject11" runat="server" CssClass="btn btn-primary" Text="Reject" Width="100px" Visible="False"></asp:Button>--%>
                         <asp:Label ID="Label1" runat="server" Font-Bold="False" ForeColor="Blue" Font-Names="Berlin Sans FB"></asp:Label>
                         <asp:Label ID="Label2" runat="server" Font-Bold="False" ForeColor="Red" Font-Names="Berlin Sans FB"></asp:Label>
                         <asp:Label ID="Label3" runat="server" Font-Bold="False" ForeColor="Black" Font-Names="Berlin Sans FB"></asp:Label>
@@ -242,7 +248,7 @@
                         <div class="panel-body">
 
                             <div id="Div2" class="col-sm-12" style="text-align: left;" runat="server">
-                                <%--<asp:Button ID="btnReject11" runat="server" CssClass="btn btn-primary" Text="Reject" Width="100px" Visible="False"></asp:Button>--%>
+                                <%-- <iframe src="../../AA/Files/VendorCreationForm.version1.0.pdf" width="400"></iframe>--%>
 
                                 <asp:Label ID="lblEmail" runat="server" Font-Bold="False" ForeColor="Blue" Font-Names="Berlin Sans FB"></asp:Label>
                                 <asp:Label ID="lblError" runat="server" Font-Bold="False" ForeColor="Red" Font-Names="Berlin Sans FB" Font-Size="Medium"></asp:Label>

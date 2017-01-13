@@ -1,7 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="AssetDisposalFormReport.aspx.cs" Inherits="DashboardProject.Modules.Reports.AssetDisposalFormReport" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="InventoryAdjustmentReport.aspx.cs" Inherits="DashboardProject.Modules.Reports.InventoryAdjustmentReport" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
     <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css"
@@ -33,13 +33,6 @@
                 });
             });
         };
-    </script>
-    <script type="text/javascript">
-        history.pushState(null, null, document.URL);
-        window.addEventListener('popstate', function (event) {
-            history.pushState(null, null, document.URL);
-        });
-
     </script>
     <script type="text/javascript">
         $(function () {
@@ -101,7 +94,9 @@
             height: auto;
         }
 
-        
+        /*.AutoShrink {
+            width: 240px !important;
+        }*/
     </style>
     <style type="text/css">
         .rgPageFirst, .rgPagePrev, .rgPageNext, .rgPageLast {
@@ -111,24 +106,26 @@
         .btn-primary {
         }
     </style>
-</asp:Content>
 
+</asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container" style="width: 100%; margin-top: 20px;">
+
+     <div class="container" style="width: 100%; margin-top: 20px;">
         <div class="row">
 
             <div class="col-sm-7">
-                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Asset Disposal Form Report</p>
+                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Inventory Adjustment Report</p>
             </div>
         </div>
 
 
 
         <div class="panel panel-default">
-            <div class="panel-heading">Asset Disposal Form Report</div>
+            <div class="panel-heading"></div>
             <div class="panel-body">
 
                 <div class="row">
+
                     <div class="col-sm-4" runat="server" id="dvTransactionNo">
                         Form Id From 
                          <asp:TextBox ID="txtFormIDfrom" runat="server" CssClass="form-control"></asp:TextBox>
@@ -137,20 +134,13 @@
                         Form Id To
                           <asp:TextBox ID="txtFormIDto" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
-                    <div class="col-sm-4" runat="server" id="Div3">
+
+                    <div class="col-sm-4" runat="server" id="Div1">
                         User Name 
                            <asp:TextBox ID="txtUN" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
-                     <span class="help-block"></span>
-                    <div class="col-sm-4" runat="server" id="Div1">
-                        Asset Code
-                           <asp:TextBox ID="txtAssetCode" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-                    <div class="col-sm-4" runat="server" id="Div2">
-                        Date of Disposal 
-                           <asp:TextBox ID="txtDateofDisposal" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
-                    </div>
-                </div>
+                  </div>
+              
 
                 <div class="panel-body">
                     <div class="row">
@@ -193,18 +183,15 @@
                                             </telerik:GridButtonColumn>
                                             <telerik:GridBoundColumn DataField="TransactionID" FilterControlAltText="Filter column column" FooterText="Form ID" HeaderText="Form ID" UniqueName="FormID">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="AssetCode" FilterControlAltText="Filter column2 column" HeaderText="Asset Code" UniqueName="column2">
+                                            <telerik:GridBoundColumn DataField="DocumentNo" FilterControlAltText="Filter column2 column" HeaderText="Document No" UniqueName="column2">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Description" FilterControlAltText="Filter column3 column" HeaderText="Description" UniqueName="column3">
+                                            <telerik:GridBoundColumn DataField="Description" FilterControlAltText="Filter column3 column" HeaderText="File Name" UniqueName="column3">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="DateofDisposal" FilterControlAltText="Filter column4 column" HeaderText="Date of Disposal" UniqueName="column4">
+                                            <telerik:GridBoundColumn DataField="FilePath" FilterControlAltText="Filter column4 column" HeaderText="File Location" UniqueName="column4">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="ReasonsJustificationforDisposal" FilterControlAltText="Filter column4 column" HeaderText="Reasons Justification for Disposal" UniqueName="column4">
+                                            <telerik:GridBoundColumn DataField="CreatedBy" FilterControlAltText="Filter column5 column" HeaderText="Created By" UniqueName="column5">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="RemarksAD" FilterControlAltText="Filter column17 column" HeaderText="Remarks" UniqueName="column17">
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="CreatedBy" FilterControlAltText="Filter column20 column" HeaderText="Created By" UniqueName="column20">
-                                            </telerik:GridBoundColumn>
+              
                                             <telerik:GridBoundColumn DataField="CreatedDateTime" FilterControlAltText="Filter column20 column" HeaderText="Created Date Time" UniqueName="column20">
                                             </telerik:GridBoundColumn>
                                         </Columns>
@@ -242,7 +229,6 @@
             <div class="col-sm-12" style="text-align: center;">
                 <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" ValidationGroup="grpSave" Width="100px" OnClick="btnSearch_Click" UseSubmitBehavior="False" ViewStateMode="Enabled"></asp:Button>
                 <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-primary" Text="Reset Form" CausesValidation="False" Width="100px" OnClick="btnCancel_Click"></asp:Button>
-                <asp:Button ID="btnExport" runat="server" CssClass="btn btn-primary" OnClick="btnExport_Click" Text="Export To Excel" Visible="False" />
             </div>
 
         </div>
@@ -251,5 +237,6 @@
     </div>
     <telerik:RadWindowManager ID="RadWindowManager1" runat="server">
     </telerik:RadWindowManager>
+
 
 </asp:Content>

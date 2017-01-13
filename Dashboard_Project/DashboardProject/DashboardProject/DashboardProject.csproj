@@ -86,7 +86,6 @@
     <Content Include="bin\AjaxControlToolkit.pdb" />
     <Content Include="bin\AJAXExtensionsToolbox.dll" />
     <Content Include="bin\itextsharp.dll" />
-    <Content Include="bin\itextsharp.xml" />
     <Content Include="bin\Telerik.Web.Design.dll" />
     <Content Include="bin\Telerik.Web.UI.dll" />
     <Content Include="bin\Telerik.Web.UI.Skins.dll" />
@@ -757,7 +756,6 @@
     <Content Include="obj\Release\Package\PackageTmp\bin\AjaxControlToolkit.dll" />
     <Content Include="obj\Release\Package\PackageTmp\bin\AJAXExtensionsToolbox.dll" />
     <Content Include="obj\Release\Package\PackageTmp\bin\DashboardProject.dll" />
-    <Content Include="obj\Release\Package\PackageTmp\bin\itextsharp.dll" />
     <Content Include="obj\Release\Package\PackageTmp\bin\Telerik.Web.Design.dll" />
     <Content Include="obj\Release\Package\PackageTmp\bin\Telerik.Web.UI.dll" />
     <Content Include="obj\Release\Package\PackageTmp\bin\Telerik.Web.UI.Skins.dll" />

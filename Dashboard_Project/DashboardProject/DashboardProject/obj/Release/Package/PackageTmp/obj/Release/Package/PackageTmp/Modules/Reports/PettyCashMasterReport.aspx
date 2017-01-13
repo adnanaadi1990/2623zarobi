@@ -1,8 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="BOMApprovalReport.aspx.cs" Inherits="DashboardProject.Modules.Reports.BOMApprovalReport" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="PettyCashMasterReport.aspx.cs" Inherits="ITLDashboard.Modules.Reports.PettyCashMasterReport" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
     <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css"
         rel="stylesheet" type="text/css" />
@@ -33,6 +32,13 @@
                 });
             });
         };
+    </script>
+      <script type="text/javascript">
+          history.pushState(null, null, document.URL);
+          window.addEventListener('popstate', function (event) {
+              history.pushState(null, null, document.URL);
+          });
+
     </script>
     <script type="text/javascript">
         $(function () {
@@ -82,6 +88,7 @@
             min-height: 10%;
             max-height: 10%;
             overflow-y: scroll;
+          
         }
 
         .form-control {
@@ -94,9 +101,7 @@
             height: auto;
         }
 
-        /*.AutoShrink {
-            width: 240px !important;
-        }*/
+      
     </style>
     <style type="text/css">
         .rgPageFirst, .rgPagePrev, .rgPageNext, .rgPageLast {
@@ -106,27 +111,24 @@
         .btn-primary {
         }
     </style>
-
-
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
-     <div class="container" style="width: 100%; margin-top: 20px;">
+      <div class="container" style="width: 100%; margin-top: 20px;">
         <div class="row">
 
             <div class="col-sm-7">
-                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">BOM Approval Report</p>
+                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Petty Cash Report</p>
             </div>
         </div>
 
 
 
         <div class="panel panel-default">
-            <div class="panel-heading"></div>
+            <div class="panel-heading">Petty Cash Report</div>
             <div class="panel-body">
 
                 <div class="row">
-
+                        
                     <div class="col-sm-4" runat="server" id="dvTransactionNo">
                         Form Id From 
                          <asp:TextBox ID="txtFormIDfrom" runat="server" CssClass="form-control"></asp:TextBox>
@@ -135,17 +137,11 @@
                         Form Id To
                           <asp:TextBox ID="txtFormIDto" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
-
-                    <div class="col-sm-4" runat="server" id="Div1">
-                        Material No
-                           <asp:TextBox ID="txtUN" runat="server" CssClass="form-control"></asp:TextBox>
+                     <div class="col-sm-4" runat="server" id="Div1">
+                        User Name
+                          <asp:TextBox ID="txtUN" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
-                     <div class="col-sm-4" runat="server" id="Div2">
-                      User Name
-                           <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-                  </div>
-              
+                </div>
 
                 <div class="panel-body">
                     <div class="row">
@@ -159,6 +155,10 @@
             </telerik:AjaxSetting>
         </AjaxSettings>
     </telerik:radajaxmanager>--%>
+
+
+
+
 
                             <div class="fixed-panel">
                                 <telerik:RadGrid ID="RadGrid1" runat="server" AllowFilteringByColumn="True"
@@ -178,66 +178,44 @@
                                     <MasterTableView AllowFilteringByColumn="False" GroupLoadMode="Client" HierarchyLoadMode="Client" ShowGroupFooter="True" CssClass="AutoShrink">
                                         <CommandItemSettings ExportToPdfText="Export to PDF" />
                                         <RowIndicatorColumn FilterControlAltText="Filter RowIndicator column">
-                                            <HeaderStyle Width="30px" />
+                                            <HeaderStyle Width="200px" />
                                         </RowIndicatorColumn>
                                         <ExpandCollapseColumn FilterControlAltText="Filter ExpandColumn column">
-                                            <HeaderStyle Width="30px" />
+                                            <HeaderStyle Width="200px" />
                                         </ExpandCollapseColumn>
                                         <Columns>
                                             <telerik:GridButtonColumn CommandName="Select" Text="Select" UniqueName="Select">
                                             </telerik:GridButtonColumn>
+
                                             <telerik:GridBoundColumn DataField="TransactionID" FilterControlAltText="Filter column column" FooterText="Form ID" HeaderText="Form ID" UniqueName="FormID">
+                                           <HeaderStyle Width="200px" />
+                                                 </telerik:GridBoundColumn>
+
+                                            <telerik:GridBoundColumn DataField="ChequeNo" FilterControlAltText="Filter column1 column" HeaderText="Cheque No" UniqueName="column1">
+                                            <ItemStyle Width="200px" />
                                             </telerik:GridBoundColumn>
-                                              <telerik:GridBoundColumn DataField="BOM" FilterControlAltText="Filter column column" FooterText="BOM" HeaderText="BOM" UniqueName="BOM">
+                                            
+                                            <telerik:GridBoundColumn DataField="Amount" FilterControlAltText="Filter column2 column" HeaderText="Amount" UniqueName="column2">
+                                            <ItemStyle Width="200px" />
                                             </telerik:GridBoundColumn>
-                                              <telerik:GridBoundColumn DataField="MaterialNo" FilterControlAltText="Filter column column" FooterText="Material NO" HeaderText="Material NO" UniqueName="MaterialNo">
-                                            </telerik:GridBoundColumn>
-                                              <telerik:GridBoundColumn DataField="MaterialDesc" FilterControlAltText="Filter column column" FooterText="Material Desc" HeaderText="Material Desc" UniqueName="MaterialDesc">
-                                            </telerik:GridBoundColumn>
-                                              <telerik:GridBoundColumn DataField="Plant" FilterControlAltText="Filter column column" FooterText="Plant" HeaderText="Plant" UniqueName="Plant">
-                                            </telerik:GridBoundColumn>
-                                              <telerik:GridBoundColumn DataField="StorageLocation" FilterControlAltText="Filter column column" FooterText="Storage Location" HeaderText="Storage Location" UniqueName="StorageLocation">
-                                            </telerik:GridBoundColumn>
-                                              <telerik:GridBoundColumn DataField="ProdLotSizeFrom" FilterControlAltText="Filter column column" FooterText="Prod Lot Size From" HeaderText="Prod Lot Size From" UniqueName="ProdLotSizeFrom">
-                                            </telerik:GridBoundColumn>
-                                              <telerik:GridBoundColumn DataField="ProdLotSizeTo" FilterControlAltText="Filter column column" FooterText="Prod Lot Size To" HeaderText="Prod Lot Size To" UniqueName="Prod Lot Size To">
-                                            </telerik:GridBoundColumn>
-                                              <telerik:GridBoundColumn DataField="ProductionVersion" FilterControlAltText="Filter column column" FooterText="Production Version" HeaderText="Production Version" UniqueName="ProductionVersion">
-                                            </telerik:GridBoundColumn>
-                                              <telerik:GridBoundColumn DataField="ProdVersionDesc" FilterControlAltText="Filter column column" FooterText="Prod Version Desc" HeaderText="Prod Version Desc" UniqueName="ProdVersionDesc">
-                                            </telerik:GridBoundColumn>
-                                              <telerik:GridBoundColumn DataField="BOMValidFrom" FilterControlAltText="Filter column column" FooterText="BOM Valid From" HeaderText="BOM Valid From" UniqueName="BOMValidFrom">
-                                            </telerik:GridBoundColumn>
-                                              <telerik:GridBoundColumn DataField="BOMValidTo" FilterControlAltText="Filter column column" FooterText="BOM Valid To" HeaderText="BOM Valid To" UniqueName="BOMValidTo">
+                                            
+                                            <telerik:GridBoundColumn DataField="FileName" FilterControlAltText="Filter column3 column" HeaderText="File Name" UniqueName="column3">
+                                            <ItemStyle Width="200px" />
                                             </telerik:GridBoundColumn>
 
-
-                                                  <telerik:GridBoundColumn DataField="Sequance" FilterControlAltText="Filter column column" FooterText="Item" HeaderText="Item" UniqueName="Item">
-                                            </telerik:GridBoundColumn>
-
-                                                  <telerik:GridBoundColumn DataField="ComType" FilterControlAltText="Filter column column" FooterText="Com Type" HeaderText="Com Type" UniqueName="ComType">
-                                            </telerik:GridBoundColumn>
-
-                                                     <telerik:GridBoundColumn DataField="ItemMNo" FilterControlAltText="Filter column column" FooterText="Item Material No" HeaderText="Item MaterialNo" UniqueName="ItemMNo">
-                                            </telerik:GridBoundColumn>
-
-                                                     <telerik:GridBoundColumn DataField="ItemMDesc" FilterControlAltText="Filter column column" FooterText="Item Material Desc" HeaderText="Item Material Des" UniqueName="Item Material Des">
-                                            </telerik:GridBoundColumn>
-
-                                                            <telerik:GridBoundColumn DataField="QTY" FilterControlAltText="Filter column column" FooterText="QTYc" HeaderText="QTY" UniqueName="QTY">
-                                            </telerik:GridBoundColumn>
-
-                                                            <telerik:GridBoundColumn DataField="UOM" FilterControlAltText="Filter column column" FooterText="UOM" HeaderText="UOM" UniqueName="UOM">
-                                            </telerik:GridBoundColumn>
-
-                                                            <telerik:GridBoundColumn DataField="ItemStorageLocation" FilterControlAltText="Filter column column" FooterText="Item Storage Location" HeaderText="Item Storage Location" UniqueName="ItemStorageLocation">
-                                            </telerik:GridBoundColumn>
-
-
-                                              <telerik:GridBoundColumn DataField="CreatedBy" FilterControlAltText="Filter column5 column" HeaderText="Created By" UniqueName="column5">
+                                            <telerik:GridBoundColumn DataField="Description" FilterControlAltText="Filter column4 column" HeaderText="Description" UniqueName="column4">
+                                           <ItemStyle Width="200px" />
+                                                 </telerik:GridBoundColumn>
+                                            
+                                            <telerik:GridBoundColumn DataField="CreatedBy" FilterControlAltText="Filter column20 column" HeaderText="Created By" UniqueName="column20">
+                                            <ItemStyle Width="200px" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="CreatedDateTime" FilterControlAltText="Filter column20 column" HeaderText="Created Date Time" UniqueName="column20">
-                                            </telerik:GridBoundColumn>
+                                           <ItemStyle Width="200px" />
+                                                 </telerik:GridBoundColumn>
+
+
+
                                         </Columns>
                                         <EditFormSettings>
                                             <EditColumn FilterControlAltText="Filter EditCommandColumn column">
@@ -252,7 +230,9 @@
                                     <HeaderContextMenu CssClass="GridContextMenu GridContextMenu_Default">
                                     </HeaderContextMenu>
                                 </telerik:RadGrid>
+
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -273,6 +253,7 @@
             <div class="col-sm-12" style="text-align: center;">
                 <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" ValidationGroup="grpSave" Width="100px" OnClick="btnSearch_Click" UseSubmitBehavior="False" ViewStateMode="Enabled"></asp:Button>
                 <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-primary" Text="Reset Form" CausesValidation="False" Width="100px" OnClick="btnCancel_Click"></asp:Button>
+                <asp:Button ID="btnExport" runat="server" CssClass="btn btn-primary" OnClick="btnExport_Click" Text="Export To Excel" Visible="False" />
             </div>
 
         </div>

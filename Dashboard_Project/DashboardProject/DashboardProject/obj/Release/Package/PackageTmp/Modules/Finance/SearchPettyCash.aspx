@@ -167,9 +167,10 @@
                                      Description
                                 <asp:TextBox ID="txtDescription" runat="server" TextMode="MultiLine" CssClass="form-control" ReadOnly="True"></asp:TextBox>
                     </div>
-                    <div class="col-sm-5" runat="server" id="dvShowDoc" visible="false">
+                    <div class="col-sm-12" runat="server" id="dvShowDoc" visible="false">
                         <br />
  <asp:Button ID="btnShow"  CssClass="btn btn-primary" Text="Show Document" runat="server" OnClick="btnShowFile_Click"></asp:Button>
+                                <asp:Button ID="btnDownload" CssClass="btn btn-primary" Text="Download Document" runat="server" OnClick="btnDownload_Click"></asp:Button>
                                  <input runat="server" value="Print" type="button" id="btnPrint" class="btn btn-primary" onclick="PrintDivContent('dialog');"   visible="False" /></div>
                 </div>
                 <span class="help-block"></span>
