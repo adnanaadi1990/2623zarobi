@@ -3010,7 +3010,7 @@ namespace ITLDashboard.Classes
             { conn.Close(); }
             return ds;
         }
-        public DataSet getFormNameByFormID(string FommID)
+        public DataSet getFormNameByFormID(string _FommID,string _FormCode)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
@@ -3023,7 +3023,8 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "SP_FormDetailByFormID";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = connection;
-                        cmd.Parameters.AddWithValue("@Form_ID", FommID.ToString());
+                        cmd.Parameters.AddWithValue("@Form_ID", _FommID.ToString());
+                        cmd.Parameters.AddWithValue("@FormIDCode", _FormCode.ToString());
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "SP_FormDetailByFormID");
                     }

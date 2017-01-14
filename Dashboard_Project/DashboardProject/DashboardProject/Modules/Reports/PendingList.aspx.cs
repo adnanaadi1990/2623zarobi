@@ -58,7 +58,7 @@ namespace ITLDashboard.Modules.Reports
         protected void getFormNameByFormID()
         {
 
-            ds = obj.getFormNameByFormID(Session["Application"].ToString().Trim());
+            ds = obj.getFormNameByFormID(Session["Application"].ToString().Trim(),"");
             if (ds.Tables["SP_FormDetailByFormID"].Rows.Count > 0)
             {
                 ddlApplication.DataTextField = ds.Tables["SP_FormDetailByFormID"].Columns["FormName"].ToString(); // text field name of table dispalyed in dropdown

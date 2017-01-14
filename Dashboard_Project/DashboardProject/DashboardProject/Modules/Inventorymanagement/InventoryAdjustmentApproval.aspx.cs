@@ -97,7 +97,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                         string a = Request.QueryString["TransactionNo"].ToString();
 
                         // cmd.CommandText = @"select * from tbl_FI_PettyCash where TransactionMain = @TNo";
-                        cmd.CommandText = " SELECT * from  tbl_Inventoryadjustment where TransactionMain = @TNo";
+                        cmd.CommandText = "SELECT * from  tbl_Inventoryadjustment where TransactionMain = @TNo";
                         cmd.CommandType = CommandType.Text;
                         cmd.Connection = conn;
                         cmd.Parameters.AddWithValue("@TNo", a.ToString());

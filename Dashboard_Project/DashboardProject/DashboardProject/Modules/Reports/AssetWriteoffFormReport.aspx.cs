@@ -136,6 +136,7 @@ namespace DashboardProject.Modules.Reports
                     win.ID = "window1";
                     win.VisibleOnPageLoad = true;
                     win.Width = 1000;
+                    win.InitialBehaviors = WindowBehaviors.Maximize;
                     win.EnableViewState = false;
                     win.NavigateUrl = "~/StatusDetail.aspx?TransactionNo=" + str.ToString() + "&FormName=" + FormID.ToString() + "";
                     RadWindowManager1.Controls.Add(win);

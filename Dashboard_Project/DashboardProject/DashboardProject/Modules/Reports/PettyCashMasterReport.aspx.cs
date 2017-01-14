@@ -132,6 +132,7 @@ namespace ITLDashboard.Modules.Reports
                     RadWindow win = new RadWindow();
                     win.ID = "window1";
                     win.VisibleOnPageLoad = true;
+                    win.InitialBehaviors = WindowBehaviors.Maximize;
                     win.Width = 1000;
                     win.EnableViewState = false;
                     win.NavigateUrl = "~/StatusDetail.aspx?TransactionNo=" + str.ToString() + "&FormName=" + FormID.ToString() + "";
