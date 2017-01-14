@@ -1,8 +1,0 @@
-D:\DashboardLocal\-2934-8947-7068-\Dashboard_Project\DashboardProject\DashboardProject\obj\Debug\DashboardProject.csproj.ResolveComReference.cache
-D:\DashboardLocal\-2934-8947-7068-\Dashboard_Project\DashboardProject\DashboardProject\obj\Debug\RdlCompile.cache
-D:\DashboardLocal\-2934-8947-7068-\Dashboard_Project\DashboardProject\DashboardProject\obj\Debug\RdlCompile.compiled
-D:\DashboardLocal\-2934-8947-7068-\Dashboard_Project\DashboardProject\DashboardProject\bin\DashboardProject.dll
-D:\DashboardLocal\-2934-8947-7068-\Dashboard_Project\DashboardProject\DashboardProject\bin\DashboardProject.pdb
-D:\DashboardLocal\-2934-8947-7068-\Dashboard_Project\DashboardProject\DashboardProject\obj\Debug\DashboardProject.csprojResolveAssemblyReference.cache
-D:\DashboardLocal\-2934-8947-7068-\Dashboard_Project\DashboardProject\DashboardProject\obj\Debug\DashboardProject.dll
-D:\DashboardLocal\-2934-8947-7068-\Dashboard_Project\DashboardProject\DashboardProject\obj\Debug\DashboardProject.pdb
