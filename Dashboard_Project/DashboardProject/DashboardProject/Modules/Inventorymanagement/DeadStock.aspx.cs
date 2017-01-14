@@ -427,7 +427,7 @@ namespace ITLDashboard.Modules.Inventorymanagement
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            FilePath = "~/DashboardDocument/DeadStock/" + lblFileName.Text.ToString();
+            FilePath = "~/DashboardDocument/DeadStockDoc/" + lblFileName.Text.ToString();
             string pathDelete = Server.MapPath(FilePath.ToString());
             FileInfo file = new FileInfo(pathDelete);
             if (file.Exists)
