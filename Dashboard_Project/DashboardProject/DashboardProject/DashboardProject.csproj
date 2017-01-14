@@ -848,6 +848,7 @@
     <Compile Include="Classes\ComponentClass_FD.cs" />
     <Compile Include="Classes\ComponentClass_FK.cs" />
     <Compile Include="Classes\FieldValidationCode.cs" />
+    <Compile Include="Classes\FieldValidation_AD.cs" />
     <Compile Include="Code\AttendanceSystemDataSet.Designer.cs" />
     <Compile Include="Code\AttendanceSystemDataSet1.Designer.cs" />
     <Compile Include="Code\AttendanceSystemDataSet2.Designer.cs">
@@ -2031,7 +2032,6 @@
     <Folder Include="js\fonts\" />
     <Folder Include="js\Images\" />
     <Folder Include="js\img\" />
-    <Folder Include="obj\" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
