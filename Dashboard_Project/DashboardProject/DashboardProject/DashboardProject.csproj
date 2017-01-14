@@ -2033,6 +2033,8 @@
     <Folder Include="js\fonts\" />
     <Folder Include="js\Images\" />
     <Folder Include="js\img\" />
+    <Folder Include="obj\Debug\" />
+    <Folder Include="obj\Release\" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
