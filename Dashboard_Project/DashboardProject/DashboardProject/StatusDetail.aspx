@@ -35,6 +35,7 @@
            <div class="container" style="margin-top: 20px; width:100%;">
     <div class="panel panel-default" id="pnlPC">
             <div class="panel-body">
+                 
                 <div class="row">
                           <div id="dvDetail" runat="server" class="col-sm-12 fixed-panel">
     <asp:GridView ID="grdWStatus" CssClass="table table-hover table-bordered footable" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True">
