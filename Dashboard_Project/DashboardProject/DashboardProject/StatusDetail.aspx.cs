@@ -82,7 +82,7 @@ namespace ITLDashboard
                             {
                                 reader.Read();
                                 val = reader["TransactionMain"].ToString();
-                                Response.Redirect(PathString + "?TransactionNo=" + val);
+                                Response.Redirect(PathString.Trim() + "?TransactionNo=" + val);
                             }
                         }
                     }
