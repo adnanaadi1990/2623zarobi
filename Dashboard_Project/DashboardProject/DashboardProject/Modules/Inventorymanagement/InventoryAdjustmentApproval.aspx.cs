@@ -329,6 +329,10 @@ namespace DashboardProject.Modules.Inventorymanagement
                     ViewState["Status"] = ds.Tables["HID"].Rows[0]["Status"].ToString();
 
                 }
+                else
+                {
+                    ViewState["HID"] = "1";
+                }
             }
             catch (Exception ex)
             {
@@ -559,7 +563,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                     return;
 
                 }
-                
+
                 if (txtDescription.Text == "")
                 {
                     txtDescription.BackColor = System.Drawing.Color.Red;
@@ -568,7 +572,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                     return;
 
                 }
-               
+
                 FilePath = "~/DashboardDocument/InventoryAdjustment/" + "InventoryAdjustment" + lblFileName.Text.ToString();
                 string Approval = ViewState["HOD"].ToString();
                 cmd.CommandText = "Exec SP_SYS_create_InventoryManagment" + " @TransactionMain='" + lblMaxTransactionNo.Text + "', " +
@@ -1138,7 +1142,7 @@ namespace DashboardProject.Modules.Inventorymanagement
             Response.ContentType = "Application/pdf";
             Response.AppendHeader("Content-Disposition", "attachment; filename= " + lblFileName.Text.ToString() + "");
             Response.TransmitFile(pathDelete.ToString());
-            Response.End(); 
+            Response.End();
         }
     }
 }
