@@ -33,8 +33,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ExcludeGeneratedDebugSymbol>false</ExcludeGeneratedDebugSymbol>
-    <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
-    <PublishDatabases>true</PublishDatabases>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+    <PublishDatabases>false</PublishDatabases>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -545,6 +545,7 @@
     <Content Include="DashboardDocument\PettyCash\c35a8228_Pettcash demo.png" />
     <Content Include="DashboardDocument\PettyCash\e1f8ddbe_Multiple-Product-Receipt-Template-for-Word.png" />
     <Content Include="DashboardDocument\PettyCash\ee061682_Multiple-Product-Receipt-Template-for-Word.png" />
+    <Content Include="DashboardProject.csproj.vspscc" />
     <Content Include="Default.aspx" />
     <Content Include="Default_New.aspx" />
     <Content Include="dist\css\sb-admin-2.css" />
@@ -2033,8 +2034,6 @@
     <Folder Include="js\fonts\" />
     <Folder Include="js\Images\" />
     <Folder Include="js\img\" />
-    <Folder Include="obj\Debug\" />
-    <Folder Include="obj\Release\" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
@@ -2081,7 +2080,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>2762</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:26015/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
