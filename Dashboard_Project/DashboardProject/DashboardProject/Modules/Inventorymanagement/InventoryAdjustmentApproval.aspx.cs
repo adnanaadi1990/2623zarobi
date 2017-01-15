@@ -234,8 +234,8 @@ namespace DashboardProject.Modules.Inventorymanagement
         {
             try
             {
-                ds = objAD.getDeadStock(lblMaxTransactionID.Text.ToString());
-                grdDetail.DataSource = ds.Tables["getDeadStock"];
+                ds = objAD.getInventoryadjustment(lblMaxTransactionID.Text.ToString());
+                grdDetail.DataSource = ds.Tables["getInventoryadjustment"];
                 grdDetail.DataBind();
             }
             catch (Exception ex)
@@ -264,7 +264,7 @@ namespace DashboardProject.Modules.Inventorymanagement
         {
             try
             {
-                ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString(), ViewState["SerialNo"].ToString(), ViewState["Status"].ToString());
+                ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
                 if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
                 {
                     ViewState["StatusHierachyCategory"] = ds.Tables["tbl_SysHierarchyControl"].Rows[0]["Status"].ToString();
@@ -332,6 +332,8 @@ namespace DashboardProject.Modules.Inventorymanagement
                 else
                 {
                     ViewState["HID"] = "1";
+                    ViewState["SerialNo"] = "1";
+                    
                 }
             }
             catch (Exception ex)

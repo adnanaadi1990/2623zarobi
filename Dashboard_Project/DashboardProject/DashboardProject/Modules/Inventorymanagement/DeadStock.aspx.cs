@@ -252,7 +252,7 @@ namespace ITLDashboard.Modules.Inventorymanagement
         }
         private void GetStatusHierachyCategoryControls()
         {
-            ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString(), ViewState["SerialNo"].ToString(), ViewState["Status"].ToString());
+            ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
             if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
             {
                 ViewState["StatusHierachyCategory"] = ds.Tables["tbl_SysHierarchyControl"].Rows[0]["Status"].ToString();
