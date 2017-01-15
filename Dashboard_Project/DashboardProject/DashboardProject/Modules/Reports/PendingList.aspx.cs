@@ -1,20 +1,34 @@
 ﻿using Microsoft.Reporting.WebForms;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.Sql;
+using System.Data.SqlClient;
+using System.Text;
+using System.IO;
+using System;
+using System.Collections;
+using System.Configuration;
+using System.Net;
+using System.Net.Mail;
+using AjaxControlToolkit;
+using System.Collections.Generic;
+using ITLDashboard.Classes;
+
 
 namespace ITLDashboard.Modules.Reports
 {
     public partial class PendingList : System.Web.UI.Page
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString.ToString());
+        ComponentClass obj = new ComponentClass();
+        DataTable dt = new DataTable();
+        DataSet ds = new DataSet();
+        SqlDataAdapter adp = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
+        DataTable table = new DataTable();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -33,7 +47,7 @@ namespace ITLDashboard.Modules.Reports
                 {
                     Response.Redirect("~/SingleLogin.aspx");
                 }
-                getFormName();
+                getFormNameByFormID();
 
             }
 
@@ -41,18 +55,19 @@ namespace ITLDashboard.Modules.Reports
         }
 
 
-        protected void getFormName()
+        protected void getFormNameByFormID()
         {
-            cmd.CommandText = @"select FormIDCode,FormName from tblFormsDetail";
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = conn;
-            conn.Open();
-            ddlApplication.DataSource = cmd.ExecuteReader();
-            ddlApplication.DataTextField = "FormName";
-            ddlApplication.DataValueField = "FormIDCode";
-            ddlApplication.DataBind();
-            conn.Close();
-            ddlApplication.Items.Insert(0, new ListItem("------------Select------------", ""));
+
+            ds = obj.getFormNameByFormID(Session["Application"].ToString().Trim(),"");
+            if (ds.Tables["SP_FormDetailByFormID"].Rows.Count > 0)
+            {
+                ddlApplication.DataTextField = ds.Tables["SP_FormDetailByFormID"].Columns["FormName"].ToString(); // text field name of table dispalyed in dropdown
+                ddlApplication.DataValueField = ds.Tables["SP_FormDetailByFormID"].Columns["FormIDCode"].ToString();             // to retrive specific  textfield name 
+                ddlApplication.DataSource = ds.Tables["SP_FormDetailByFormID"];      //assigning datasource to the dropdownlist
+                ddlApplication.DataBind();  //binding dropdownlist
+              //  ddlApplication.Items.Insert(0, new ListItem("------Select------", "0"));
+                ddlApplication.SelectedIndex = 1;
+            }
         }
 
         protected void btnView_Click(object sender, EventArgs e)
@@ -60,33 +75,7 @@ namespace ITLDashboard.Modules.Reports
             try
             {
                 lblError.Text = "";
-                // txtfromID.BackColor = System.Drawing.Color.White;
-                //txtToID.BackColor = System.Drawing.Color.White;
-                //if (ddlApplication.SelectedValue == "0")
-                //{
-                //    lblError.Text = "Fill all required field!.";
-                //    ddlApplication.BackColor = System.Drawing.Color.Red;
-                //    Page.MaintainScrollPositionOnPostBack = false;
-                //    return;
-                //}
-                //else if (txtfromID.Text == "")
-                //{
-                //    lblError.Text = "Fill all required field!.";
-                //    txtfromID.BackColor = System.Drawing.Color.Red;
-                //    Page.MaintainScrollPositionOnPostBack = false;
-                //    return;
-                //}
-                //if (txtfromID.Text == "")
-                //{
-                //    //lblError.Text = "Fill all required field!.";
-                //   // txtfromID.BackColor = System.Drawing.Color.Red;
-                //    //Page.MaintainScrollPositionOnPostBack = false;
-                //    //sreturn;
-                //}
-
-                //else
-                //{
-
+              
                 if (txtToID.Text == "")
                 {
                     txtToID.Text = txtfromID.Text;

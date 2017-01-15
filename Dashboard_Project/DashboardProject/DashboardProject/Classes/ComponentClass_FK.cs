@@ -164,23 +164,30 @@ namespace ITLDashboard.Classes
             return ds;
         }
 
-        public DataSet FormDepartmentMarketing()
+        public DataSet FormDepartmentMarketing(string user)
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
 
-                cmd.CommandText = @"SP_FormDepartmentMarketing";
+                        cmd.CommandText = @"SP_FormDepartmentMarketing";
 
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                adp.Fill(ds, "FormDepartmentMarketing");
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@User_Name", user.ToString());
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "FormDepartmentMarketing");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
             }
-            catch (Exception ex)
-            { ex.ToString(); }
-            finally
-            { conn.Close(); }
-            return ds;
         }
     }
 }

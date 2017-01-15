@@ -93,9 +93,10 @@
             height: auto;
         }
 
-        /*.AutoShrink {
-            width: 240px !important;
-        }*/
+       .rgCommandTable {
+            text-align: left;
+            display: block;
+        }
     </style>
     <style type="text/css">
         .rgPageFirst, .rgPagePrev, .rgPageNext, .rgPageLast {

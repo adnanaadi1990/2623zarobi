@@ -1137,6 +1137,10 @@ namespace ITLDashboard.Modules.Master
                 ddlBasicDataPackagingMaterialCateguory.SelectedValue = reader[17].ToString();
                 chkBatchManagement.SelectedValue = reader[18].ToString();
                 string PH = reader[19].ToString();
+                if (PH == "")
+                {
+                    PH = "0,0,0";
+                }
                 string[] lines = PH.Split(',');
                 string aa = lines[0].Trim();
                 string ab = lines[1].Trim();

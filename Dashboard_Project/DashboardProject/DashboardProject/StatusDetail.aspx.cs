@@ -32,21 +32,62 @@ namespace ITLDashboard
         SqlDataAdapter adp = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
         ComponentClass obj = new ComponentClass();
+        public string val = "";
+        public string PathString = "";
+        public string Script = "";
+        public string TranID = "";
+        public string FormName = "";
+        public string value = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                if (Request.QueryString["TransactionNo"] != null && Request.QueryString["FormName"] != null)
+                Pass();
+            }
+        }
+        protected void Pass()
+        {
+            if (Request.QueryString["TransactionNo"] != null && Request.QueryString["FormName"] != null)
+            {
+                TranID = Request.QueryString["TransactionNo"].ToString();
+                FormName = Request.QueryString["FormName"].ToString();
+
+                if (HttpContext.Current.Session["Application"] == null)
                 {
-                    string TranID = Request.QueryString["TransactionNo"].ToString();
-                    string FormName = Request.QueryString["FormName"].ToString();
-                    ds = obj.BindsysApplicationStatus(TranID.ToString(), FormName.ToString());
-                    grdWStatus.DataSource = ds.Tables["BindsysApplicationStatus"];
-                    grdWStatus.DataBind();
-                    grdWStatus.Visible = true;
-                    //ushiuhsfhds
+                    //  HttpContext.Current.Session["Application"] = "";
+                    HttpContext.Current.Session["Application"] = "";
+                }
+                else
+                {
+                    value = "";
+                }
+                ds = obj.getFormNameByFormID(value.ToString(), FormName.ToString());
+                if (ds.Tables["SP_FormDetailByFormID"].Rows.Count > 0)
+                {
+                    PathString = ds.Tables["SP_FormDetailByFormID"].Rows[0]["Path"].ToString();
+                    Script = ds.Tables["SP_FormDetailByFormID"].Rows[0]["Script"].ToString();
+                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+                    {
+                        using (SqlCommand cmdScript = new SqlCommand(Script))//
+                        {
+                            cmdScript.CommandType = CommandType.Text;
+                            cmdScript.Parameters.AddWithValue("@TNo", TranID.ToString());
+                            cmdScript.Connection = connection;
+
+                            adp.SelectCommand = cmdScript;
+                            dt.Clear();
+                            adp.Fill(dt);
+                            DataTableReader reader = dt.CreateDataReader();
+                            while (reader.Read())
+                            {
+                                reader.Read();
+                                val = reader["TransactionMain"].ToString();
+                                Response.Redirect(PathString.Trim() + "?TransactionNo=" + val);
+                            }
+                        }
+                    }
                 }
             }
         }
     }
-}//Test 2 :) How r u
+}

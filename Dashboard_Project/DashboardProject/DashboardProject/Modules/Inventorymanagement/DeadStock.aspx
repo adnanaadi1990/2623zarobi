@@ -12,7 +12,7 @@
         rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="../../Scripts/footable.min.js"></script>
 
-
+    
     <script type="text/javascript">
         $(function () {
             /*

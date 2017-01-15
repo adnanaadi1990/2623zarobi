@@ -861,6 +861,10 @@ namespace ITLDashboard.Modules.SBApp
                 ViewState["SerialNo"] = ds.Tables["HID"].Rows[0]["SerialNo"].ToString();
                 ViewState["Status"] = ds.Tables["HID"].Rows[0]["Status"].ToString();
             }
+            else
+            {
+                ViewState["HID"] = "1";
+            }
         }
 
         private void GetStatusHierachyCategoryControls()

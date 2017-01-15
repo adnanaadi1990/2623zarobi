@@ -131,6 +131,7 @@ namespace ITLDashboard.Modules.Finance
                     txtFormID.Text = reader["TransactionID"].ToString();
                     lblFileName.Text = reader["FileName"].ToString();
                     txtDescription.Text = reader["Description"].ToString();
+
                     dvShowDoc.Visible = true;
                     dvFileName.Visible = true;
                     dvDescription.Visible = true;

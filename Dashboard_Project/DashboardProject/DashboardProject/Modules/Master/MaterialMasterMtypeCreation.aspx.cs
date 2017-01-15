@@ -37,7 +37,7 @@ namespace ITLDashboard.Modules.Master
         public string DateTimeNow = "";
         public string url = "";
         public string urlMobile = "";
-        public string FormID = "101";
+        public string FormID = "103";
         public string FormType = "N";
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString.ToString());
         ComponentClass obj = new ComponentClass();
@@ -522,7 +522,7 @@ namespace ITLDashboard.Modules.Master
                     }
                     else
                     {
-                        ds = objFK.FormDepartmentMarketing();
+                        ds = objFK.FormDepartmentMarketing(Session["User_Name"].ToString());
                         if (ds.Tables["FormDepartmentMarketing"].Rows.Count > 0)
                         {
                             dt.Clear();
@@ -2864,7 +2864,7 @@ namespace ITLDashboard.Modules.Master
                 cmd.Parameters.AddWithValue("@VolumeUnit ", ddlVOLUMEUNIT.SelectedValue);
                 cmd.Parameters.AddWithValue("@OldMaterailNo ", txtOldMaterialNumber.Text);
                 cmd.Parameters.AddWithValue("@Size_Dimension", txtSizeDimensions.Text);
-                cmd.Parameters.AddWithValue("@Packeging_Material_", ddlBasicDataPackagingMaterialCateguory.SelectedValue);
+                cmd.Parameters.AddWithValue("@Packeging_Material_Catg", ddlBasicDataPackagingMaterialCateguory.SelectedValue);
                 cmd.Parameters.AddWithValue("@Storage_Location ", StorageLocation.ToString());
                 cmd.Parameters.AddWithValue("@BatchManagmet ", chkBatchManagement.SelectedValue );
                 cmd.Parameters.AddWithValue("@APPROVAL ", Result.ToString());
@@ -4615,15 +4615,23 @@ namespace ITLDashboard.Modules.Master
                 {
                     ddlMG.SelectedValue = "0006";
                     bindMSGfromMG();
+                    ddlMG.Enabled = false;
                 }
                 else if (ddlPlant.SelectedValue == "2000")
                 {
                     ddlMG.SelectedValue = "0007";
                     bindMSGfromMG();
+                    ddlMG.Enabled = false;
                 }
                 else if (ddlPlant.SelectedValue == "3000")
                 {
                     ddlMG.SelectedValue = "0005";
+                    bindMSGfromMG();
+                    ddlMG.Enabled = false;
+                }
+                else if (ddlPlant.SelectedValue == "7000")
+                {
+                    ddlMG.Enabled = true;
                     bindMSGfromMG();
                 }
             }

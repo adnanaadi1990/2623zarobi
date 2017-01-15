@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="MaterialMasterReport.aspx.cs" Inherits="ITLDashboard.Modules.Reports.MaterialMasterReport" %>
+
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -24,11 +25,11 @@
             });
         };
     </script>
-      <script type="text/javascript">
-          history.pushState(null, null, document.URL);
-          window.addEventListener('popstate', function (event) {
-              history.pushState(null, null, document.URL);
-          });
+    <script type="text/javascript">
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function (event) {
+            history.pushState(null, null, document.URL);
+        });
 
     </script>
     <script type="text/javascript">
@@ -91,15 +92,18 @@
             height: auto;
         }
 
-        .AutoShrink {
-            width: 240px !important;
+        .rgCommandTable {
+            text-align: left;
+            display: block;
         }
     </style>
     <style type="text/css">
         .rgPageFirst, .rgPagePrev, .rgPageNext, .rgPageLast {
             display: none;
         }
-        .btn-primary {}
+
+        .btn-primary {
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">

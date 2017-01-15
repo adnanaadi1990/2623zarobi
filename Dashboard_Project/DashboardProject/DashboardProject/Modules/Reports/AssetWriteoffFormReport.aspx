@@ -107,7 +107,9 @@
             display: none;
         }
 
-        .btn-primary {
+     .rgCommandTable {
+            text-align: left;
+            display: block;
         }
     </style>
 

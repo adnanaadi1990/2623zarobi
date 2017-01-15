@@ -43,7 +43,7 @@ namespace ITLDashboard.Classes
                         //cmd.CommandText = "SELECT COALESCE(MAX(MeterialNo), 0) +1 as TransactionID from tbl_SYS_MaterialMaster";
                         cmd.CommandText = "EXEC [SP_MaintainTrans]";
                         cmd.CommandType = CommandType.Text;
-                        cmd.Connection = conn;
+                        cmd.Connection = connection;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "MaterialMaxID");
                     }
@@ -94,7 +94,7 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = @"SP_getHOD";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
+                        cmd.Connection = connection;
                         cmd.Parameters.AddWithValue("@username", UserName.ToString());
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "getUserHOD");
@@ -121,7 +121,7 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "SP_getPlantDistinct";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
+                        cmd.Connection = connection;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "getPlantDistinct");
                     }
@@ -150,7 +150,7 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "SP_BindTCode";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
+                        cmd.Connection = connection;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "TCode");
                     }
@@ -204,7 +204,7 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "SP_BindMovementtype";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
+                        cmd.Connection = connection;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "tbl_Movementtype");
                     }
@@ -229,7 +229,7 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "SP_BindOrdertype";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
+                        cmd.Connection = connection;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "tbl_OrderType");
                     }
@@ -283,7 +283,7 @@ namespace ITLDashboard.Classes
                         //cmd.CommandText = "SELECT COALESCE(MAX(MeterialNo), 0) +1 as TransactionID from tbl_SYS_MaterialMaster";
                         cmd.CommandText = "EXEC [SP_MaintainTrans]" + "@FormID='" + FORMID.ToString() + "'";
                         cmd.CommandType = CommandType.Text;
-                        cmd.Connection = conn;
+                        cmd.Connection = connection;
                         adp.SelectCommand = cmd;
 
                         adp.Fill(ds, "MaterialMaxID");
@@ -291,7 +291,7 @@ namespace ITLDashboard.Classes
                     catch (Exception ex)
                     { ex.ToString(); }
                     finally
-                    { conn.Close(); }
+                    { connection.Close(); }
                     return ds;
                 }
             }
@@ -311,14 +311,14 @@ namespace ITLDashboard.Classes
                         //cmd.CommandText = "SELECT COALESCE(MAX(MeterialNo), 0) +1 as TransactionID from tbl_SYS_MaterialMaster";
                         cmd.CommandText = "SELECT COALESCE(MAX(TransactionID), 0)  +1 as TransactionID from tbl_SYS_MaterialMaster";
                         cmd.CommandType = CommandType.Text;
-                        cmd.Connection = conn;
+                        cmd.Connection = connection;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "MaterialMasterTrID");
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
                     finally
-                    { conn.Close(); }
+                    { connection.Close(); }
                     return ds;
                 }
             }
@@ -362,7 +362,7 @@ namespace ITLDashboard.Classes
                     catch (Exception ex)
                     { ex.ToString(); }
                     finally
-                    { conn.Close(); }
+                    { connection.Close(); }
                     return ds;
                 }
             }
@@ -388,7 +388,7 @@ namespace ITLDashboard.Classes
                                " @designation='" + designation + "', " +
                                 " @department_id='" + dept + "'";
                         cmd.CommandType = CommandType.Text;
-                        cmd.Connection = conn;
+                        cmd.Connection = connection;
 
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "Message");
@@ -398,7 +398,7 @@ namespace ITLDashboard.Classes
                     catch (Exception ex)
                     { ex.ToString(); }
                     finally
-                    { conn.Close(); }
+                    { connection.Close(); }
                     return ds;
                 }
             }
@@ -415,15 +415,15 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "Exec SP_BindGridDept";
                         cmd.CommandType = CommandType.Text;
-                        cmd.Connection = conn;
-                        conn.Open();
+                        cmd.Connection = connection;
+                        connection.Open();
                         adp.SelectCommand = cmd;
                         adp.Fill(ds);
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
                     finally
-                    { conn.Close(); }
+                    { connection.Close(); }
                     return ds;
                 }
             }
@@ -441,7 +441,7 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "Exec SP_BindGridDesignation";
                         cmd.CommandType = CommandType.Text;
-                        cmd.Connection = conn;
+                        cmd.Connection = connection;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds);
                     }
@@ -466,14 +466,14 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "Exec SP_userlogin" + " @user_id='" + user_id + "', " +
                                 " @passcode='" + passcode + "'";
                         cmd.CommandType = CommandType.Text;
-                        cmd.Connection = conn;
+                        cmd.Connection = connection;
                         adp.SelectCommand = cmd;
                         adp.Fill(dt);
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
                     finally
-                    { conn.Close(); }
+                    { connection.Close(); }
                     return dt;
                 }
             }
@@ -492,14 +492,14 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "Exec SP_BindMaterialType";
                         cmd.CommandType = CommandType.Text;
-                        cmd.Connection = conn;
+                        cmd.Connection = connection;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "MaterialType");
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
                     finally
-                    { conn.Close(); }
+                    { connection.Close(); }
                     return ds;
                 }
             }
@@ -517,14 +517,14 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "Exec SP_BindMaterialMaster";
                         cmd.CommandType = CommandType.Text;
-                        cmd.Connection = conn;
+                        cmd.Connection = connection;
                         adp.SelectCommand = cmd;
                         adp.Fill(dt);
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
                     finally
-                    { conn.Close(); }
+                    { connection.Close(); }
                     return dt;
                 }
             }
@@ -543,14 +543,14 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "SP_StorageLocation";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
+                        cmd.Connection = connection;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "StorageLocation");
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
                     finally
-                    { conn.Close(); }
+                    { connection.Close(); }
                     return ds;
                 }
             }
@@ -569,14 +569,14 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "SP_BindPlant";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
+                        cmd.Connection = connection;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "Plant");
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
                     finally
-                    { conn.Close(); }
+                    { connection.Close(); }
                     return ds;
                 }
             }
@@ -603,7 +603,7 @@ namespace ITLDashboard.Classes
                     catch (Exception ex)
                     { ex.ToString(); }
                     finally
-                    { conn.Close(); }
+                    { connection.Close(); }
                     return ds;
                 }
             }
@@ -621,14 +621,14 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "SP_Materialgroup";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
+                        cmd.Connection = connection;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "Materialgroup");
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
                     finally
-                    { conn.Close(); }
+                    { connection.Close(); }
                     return ds;
                 }
             }
@@ -654,7 +654,7 @@ namespace ITLDashboard.Classes
                     catch (Exception ex)
                     { ex.ToString(); }
                     finally
-                    { conn.Close(); }
+                    { connection.Close(); }
                     return ds;
                 }
             }
@@ -679,7 +679,7 @@ namespace ITLDashboard.Classes
                     catch (Exception ex)
                     { ex.ToString(); }
                     finally
-                    { conn.Close(); }
+                    { connection.Close(); }
                     return ds;
                 }
             }
@@ -705,7 +705,7 @@ namespace ITLDashboard.Classes
                     catch (Exception ex)
                     { ex.ToString(); }
                     finally
-                    { conn.Close(); }
+                    { connection.Close(); }
                     return ds;
                 }
             }
@@ -723,14 +723,14 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "SP_BindLenght";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
+                        cmd.Connection = connection;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "Lenght");
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
                     finally
-                    { conn.Close(); }
+                    { connection.Close(); }
                     return ds;
                 }
             }
@@ -748,14 +748,14 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "SP_BindUser";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
+                        cmd.Connection = connection;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "tblUser");
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
                     finally
-                    { conn.Close(); }
+                    { connection.Close(); }
                     return ds;
                 }
             }
@@ -773,14 +773,14 @@ namespace ITLDashboard.Classes
                         cmd.CommandText = "";
                         cmd.CommandText = "SP_ValuationType";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
+                        cmd.Connection = connection;
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "ValuationType");
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
                     finally
-                    { conn.Close(); }
+                    { connection.Close(); }
                     return ds;
                 }
             }
@@ -3010,6 +3010,31 @@ namespace ITLDashboard.Classes
             { conn.Close(); }
             return ds;
         }
-
+        public DataSet getFormNameByFormID(string _FommID,string _FormCode)
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "";
+                        cmd.CommandText = "SP_FormDetailByFormID";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        cmd.Parameters.AddWithValue("@Form_ID", _FommID.ToString());
+                        cmd.Parameters.AddWithValue("@FormIDCode", _FormCode.ToString());
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "SP_FormDetailByFormID");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { connection.Close(); }
+                    return ds;
+                }
+            }
+        }
     }
 }

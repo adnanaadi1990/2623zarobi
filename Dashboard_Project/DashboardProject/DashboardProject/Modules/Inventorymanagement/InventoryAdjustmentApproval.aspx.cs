@@ -97,7 +97,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                         string a = Request.QueryString["TransactionNo"].ToString();
 
                         // cmd.CommandText = @"select * from tbl_FI_PettyCash where TransactionMain = @TNo";
-                        cmd.CommandText = " SELECT * from  tbl_Inventoryadjustment where TransactionMain = @TNo";
+                        cmd.CommandText = "SELECT * from  tbl_Inventoryadjustment where TransactionMain = @TNo";
                         cmd.CommandType = CommandType.Text;
                         cmd.Connection = conn;
                         cmd.Parameters.AddWithValue("@TNo", a.ToString());
@@ -234,8 +234,8 @@ namespace DashboardProject.Modules.Inventorymanagement
         {
             try
             {
-                ds = objAD.getDeadStock(lblMaxTransactionID.Text.ToString());
-                grdDetail.DataSource = ds.Tables["getDeadStock"];
+                ds = objAD.getInventoryadjustment(lblMaxTransactionID.Text.ToString());
+                grdDetail.DataSource = ds.Tables["getInventoryadjustment"];
                 grdDetail.DataBind();
             }
             catch (Exception ex)
@@ -264,7 +264,7 @@ namespace DashboardProject.Modules.Inventorymanagement
         {
             try
             {
-                ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString(), ViewState["SerialNo"].ToString(), ViewState["Status"].ToString());
+                ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
                 if (ds.Tables["tbl_SysHierarchyControl"].Rows.Count > 0)
                 {
                     ViewState["StatusHierachyCategory"] = ds.Tables["tbl_SysHierarchyControl"].Rows[0]["Status"].ToString();
@@ -312,7 +312,7 @@ namespace DashboardProject.Modules.Inventorymanagement
         {
             try
             {
-
+                
                 ds = obj.GetHarachyCustomerMaster(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
                 dt = ds.Tables["HID"];
                 ViewState["HIDDataSet"] = dt;
@@ -328,6 +328,12 @@ namespace DashboardProject.Modules.Inventorymanagement
 
                     ViewState["Status"] = ds.Tables["HID"].Rows[0]["Status"].ToString();
 
+                }
+                else
+                {
+                    ViewState["HID"] = "1";
+                    ViewState["SerialNo"] = "1";
+                    
                 }
             }
             catch (Exception ex)
@@ -352,6 +358,18 @@ namespace DashboardProject.Modules.Inventorymanagement
                 ddlEmailMDA.DataBind();
                 conn.Close();
                 ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
+                cmd.CommandText = "SP_getDirectorUser";
+                //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = conn;
+                conn.Open();
+                ddlDirector.DataSource = cmd.ExecuteReader();
+                ddlDirector.DataTextField = "DisplayName";
+                ddlDirector.DataValueField = "user_name";
+                ddlDirector.DataBind();
+                conn.Close();
+                ddlDirector.Items.Insert(0, new ListItem("------Select------", "0"));
+                ddlDirector.SelectedIndex = 1;
             }
             catch (Exception ex)
             {
@@ -547,7 +565,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                     return;
 
                 }
-                
+
                 if (txtDescription.Text == "")
                 {
                     txtDescription.BackColor = System.Drawing.Color.Red;
@@ -556,7 +574,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                     return;
 
                 }
-               
+
                 FilePath = "~/DashboardDocument/InventoryAdjustment/" + "InventoryAdjustment" + lblFileName.Text.ToString();
                 string Approval = ViewState["HOD"].ToString();
                 cmd.CommandText = "Exec SP_SYS_create_InventoryManagment" + " @TransactionMain='" + lblMaxTransactionNo.Text + "', " +
@@ -1126,7 +1144,7 @@ namespace DashboardProject.Modules.Inventorymanagement
             Response.ContentType = "Application/pdf";
             Response.AppendHeader("Content-Disposition", "attachment; filename= " + lblFileName.Text.ToString() + "");
             Response.TransmitFile(pathDelete.ToString());
-            Response.End(); 
+            Response.End();
         }
     }
 }

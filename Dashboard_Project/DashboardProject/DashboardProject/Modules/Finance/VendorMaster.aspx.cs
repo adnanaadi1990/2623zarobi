@@ -959,9 +959,16 @@ namespace ITLDashboard.Modules.Finance
                 txtExemptionCertificate.Text = ds.Tables["Data"].Rows[0]["ExemptionCertificate"].ToString();
                 ddlExemptionReasons.SelectedValue = ds.Tables["Data"].Rows[0]["ExemptionReasons"].ToString();
                 //          txtExemptionFromDate.Text = ds.Tables["Data"].Rows[0]["ExemptionFromDate"].ToString();
-                txtExemptionFromDate.Text = Convert.ToDateTime(ds.Tables["Data"].Rows[0]["ExemptionFromDate"]).ToString("yyyy-MM-dd");
-                //txtMinimumOrderValue.Text = ds.Tables["Data"].Rows[0]["ExemptionToDate"].ToString();
-                txtExemptionToDate.Text = Convert.ToDateTime(ds.Tables["Data"].Rows[0]["ExemptionToDate"]).ToString("yyyy-MM-dd");
+                if (ds.Tables["Data"].Rows[0]["ExemptionFromDate"] != null)
+                {
+                    txtExemptionFromDate.Text = ds.Tables["Data"].Rows[0]["ExemptionFromDate"].ToString();
+                }
+                if (ds.Tables["Data"].Rows[0]["ExemptionToDate"] != "")
+                {
+                    txtExemptionToDate.Text = ds.Tables["Data"].Rows[0]["ExemptionToDate"].ToString();
+                }
+
+
                 ddlWHTaxCountry.Text = ds.Tables["Data"].Rows[0]["WHTaxCountry"].ToString();
                 //ddlWHTaxType.SelectedValue = ds.Tables["Data"].Rows[0]["WHTaxType"].ToString();
 

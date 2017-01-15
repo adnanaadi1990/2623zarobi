@@ -52,6 +52,27 @@ namespace ITLDashboard.Classes
             { conn.Close(); }
             return ds;
         }
+        public DataSet getInventoryadjustment(string TransID)
+        {
+            try
+            {
+                ds.Clear();
+                cmd.CommandText = "";
+                cmd.CommandText = @"SELECT TransactionID as [Form ID]
+      ,DocumentNo as [Document No]
+      ,FileName as [File Name]
+      ,Description as [Description] FROM tbl_Inventoryadjustment  where TransactionID =  '" + TransID.ToString() + "'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                adp.SelectCommand = cmd;
+                adp.Fill(ds, "getInventoryadjustment");
+            }
+            catch (Exception ex)
+            { ex.ToString(); }
+            finally
+            { conn.Close(); }
+            return ds;
+        }
         public DataSet AllowForms(string UserName, string FormName)
         {
             try

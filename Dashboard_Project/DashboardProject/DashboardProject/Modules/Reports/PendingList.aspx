@@ -19,14 +19,14 @@
         function pageLoad() {
             $("#divExtandToOtherPlant").hide();
 
-            $('[id*=ddlApplication]').multiselect({
-                includeSelectAllOption: true,
-                buttonWidth: '100%',
-                enableFiltering: true,
-                filterPlaceholder: 'Search for something...',
-                maxHeight: 200,
-                enableCaseInsensitiveFiltering: true
-            });
+            //$('[id*=ddlApplication]').multiselect({
+            //    includeSelectAllOption: true,
+            //    buttonWidth: '100%',
+            //    enableFiltering: true,
+            //    filterPlaceholder: 'Search for something...',
+            //    maxHeight: 200,
+            //    enableCaseInsensitiveFiltering: true
+            //});
 
 
         }
@@ -78,7 +78,7 @@
 
                             <div class="col-sm-6">
                                 Application
-                                  <asp:DropDownList ID="ddlApplication" runat="server"></asp:DropDownList>
+                                  <asp:DropDownList ID="ddlApplication" runat="server" CssClass="form-control"></asp:DropDownList>
                             </div>
                             <div class="col-sm-3">
                                 Form ID From
