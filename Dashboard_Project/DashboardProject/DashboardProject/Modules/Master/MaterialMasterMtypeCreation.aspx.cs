@@ -4615,20 +4615,23 @@ namespace ITLDashboard.Modules.Master
                 {
                     ddlMG.SelectedValue = "0006";
                     bindMSGfromMG();
+                    ddlMG.Enabled = false;
                 }
                 else if (ddlPlant.SelectedValue == "2000")
                 {
                     ddlMG.SelectedValue = "0007";
                     bindMSGfromMG();
+                    ddlMG.Enabled = false;
                 }
                 else if (ddlPlant.SelectedValue == "3000")
                 {
                     ddlMG.SelectedValue = "0005";
                     bindMSGfromMG();
+                    ddlMG.Enabled = false;
                 }
                 else if (ddlPlant.SelectedValue == "7000")
                 {
-                    ddlMG.SelectedValue = "0020";
+                    ddlMG.Enabled = true;
                     bindMSGfromMG();
                 }
             }
