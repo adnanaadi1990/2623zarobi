@@ -354,8 +354,7 @@ namespace DashboardProject.Modules.Inventorymanagement
             ddlNotification.DataValueField = "user_name";
             ddlNotification.DataBind();
             conn.Close();
-
-                cmd.CommandText = "SP_getFormID";
+            cmd.CommandText = "SP_getFormID";
                 //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
@@ -1173,4 +1172,4 @@ namespace DashboardProject.Modules.Inventorymanagement
 
         }
     }
-}//done
+}
