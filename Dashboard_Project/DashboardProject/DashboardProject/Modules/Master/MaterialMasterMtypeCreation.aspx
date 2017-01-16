@@ -347,6 +347,8 @@
 
                         <span class="help-block"></span>
                         <span class="help-block"></span>
+
+
                         <div class="row">
                             <div class="col-sm-4">
                                 Gross Weight
@@ -361,9 +363,11 @@
                                     <asp:DropDownList ID="ddlWeightunitBD" runat="server" CssClass="form-control">
                                     </asp:DropDownList>
                             </div>
-
                         </div>
+
+
                         <span class="help-block"></span>
+
                         <div class="row">
                             <div class="col-sm-4">
                                 Volume
@@ -375,11 +379,13 @@
                                     </asp:DropDownList>
                             </div>
                             <div class="col-sm-4">
-                                Old Material Number
+                                Customer Material Number
                         <asp:TextBox ID="txtOldMaterialNumber" runat="server" CssClass="form-control"></asp:TextBox>
                             </div>
                         </div>
+
                         <span class="help-block"></span>
+
                         <div class="row">
                             <div class="col-sm-4">
                                 Size / Dimensions<asp:TextBox ID="txtSizeDimensions" runat="server" CssClass="form-control"> </asp:TextBox>
@@ -395,12 +401,11 @@
                            <asp:ListItem Enabled="False">No</asp:ListItem>
                        </asp:RadioButtonList>
                             </div>
-
                         </div>
 
                         <span class="help-block"></span>
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </div>
