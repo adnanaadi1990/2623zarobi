@@ -328,6 +328,15 @@ namespace ITLDashboard.Modules.Master {
         protected global::System.Web.UI.WebControls.TextBox txtOldMaterialNumber;
         
         /// <summary>
+        /// txtCustomerNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCustomerNo;
+        
+        /// <summary>
         /// txtSizeDimensions control.
         /// </summary>
         /// <remarks>

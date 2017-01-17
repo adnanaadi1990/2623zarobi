@@ -1007,6 +1007,7 @@ namespace ITLDashboard.Modules.Master
                             txtVolume.Text = reader["Volume"].ToString();
                             ddlVOLUMEUNIT.SelectedValue = reader["VolumeUnit"].ToString();
                             txtOldMaterialNumber.Text = reader["OldMaterailNo"].ToString();
+                            txtCustomerNo.Text = reader["CustomerNo"].ToString();
                             txtSizeDimensions.Text = reader["Size_Dimension"].ToString();
                             ddlBasicDataPackagingMaterialCateguory.SelectedValue = reader["Packeging_Material_Catg"].ToString();
                             chkBatchManagement.SelectedValue = reader["BatchManagmet"].ToString();
@@ -2865,14 +2866,15 @@ namespace ITLDashboard.Modules.Master
                 cmd.Parameters.AddWithValue("@OldMaterailNo ", txtOldMaterialNumber.Text);
                 cmd.Parameters.AddWithValue("@Size_Dimension", txtSizeDimensions.Text);
                 cmd.Parameters.AddWithValue("@Packeging_Material_Catg", ddlBasicDataPackagingMaterialCateguory.SelectedValue);
-                cmd.Parameters.AddWithValue("@Storage_Location ", StorageLocation.ToString());
-                cmd.Parameters.AddWithValue("@BatchManagmet ", chkBatchManagement.SelectedValue );
-                cmd.Parameters.AddWithValue("@APPROVAL ", Result.ToString());
-                cmd.Parameters.AddWithValue("@MDA ", EmailMDA.ToString());
-                cmd.Parameters.AddWithValue("@ClosedBox ", RadioButtonList2.SelectedValue.ToString());
-                cmd.Parameters.AddWithValue("@CreatedBy ", Session["User_Name"].ToString());
-                cmd.Parameters.AddWithValue("@Remarks ", txtRemarksReview.Text.ToString());
-                cmd.Parameters.AddWithValue("@Status ", FormType.ToString());
+                cmd.Parameters.AddWithValue("@Storage_Location", StorageLocation.ToString());
+                cmd.Parameters.AddWithValue("@BatchManagmet", chkBatchManagement.SelectedValue );
+                cmd.Parameters.AddWithValue("@APPROVAL", Result.ToString());
+                cmd.Parameters.AddWithValue("@MDA", EmailMDA.ToString());
+                cmd.Parameters.AddWithValue("@ClosedBox", RadioButtonList2.SelectedValue.ToString());
+                cmd.Parameters.AddWithValue("@CreatedBy", Session["User_Name"].ToString());
+                cmd.Parameters.AddWithValue("@Remarks", txtRemarksReview.Text.ToString());
+                cmd.Parameters.AddWithValue("@Status", FormType.ToString());
+                cmd.Parameters.AddWithValue("@CustomerNo", txtCustomerNo.ToString());
                 cmd.Connection = conn;
                 ds.Clear();
                 adp.SelectCommand = cmd;
@@ -3348,6 +3350,7 @@ namespace ITLDashboard.Modules.Master
       Volume = @UpVolume,
       VolumeUnit = @UpVolumeUnit,
       OldMaterailNo = @UpOldMaterailNo,
+      CustomerNo  = @UpCustomerNo,
       Size_Dimension = @UpSize_Dimension,
       Packeging_Material_Catg = @UpPackeging_Material_Catg,
       BatchManagmet = @UpBatchManagmet,
@@ -3406,6 +3409,7 @@ namespace ITLDashboard.Modules.Master
                     cmd.Parameters.AddWithValue("@UpVolume", txtVolume.Text);
                     cmd.Parameters.AddWithValue("@UpVolumeUnit", ddlVOLUMEUNIT.SelectedValue);
                     cmd.Parameters.AddWithValue("@UpOldMaterailNo", txtOldMaterialNumber.Text);
+                    cmd.Parameters.AddWithValue("@UpCustomerNo", txtCustomerNo.Text);
                     cmd.Parameters.AddWithValue("@UpSize_Dimension", txtSizeDimensions.Text);
                     cmd.Parameters.AddWithValue("@UpPackeging_Material_Catg", ddlBasicDataPackagingMaterialCateguory.SelectedValue);
                     cmd.Parameters.AddWithValue("@UpBatchManagmet", chkBatchManagement.SelectedValue);
