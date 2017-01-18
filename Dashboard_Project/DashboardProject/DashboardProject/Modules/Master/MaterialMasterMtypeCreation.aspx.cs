@@ -58,7 +58,7 @@ namespace ITLDashboard.Modules.Master
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.MaintainScrollPositionOnPostBack = true;
-            txtRemarksReview.Enabled = false;
+            txtRemarksReview.Enabled = true;
             if (!IsPostBack)
             {
                 // dvemaillbl.Visible = true;
@@ -1174,6 +1174,9 @@ namespace ITLDashboard.Modules.Master
                 ddlEmailMDA.DataBind();
                 ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
                 conn.Close();
+                ListItem removeItem = ddlEmailMDA.Items.FindByValue(Session["User_Name"].ToString());
+                ddlEmailMDA.Items.Remove(removeItem);
+
 
                 using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
                 {
@@ -3055,7 +3058,6 @@ namespace ITLDashboard.Modules.Master
         {
             try
             {
-                {
                     error.Visible = false;
                     lblUpError.Text = "";
                     sucess.Visible = false;
@@ -3066,7 +3068,7 @@ namespace ITLDashboard.Modules.Master
                     GetStatusHierachyCategoryControls();
                     Page.MaintainScrollPositionOnPostBack = true;
                     lblEmail.Focus();
-                }
+             
             }
 
             catch (Exception ex)
@@ -3125,6 +3127,7 @@ namespace ITLDashboard.Modules.Master
                                 GetStatusHierachyCategoryControls();
                                 Page.MaintainScrollPositionOnPostBack = true;
                                 lblEmail.Focus();
+                                error.Visible = false;
                             }
 
                         }
@@ -3137,6 +3140,7 @@ namespace ITLDashboard.Modules.Master
                             GetStatusHierachyCategoryControls();
                             Page.MaintainScrollPositionOnPostBack = true;
                             lblEmail.Focus();
+                            error.Visible = false;
                         }
 
                     }
@@ -3149,6 +3153,7 @@ namespace ITLDashboard.Modules.Master
                         GetStatusHierachyCategoryControls();
                         Page.MaintainScrollPositionOnPostBack = true;
                         lblEmail.Focus();
+                        error.Visible = false;
                     }
                 }
             }
@@ -3560,7 +3565,7 @@ namespace ITLDashboard.Modules.Master
                         btnEdit.Visible = false;
                         btnForward.Visible = true;
                         btnTransfer.Visible = true;
-
+                        error.Visible = false;
 
                         whenquerystringpass();
                         controlForwardHide();
@@ -3675,6 +3680,7 @@ namespace ITLDashboard.Modules.Master
                     btnForward.Visible = true;
                     btnTransfer.Visible = true;
                     controlForwardHide();
+                    error.Visible = false;
                 }
             }
             catch (Exception ex)
@@ -3798,6 +3804,7 @@ namespace ITLDashboard.Modules.Master
                         lblEmail.ForeColor = System.Drawing.Color.Blue;
                         txtStandardPrice.BackColor = System.Drawing.Color.AliceBlue;
                         controlForwardHide();
+                        error.Visible = false;
                     }
 
                 }
