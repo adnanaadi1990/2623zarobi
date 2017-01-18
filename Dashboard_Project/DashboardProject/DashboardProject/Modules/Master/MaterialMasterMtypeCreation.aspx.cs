@@ -3182,6 +3182,8 @@ namespace ITLDashboard.Modules.Master
                 btnEdit.Visible = false;
                 DisableControls(Page, true);
                 whenquerystringpass();
+                btnForward.Visible = false;
+                btnTransfer.Visible = false;
             }
             catch (Exception ex)
             {
@@ -3566,7 +3568,8 @@ namespace ITLDashboard.Modules.Master
                         btnForward.Visible = true;
                         btnTransfer.Visible = true;
                         error.Visible = false;
-
+                        btnForward.Visible = false;
+                        btnTransfer.Visible = false;
                         whenquerystringpass();
                         controlForwardHide();
                     }
@@ -3681,6 +3684,8 @@ namespace ITLDashboard.Modules.Master
                     btnTransfer.Visible = true;
                     controlForwardHide();
                     error.Visible = false;
+                    btnForward.Visible = false;
+                    btnTransfer.Visible = false;
                 }
             }
             catch (Exception ex)
@@ -3805,6 +3810,8 @@ namespace ITLDashboard.Modules.Master
                         txtStandardPrice.BackColor = System.Drawing.Color.AliceBlue;
                         controlForwardHide();
                         error.Visible = false;
+                        btnForward.Visible = false;
+                        btnTransfer.Visible = false;
                     }
 
                 }
