@@ -1004,7 +1004,11 @@ namespace ITLDashboard.Modules.Master
                             ddlMSG.SelectedValue = reader["MaterialSubGroup"].ToString();
                             txtGROSSWEIGHT.Text = reader["GrossWeight"].ToString();
                             txtNETWEIGHT.Text = reader["NetWeight"].ToString();
-                            rbNewWeightCheck.SelectedValue = reader["NetWeightCheck"].ToString();
+                            if (reader["NetWeightCheck"].ToString() != "")
+                            {
+                                rbNewWeightCheck.SelectedValue = reader["NetWeightCheck"].ToString();
+                            }
+                            
                             ddlWeightunitBD.SelectedValue = reader["WeightUni"].ToString();
                             txtVolume.Text = reader["Volume"].ToString();
                             ddlVOLUMEUNIT.SelectedValue = reader["VolumeUnit"].ToString();
@@ -2878,7 +2882,7 @@ namespace ITLDashboard.Modules.Master
                 cmd.Parameters.AddWithValue("@CreatedBy", Session["User_Name"].ToString());
                 cmd.Parameters.AddWithValue("@Remarks", txtRemarksReview.Text.ToString());
                 cmd.Parameters.AddWithValue("@Status", FormType.ToString());
-                cmd.Parameters.AddWithValue("@CustomerNo", txtCustomerNo.ToString());
+                cmd.Parameters.AddWithValue("@CustomerNo", txtCustomerNo.Text.ToString());
                 cmd.Connection = conn;
                 ds.Clear();
                 adp.SelectCommand = cmd;
@@ -3108,6 +3112,7 @@ namespace ITLDashboard.Modules.Master
                                 sucess.Focus();
                                 Page.MaintainScrollPositionOnPostBack = false;
                                 whenquerystringpass();
+                                txtRemarksReview.Enabled = true;
                                 return;
                             }
                             else
@@ -3183,7 +3188,19 @@ namespace ITLDashboard.Modules.Master
         {
             try
             {
-                if (ddlProdCatg.SelectedValue == "0")
+                if (rbNewWeightCheck.SelectedValue == "Wrong")
+                {
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Net Weight Check must be Right while Update.";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    //whenquerystringpass();
+                    return;
+                }
+                else if (ddlProdCatg.SelectedValue == "0")
                 {
                     lblmessage.Text = "";
                     lblUpError.Text = "Prod Catg should not be left blank!";
@@ -3341,18 +3358,7 @@ namespace ITLDashboard.Modules.Master
                     Page.MaintainScrollPositionOnPostBack = false;
                     return;
                 }
-                if (rbNewWeightCheck.SelectedValue == "Worng")
-                {
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Net Weight Check must be Right while Update.";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblmessage.Focus();
-                    sucess.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    whenquerystringpass();
-                    return;
-                }
+               
                 else
                 {
                     string upplant = "";
@@ -3405,7 +3411,7 @@ namespace ITLDashboard.Modules.Master
                         valuechkQmProcActive = "0";
                     }
 
-                    cmd.CommandText = @"UPDATE tbl_SYS_MaterialMaster
+                    cmd.CommandText = @"UPDATE tbl_SYS_MaterialMaster_FG
       SET Plant = @UpPlant,
       Description = @UpDescription,
       BaseUnitofMeasure = @UpBaseUnitofMeasure,
