@@ -749,6 +749,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\footable.min.js" />
+    <Content Include="DashboardDocument\InventoryAdjustment\ed31933b_11e62940_4606smart.pdf" />
     <None Include="Properties\PublishProfiles\PublishDashboard.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
@@ -1843,7 +1844,6 @@
     <Folder Include="DashboardDocument\DeadStockDoc\" />
     <Folder Include="DashboardDocument\DeadStock\" />
     <Folder Include="DashboardDocument\DeliveryChallanWorkflow\" />
-    <Folder Include="DashboardDocument\InventoryAdjustment\" />
     <Folder Include="DashboardDocument\InvoiceWorkflow\" />
     <Folder Include="DashboardDocument\OtherDocument\" />
     <Folder Include="DashboardDocument\PettyCash\" />
