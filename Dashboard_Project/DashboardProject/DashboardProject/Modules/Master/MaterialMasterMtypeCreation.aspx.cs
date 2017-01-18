@@ -171,12 +171,12 @@ namespace ITLDashboard.Modules.Master
                             ddlValuationType.Items[i].Attributes.Add("disabled", "disabled");
                         }
 
-                        btnForward.Visible = true;
+                        btnForward.Visible = false;
                         btnTUpdate.Visible = false;
                         btnFUpdate.Visible = false;
                         btnReject.Visible = false;
                         btnUpdate.Visible = false;
-                        //  txtRemarksReview.Visible = false;
+                         txtRemarksReview.Visible = true;
                         // txtRemarks.Enabled = false;
                         btnApprover.Visible = false;
                         btnEdit.Visible = false;
@@ -216,7 +216,8 @@ namespace ITLDashboard.Modules.Master
                               (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Team Lead") ||
                                 (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Deputy Manager Production") ||
                                 (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Assistant Manager"))
-                            {               
+                            {
+                               
                                 BD.Visible = true;
                                 Prod.Visible = true;
                                 SD.Visible = true;
@@ -268,15 +269,16 @@ namespace ITLDashboard.Modules.Master
                                 ddlPeriodIndicator.Enabled = true;
                                 //  DisableControls(Page, false);
                                 ////////////BTN//////////////
-                                btnReject.Visible = false;
+                                btnReject.Visible = true;
                                 btnUpdate.Visible = true;
-                                txtRemarksReview.Visible = false;
-                                txtRemarks.Enabled = false;
+                                txtRemarksReview.Visible = true;
+                                txtRemarksReview.Enabled = true;
                                 btnApprover.Visible = false;
                                 btnEdit.Visible = false;
                                 btnForward.Visible = false;
                                 btnTransfer.Visible = false;
                                 controlForwardHide();
+                                rbNewWeightCheck.Enabled = true;
                             }
                             if ((((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Senior Manager") ||
                                 (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "SAP Business Analyst") ||
@@ -354,12 +356,12 @@ namespace ITLDashboard.Modules.Master
                                 ddlRate.Enabled = true;
                                 ddlRebatecategoryRate.Enabled = true;
                                 ////////////BTN//////////////
-                                btnReject.Visible = false;
+                                btnReject.Visible = true;
                                 btnTUpdate.Visible = true;
                                 btnUpdate.Visible = false;
-                                txtRemarksReview.Visible = false;
+                                txtRemarksReview.Visible = true;
                                 txtRemarks.Enabled = false;
-                                txtRemarksReview.Visible = false;
+                                txtRemarksReview.Visible = true;
                                 btnApprover.Visible = false;
                                 btnEdit.Visible = false;
                                 btnForward.Visible = false;
@@ -434,12 +436,12 @@ namespace ITLDashboard.Modules.Master
                                 txtStandardPrice.Enabled = true;
                                 // DisableControls(Page, false);
                                 ////////////BTN//////////////
-                                btnReject.Visible = false;
+                                btnReject.Visible = true;
                                 btnFUpdate.Visible = true;
                                 btnTUpdate.Visible = false;
                                 btnUpdate.Visible = false;
-                                txtRemarksReview.Visible = false;
-                                txtRemarksReview.Enabled = false;
+                                txtRemarksReview.Visible = true;
+                                txtRemarksReview.Enabled = true;
                                 txtRemarks.Enabled = false;
                                 btnApprover.Visible = false;
                                 btnEdit.Visible = false;
@@ -465,8 +467,8 @@ namespace ITLDashboard.Modules.Master
                                 txtRemarksReview.Enabled = true;
                                 txtRemarks.Enabled = false;
                                 btnEdit.Visible = false;
-                                btnForward.Visible = true;
-                                btnTransfer.Visible = true;
+                                btnForward.Visible = false;
+                                btnTransfer.Visible = false;
                                 controlForwardHide();
                             }
                         }
@@ -507,9 +509,9 @@ namespace ITLDashboard.Modules.Master
                             btnCancel.Visible = false;
                             btnSaveSubmit.Visible = false;
                             btnReviewed.Visible = true;
-                            txtRemarksReview.Visible = false;
+                            txtRemarksReview.Visible = true;
                             btnApprover.Visible = false;
-                            btnReject.Visible = false;
+                            btnReject.Visible = true;
                             btnTransfer.Visible = false;
                             txtSMC.Enabled = false;
                             lblSap.Visible = true;
@@ -517,6 +519,7 @@ namespace ITLDashboard.Modules.Master
                             cbML.Enabled = false;
                             controlForwardHide();
                         }
+                        btnTransfer.Visible = false;
                         btnForward.Visible = false;
                         controlForwardHide();
                     }
@@ -822,10 +825,7 @@ namespace ITLDashboard.Modules.Master
                     {
                         ((CheckBox)(c)).Enabled = State;
                     }
-                    if (c is RadioButtonList)
-                    {
-                        ((RadioButtonList)(c)).Enabled = State;
-                    }
+                   
                     if (c is RadioButton)
                     {
                         ((RadioButton)(c)).Enabled = State;
@@ -923,9 +923,10 @@ namespace ITLDashboard.Modules.Master
                     ddlValuationClass.Attributes.Add("disabled", "true");
                     ddlValuationType.Attributes.Add("disabled", "true");
                     txtStandardPrice.Attributes.Add("disabled", "true");
+                    rbNewWeightCheck.Enabled = false;
 
-
-
+                    rbNewWeightCheck.Items[0].Enabled = false;
+                    rbNewWeightCheck.Items[1].Enabled = false;
 
                 }
             }
@@ -1003,6 +1004,7 @@ namespace ITLDashboard.Modules.Master
                             ddlMSG.SelectedValue = reader["MaterialSubGroup"].ToString();
                             txtGROSSWEIGHT.Text = reader["GrossWeight"].ToString();
                             txtNETWEIGHT.Text = reader["NetWeight"].ToString();
+                            rbNewWeightCheck.SelectedValue = reader["NetWeightCheck"].ToString();
                             ddlWeightunitBD.SelectedValue = reader["WeightUni"].ToString();
                             txtVolume.Text = reader["Volume"].ToString();
                             ddlVOLUMEUNIT.SelectedValue = reader["VolumeUnit"].ToString();
@@ -2845,10 +2847,12 @@ namespace ITLDashboard.Modules.Master
                     StorageLocation = StorageLocation.Trim();
                 }
 
+
+
                 Result = ddlMerchandiser.SelectedValue.ToString() + "," + ddlTaxes.SelectedValue.ToString() + "," + ddlMHOD.SelectedValue.ToString() + "," + ddlMarketingHOD.SelectedValue.ToString() + "," + ddlNotificationFI.SelectedValue.ToString() + "," + ddlNotificationMIS.SelectedValue.ToString();
                 cmd.CommandText = "";
                 cmd.CommandText = "SP_SYS_MaterialMasterMTYPE";
-                
+
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.AddWithValue("@TransactionMain", lblMaxTransactionNo.Text);
@@ -2867,7 +2871,7 @@ namespace ITLDashboard.Modules.Master
                 cmd.Parameters.AddWithValue("@Size_Dimension", txtSizeDimensions.Text);
                 cmd.Parameters.AddWithValue("@Packeging_Material_Catg", ddlBasicDataPackagingMaterialCateguory.SelectedValue);
                 cmd.Parameters.AddWithValue("@Storage_Location", StorageLocation.ToString());
-                cmd.Parameters.AddWithValue("@BatchManagmet", chkBatchManagement.SelectedValue );
+                cmd.Parameters.AddWithValue("@BatchManagmet", chkBatchManagement.SelectedValue);
                 cmd.Parameters.AddWithValue("@APPROVAL", Result.ToString());
                 cmd.Parameters.AddWithValue("@MDA", EmailMDA.ToString());
                 cmd.Parameters.AddWithValue("@ClosedBox", RadioButtonList2.SelectedValue.ToString());
@@ -3086,13 +3090,61 @@ namespace ITLDashboard.Modules.Master
                 }
                 else
                 {
-                    EmailWorkReject();
-                    ClosedFormAfterReject();
-                    //   ApplicationStatus();
-                    BindsysApplicationStatus();
-                    GetStatusHierachyCategoryControls();
-                    Page.MaintainScrollPositionOnPostBack = true;
-                    lblEmail.Focus();
+                    if (((string)ViewState["HID"]) == "2")
+                    {
+                        if ((((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Senior Merchandiser") ||
+                                   (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Software Developer") ||
+                                 (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Team Lead") ||
+                                   (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Deputy Manager Production") ||
+                                   (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Assistant Manager"))
+                        {
+                            if (rbNewWeightCheck.SelectedValue == "Right")
+                            {
+                                lblmessage.Text = "";
+                                lblUpError.Text = "Net Weight Check must be Wrong while Reject.";
+                                sucess.Visible = false;
+                                error.Visible = true;
+                                lblmessage.Focus();
+                                sucess.Focus();
+                                Page.MaintainScrollPositionOnPostBack = false;
+                                whenquerystringpass();
+                                return;
+                            }
+                            else
+                            {
+                                update_NetWeightCheck();
+                                EmailWorkReject();
+                                ClosedFormAfterReject();
+                                //   ApplicationStatus();
+                                BindsysApplicationStatus();
+                                GetStatusHierachyCategoryControls();
+                                Page.MaintainScrollPositionOnPostBack = true;
+                                lblEmail.Focus();
+                            }
+
+                        }
+                        else
+                        {
+                            EmailWorkReject();
+                            ClosedFormAfterReject();
+                            //   ApplicationStatus();
+                            BindsysApplicationStatus();
+                            GetStatusHierachyCategoryControls();
+                            Page.MaintainScrollPositionOnPostBack = true;
+                            lblEmail.Focus();
+                        }
+
+                    }
+                    else
+                    {
+                        EmailWorkReject();
+                        ClosedFormAfterReject();
+                        //   ApplicationStatus();
+                        BindsysApplicationStatus();
+                        GetStatusHierachyCategoryControls();
+                        Page.MaintainScrollPositionOnPostBack = true;
+                        lblEmail.Focus();
+                    }
                 }
             }
 
@@ -3205,7 +3257,7 @@ namespace ITLDashboard.Modules.Master
                     sucess.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
                     ddlProfitCenter.BackColor = System.Drawing.Color.Red;
-         
+
                     return;
                 }
                 if (ddlProductionunit.SelectedValue == "0")
@@ -3218,7 +3270,7 @@ namespace ITLDashboard.Modules.Master
                     sucess.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
                     ddlProductionunit.BackColor = System.Drawing.Color.Red;
-    
+
                     return;
                 }
 
@@ -3289,6 +3341,18 @@ namespace ITLDashboard.Modules.Master
                     Page.MaintainScrollPositionOnPostBack = false;
                     return;
                 }
+                if (rbNewWeightCheck.SelectedValue == "Worng")
+                {
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Net Weight Check must be Right while Update.";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    whenquerystringpass();
+                    return;
+                }
                 else
                 {
                     string upplant = "";
@@ -3320,6 +3384,9 @@ namespace ITLDashboard.Modules.Master
                     string valuechkInspectionSetup = "";
                     string valuechkQmProcActive = "";
 
+
+
+
                     if (chkInspectionSetup != null && chkInspectionSetup.Checked)
                     {
                         valuechkInspectionSetup = "1";
@@ -3346,6 +3413,7 @@ namespace ITLDashboard.Modules.Master
       MaterialSubGroup = @UpMaterialSubGroup,
       GrossWeight = @UpGrossWeight,
       NetWeight = @UpNetWeight,
+      NetWeightCheck = @NetWeightCheck,
       WeightUni = @UpWeightUni,
       Volume = @UpVolume,
       VolumeUnit = @UpVolumeUnit,
@@ -3454,7 +3522,7 @@ namespace ITLDashboard.Modules.Master
                     cmd.Parameters.AddWithValue("@UpPeriodIndicator", ddlPeriodIndicator.SelectedValue);
                     cmd.Parameters.AddWithValue("@UpStrategygroup", ddlStrategygroup.SelectedValue.Trim());
                     cmd.Parameters.AddWithValue("@UpLotsize", ddlLotsize.SelectedValue);
-
+                    cmd.Parameters.AddWithValue("@NetWeightCheck", rbNewWeightCheck.SelectedValue);
 
 
                     conn.Open();
@@ -3610,6 +3678,17 @@ namespace ITLDashboard.Modules.Master
 
         }
 
+        protected void update_NetWeightCheck()
+        {
+            cmd.CommandText = @"SP_UpdateNetWeightCheck";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = conn;
+            cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
+            cmd.Parameters.AddWithValue("@NetWeightCheck", rbNewWeightCheck.SelectedValue);
+            conn.Open();
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
         protected void btnFUpdate_Click(object sender, EventArgs e)
         {
             try
@@ -3678,7 +3757,7 @@ namespace ITLDashboard.Modules.Master
                     cmd.Parameters.AddWithValue("@StandardPrice", txtStandardPrice.Text);
                     cmd.Parameters.AddWithValue("@TransactionMain", lblMaxTransactionNo.Text);
                     cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
-                     cmd.Parameters.AddWithValue("@Plant", ddlPlant.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Plant", ddlPlant.SelectedValue);
                     conn.Open();
 
                     int aa = cmd.ExecuteNonQuery();
@@ -4615,7 +4694,7 @@ namespace ITLDashboard.Modules.Master
                 //ddlMerchandiser.DataBind();  //binding dropdownlist
                 //ddlMerchandiser.Items.Insert(0, new ListItem("------Select------", "0"));
 
-                if(ddlPlant.SelectedValue == "1000")
+                if (ddlPlant.SelectedValue == "1000")
                 {
                     ddlMG.SelectedValue = "0006";
                     bindMSGfromMG();
