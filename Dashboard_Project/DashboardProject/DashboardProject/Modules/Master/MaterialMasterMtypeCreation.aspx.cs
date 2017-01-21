@@ -149,11 +149,11 @@ namespace ITLDashboard.Modules.Master
                         this.ddlStorageLocation.Attributes.Add("disabled", "");
                         this.pnlemail.Visible = false;
                         whenquerystringpass();
-
                         BindsysApplicationStatus();
                         GetHarcheyID();
                         getUserDetail();
                         GetStatusHierachyCategoryControls();
+
                         ddlPlant.Attributes.Remove("disabled");
                         for (int i = 0; i < ddlPlant.Items.Count; i++)
                         {

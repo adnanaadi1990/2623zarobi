@@ -131,7 +131,6 @@
 
                 </div>
                 <span class="help-block"></span>
-                <%--<%# Eval("Lenght") %>--%>
             </div>
         </div>
 
@@ -142,19 +141,7 @@
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel">
                     <div class="panel-body">
-                        <%--                        <div class="row">
-                            <div class="col-sm-4">
-                                SAP ID 
-                                   <asp:Label ID="txtSAPID" runat="server" CssClass="form-control"></asp:Label>
-                            </div>
-                            <div class="col-sm-4" runat="server" id="dvType">
-                                Select any Type
-                                   <asp:RadioButtonList ID="rbAction" runat="server" RepeatDirection="Horizontal" AutoPostBack="True" OnSelectedIndexChanged="rdAction_SelectedIndexChanged">
-                                       <asp:ListItem Selected="True">T-Code</asp:ListItem>
-                                       <asp:ListItem>Report</asp:ListItem>
-                                   </asp:RadioButtonList>
-                            </div>
-                        </div>--%>
+                        <%--<%# Eval("Numerator") %>--%>
                         <span class="help-block"></span>
 
                         <div class="row" id="dvAllowForm" runat="server">
@@ -167,30 +154,51 @@
                                          <asp:ListItem Value="SD">SD Sales Distribution</asp:ListItem>
                                          <asp:ListItem Value="QM">QM Quality Management</asp:ListItem>
                                          <asp:ListItem Value="FICO">FICO (Financial Accounting) and CO (Controlling)</asp:ListItem>
+                                            <asp:ListItem Value="ABAP">ABAP</asp:ListItem>
                                      </asp:DropDownList>
                             </div>
                             <div class="col-sm-4" runat="server" id="dvTransportTo">
                                 Transport To                     
-                                 <asp:ListBox ID="ddlTransportTo" runat="server" CssClass="form-control" SelectionMode="Multiple" AppendDataBoundItems="True"></asp:ListBox>
+                                 <asp:ListBox ID="ddlTransportTo" runat="server" CssClass="form-control"  AppendDataBoundItems="True"></asp:ListBox>
                             </div>
                             <div class="col-sm-4" runat="server" id="dvTRNo">
-                                 Transport No
+                                Transport No
                                    <asp:TextBox ID="TxtTRNo" runat="server" CssClass="form-control" CausesValidation="True"></asp:TextBox>
                             </div>
 
                         </div>
-                         <span class="help-block"></span>
+                        <span class="help-block"></span>
                         <div class="row">
                             <div class="col-sm-8" runat="server" id="DvDes">
                                 Description
                                    <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control" CausesValidation="True"></asp:TextBox>
                             </div>
                         </div>
-                         <span class="help-block"></span>
+                        <span class="help-block"></span>
                         <div class="row">
-                            <div class="col-sm-8" runat="server" id="DvLT">
+                            <div class="col-sm-12" runat="server" id="DvLT">
                                 Long Text
-                                   <asp:TextBox ID="txtLT" runat="server" CssClass="form-control" CausesValidation="True"></asp:TextBox>
+                                   <asp:TextBox ID="txtLT" runat="server" CssClass="form-control" CausesValidation="True" TextMode="MultiLine"></asp:TextBox>
+                            </div>
+                        </div>
+                        <span class="help-block"></span>
+                        <div class="row" runat="server" id="rbTest" visible="false">
+                            <div class="col-sm-2">
+                                Testing Successfully
+                       <asp:RadioButtonList ID="rbtesting" runat="server" RepeatDirection="Horizontal">
+                           <asp:ListItem Selected="True">Yes</asp:ListItem>
+                           <asp:ListItem>No</asp:ListItem>
+                       </asp:RadioButtonList>
+                            </div>
+                        </div>
+                        <span class="help-block"></span>
+                        <div class="row" runat="server" id="rbTrans" visible="false">
+                            <div class="col-sm-2">
+                                Transport Successfully
+                       <asp:RadioButtonList ID="rbtransport" runat="server" RepeatDirection="Horizontal">
+                           <asp:ListItem Selected="True">Yes</asp:ListItem>
+                           <asp:ListItem>No</asp:ListItem>
+                       </asp:RadioButtonList>
                             </div>
                         </div>
                         <span class="help-block"></span>
@@ -199,7 +207,10 @@
             </div>
         </div>
 
-        <%--<%# Eval("Lenght") %>--%>
+        <%--   <div class="col-sm-3">
+                                Function Consultant
+                                       <asp:DropDownList ID="ddlFC" SelectionMode="Multiple" CssClass="form-control" runat="server"></asp:DropDownList>
+                            </div>--%>
 
         <!-- Panel -->
 
@@ -212,29 +223,31 @@
                     <div class="panel-body">
                         <div class="row" style="text-align: center;">
 
-                            <div class="col-sm-3">
-                                Head Of Deparment
-                                       <asp:Label ID="lblHOD" runat="server" CssClass="form-control"></asp:Label>
-                            </div>
-
-                            <div class="col-sm-3">
-                                Reviewer
-                                        <asp:DropDownList ID="ddlReviewer" runat="server" CssClass="form-control" CausesValidation="True"></asp:DropDownList>
-                            </div>
-
-                            <div class="col-sm-3">
+                            <%--   <div class="col-sm-3">
                                 Function Consultant
                                        <asp:DropDownList ID="ddlFC" SelectionMode="Multiple" CssClass="form-control" runat="server"></asp:DropDownList>
+                            </div>--%>
+                             <div class="col-sm-3"></div>
+                            <div class="col-sm-3">
+                                Function Lead
+                                        <asp:DropDownList ID="ddlFLead" runat="server" CssClass="form-control" CausesValidation="True" ></asp:DropDownList>
                             </div>
+
                             <div class="col-sm-3">
                                 SAP Basis Administrator
                                         <asp:DropDownList ID="ddlEmailMDA" runat="server" CssClass="form-control"></asp:DropDownList>
                             </div>
+
+                            <div class="col-sm-3" runat="server" visible="false">
+                                Head Of Deparment
+                                       <asp:Label ID="lblHOD" runat="server" CssClass="form-control"></asp:Label>
+                            </div>
+                            <div class="col-sm-3"> </div>
                         </div>
                     </div>
-                </div>
+              
             </asp:Panel>
-
+  </div>
 
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -260,7 +273,7 @@
             <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Text="Save" ValidationGroup="grpSa" Width="60px" OnClick="btnSave_Click"></asp:Button>
             <asp:Button ID="btnApprover" runat="server" CssClass="btn btn-primary" Text="Approve" Visible="False" Width="100px" CausesValidation="False" OnClick="btnApprover_Click" />
             <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-primary" Text="Submit" CausesValidation="False" OnClick="btnSubmit_Click" Width="100px" Visible="False"></asp:Button>
-            <asp:Button ID="btnSubmitFC" runat="server" CssClass="btn btn-primary" Text="Submit" CausesValidation="False" Width="100px" Visible="False" OnClick="btnSubmitFC_Click"></asp:Button>
+            <asp:Button ID="btnSubmitCons" runat="server" CssClass="btn btn-primary" Text="Submit" CausesValidation="False" Width="100px" Visible="False" OnClick="btnSubmitCons_Click"></asp:Button>
             <asp:Button ID="Button1" runat="server" CssClass="btn btn-primary" Text="Reject" OnClick="btnReject_Click" Width="100px" CausesValidation="False" Visible="False"></asp:Button>
             <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-primary" Text="Reset Form" CausesValidation="False" Width="100px" OnClick="btnCancel_Click"></asp:Button>
             <asp:Label ID="lbltest" runat="server" Font-Bold="False" ForeColor="Blue" Font-Names="Berlin Sans FB"></asp:Label>

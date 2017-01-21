@@ -2847,6 +2847,36 @@ namespace ITLDashboard.Classes
             }
         }
 
+        public DataSet GetHarachyPreviousControl(string _user_name, string _HID, string _FormID)
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            {
+                using (SqlCommand cmdgetData = new SqlCommand())//
+                {
+                    try
+                    {
+                        cmdgetData.CommandText = "";
+                        cmdgetData.CommandText = "SP_Get_HarcheyIDPreviousControl";
+                        cmdgetData.CommandType = CommandType.StoredProcedure;
+                        cmdgetData.Connection = connection;
+                        cmdgetData.Parameters.AddWithValue("@User_Name", _user_name.ToString());
+                        cmdgetData.Parameters.AddWithValue("@TransactionID", _HID.ToString());
+                        cmdgetData.Parameters.AddWithValue("@FormID", _FormID.ToString());
+                        adp.SelectCommand = cmdgetData;
+                        adp.Fill(ds, "GetHarachyPreviousControl");
+
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
+            }
+        }
+
+
+
         public DataSet controlFowardControl(string FormID, string TID, string HirCtg, string Status, string UserName)
         {
 

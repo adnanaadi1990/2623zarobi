@@ -184,6 +184,42 @@ namespace ITLDashboard.Modules.SBApp {
         protected global::System.Web.UI.WebControls.TextBox txtLT;
         
         /// <summary>
+        /// rbTest control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl rbTest;
+        
+        /// <summary>
+        /// rbtesting control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList rbtesting;
+        
+        /// <summary>
+        /// rbTrans control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl rbTrans;
+        
+        /// <summary>
+        /// rbtransport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList rbtransport;
+        
+        /// <summary>
         /// divEmail control.
         /// </summary>
         /// <remarks>
@@ -202,31 +238,13 @@ namespace ITLDashboard.Modules.SBApp {
         protected global::System.Web.UI.WebControls.Panel pnlemail;
         
         /// <summary>
-        /// lblHOD control.
+        /// ddlFLead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHOD;
-        
-        /// <summary>
-        /// ddlReviewer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlReviewer;
-        
-        /// <summary>
-        /// ddlFC control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlFC;
+        protected global::System.Web.UI.WebControls.DropDownList ddlFLead;
         
         /// <summary>
         /// ddlEmailMDA control.
@@ -236,6 +254,15 @@ namespace ITLDashboard.Modules.SBApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlEmailMDA;
+        
+        /// <summary>
+        /// lblHOD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHOD;
         
         /// <summary>
         /// txtRemarksReview control.
@@ -310,13 +337,13 @@ namespace ITLDashboard.Modules.SBApp {
         protected global::System.Web.UI.WebControls.Button btnSubmit;
         
         /// <summary>
-        /// btnSubmitFC control.
+        /// btnSubmitCons control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSubmitFC;
+        protected global::System.Web.UI.WebControls.Button btnSubmitCons;
         
         /// <summary>
         /// Button1 control.
