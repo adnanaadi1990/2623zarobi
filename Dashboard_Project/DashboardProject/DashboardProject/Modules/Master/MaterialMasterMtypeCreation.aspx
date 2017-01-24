@@ -207,9 +207,7 @@
         <div class="panel panel-default">
             <div class="panel-heading"></div>
             <div class="panel-body">
-
                 <span class="help-block"></span>
-
                 <div class="row">
                     <div class="col-sm-3" runat="server" id="dvTransactionNo">
                         Transaction No
@@ -340,13 +338,9 @@
                                 <asp:TextBox runat="server" ID="txtMSG" Visible="false" CssClass="form-control" Wrap="False"></asp:TextBox>
                             </div>
                         </div>
-
-
-
-
-                        <span class="help-block"></span>
                         <span class="help-block"></span>
 
+                        <span class="help-block"></span>
 
                         <div class="row">
                             <div class="col-sm-4">
@@ -358,11 +352,11 @@
                                     <asp:TextBox ID="txtNETWEIGHT" runat="server" CssClass="form-control"> </asp:TextBox>
                             </div>
                             <div class="col-sm-2">
-                                   Net Weight Check
+                                Net Weight Check
                        <asp:RadioButtonList ID="rbNewWeightCheck" runat="server" RepeatDirection="Horizontal" Enabled="False">
                            <asp:ListItem Selected="True">Right</asp:ListItem>
                            <asp:ListItem>Wrong</asp:ListItem>
-                           </asp:RadioButtonList>
+                       </asp:RadioButtonList>
                             </div>
                             <div class="col-sm-4">
                                 Weight Unit
@@ -1195,7 +1189,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <asp:TextBox ID="txtRemarksReview" runat="server" CssClass="form-control" Height="80px" TextMode="MultiLine" PlaceHolder="Comment Box"  Visible="false"></asp:TextBox>
+                        <asp:TextBox ID="txtRemarksReview" runat="server" CssClass="form-control" Height="80px" TextMode="MultiLine" PlaceHolder="Comment Box" Visible="false"></asp:TextBox>
                     </div>
                 </div>
                 <span class="help-block"></span>

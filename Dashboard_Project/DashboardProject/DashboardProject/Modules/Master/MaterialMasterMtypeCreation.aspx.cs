@@ -2357,7 +2357,7 @@ namespace ITLDashboard.Modules.Master
 
                 }
                 ddlStorageLocation.SelectedIndex = -1;
-                strQuery = @"SELECT StorageLocationcode ,StorageLocationcode +''+Description As Description from TBLSTORAGELOCATION WHERE (ISNULL(@Plant,'')='' OR ',' + @Plant + ',' LIKE '%,' + CAST(PlantCode AS varchar) + ',%')";
+                strQuery = @"SELECT StorageLocationcode ,StorageLocationcode +' '+ Description As Description from TBLSTORAGELOCATION WHERE (ISNULL(@Plant,'')='' OR ',' + @Plant + ',' LIKE '%,' + CAST(PlantCode AS varchar) + ',%' and FinishPlantCode = 'FG')";
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     ds.Clear();
