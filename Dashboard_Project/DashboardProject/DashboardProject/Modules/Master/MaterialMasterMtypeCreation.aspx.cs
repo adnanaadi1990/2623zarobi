@@ -2357,11 +2357,11 @@ namespace ITLDashboard.Modules.Master
 
                 }
                 ddlStorageLocation.SelectedIndex = -1;
-                strQuery = @"SELECT StorageLocationcode ,StorageLocationcode +' '+ Description As Description from TBLSTORAGELOCATION WHERE (ISNULL(@Plant,'')='' OR ',' + @Plant + ',' LIKE '%,' + CAST(PlantCode AS varchar) + ',%' and FinishPlantCode = 'FG')";
+                strQuery = @"SP_BindStorageLocation";
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     ds.Clear();
-                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Plant", Plant.ToString());
                     cmd.CommandText = strQuery;
                     cmd.Connection = conn;
