@@ -154,7 +154,7 @@
                                          <asp:ListItem Value="SD">SD Sales Distribution</asp:ListItem>
                                          <asp:ListItem Value="QM">QM Quality Management</asp:ListItem>
                                          <asp:ListItem Value="FICO">FICO (Financial Accounting) and CO (Controlling)</asp:ListItem>
-                                            <asp:ListItem Value="ABAP">ABAP</asp:ListItem>
+                                         <asp:ListItem Value="ABAP">ABAP Advanced Business Application Programming</asp:ListItem>
                                      </asp:DropDownList>
                             </div>
                             <div class="col-sm-4" runat="server" id="dvTransportTo">
