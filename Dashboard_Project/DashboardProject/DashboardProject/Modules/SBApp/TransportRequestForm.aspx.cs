@@ -103,11 +103,13 @@ namespace ITLDashboard.Modules.SBApp
                         GetHarcheyID();
                         getUserDetail();
                         GetStatusHierachyCategoryControls();
+
                         if (((string)ViewState["HID"]) == "1")
                         {
                             btnSave.Visible = false;
                             btnCancel.Visible = false;
                             btnSubmit.Visible = false;
+                            btnSubmitCons.Visible = false;
                             btnApprover.Visible = false;
                             Button1.Visible = false;
                             txtRemarksReview.Enabled = true;
@@ -119,7 +121,7 @@ namespace ITLDashboard.Modules.SBApp
                                 ddlApplicableArea.Items[i].Attributes.Add("disabled", "disabled");
                             }
                         }
-                        if (((string)ViewState["HID"]).StartsWith("2"))
+                        if (((string)ViewState["HID"]) == "2")
                         {
                             btnApprover.Visible = true;
                             btnSubmit.Visible = false;
@@ -129,34 +131,16 @@ namespace ITLDashboard.Modules.SBApp
                             txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
                             Button1.Visible = true;
                             txtRemarks.Enabled = true;
-                            btnSubmitFC.Visible = false;
-
-                            if (((string)ViewState["Sequance"]) == "3")
-                            {
-                                btnApprover.Visible = true;
-                                btnSubmit.Visible = false;
-                                Button1.Visible = true;
-                                txtRemarks.Enabled = true;
-                                btnSubmitFC.Visible = false;
-                                txtRemarksReview.Enabled = true;
-                                txtRemarksReview.Visible = true;
-                                ddlApplicableArea.BackColor = System.Drawing.Color.AliceBlue;
-                                txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
-                                for (int i = 0; i < ddlTransportTo.Items.Count; i++)
-                                {
-                                    ddlTransportTo.Items[i].Attributes.Add("disabled", "disabled");
-                                }
-                                EnabledListItem();
-                            }
+                            btnSubmitCons.Visible = false;
                             for (int i = 0; i < ddlTransportTo.Items.Count; i++)
                             {
                                 ddlTransportTo.Items[i].Attributes.Add("disabled", "disabled");
                             }
-
                         }
                         if (((string)ViewState["HID"]) == "4")
                         {
                             btnApprover.Visible = false;
+                            rbTrans.Visible = true;
                             Button1.Visible = true;
                             txtRemarks.Enabled = true;
                             btnSubmit.Visible = true;
@@ -164,21 +148,61 @@ namespace ITLDashboard.Modules.SBApp
                             txtRemarksReview.Visible = true;
                             ddlApplicableArea.BackColor = System.Drawing.Color.AliceBlue;
                             txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
+                            rbtransport.Enabled = true;
 
                             for (int i = 0; i < ddlTransportTo.Items.Count; i++)
                             {
                                 ddlTransportTo.Items[i].Attributes.Add("disabled", "disabled");
                             }
+
                         }
+                        if (((string)ViewState["HID"]) == "7")
+                        {
+                            btnApprover.Visible = false;
+                            rbTest.Visible = true;
+                            Button1.Visible = false;
+                            txtRemarks.Enabled = true;
+                            btnSubmit.Visible = false;
+                            txtRemarksReview.Enabled = true;
+                            txtRemarksReview.Visible = true;
+                            ddlApplicableArea.BackColor = System.Drawing.Color.AliceBlue;
+                            txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
+                            rbtesting.Enabled = true;
+                            btnSubmitCons.Visible = true;
+                            for (int i = 0; i < ddlTransportTo.Items.Count; i++)
+                            {
+                                ddlTransportTo.Items[i].Attributes.Add("disabled", "disabled");
+                            }
+
+                        }
+                        GetHarachyPreviousControl();
                     }
                     else
                     {
-                        getUserDetail();
-                        getUser();
-                        getUserHOD();
-                        madatorycolor();
-                        GetTransactionID();
-                        BindPageLoad();
+                        ds = objFK.FormDepartmentMIS(Session["User_Name"].ToString());
+                        if (ds.Tables["SP_FormMIS"].Rows.Count > 0)
+                        {
+                            dt.Clear();
+                            dt = ds.Tables["SP_FormMIS"];
+                            DataRow[] foundAuthors = dt.Select("user_name = '" + Session["User_Name"].ToString() + "'");
+                            if (foundAuthors.Length != 0)
+                            {
+                                getUserDetail();
+                                getUser();
+                                getUserHOD();
+                                madatorycolor();
+                                GetTransactionID();
+                                BindPageLoad();
+                            }
+                            else
+                            {
+                                Response.Redirect("~/AccessDenied.aspx");
+                            }
+                        }
+                        else
+                        {
+                            Response.Redirect("~/AccessDenied.aspx");
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -241,7 +265,7 @@ namespace ITLDashboard.Modules.SBApp
                     Page.MaintainScrollPositionOnPostBack = false;
                     return;
                 }
-                else if (ddlReviewer.SelectedValue == "")
+                else if (ddlFLead.SelectedValue == "")
                 {
                     lblUpError.Text = "Select Reviewer field!.";
                     error.Visible = true;
@@ -261,20 +285,26 @@ namespace ITLDashboard.Modules.SBApp
                 {
                     string Result = "";
                     string Notification = "";
-                    string TransportTo = "";
+                    //string TransportTo = "";
 
-                    for (int i = 0; i <= ddlTransportTo.Items.Count - 1; i++)
-                    {
-                        if (ddlTransportTo.Items[i].Selected)
-                        {
-                            if (TransportTo == "") { TransportTo = ddlTransportTo.Items[i].Value.Trim(); }
-                            else { TransportTo += ',' + ddlTransportTo.Items[i].Value.Trim(); }
-                        }
-                        TransportTo = TransportTo.Trim();
-                    }
-
-                    Result = ViewState["HOD"].ToString() + "," + ddlReviewer.SelectedValue + "," + ddlFC.SelectedValue;
-
+                    //for (int i = 0; i <= ddlTransportTo.Items.Count - 1; i++)
+                    //{
+                    //    if (ddlTransportTo.Items[i].Selected)
+                    //    {
+                    //        if (TransportTo == "") { TransportTo = ddlTransportTo.Items[i].Value.Trim(); }
+                    //        else { TransportTo += ',' + ddlTransportTo.Items[i].Value.Trim(); }
+                    //    }
+                    //    TransportTo = TransportTo.Trim();
+                    //}
+                    //if (ddlTransportTo.SelectedValue == "QAS 400" || ddlTransportTo.SelectedValue == "PRD 500")
+                    //{
+                    //    Result = ddlFLead.SelectedValue + "," + ViewState["HOD"].ToString();
+                    //}
+                    //else if (ddlTransportTo.SelectedValue == "QAS 400 and PRD 500 Both")
+                    //{
+                    //    Result = ddlFLead.SelectedValue;
+                    //}
+                    Result = ddlFLead.SelectedValue + "," + ViewState["HOD"].ToString();
                     cmd.CommandText = "";
                     cmd.CommandText = "SP_SYS_TransportRequestForm";
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -282,11 +312,13 @@ namespace ITLDashboard.Modules.SBApp
                     cmd.Parameters.AddWithValue("@TransactionMain", lblMaxTransactionNo.Text);
                     ////  cmd.Parameters.AddWithValue("@SAPID", txtSAPID.Text);
                     cmd.Parameters.AddWithValue("@ApplicableArea", ddlApplicableArea.SelectedValue);
-                    cmd.Parameters.AddWithValue("@TransportTo", TransportTo.ToString());
+                    cmd.Parameters.AddWithValue("@TransportTo", ddlTransportTo.SelectedValue.ToString());
                     cmd.Parameters.AddWithValue("@TRNo", TxtTRNo.Text);
                     cmd.Parameters.AddWithValue("@Description", txtDescription.Text);
+                    cmd.Parameters.AddWithValue("@LongText", txtLT.Text);
                     cmd.Parameters.AddWithValue("@APPROVAL", Result.ToString());
                     cmd.Parameters.AddWithValue("@MDA", ddlEmailMDA.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Notify", Session["User_Name"].ToString());
                     cmd.Parameters.AddWithValue("@CreatedBy", Session["User_Name"].ToString());
                     cmd.Parameters.AddWithValue("@Remarks", txtRemarksReview.Text);
 
@@ -323,19 +355,32 @@ namespace ITLDashboard.Modules.SBApp
         {
             try
             {
-                whenquerystringpass();
-                for (int i = 0; i < ddlApplicableArea.Items.Count; i++)
+                if (rbtransport.SelectedValue == "No")
                 {
-                    ddlApplicableArea.Items[i].Attributes.Add("disabled", "disabled");
+                    lblmessage.Text = "";
+                    lblUpError.Text = " Transport Successfully Check must be Yes while Submit.";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    whenquerystringpass();
+                    return;
                 }
-                for (int i = 0; i < ddlTransportTo.Items.Count; i++)
+                else
                 {
-                    ddlTransportTo.Items[i].Attributes.Add("disabled", "disabled");
-                }
-                {
+                    whenquerystringpass();
+                    for (int i = 0; i < ddlApplicableArea.Items.Count; i++)
+                    {
+                        ddlApplicableArea.Items[i].Attributes.Add("disabled", "disabled");
+                    }
+                    for (int i = 0; i < ddlTransportTo.Items.Count; i++)
+                    {
+                        ddlTransportTo.Items[i].Attributes.Add("disabled", "disabled");
+                    }
 
                     EmailWorkFirstHaracheyMDA();
-                    InsertEmailHOD();
+                    // InsertEmailHOD();
                     ApplicationStatus();
                     BindsysApplicationStatus();
                     GetStatusHierachyCategoryControls();
@@ -359,29 +404,111 @@ namespace ITLDashboard.Modules.SBApp
         {
             try
             {
-                if (txtRemarksReview.Text == "")
+                whenquerystringpass();
+                if (((string)ViewState["HID"]) == "4")
                 {
+                    if (rbtransport.SelectedValue == "Yes")
+                    {
+                        lblmessage.Text = "";
+                        lblUpError.Text = " Transport Successfully Check must be No while Reject.";
+                        sucess.Visible = false;
+                        error.Visible = true;
+                        lblmessage.Focus();
+                        sucess.Focus();
+                        Page.MaintainScrollPositionOnPostBack = false;
+                        //whenquerystringpass();
+                        return;
+                    }
+                    else if (txtRemarksReview.Text == "")
+                    {
 
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Remarks should not be left blank!";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblmessage.Focus();
-                    sucess.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    txtRemarksReview.BackColor = System.Drawing.Color.Red;
-                    whenquerystringpass();
-                    return;
+                        lblmessage.Text = "";
+                        lblUpError.Text = "Remarks should not be left blank!";
+                        sucess.Visible = false;
+                        error.Visible = true;
+                        lblmessage.Focus();
+                        sucess.Focus();
+                        Page.MaintainScrollPositionOnPostBack = false;
+                        txtRemarksReview.BackColor = System.Drawing.Color.Red;
+                        whenquerystringpass();
+                        return;
+                    }
+                    else
+                    {
+                        EmailWorkReject();
+                        ClosedFormAfterReject();
+                        //   ApplicationStatus();
+                        BindsysApplicationStatus();
+                        GetStatusHierachyCategoryControls();
+                        Page.MaintainScrollPositionOnPostBack = true;
+                        lblEmail.Focus();
+                    }
+                }
+                else if (((string)ViewState["HID"]) == "7")
+                {
+                    if (rbtesting.SelectedValue == "Yes")
+                    {
+                        lblmessage.Text = "";
+                        lblUpError.Text = " Testing Successfully Check must be No while Reject.";
+                        sucess.Visible = false;
+                        error.Visible = true;
+                        lblmessage.Focus();
+                        sucess.Focus();
+                        Page.MaintainScrollPositionOnPostBack = false;
+                        //whenquerystringpass();
+                        return;
+                    }
+                    else if (txtRemarksReview.Text == "")
+                    {
+
+                        lblmessage.Text = "";
+                        lblUpError.Text = "Remarks should not be left blank!";
+                        sucess.Visible = false;
+                        error.Visible = true;
+                        lblmessage.Focus();
+                        sucess.Focus();
+                        Page.MaintainScrollPositionOnPostBack = false;
+                        txtRemarksReview.BackColor = System.Drawing.Color.Red;
+                        whenquerystringpass();
+                        return;
+                    }
+                    else
+                    {
+                        EmailWorkReject();
+                        ClosedFormAfterReject();
+                        //   ApplicationStatus();
+                        BindsysApplicationStatus();
+                        GetStatusHierachyCategoryControls();
+                        Page.MaintainScrollPositionOnPostBack = true;
+                        lblEmail.Focus();
+                    }
                 }
                 else
                 {
-                    EmailWorkReject();
-                    ClosedFormAfterReject();
-                    //   ApplicationStatus();
-                    BindsysApplicationStatus();
-                    GetStatusHierachyCategoryControls();
-                    Page.MaintainScrollPositionOnPostBack = true;
-                    lblEmail.Focus();
+                    if (txtRemarksReview.Text == "")
+                    {
+
+                        lblmessage.Text = "";
+                        lblUpError.Text = "Remarks should not be left blank!";
+                        sucess.Visible = false;
+                        error.Visible = true;
+                        lblmessage.Focus();
+                        sucess.Focus();
+                        Page.MaintainScrollPositionOnPostBack = false;
+                        txtRemarksReview.BackColor = System.Drawing.Color.Red;
+                        whenquerystringpass();
+                        return;
+                    }
+                    else
+                    {
+                        EmailWorkReject();
+                        ClosedFormAfterReject();
+                        //   ApplicationStatus();
+                        BindsysApplicationStatus();
+                        GetStatusHierachyCategoryControls();
+                        Page.MaintainScrollPositionOnPostBack = true;
+                        lblEmail.Focus();
+                    }
                 }
             }
 
@@ -450,7 +577,6 @@ namespace ITLDashboard.Modules.SBApp
             {
 
                 bindModuleCatg();
-                bindModuleFC();
                 ddlEmailMDA.SelectedIndex = 1;
             }
             catch (Exception ex)
@@ -475,44 +601,19 @@ namespace ITLDashboard.Modules.SBApp
                 ds.Clear();
                 adp.Fill(ds, "tblusermodulecategory");
 
-                ddlReviewer.DataTextField = ds.Tables["tblusermodulecategory"].Columns["DisplayName"].ToString(); // text field name of table dispalyed in dropdown
-                ddlReviewer.DataValueField = ds.Tables["tblusermodulecategory"].Columns["user_name"].ToString();             // to retrive specific  textfield name 
-                ddlReviewer.DataSource = ds.Tables["tblusermodulecategory"];      //assigning datasource to the dropdownlist
-                ddlReviewer.DataBind();  //binding dropdownlist
+                ddlFLead.DataTextField = ds.Tables["tblusermodulecategory"].Columns["DisplayName"].ToString(); // text field name of table dispalyed in dropdown
+                ddlFLead.DataValueField = ds.Tables["tblusermodulecategory"].Columns["user_name"].ToString();             // to retrive specific  textfield name 
+                ddlFLead.DataSource = ds.Tables["tblusermodulecategory"];      //assigning datasource to the dropdownlist
+                ddlFLead.DataBind();  //binding dropdownlist
                 conn.Close();
-                ddlReviewer.Items.Insert(0, new ListItem("------Select------", "0"));
-                ddlReviewer.SelectedIndex = 1;
+                ddlFLead.Items.Insert(0, new ListItem("------Select------", "0"));
+                ddlFLead.SelectedIndex = 1;
             }
         }
 
-        protected void bindModuleFC()
-        {
-            string strQuery = "";
-            strQuery = @"Select user_name,DisplayName from tblusermodulecategory where ModuleName like '%" + ddlApplicableArea.SelectedValue.ToString() + "%' and Category = 'Function Consultant'";
-            using (SqlCommand cmd = new SqlCommand())
-            {
-                ds.Clear();
-                cmd.CommandType = CommandType.Text;
-                // cmd.Parameters.AddWithValue("@Modules", ddlDBModules.SelectedValue.ToString());
-                cmd.CommandText = strQuery;
-                cmd.Connection = conn;
-                adp.SelectCommand = cmd;
-                conn.Open();
-                adp.Fill(ds, "FC");
-                ddlFC.DataTextField = ds.Tables["FC"].Columns["DisplayName"].ToString(); // text field name of table dispalyed in dropdown
-                ddlFC.DataValueField = ds.Tables["FC"].Columns["user_name"].ToString();             // to retrive specific  textfield name 
-                ddlFC.DataSource = ds.Tables["FC"];      //assigning datasource to the dropdownlist
-                ddlFC.DataBind();  //binding dropdownlist
-                conn.Close();
-                ddlFC.Items.Insert(0, new ListItem("------Select------", "0"));
-                ddlFC.SelectedIndex = 1;
-            }
-        }
 
-        protected void btnSubmitFC_Click(object sender, EventArgs e)
-        {
 
-        }
+
 
         protected void btnForward_Click(object sender, EventArgs e)
         {
@@ -536,8 +637,7 @@ namespace ITLDashboard.Modules.SBApp
             ddlEmailMDA.DataBind();
             conn.Close();
             ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
-            ddlFC.Items.Insert(0, new ListItem("------Select------", "0"));
-            ddlReviewer.Items.Insert(0, new ListItem("------Select------", "0"));
+            ddlFLead.Items.Insert(0, new ListItem("------Select------", "0"));
 
         }
 
@@ -580,6 +680,59 @@ namespace ITLDashboard.Modules.SBApp
             }
         }
 
+        private void GetHarachyPreviousControl()
+        {
+            ds = obj.GetHarachyPreviousControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
+            dt = ds.Tables["GetHarachyPreviousControl"];
+            ViewState["GetHarachyPreviousControl"] = dt;
+
+            if (ds.Tables["GetHarachyPreviousControl"].Rows.Count > 0)
+            {
+                ViewState["Status"] = ds.Tables["GetHarachyPreviousControl"].Rows[0]["Status"].ToString();
+                if (ViewState["Status"] == "")
+                {
+                    btnSubmitCons.Visible = false;
+                    btnApprover.Visible = false;
+                    btnSubmit.Visible = false;
+                    Button1.Visible = false;
+                    rbTest.Visible = false;
+                    rbTrans.Visible = false;
+                    txtRemarksReview.Enabled = false;
+                }
+                else
+                {
+                    if (((string)ViewState["HID"]) == "2")
+                    {
+                        btnSubmitCons.Visible = false;
+                        btnApprover.Visible = true;
+                        btnSubmit.Visible = false;
+                        Button1.Visible = true;
+
+                    }
+                    else if (((string)ViewState["HID"]) == "4")
+                    {
+                        btnSubmitCons.Visible = false;
+                        btnApprover.Visible = false;
+                        btnSubmit.Visible = true;
+                        Button1.Visible = true;
+                        rbTrans.Visible = true;
+
+                    }
+                    else if (((string)ViewState["HID"]) == "7")
+                    {
+                        btnSubmitCons.Visible = true;
+                        btnApprover.Visible = false;
+                        btnSubmit.Visible = false;
+                        Button1.Visible = true;
+                        rbTest.Visible = true;
+                    }
+
+                }
+
+            }
+        }
+
+
         private void GetStatusHierachyCategoryControls()
         {
             ds = obj.GetStatusHierachyCategoryControl(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
@@ -595,8 +748,15 @@ namespace ITLDashboard.Modules.SBApp
                 btnApprover.Enabled = false;
                 btnSubmit.Enabled = false;
                 btnCancel.Enabled = false;
-                btnSubmitFC.Enabled = false;
+                btnSubmitCons.Enabled = false;
+                btnSubmitCons.Enabled = false;
+                Button1.Enabled = false;
+                txtRemarksReview.Enabled = false;
+                //rbTrans.Enabled = false;
+                //rbTest.Enabled = false;
                 txtRemarksReview.Attributes.Add("disabled", "true");
+                rbtesting.Enabled = false;
+                rbtransport.Enabled = false;
                 disabledListItem();
             }
         }
@@ -926,7 +1086,7 @@ namespace ITLDashboard.Modules.SBApp
                         }
                         TxtTRNo.Text = reader[4].ToString();
                         txtDescription.Text = reader[5].ToString();
-
+                        txtLT.Text = reader["LongText"].ToString();
                     }
                     reader.Close();
                 }
@@ -956,11 +1116,11 @@ namespace ITLDashboard.Modules.SBApp
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "Transport Request Form – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + "has sent you a Transport Request Form against  Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL:  " +
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " has sent you a Transport Request Form against  Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL:  " +
                     "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                     "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                     "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                    "<br>User Rights Application<br> Information Systems Dashboard";
+                    "<br>SAP Basis Application<br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
@@ -978,6 +1138,7 @@ namespace ITLDashboard.Modules.SBApp
 
         private void EmailWorkFirstHaracheyMDA()
         {
+
             string HierachyCategory = "4";
             string HierachyCategoryStatus = "04"; // Allow based on reqierment if there is No MDA if other wise allow "4"//
             ds = obj.MailForwardToAllFromMDA(lblMaxTransactionID.Text, FormID.ToString(), HierachyCategory.ToString());
@@ -994,16 +1155,63 @@ namespace ITLDashboard.Modules.SBApp
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "Transport Request Form – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + ",<br><br> Authorization has been issued against  Transport Request Form Form ID # " + lblMaxTransactionID.Text.ToString() + " <br><br> The form can be reviewed at the following URL: " +
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + ",<br><br> Transport request has been transported to " + ddlTransportTo.SelectedValue + " against Form ID # " + lblMaxTransactionID.Text.ToString() + " <br><br> The form can be reviewed at the following URL: " +
                     "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                     "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                     "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                    "<br>User Rights Application<br> Information Systems Dashboard";
+                    "<br>SAP Basis Application<br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
 
-                    lblmessage.Text = " has been saved against  Form ID # " + lblMaxTransactionID.Text;
+                    lblmessage.Text = " Request has been transported against Form ID  # " + lblMaxTransactionID.Text;
+
+                    lblmessage.ForeColor = System.Drawing.Color.Green;
+                    conn.Close();
+                    sucess.Visible = true;
+                    error.Visible = false;
+                    lblmessage.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    ViewState["Status"] = HierachyCategoryStatus.ToString();
+                }
+
+            }
+            else
+            {
+
+            }
+        }
+
+        private void EmailWorkFirstHaracheyConsultant()
+        {
+
+            string HierachyCategory = "7";
+            string HierachyCategoryStatus = "07"; // Allow based on reqierment if there is No MDA if other wise allow "4"//
+            ds = obj.MailForwardToAllFromMDA(lblMaxTransactionID.Text, FormID.ToString(), HierachyCategory.ToString());
+
+            if (ds.Tables["MailForwardToAllFromMDA"].Rows.Count > 0)
+            {
+                DataTableReader reader = ds.Tables["MailForwardToAllFromMDA"].CreateDataReader();
+                while (reader.Read())
+                {
+                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local");
+                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110");
+                    TransactionID = reader["TransactionID"].ToString();
+                    FormCode = reader["FormID"].ToString();
+                    UserName = reader["user_name"].ToString();
+                    UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
+                    EmailSubject = "Transport Request Form – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + ",<br><br> Transport request has been Checked against Form ID # " + lblMaxTransactionID.Text.ToString() + " <br><br> The form can be reviewed at the following URL: " +
+                    "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                    "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                    "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                    "<br>SAP Basis Application<br> Information Systems Dashboard";
+                    SessionUser = Session["User_Name"].ToString();
+                    DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                    InsertEmail();
+
+                    lblmessage.Text = "Request has been transported against Form ID # " + lblMaxTransactionID.Text;
 
                     lblmessage.ForeColor = System.Drawing.Color.Green;
                     conn.Close();
@@ -1039,11 +1247,11 @@ namespace ITLDashboard.Modules.SBApp
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "Transport Request Form – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ",<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to provide authorization for the information on the following URL:,<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to provide authorization for the information on the following URL:,<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to provide authorization for the information on the following URL:,<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to provide authorization for the information on the following URL:,<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to provide authorization for the information on the following URL: " +
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ",<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to approved the information on the following URL:,<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to approved the information on the following URL:,<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to provide authorization for the information on the following URL:,<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to provide authorization for the information on the following URL:,<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to provide authorization for the information on the following URL: " +
                     "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                     "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                     "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                    "<br>User Rights Application  <br> Information Systems Dashboard";
+                    "<br>SAP Basis Application  <br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
@@ -1070,7 +1278,7 @@ namespace ITLDashboard.Modules.SBApp
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                         EmailSubject = "Transport Request Form – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br><br> You can authorized a person on the following URL:<br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message.<br>" +
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br><br> You can transport request on the following URL:<br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message.<br>" +
                              "User Rights Application <br> Information Systems Dashboard";
                         SessionUser = Session["User_Name"].ToString();
                         DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
@@ -1225,5 +1433,48 @@ namespace ITLDashboard.Modules.SBApp
             }
 
         }
+
+        protected void btnSubmitCons_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (rbtransport.SelectedValue == "No")
+                {
+                    lblmessage.Text = "";
+                    lblUpError.Text = " Testing Successfully Check must be No while Submit.";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    whenquerystringpass();
+                    return;
+                }
+                else
+                {
+                    whenquerystringpass();
+                    for (int i = 0; i < ddlApplicableArea.Items.Count; i++)
+                    {
+                        ddlApplicableArea.Items[i].Attributes.Add("disabled", "disabled");
+                    }
+                    for (int i = 0; i < ddlTransportTo.Items.Count; i++)
+                    {
+                        ddlTransportTo.Items[i].Attributes.Add("disabled", "disabled");
+                    }
+                    EmailWorkFirstHaracheyConsultant();
+                    // InsertEmailHOD();
+                    ApplicationStatus();
+                    BindsysApplicationStatus();
+                    GetStatusHierachyCategoryControls();
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "btnSubmitCons_Click" + ex.ToString();
+            }
+        }
+
+
     }
 }

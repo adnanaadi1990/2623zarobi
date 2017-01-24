@@ -353,9 +353,16 @@
                                 Gross Weight
                                     <asp:TextBox ID="txtGROSSWEIGHT" runat="server" CssClass="form-control"> </asp:TextBox>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 Net Weight
                                     <asp:TextBox ID="txtNETWEIGHT" runat="server" CssClass="form-control"> </asp:TextBox>
+                            </div>
+                            <div class="col-sm-2">
+                                   Net Weight Check
+                       <asp:RadioButtonList ID="rbNewWeightCheck" runat="server" RepeatDirection="Horizontal" Enabled="False">
+                           <asp:ListItem Selected="True">Right</asp:ListItem>
+                           <asp:ListItem>Wrong</asp:ListItem>
+                           </asp:RadioButtonList>
                             </div>
                             <div class="col-sm-4">
                                 Weight Unit
@@ -1188,7 +1195,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <asp:TextBox ID="txtRemarksReview" runat="server" CssClass="form-control" Height="80px" TextMode="MultiLine" PlaceHolder="Comment Box" Visible="False"></asp:TextBox>
+                        <asp:TextBox ID="txtRemarksReview" runat="server" CssClass="form-control" Height="80px" TextMode="MultiLine" PlaceHolder="Comment Box"  Visible="false"></asp:TextBox>
                     </div>
                 </div>
                 <span class="help-block"></span>
@@ -1291,7 +1298,7 @@
 
                     <div class="col-sm-2"><b>Remarks</b></div>
                     <div class="col-sm-9" style="text-align: center;">
-                        <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" Height="50px" TextMode="MultiLine"></asp:TextBox>
+                        <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" Height="50px" TextMode="MultiLine" Visible="false"></asp:TextBox>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -1323,5 +1330,6 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </asp:Content>

@@ -276,7 +276,9 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="VolumeUnit" FilterControlAltText="Filter column14 column" HeaderText="Volume Unit" UniqueName="column14">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="OldMaterialNo" FilterControlAltText="Filter column15 column" HeaderText="Old Material No" UniqueName="column15">
+                                            <telerik:GridBoundColumn DataField="OldMaterialNo" FilterControlAltText="Filter column15 column" HeaderText="Customer Material No" UniqueName="column15">
+                                            </telerik:GridBoundColumn>
+                                              <telerik:GridBoundColumn DataField="CustomerNo" FilterControlAltText="Filter column15 column" HeaderText="Customer No" UniqueName="column15">
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="SizeDimension" FilterControlAltText="Filter column16 column" HeaderText="Size Dimension" UniqueName="column16">
                                             </telerik:GridBoundColumn>

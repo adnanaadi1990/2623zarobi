@@ -292,6 +292,15 @@ namespace ITLDashboard.Modules.Master {
         protected global::System.Web.UI.WebControls.TextBox txtNETWEIGHT;
         
         /// <summary>
+        /// rbNewWeightCheck control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList rbNewWeightCheck;
+        
+        /// <summary>
         /// ddlWeightunitBD control.
         /// </summary>
         /// <remarks>

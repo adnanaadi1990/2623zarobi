@@ -1,9 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="MaterialMasterMTypeCreation.aspx.cs" MaintainScrollPositionOnPostback="true" Inherits="ITLDashboard.Modules.Master.MaterialMasterMTypeCreation" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="../../Scripts/jquery-1.9.1.min.js"></script>
     <script src="../../Scripts/bootstrap.min.js"></script>
-        <%--<link href="../../Content/bootstrap.min.css" rel="stylesheet" />--%>
+    <%--<link href="../../Content/bootstrap.min.css" rel="stylesheet" />--%>
 
     <link href="../../Content/multiselect.css" rel="stylesheet" type="text/css" />
     <script src="../../Scripts/miltiselect.js" type="text/javascript"></script>
@@ -51,7 +52,7 @@
                 enableCaseInsensitiveFiltering: true
             });
 
-       
+
 
         }
 
@@ -122,7 +123,7 @@
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
         function pageLoad() {
-            $('[id*=txtStandardPrice] ,[id*=txtNumerator] ,[id*=txtDenominator],[id*=txtVolume],[id*=txtLenght],[id*=txtWidth],[id*=txtheight],[id*=txtGROSSWEIGHT] ,[id*=txtNETWEIGHT],[id*=txtVolume],[id*=txtNumeratorValue],[id*=txtDenominatorValue],[id*=txtReoderPoint],[id*=txtPlannedDeliveryTimeInDays],[id*=txtInHouseProductionTimeInDays],[id*=txtGRPROCESSINGTIMEINDAYS],[id*=txtSafetyStock],[id*=txtOverDeliveryTollerance],[id*=txtExcessWeightTolerance],[id*=txtUnderDeliveryTollerance],[id*=txtExcessVolumeTolerance],[id*=txtSMC]').keyup(function () {
+            $('[id*=txtStandardPrice],[id*=txtCustomerNo ],[id*=txtNumerator] ,[id*=txtDenominator],[id*=txtVolume],[id*=txtLenght],[id*=txtWidth],[id*=txtheight],[id*=txtGROSSWEIGHT] ,[id*=txtNETWEIGHT],[id*=txtVolume],[id*=txtNumeratorValue],[id*=txtDenominatorValue],[id*=txtReoderPoint],[id*=txtPlannedDeliveryTimeInDays],[id*=txtInHouseProductionTimeInDays],[id*=txtGRPROCESSINGTIMEINDAYS],[id*=txtSafetyStock],[id*=txtOverDeliveryTollerance],[id*=txtExcessWeightTolerance],[id*=txtUnderDeliveryTollerance],[id*=txtExcessVolumeTolerance],[id*=txtSMC]').keyup(function () {
                 if (this.value.match(/[^,.0-9 ]/g)) {
                     this.value = this.value.replace(/[^,.0-9 ]/g, '');
                 }
@@ -148,11 +149,11 @@
         }
 
     </script>
-     <script type="text/javascript">
-         history.pushState(null, null, document.URL);
-         window.addEventListener('popstate', function () {
-             history.pushState(null, null, document.URL);
-         });
+    <script type="text/javascript">
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function () {
+            history.pushState(null, null, document.URL);
+        });
     </script>
 
     <script type="text/javascript">
@@ -179,12 +180,10 @@
         .form-control {
             height: 34px;
         }
-        .chkbox-disabled
-        {
-            display:block;
-        }
- 
 
+        .chkbox-disabled {
+            display: block;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -244,9 +243,9 @@
                         <br />
                         <asp:CheckBox ID="chkLock" runat="server" Text="Material is locked"></asp:CheckBox>
                         <asp:RadioButtonList ID="cbML" runat="server" RepeatDirection="Horizontal" Enabled="False" Visible="False">
-                           <asp:ListItem Selected="True" Value="1">Material is locked</asp:ListItem>
-                           <asp:ListItem Value="0">Material is un-locked</asp:ListItem>
-                       </asp:RadioButtonList>
+                            <asp:ListItem Selected="True" Value="1">Material is locked</asp:ListItem>
+                            <asp:ListItem Value="0">Material is un-locked</asp:ListItem>
+                        </asp:RadioButtonList>
 
                     </div>
                 </div>
@@ -286,12 +285,12 @@
                             <div class="col-sm-4">
                                 Plant
                               <asp:DropDownList runat="server" ID="ddlPlant" OnSelectedIndexChanged="ddlPlant_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
-                                                  </div>
+                            </div>
                             <div class="col-sm-7">
                                 Storage Location
                     
                                  <asp:ListBox ID="ddlStorageLocation" runat="server" CssClass="form-control" SelectionMode="Multiple" AppendDataBoundItems="True"></asp:ListBox>
-                           
+
                                 <asp:TextBox ID="txtStLocation" runat="server" CssClass="form-control" Visible="false"> </asp:TextBox>
                             </div>
 
@@ -347,23 +346,34 @@
 
                         <span class="help-block"></span>
                         <span class="help-block"></span>
+
+
                         <div class="row">
                             <div class="col-sm-4">
                                 Gross Weight
                                     <asp:TextBox ID="txtGROSSWEIGHT" runat="server" CssClass="form-control"> </asp:TextBox>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 Net Weight
                                     <asp:TextBox ID="txtNETWEIGHT" runat="server" CssClass="form-control"> </asp:TextBox>
+                            </div>
+                            <div class="col-sm-2">
+                                   Net Weight Check
+                       <asp:RadioButtonList ID="rbNewWeightCheck" runat="server" RepeatDirection="Horizontal" Enabled="False">
+                           <asp:ListItem Selected="True">Right</asp:ListItem>
+                           <asp:ListItem>Wrong</asp:ListItem>
+                           </asp:RadioButtonList>
                             </div>
                             <div class="col-sm-4">
                                 Weight Unit
                                     <asp:DropDownList ID="ddlWeightunitBD" runat="server" CssClass="form-control">
                                     </asp:DropDownList>
                             </div>
-
                         </div>
+
+
                         <span class="help-block"></span>
+
                         <div class="row">
                             <div class="col-sm-4">
                                 Volume
@@ -375,12 +385,18 @@
                                     </asp:DropDownList>
                             </div>
                             <div class="col-sm-4">
-                                Old Material Number
+                                Customer Material Number
                         <asp:TextBox ID="txtOldMaterialNumber" runat="server" CssClass="form-control"></asp:TextBox>
                             </div>
                         </div>
+
                         <span class="help-block"></span>
+
                         <div class="row">
+                            <div class="col-sm-4">
+                                Customer No
+                        <asp:TextBox ID="txtCustomerNo" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
                             <div class="col-sm-4">
                                 Size / Dimensions<asp:TextBox ID="txtSizeDimensions" runat="server" CssClass="form-control"> </asp:TextBox>
                             </div>
@@ -388,6 +404,10 @@
                                 Packaging Material Category<asp:DropDownList ID="ddlBasicDataPackagingMaterialCateguory" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
                             </div>
+
+                        </div>
+                        <span class="help-block"></span>
+                        <div class="row">
                             <div class="col-sm-3">
                                 Batch Management
                        <asp:RadioButtonList ID="chkBatchManagement" runat="server" RepeatDirection="Horizontal" Enabled="False">
@@ -395,12 +415,11 @@
                            <asp:ListItem Enabled="False">No</asp:ListItem>
                        </asp:RadioButtonList>
                             </div>
-
                         </div>
 
                         <span class="help-block"></span>
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </div>
@@ -563,7 +582,7 @@
                                                 <th>length </th>
                                                 <th>Width </th>
                                                 <th>height </th>
-                                                <th style="display:none;">Unit Of Measure </th>
+                                                <th style="display: none;">Unit Of Measure </th>
 
                                                 <tr>
                                                     <td>
@@ -589,7 +608,7 @@
                                                     <td>
                                                         <asp:TextBox ID="txtheight" runat="server" Width="95px" CssClass="form-control" />
                                                     </td>
-                                                    <td style="display:none;">
+                                                    <td style="display: none;">
                                                         <asp:DropDownList ID="ddlUOM" runat="server" CssClass="form-control" Width="130px">
                                                             <asp:ListItem Value="Baseuom">Baseuom</asp:ListItem>
                                                             <asp:ListItem Value="BAG">BAG</asp:ListItem>
@@ -930,7 +949,7 @@
                                 Valuation Type
                                    <asp:ListBox ID="ddlValuationType" runat="server" CssClass="form-control" SelectionMode="Multiple"></asp:ListBox>
                             </div>
-                               <div class="col-sm-3" >
+                            <div class="col-sm-3">
                                 Standard Price
                                    <asp:TextBox ID="txtStandardPrice" runat="server" CssClass="form-control" SelectionMode="Multiple"></asp:TextBox>
                             </div>
@@ -1133,31 +1152,31 @@
                         <div class="row" style="text-align: center;">
                             <div class="col-sm-3">
                                 Merchandiser
-                                      <asp:DropDownList ID="ddlMerchandiser" runat="server" CssClass="form-control" ></asp:DropDownList>
+                                      <asp:DropDownList ID="ddlMerchandiser" runat="server" CssClass="form-control"></asp:DropDownList>
                             </div>
-                              <div class="col-sm-3">
+                            <div class="col-sm-3">
                                 Taxes
-                                      <asp:DropDownList ID="ddlTaxes" runat="server" CssClass="form-control" ></asp:DropDownList>
+                                      <asp:DropDownList ID="ddlTaxes" runat="server" CssClass="form-control"></asp:DropDownList>
                             </div>
-                           <div class="col-sm-3">
+                            <div class="col-sm-3">
                                 Merchandiser HOD
-                                      <asp:DropDownList ID="ddlMHOD" runat="server" CssClass="form-control" ></asp:DropDownList>
+                                      <asp:DropDownList ID="ddlMHOD" runat="server" CssClass="form-control"></asp:DropDownList>
                             </div>
-                                   <div class="col-sm-3">
-                                       Marketing HOD
-                                      <asp:DropDownList ID="ddlMarketingHOD" runat="server" CssClass="form-control" ></asp:DropDownList>
+                            <div class="col-sm-3">
+                                Marketing HOD
+                                      <asp:DropDownList ID="ddlMarketingHOD" runat="server" CssClass="form-control"></asp:DropDownList>
                             </div>
                             <div id="Div1" class="col-sm-3" runat="server" visible="false">
                                 Review By
                                         &nbsp;<asp:DropDownList ID="ddlEmailReviwer" runat="server"></asp:DropDownList>
                             </div>
 
-                               <div class="col-sm-3">
+                            <div class="col-sm-3">
                                 Specific (Finance)
                                        <asp:DropDownList ID="ddlNotificationFI" runat="server"></asp:DropDownList>
                             </div>
-                                                        <div class="col-sm-3">
-                                                            Specific (IS)
+                            <div class="col-sm-3">
+                                Specific (IS)
                                        <asp:DropDownList ID="ddlNotificationMIS" runat="server"></asp:DropDownList>
                             </div>
                             <div class="col-sm-3">
@@ -1176,7 +1195,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <asp:TextBox ID="txtRemarksReview" runat="server" CssClass="form-control" Height="80px" TextMode="MultiLine" PlaceHolder="Comment Box" Visible="False"></asp:TextBox>
+                        <asp:TextBox ID="txtRemarksReview" runat="server" CssClass="form-control" Height="80px" TextMode="MultiLine" PlaceHolder="Comment Box"  Visible="false"></asp:TextBox>
                     </div>
                 </div>
                 <span class="help-block"></span>
@@ -1204,7 +1223,7 @@
         <asp:Button ID="btnEdit" runat="server" CssClass="btn btn-primary" Text="Edit" CausesValidation="False" OnClick="btnEdit_Click" Width="80px" Visible="False"></asp:Button>
 
         <asp:Button ID="btnUpdate" runat="server" CssClass="btn btn-primary" Text="Update" CausesValidation="False" Width="80px" Visible="False" OnClick="btnUpdate_Click"></asp:Button>
-          <asp:Button ID="btnFUpdate" runat="server" CssClass="btn btn-primary" Text="Update" CausesValidation="False" Width="80px" Visible="False" OnClick="btnFUpdate_Click" ></asp:Button>
+        <asp:Button ID="btnFUpdate" runat="server" CssClass="btn btn-primary" Text="Update" CausesValidation="False" Width="80px" Visible="False" OnClick="btnFUpdate_Click"></asp:Button>
         <asp:Button ID="btnTUpdate" runat="server" CssClass="btn btn-primary" Text="Update" CausesValidation="False" Width="80px" Visible="False" OnClick="btnTUpdate_Click"></asp:Button>
         <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-primary" Text="Reset Form" CausesValidation="False" OnClick="btnCancel_Click" Width="100px"></asp:Button>
         <asp:Label ID="lbltest" runat="server" Font-Bold="False" ForeColor="Blue" Font-Names="Berlin Sans FB"></asp:Label>
@@ -1238,7 +1257,7 @@
                             <ItemStyle Width="14%" />
                             <HeaderStyle Width="14%" />
                         </asp:TemplateField>
-                           <asp:TemplateField HeaderText="Transferred To" SortExpression="TransferredTo">
+                        <asp:TemplateField HeaderText="Transferred To" SortExpression="TransferredTo">
                             <ItemTemplate>
                                 <asp:Label runat="server" ID="lblTransferred" Text='<%# Bind("TransferredTo") %>'></asp:Label>
                             </ItemTemplate>
@@ -1252,7 +1271,7 @@
                             <ItemStyle Width="14%" />
                             <HeaderStyle Width="14%" />
                         </asp:TemplateField>
-                          <asp:TemplateField HeaderText="Remarks" SortExpression="Remarks">
+                        <asp:TemplateField HeaderText="Remarks" SortExpression="Remarks">
                             <ItemTemplate>
                                 <asp:Label runat="server" ID="lblRemarks" Text='<%# Bind("Remarks") %>'></asp:Label>
                             </ItemTemplate>
@@ -1279,7 +1298,7 @@
 
                     <div class="col-sm-2"><b>Remarks</b></div>
                     <div class="col-sm-9" style="text-align: center;">
-                        <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" Height="50px" TextMode="MultiLine"></asp:TextBox>
+                        <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" Height="50px" TextMode="MultiLine" Visible="false"></asp:TextBox>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -1301,15 +1320,16 @@
                 <div class="modal-body" style="height: 125px;">
                     <div class="col-sm-4"><b>Select any user</b></div>
                     <div class="col-sm-5" style="text-align: center;">
-                      <asp:DropDownList ID="ddlTransferUser" runat="server" >
-                        </asp:DropDownList>                      
+                        <asp:DropDownList ID="ddlTransferUser" runat="server">
+                        </asp:DropDownList>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <asp:Button ID="btnForward" runat="server" CssClass="btn btn-primary" Text="Forward"  Width="100px" CausesValidation="False" OnClick="btnForward_Click"></asp:Button>
+                    <asp:Button ID="btnForward" runat="server" CssClass="btn btn-primary" Text="Forward" Width="100px" CausesValidation="False" OnClick="btnForward_Click"></asp:Button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 60px;">Close</button>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </asp:Content>

@@ -148,7 +148,6 @@ namespace ITLDashboard.Classes
         {
             try
             {
-
                 cmd.CommandText = "EXEC SP_UpdateServiceMasterCode" + " @TransactionID  ='" + MetrialNo.ToString() + "', " + " @ServiceMasterCode ='" + SAPCode.ToString() + "'," + " @VC ='" + VC.ToString() + "'";                    
                        
                 cmd.CommandType = CommandType.Text;
@@ -180,6 +179,32 @@ namespace ITLDashboard.Classes
                         cmd.Parameters.AddWithValue("@User_Name", user.ToString());
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "FormDepartmentMarketing");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
+            }
+        }
+
+        public DataSet FormDepartmentMIS(string user)
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+
+                        cmd.CommandText = @"SP_FormMIS";
+
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@User_Name", user.ToString());
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "SP_FormMIS");
                     }
                     catch (Exception ex)
                     { ex.ToString(); }
