@@ -177,7 +177,7 @@
                         <span class="help-block"></span>
                         <div class="row">
                             <div class="col-sm-12">
-                                <asp:Label ID="lblMSGIWF" runat="server" Text="Note: Please first upload IWF before saving the form"></asp:Label>
+                                <asp:Label ID="lblMSGIWF" runat="server" Text="Note: Please first upload Invoice before saving the form"></asp:Label>
                             </div>
                         </div>
                     </div>

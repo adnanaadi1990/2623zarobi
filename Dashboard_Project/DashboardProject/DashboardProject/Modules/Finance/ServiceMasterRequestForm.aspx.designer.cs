@@ -256,6 +256,15 @@ namespace DashboardProject.Modules.Finance {
         protected global::System.Web.UI.WebControls.DropDownList ddlReviewer;
         
         /// <summary>
+        /// ddlIS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlIS;
+        
+        /// <summary>
         /// ddlEmailMDA control.
         /// </summary>
         /// <remarks>

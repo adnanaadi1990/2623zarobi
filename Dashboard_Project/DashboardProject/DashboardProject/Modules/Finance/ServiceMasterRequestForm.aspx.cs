@@ -60,7 +60,7 @@ namespace DashboardProject.Modules.Finance
             Page.MaintainScrollPositionOnPostBack = true;
             if (!IsPostBack)
             {
-                txtRemarksReview.Visible = true;
+                txtRemarksReview.Visible = false;
                 //txtRemarksReview.Visible = false;
                 if (Session["User_Name"] == null)
                 {
@@ -101,7 +101,7 @@ namespace DashboardProject.Modules.Finance
                         ddlMSG.Visible = true;
                         ddlDivision.Visible = true;
                         ddlValuation.Visible = true;
-                        txtRemarksReview.Visible = true;                  
+                        txtRemarksReview.Visible = true;
                         this.pnlemail.Visible = false;
                         this.ddlServiceCategory.Attributes.Add("disabled", "");
                         this.ddlBUOM.Attributes.Add("disabled", "");
@@ -127,24 +127,50 @@ namespace DashboardProject.Modules.Finance
                             btnReject.Visible = false;
                             txtRemarksReview.Visible = false;
                             ddlValuation.Enabled = false;
-                            ddlValuation.Visible = true;      
-                            controlForwardHide();
-                        }
-
-                        if (((string)ViewState["HID"]).StartsWith("2"))
-                        {
-                            txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
-                            btnApprover.Visible = true;
-                            btnSubmit.Visible = false;
-                            txtRemarksReview.Enabled = true;
-                            btnReject.Visible = true;
-                            txtRemarks.Enabled = true;
-                            btnFUpdate.Visible = false;
-                            ddlValuation.Enabled = false;
                             ddlValuation.Visible = true;
                             controlForwardHide();
                         }
 
+                        if (((string)ViewState["HID"]) == "2")
+                        {
+                            txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
+                            btnApprover.Visible = true;
+                            btnFUpdate.Visible = false;
+                            btnSubmit.Visible = false;
+                            txtRemarksReview.Enabled = true;
+                            btnReject.Visible = true;
+                            txtRemarks.Enabled = true;
+                            ddlValuation.Enabled = false;
+                            ddlValuation.Visible = true;
+                            controlForwardHide();
+
+                            if (((string)ViewState["Sequance"]) == "2")
+                            {
+                                txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
+                                btnApprover.Visible = true;                        
+                                txtRemarksReview.Enabled = true;
+                                btnReject.Visible = true;
+                                txtRemarks.Enabled = true;
+                                ddlValuation.Enabled = true;
+                                ddlValuation.Visible = true;
+                                controlForwardHide();
+                            }
+
+                            if (((string)ViewState["Sequance"]) == "3")
+                            {
+                                txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
+                                btnApprover.Visible = true;
+                                txtRemarksReview.Enabled = true;
+                                btnReject.Visible = true;
+                                txtRemarks.Enabled = true;
+                                ddlValuation.Enabled = false;
+                                ddlValuation.Visible = true;
+                                controlForwardHide();
+                            }
+
+                        }
+
+                     
                         if (((string)ViewState["HID"]) == "4")
                         {
                             txtSMC.BackColor = System.Drawing.Color.AliceBlue;
@@ -160,13 +186,14 @@ namespace DashboardProject.Modules.Finance
                             txtSMC.Enabled = true;
                             txtSMC.Visible = true;
                             //lblSap.Visible = false;
-                          ////  ddlValuation.Attributes.Add("disabled", "false");
+                            ////  ddlValuation.Attributes.Add("disabled", "false");
                             btnEdit.Visible = false;
                             //dvVC.Visible = true;
-                            ddlValuation.Enabled = true;
+                            ddlValuation.Enabled = false;
                             ddlValuation.Visible = true;
                             divSMC.Visible = true;
-                            ///this.ddlValuation.Attributes.Add("disabled", "false");          
+                            ///this.ddlValuation.Attributes.Add("disabled", "false");    
+                            this.ddlValuation.Attributes.Add("disabled", "");
                             this.ddlServiceCategory.Attributes.Add("disabled", "");
                             this.ddlBUOM.Attributes.Add("disabled", "");
                             this.ddlMSG.Attributes.Add("disabled", "");
@@ -249,9 +276,17 @@ namespace DashboardProject.Modules.Finance
                     return;
                 }
 
+                else if (ddlIS.SelectedValue == "")
+                {
+                    lblUpError.Text = "Select IS Department field!.";
+                    error.Visible = true;
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    return;
+                }
+
                 else if (ddlReviewer.SelectedValue == "")
                 {
-                    lblUpError.Text = "Select Reviewer field!.";
+                    lblUpError.Text = "Select FI Department field!.";
                     error.Visible = true;
                     Page.MaintainScrollPositionOnPostBack = false;
                     return;
@@ -265,27 +300,12 @@ namespace DashboardProject.Modules.Finance
                     Page.MaintainScrollPositionOnPostBack = false;
                     return;
                 }
-
-                else if (txtRemarksReview.Text == "")
-                {
-
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Remarks should not be left blank!";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblmessage.Focus();
-                    sucess.Focus();
-                    txtRemarksReview.BackColor = System.Drawing.Color.Red;
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    return;
-                }
-
                 else
                 {
                     string Result = "";
                     string Notification = "";
 
-                    Result = ViewState["HOD"].ToString() + "," + ddlReviewer.SelectedValue;
+                    Result = ViewState["HOD"].ToString() + "," + ddlReviewer.SelectedValue + "," + ddlIS.SelectedValue;
 
                     cmd.CommandText = "";
                     cmd.CommandText = "SP_SYS_ServiceMasterRequest";
@@ -336,20 +356,22 @@ namespace DashboardProject.Modules.Finance
         {
             try
             {
-                if (txtRemarksReview.Text == "")
-                {
 
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Remarks should not be left blank!";
+                if (((string)ViewState["HID"]) == "2" && (((string)ViewState["Sequance"]) == "2"))
+                {
+                    updateFI();
+                    error.Visible = false;
+                    lblUpError.Text = "";
                     sucess.Visible = false;
-                    error.Visible = true;
-                    lblmessage.Focus();
-                    sucess.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    txtRemarksReview.BackColor = System.Drawing.Color.Red;
+                    lblmessage.Text = "";
+                    EmailWorkApproved();
+                    ApplicationStatus();
+                    BindsysApplicationStatus();
+                    GetStatusHierachyCategoryControls();
+                    Page.MaintainScrollPositionOnPostBack = true;
+                    txtRemarksReview.BackColor = System.Drawing.Color.White;
+                    lblEmail.Focus();
                     whenquerystringpass();
-                    // bindSLfromPlant();
-                    return;
                 }
                 else
                 {
@@ -366,11 +388,13 @@ namespace DashboardProject.Modules.Finance
                     lblEmail.Focus();
                     whenquerystringpass();
                 }
+                   
+                
             }
 
             catch (Exception ex)
             {
-                lblError.Text = "Approver" + ex.ToString();
+                lblError.Text = "btnApprover_Click" + ex.ToString();
             }
         }
 
@@ -381,34 +405,8 @@ namespace DashboardProject.Modules.Finance
             lblError.Text = "";
             try
             {
-                if (txtRemarksReview.Text == "")
-                {
-
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Remarks should not be left blank!";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblmessage.Focus();
-                    sucess.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    txtRemarksReview.BackColor = System.Drawing.Color.Red;
-                    return;
-                }
-
-                if (ddlValuation.SelectedValue == "")
-                {
-
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Valuation Class field should not be left blank!";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblmessage.Focus();
-                    sucess.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    ddlValuation.BackColor = System.Drawing.Color.Red;
-                    return;
-                }
-                else if (txtSMC.Text == "")
+               
+                 if (txtSMC.Text == "")
                 {
                     lblEmail.Text = "";
                     lblmessage.Text = "";
@@ -443,7 +441,7 @@ namespace DashboardProject.Modules.Finance
                         BindsysApplicationStatus();
                         GetStatusHierachyCategoryControls();
                         sucess.Visible = true;
-                        error.Visible = false;                    
+                        error.Visible = false;
                         this.ddlValuation.Attributes.Add("disabled", "");
                         Page.MaintainScrollPositionOnPostBack = false;
 
@@ -503,7 +501,7 @@ namespace DashboardProject.Modules.Finance
             string url = HttpContext.Current.Request.Url.ToString();
             Response.Redirect(url.ToString());
         }
- 
+
         protected void btnEdit_Click(object sender, EventArgs e)
         {
 
@@ -663,8 +661,21 @@ namespace DashboardProject.Modules.Finance
             conn.Close();
 
 
+            cmd.CommandText = "";
+            cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserApproval where FormName = 'SMRF'";
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = conn;
+            conn.Open();
+            ddlIS.DataSource = cmd.ExecuteReader();
+            ddlIS.DataTextField = "DisplayName";
+            ddlIS.DataValueField = "user_name";
+            ddlIS.DataBind();
+            conn.Close();
+
+
             ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
             ddlReviewer.Items.Insert(0, new ListItem("------Select------", "0"));
+            ddlIS.Items.Insert(0, new ListItem("------Select------", "0"));
 
         }
 
@@ -1089,6 +1100,91 @@ namespace DashboardProject.Modules.Finance
 
         ////////////////////////////////////////////methods/////////////////////////////////////////////////////////
 
+        private void updateFI()
+        {
+            try
+            {
+
+                if (ddlValuation.SelectedValue == "")
+                {
+
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Valuation Type  should not be left blank";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblmessage.Focus();
+                    sucess.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    ddlValuation.BackColor = System.Drawing.Color.Red;
+                    return;
+                }
+                else
+                {
+
+                    string VTYPE = "";
+
+                    for (int i = 0; i <= ddlValuation.Items.Count - 1; i++)
+                    {
+                        if (ddlValuation.Items[i].Selected)
+                        {
+                            if (VTYPE == "") { VTYPE = ddlValuation.Items[i].Value; }
+                            else { VTYPE += "," + ddlValuation.Items[i].Value; }
+                        }
+
+                    }
+
+                    cmd.CommandText = @"SP_SYS_UpdateValuatoinClass";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = conn;
+
+                    cmd.Parameters.AddWithValue("@TransactionMain", lblMaxTransactionNo.Text);
+                    cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
+                    cmd.Parameters.AddWithValue("@ValuationClass", ddlValuation.SelectedValue);
+                    conn.Open();
+
+                    int aa = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (aa == -1)
+                    {
+                        lblmessage.Text = "Record updated sucessfully!";
+                        lblmessage.Focus();
+                        sucess.Visible = true;
+                        error.Visible = false;
+                        Page.MaintainScrollPositionOnPostBack = false;
+                        btnReject.Visible = true;
+                        btnFUpdate.Visible = false;
+
+                        txtRemarksReview.Visible = true;
+                        txtRemarksReview.Enabled = true;
+                        txtRemarks.Enabled = false;
+                        btnApprover.Visible = true;
+                        btnEdit.Visible = false;
+                        btnForward.Visible = true;
+                        btnTransfer.Visible = true;
+                        DisableControls(Page, false);
+
+                        this.ddlServiceCategory.Attributes.Add("disabled", "");
+                        this.ddlBUOM.Attributes.Add("disabled", "");
+                        this.ddlMSG.Attributes.Add("disabled", "");
+                        this.ddlDivision.Attributes.Add("disabled", "");
+
+                        txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
+                        txtRemarksReview.Visible = true;
+                        txtRemarksReview.Enabled = true;
+                        lblEmail.ForeColor = System.Drawing.Color.Blue;
+                        controlForwardHide();
+                        error.Visible = false;
+                        btnForward.Visible = false;
+                        btnTransfer.Visible = false;
+                    }
+                }
+              
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "updateFI" + ex.ToString();
+            }
+        }
 
         private void controlForwardHide()
         {
@@ -1460,6 +1556,7 @@ namespace DashboardProject.Modules.Finance
         }
 
         #endregion
+
 
 
 

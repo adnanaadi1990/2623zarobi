@@ -200,7 +200,7 @@
                                 Division
                               <asp:ListBox ID="ddlDivision" runat="server" CssClass="form-control" AppendDataBoundItems="True"></asp:ListBox>
                             </div>
-                    <%--        <div class="col-sm-4" runat="server" id="dvVC" visible="false">
+                            <%--        <div class="col-sm-4" runat="server" id="dvVC" visible="false">
                                 Valuation Class                
                                 <asp:DropDownList ID="ddlValuation" runat="server" CssClass="form-control" AppendDataBoundItems="True"></asp:DropDownList>
                             </div>--%>
@@ -228,15 +228,19 @@
                     <div class="panel-body">
                         <div class="row" style="text-align: center;">
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 Head Of Deparment
                                        <asp:Label ID="lblHOD" runat="server" CssClass="form-control"></asp:Label>
                             </div>
-                            <div class="col-sm-4">
-                                IS Department
+                            <div class="col-sm-3">
+                                FI Department
                                        <asp:DropDownList ID="ddlReviewer" runat="server" CssClass="form-control" CausesValidation="True"></asp:DropDownList>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
+                                IS Department
+                                       <asp:DropDownList ID="ddlIS" runat="server" CssClass="form-control" CausesValidation="True"></asp:DropDownList>
+                            </div>
+                            <div class="col-sm-3">
                                 Service Master Administrator
                                         <asp:DropDownList ID="ddlEmailMDA" runat="server" CssClass="form-control"></asp:DropDownList>
                             </div>
@@ -267,10 +271,10 @@
         </div>
         <div class="col-sm-12" style="text-align: center;">
             <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Text="Save" ValidationGroup="grpSa" Width="60px" OnClick="btnSave_Click"></asp:Button>
-            <asp:Button ID="btnApprover" runat="server" CssClass="btn btn-primary" Text="Approve" Visible="False" CausesValidation="False" OnClick="btnApprover_Click" />
+            <asp:Button ID="btnApprover" runat="server" CssClass="btn btn-primary" Text="Approve" Visible="False" Width="100px" CausesValidation="False" OnClick="btnApprover_Click" />
             <asp:LinkButton ID="btnTransfer" runat="server" class="btn btn-primary" data-target="#TansferModel" data-toggle="modal" Text="Transfer Form" Visible="False" CssClass="btn btn-primary"></asp:LinkButton>
             <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-primary" Text="Submit" CausesValidation="False" OnClick="btnSubmit_Click" Width="100px" Visible="False"></asp:Button>
-            <asp:Button ID="btnFUpdate" runat="server" CssClass="btn btn-primary" Text="Update" CausesValidation="False" Width="100px" Visible="False"></asp:Button>
+            <asp:Button ID="btnFUpdate" runat="server" CssClass="btn btn-primary" Text="Update" CausesValidation="False" Width="100px" Visible="False" ></asp:Button>
             <asp:Button ID="btnReject" runat="server" CssClass="btn btn-primary" Text="Reject" OnClick="btnReject_Click" Width="100px" CausesValidation="False" Visible="False"></asp:Button>
             <asp:Button ID="btnEdit" runat="server" CssClass="btn btn-primary" Text="Edit" CausesValidation="False" OnClick="btnEdit_Click" Width="80px" Visible="False"></asp:Button>
             <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-primary" Text="Reset Form" CausesValidation="False" Width="100px" OnClick="btnCancel_Click"></asp:Button>
