@@ -325,11 +325,11 @@ namespace ITLDashboard.Modules.Inventorymanagement
             ddlNotification.DataValueField = "user_name";
             ddlNotification.DataBind();
             conn.Close();
-            for (int i = 0; i < ddlNotification.Items.Count; i++)
-            {
-                ddlNotification.Items[i].Selected = true;
-                ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
-            }
+            //for (int i = 0; i < ddlNotification.Items.Count; i++)
+            //{
+            //    ddlNotification.Items[i].Selected = true;
+            //    ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
+            //}
 
             cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'DSA'";
             //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
@@ -400,7 +400,7 @@ namespace ITLDashboard.Modules.Inventorymanagement
             else
             {
                 string fileExt = Path.GetExtension(fleUpload.PostedFile.FileName);
-                if (fileExt == ".pdf")
+                if (fileExt != ".pdf")
                 {
                     lblError.Text = "Please select only PDF file.";
                 }

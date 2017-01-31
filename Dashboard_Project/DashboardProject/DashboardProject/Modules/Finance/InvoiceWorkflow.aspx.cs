@@ -28,7 +28,7 @@ namespace DashboardProject.Modules.Finance
     {
         public string PdfPath;
         public string FormID = "203";
-        public string FilePath ="";
+        public string FilePath = "";
         public string filename = "";
         public string pathImage = "";
         public string User_ID = "";
@@ -109,7 +109,7 @@ namespace DashboardProject.Modules.Finance
                             lblFileName.Text = reader["FileName"].ToString();
                             txtSAPDNo.Text = reader["SAPDocNo"].ToString();
                         }
-                         GetHarcheyID();
+                        GetHarcheyID();
                         GetStatusHierachyCategoryControls();
                         BindsysApplicationStatus();
                         GetDCWDetail();
@@ -161,7 +161,7 @@ namespace DashboardProject.Modules.Finance
                             dvFormID.Visible = true;
                             dvTransactionNo.Visible = false;
                             btnDownload.Visible = true;
-                            
+
                         }
                         if (((string)ViewState["HID"]) == "3")
                         {
@@ -179,6 +179,22 @@ namespace DashboardProject.Modules.Finance
                             dvTransactionNo.Visible = false;
                             txtSAPDNo.Enabled = true;
                             btnDownload.Visible = true;
+                        }
+                        if (((string)ViewState["HID"]) == "5")
+                        {
+                            btnApproved.Visible = false;
+                            btnReject.Visible = false;
+                            btnSave.Visible = false;
+                            btnCancel.Visible = false;
+                            btnMDA.Visible = false;
+                            divEmail.Visible = false;
+                            dvFormID.Visible = true;
+                            dvTransactionNo.Visible = false;
+                            dvTransactionNo.Visible = false;
+                            btnShowFile.Visible = true;
+                            ViewState["Status"] = "05";
+                            ApplicationStatus();
+                            BindsysApplicationStatus();
                         }
                     }
                     else
@@ -280,6 +296,17 @@ namespace DashboardProject.Modules.Finance
                     return;
                 }
 
+                string Notification = "";
+                for (int i = 0; i <= ddlNotification.Items.Count - 1; i++)
+                {
+                    if (ddlNotification.Items[i].Selected)
+                    {
+                        if (Notification == "") { Notification = ddlNotification.Items[i].Value; }
+                        else { Notification += "," + ddlNotification.Items[i].Value; }
+                    }
+
+                }
+
                 FilePath = "~/DashboardDocument/InvoiceWorkFlow/" + lblFileName.Text.ToString();
                 string Approval = ddlEmailApproval.SelectedValue.Trim() + "," + ddlEmailApproval2nd.SelectedValue.Trim() + "," +
                     DropDownList1.SelectedValue.Trim() + "," + DropDownList2.SelectedValue.Trim() + "," +
@@ -294,10 +321,11 @@ namespace DashboardProject.Modules.Finance
                         " @FilePath='" + FilePath.ToString() + "', " +
                          "@APPROVAL='" + Approval.ToString() + "', " +
                           "@REVIEWER='" + ddlEmailMDA.SelectedValue + "', " +
+                           "@Notification='" + Notification.ToString() + "', " +
                           "@Remarks='" + txtRemarksReview.Text + "', " +
                            "@CreatedBy='" + Session["User_Name"].ToString() + "'";
 
-                
+
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
 
@@ -446,6 +474,16 @@ namespace DashboardProject.Modules.Finance
             DropDownList11.Items.Insert(0, new ListItem("------------Select------------", "0"));
             DropDownList12.Items.Insert(0, new ListItem("------------Select------------", "0"));
             ddlEmailMDA.Items.Insert(0, new ListItem("------------Select------------", "0"));
+
+            cmd.CommandText = "SELECT user_name,DisplayName FROM tbl_EmailToSpecificPerson where FormID = '203'";
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = conn;
+            conn.Open();
+            ddlNotification.DataSource = cmd.ExecuteReader();
+            ddlNotification.DataTextField = "DisplayName";
+            ddlNotification.DataValueField = "user_name";
+            ddlNotification.DataBind();
+            conn.Close();
 
         }
 

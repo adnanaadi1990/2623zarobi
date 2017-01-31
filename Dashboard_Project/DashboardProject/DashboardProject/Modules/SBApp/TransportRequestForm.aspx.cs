@@ -53,6 +53,7 @@ namespace ITLDashboard.Modules.SBApp
         public string url = "";
         public string urlMobile = "";
 
+        public string Transport = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.MaintainScrollPositionOnPostBack = true;
@@ -84,6 +85,7 @@ namespace ITLDashboard.Modules.SBApp
                     txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
                     if (Request.QueryString["TransactionNo"] != null)
                     {
+                      
                         //dvType.Visible = false;
                         BindPageLoad();
                         dvFormID.Visible = true;
@@ -103,7 +105,18 @@ namespace ITLDashboard.Modules.SBApp
                         GetHarcheyID();
                         getUserDetail();
                         GetStatusHierachyCategoryControls();
-
+                        if (ddlTransportTo.SelectedValue == "QAS 400")
+                        {
+                            Transport = "QAS 400";
+                        }
+                        else if (ddlTransportTo.SelectedValue == "PRD 500")
+                        {
+                            Transport = "PRD 400";
+                        }
+                        else if (ddlTransportTo.SelectedValue == "QAS 400 and PRD 500 Both")
+                        {
+                            Transport = "QAS 400";
+                        }
                         if (((string)ViewState["HID"]) == "1")
                         {
                             btnSave.Visible = false;
@@ -193,6 +206,18 @@ namespace ITLDashboard.Modules.SBApp
                                 madatorycolor();
                                 GetTransactionID();
                                 BindPageLoad();
+                                if (ddlTransportTo.SelectedValue == "QAS 400")
+                                {
+                                    Transport = "QAS 400";
+                                }
+                                else if (ddlTransportTo.SelectedValue == "PRD 500")
+                                {
+                                    Transport = "PRD 400";
+                                }
+                                else if (ddlTransportTo.SelectedValue == "QAS 400 and PRD 500 Both")
+                                {
+                                    Transport = "QAS 400";
+                                }
                             }
                             else
                             {
@@ -627,7 +652,7 @@ namespace ITLDashboard.Modules.SBApp
         protected void getUser()
         {
             cmd.CommandText = "";
-            cmd.CommandText = "Select user_name,DisplayName from tblusermodulecategory where Category like '%SAP Basis Consultant%'";
+            cmd.CommandText = "Select distinct user_name,DisplayName from tblusermodulecategory where Category like '%SAP Basis Consultant%'";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
             conn.Open();
@@ -740,7 +765,7 @@ namespace ITLDashboard.Modules.SBApp
             {
                 ViewState["StatusHierachyCategory"] = ds.Tables["tbl_SysHierarchyControl"].Rows[0]["Status"].ToString();
             }
-            if (((string)ViewState["StatusHierachyCategory"]) == "01" || ((string)ViewState["StatusHierachyCategory"]) == "02" || ((string)ViewState["StatusHierachyCategory"]) == "03" || ((string)ViewState["StatusHierachyCategory"]) == "04" || ((string)ViewState["StatusHierachyCategory"]) == "00" || ((string)ViewState["StatusHierachyCategory"]) == "06")
+            if (((string)ViewState["StatusHierachyCategory"]) == "01" || ((string)ViewState["StatusHierachyCategory"]) == "02" || ((string)ViewState["StatusHierachyCategory"]) == "03" || ((string)ViewState["StatusHierachyCategory"]) == "04" || ((string)ViewState["StatusHierachyCategory"]) == "00" || ((string)ViewState["StatusHierachyCategory"]) == "06" || ((string)ViewState["StatusHierachyCategory"]) == "07")
             {
                 btnSave.Enabled = false;
                 //btnApproved.Enabled = false;
@@ -1087,6 +1112,18 @@ namespace ITLDashboard.Modules.SBApp
                         TxtTRNo.Text = reader[4].ToString();
                         txtDescription.Text = reader[5].ToString();
                         txtLT.Text = reader["LongText"].ToString();
+                        if (ddlTransportTo.SelectedValue == "QAS 400")
+                        {
+                            Transport = "QAS 400";
+                        }
+                        else if (ddlTransportTo.SelectedValue == "PRD 500")
+                        {
+                            Transport = "PRD 400";
+                        }
+                        else if (ddlTransportTo.SelectedValue == "QAS 400 and PRD 500 Both")
+                        {
+                            Transport = "QAS 400";
+                        }
                     }
                     reader.Close();
                 }
@@ -1116,7 +1153,7 @@ namespace ITLDashboard.Modules.SBApp
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "Transport Request Form – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " has sent you a Transport Request Form against  Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL:  " +
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " has sent you a Transport Request For " + Transport.ToString() + " against  Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL:  " +
                     "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                     "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                     "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
@@ -1155,7 +1192,7 @@ namespace ITLDashboard.Modules.SBApp
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "Transport Request Form – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + ",<br><br> Transport request has been transported to " + ddlTransportTo.SelectedValue + " against Form ID # " + lblMaxTransactionID.Text.ToString() + " <br><br> The form can be reviewed at the following URL: " +
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + ",<br><br> Transport request has been transported to  " + Transport.ToString() + " against Form ID # " + lblMaxTransactionID.Text.ToString() + " <br><br> The form can be reviewed at the following URL: " +
                     "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                     "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                     "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
@@ -1247,7 +1284,7 @@ namespace ITLDashboard.Modules.SBApp
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "Transport Request Form – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ",<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to approved the information on the following URL:,<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to approved the information on the following URL:,<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to provide authorization for the information on the following URL:,<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to provide authorization for the information on the following URL:,<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to provide authorization for the information on the following URL: " +
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ",<br> <br> A Transport Request For " + Transport.ToString() + " against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to approved the information on the following URL:,<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to approved the information on the following URL:,<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to provide authorization for the information on the following URL:,<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to provide authorization for the information on the following URL:,<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to provide authorization for the information on the following URL: " +
                     "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                     "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                     "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
@@ -1278,7 +1315,7 @@ namespace ITLDashboard.Modules.SBApp
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                         EmailSubject = "Transport Request Form – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br><br> You can transport request on the following URL:<br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message.<br>" +
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A Transport Request For " + Transport.ToString() + " against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br><br> You can transport request on the following URL:<br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message.<br>" +
                              "User Rights Application <br> Information Systems Dashboard";
                         SessionUser = Session["User_Name"].ToString();
                         DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
@@ -1466,7 +1503,7 @@ namespace ITLDashboard.Modules.SBApp
                     ApplicationStatus();
                     BindsysApplicationStatus();
                     GetStatusHierachyCategoryControls();
-                    
+
                 }
             }
             catch (Exception ex)
