@@ -1393,7 +1393,7 @@ namespace DashboardProject.Modules.Master
                 conn.Close();
                 ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
 
-                cmd.CommandText = " SELECT user_name,DisplayName FROM tbl_EmailToSpecificPerson where FormID = '102'";
+                cmd.CommandText = " SELECT user_name,DisplayName FROM tbl_EmailToSpecificPerson where FormID = 'BOM'";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
                 conn.Open();

@@ -357,17 +357,17 @@ namespace DashboardProject.Modules.Inventorymanagement
             try
             {
 
-                cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'QAF'";
-                //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                conn.Open();
-                ddlEmailMDA.DataSource = cmd.ExecuteReader();
-                ddlEmailMDA.DataTextField = "DisplayName";
-                ddlEmailMDA.DataValueField = "user_name";
-                ddlEmailMDA.DataBind();
-                conn.Close();
-                ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
+                //cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'QAF'";
+                ////cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
+                //cmd.CommandType = CommandType.Text;
+                //cmd.Connection = conn;
+                //conn.Open();
+                //ddlEmailMDA.DataSource = cmd.ExecuteReader();
+                //ddlEmailMDA.DataTextField = "DisplayName";
+                //ddlEmailMDA.DataValueField = "user_name";
+                //ddlEmailMDA.DataBind();
+                //conn.Close();
+                //ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
 
                 cmd.CommandText = "SELECT user_name,DisplayName FROM tbl_EmailToSpecificPerson where FormID = 'QAF01'";
                 cmd.CommandType = CommandType.Text;
@@ -658,14 +658,14 @@ namespace DashboardProject.Modules.Inventorymanagement
                     lblError.Text = "Please Upload any file.";
                     return;
                 }
-                if (ddlEmailMDA.SelectedValue == "0")
-                {
-                    ddlEmailMDA.BackColor = System.Drawing.Color.Red;
-                    lblUpError.Text = "Please select any MDA";
-                    error.Visible = true;
-                    return;
+                //if (ddlEmailMDA.SelectedValue == "0")
+                //{
+                //    ddlEmailMDA.BackColor = System.Drawing.Color.Red;
+                //    lblUpError.Text = "Please select any MDA";
+                //    error.Visible = true;
+                //    return;
 
-                }
+                //}
 
                 if (txtDescription.Text == "")
                 {
@@ -696,7 +696,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                         " @APPROVAL='" + Approval.ToString() + "', " +
                         " @REVIEWER='', " +
                         " @Notification='" + Notification.ToString() + "', " +
-                        " @MDA='" + ddlEmailMDA.SelectedValue + "', " +
+                        " @MDA='', " +
                         " @CreatedBy='" + Session["User_Name"].ToString() + "', " +
                         " @Remarks = '" + txtRemarksReview.Text.ToString() + "'";
                 cmd.CommandType = CommandType.Text;
