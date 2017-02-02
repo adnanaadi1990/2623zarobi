@@ -450,7 +450,7 @@ namespace ITLDashboard.Modules.SBApp
                         {
                             ddlTransportTo.Items[i].Attributes.Add("disabled", "disabled");
                         }
-
+                        updatePRDTransportSuccessfully();
                         SP_MailForwardFormBasisMDAToAllONBoth();
                         ApplicationStatus();
                         BindsysApplicationStatus();
@@ -466,7 +466,8 @@ namespace ITLDashboard.Modules.SBApp
                         {
                             ddlTransportTo.Items[i].Attributes.Add("disabled", "disabled");
                         }
-
+                        updateQASTransportSuccessfully();
+                        updateTestingSuccessfully();
                         EmailWorkFirstHaracheyMDA();
                         ApplicationStatus();
                         BindsysApplicationStatus();
@@ -815,10 +816,6 @@ namespace ITLDashboard.Modules.SBApp
             }
         }
 
-
-
-
-
         protected void btnForward_Click(object sender, EventArgs e)
         {
 
@@ -827,6 +824,69 @@ namespace ITLDashboard.Modules.SBApp
         ///////////////////////////////////////////////////DROPDOWN EVENTS//////////////////////////////////////////////////////////
 
         ///////////////////////////////////////////////////Methods//////////////////////////////////////////////////////////
+
+        protected void updateQASTransportSuccessfully()
+        {
+            try
+            {
+                cmd.CommandText = @"SP_SYS_UpdateQASTransportSuccessfully";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = conn;
+
+                cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
+                cmd.Parameters.AddWithValue("@QASTransportSuccessfully", rbtransport.SelectedValue);
+                conn.Open();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = ex.ToString();
+            }
+        }
+
+        protected void updateTestingSuccessfully()
+        {
+            try
+            {
+                cmd.CommandText = @"SP_SYS_UpdateTestingSuccessfully";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = conn;
+
+                cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
+                cmd.Parameters.AddWithValue("@TestingSuccessfully", rbtesting.SelectedValue);
+                conn.Open();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = ex.ToString();
+            }
+        }
+
+        protected void updatePRDTransportSuccessfully()
+        {
+            try
+            {
+                cmd.CommandText = @"SP_SYS_UpdatePRDTransportSuccessfully";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = conn;
+
+                cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
+                cmd.Parameters.AddWithValue("@PRDTransportSuccessfully", rbFMDA.SelectedValue);
+                conn.Open();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = ex.ToString();
+            }
+        } 
 
         protected void getUser()
         {
@@ -964,6 +1024,7 @@ namespace ITLDashboard.Modules.SBApp
                 txtRemarksReview.Attributes.Add("disabled", "true");
                 rbtesting.Enabled = false;
                 rbtransport.Enabled = false;
+                rbFMDA.Enabled = false;
                 disabledListItem();
             }
         }
