@@ -2335,6 +2335,33 @@ namespace ITLDashboard.Classes
             }
         }
 
+        public DataSet MailForwardToAllFromConsltantToHOD(string TransactionNo, string FormID, string HierachyCategory, string SENDTO)
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "SP_MailForwardFormConsultantToHOD";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        cmd.Parameters.AddWithValue("@TransactionID", TransactionNo.ToString());
+                        cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
+                        cmd.Parameters.AddWithValue("@SendTo", SENDTO.ToString());
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "SP_MailForwardFormConsultantToHOD");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
+            }
+        }
+
         public DataSet MailForwardFromReviwerToMDA(string TransactionNo, string FormID, string HierachyCategory)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))

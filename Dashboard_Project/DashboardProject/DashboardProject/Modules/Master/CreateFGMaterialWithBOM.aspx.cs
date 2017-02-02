@@ -22,9 +22,10 @@ using System.Web.UI.HtmlControls;
 using System.Drawing;
 using ITLDashboard.Classes;
 
-namespace ITLDashboard.Modules.Master
+
+namespace DashboardProject.Modules.Master
 {
-    public partial class MaterialMasterMTypeCreation : System.Web.UI.Page
+    public partial class CreateFGMaterialWithBOM : System.Web.UI.Page
     {
         string value = "";
         public string TransactionID = "";
@@ -37,7 +38,7 @@ namespace ITLDashboard.Modules.Master
         public string DateTimeNow = "";
         public string url = "";
         public string urlMobile = "";
-        public string FormID = "103";
+        public string FormID = "104";
         public string FormType = "N";
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString.ToString());
         ComponentClass obj = new ComponentClass();
@@ -82,15 +83,15 @@ namespace ITLDashboard.Modules.Master
                 {
                     //divEmail.Visible = true;
                     //  BD.Visible = true;
-                    BindMaterialgroup();
-                    BindPlantMtype();
-                    BindPurchasingGroup();
-                    BindValuationClass();
-                    BindValuationCategoryMTYPE();
-                    BindBaseUnitOfMeasureMTYPR();
-                    BindMRPTypeMTYPE();
-                    BindMrpGroupMtype();
-                    BindMRPControllerMtype();
+                    ////BindMaterialgroup();
+                    ////BindPlantMtype();
+                    ////BindPurchasingGroup();
+                    ////BindValuationClass();
+                    ////BindValuationCategoryMTYPE();
+                    ////BindBaseUnitOfMeasureMTYPR();
+                    ////BindMRPTypeMTYPE();
+                    ////BindMrpGroupMtype();
+                    ////BindMRPControllerMtype();
                     // txtRemarksReview.Visible = true;
                     ddlMSG.BackColor = System.Drawing.Color.AliceBlue;
                     ddlMG.BackColor = System.Drawing.Color.AliceBlue;
@@ -115,7 +116,7 @@ namespace ITLDashboard.Modules.Master
                     {
 
                         txtStandardPrice.Enabled = false;
-                        BindPageLoad();
+                   ////     BindPageLoad();
                         dvFormID.Visible = true;
                         dvTransactionNo.Visible = false;
                         BD.Visible = true;
@@ -137,7 +138,7 @@ namespace ITLDashboard.Modules.Master
                         txtMSG.Visible = false;
                         ddlMSG.Visible = true;
                         grdWStatus.Visible = true;
-                        DisableControls(Page, false);
+                    ////    DisableControls(Page, false);
                         txtRemarks.Enabled = false;
                         btnSave.Visible = false;
                         btnSaveSubmit.Visible = false;
@@ -176,7 +177,7 @@ namespace ITLDashboard.Modules.Master
                         btnFUpdate.Visible = false;
                         btnReject.Visible = false;
                         btnUpdate.Visible = false;
-                         txtRemarksReview.Visible = true;
+                        txtRemarksReview.Visible = true;
                         // txtRemarks.Enabled = false;
                         btnApprover.Visible = false;
                         btnEdit.Visible = false;
@@ -217,7 +218,7 @@ namespace ITLDashboard.Modules.Master
                                 (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Deputy Manager Production") ||
                                 (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Assistant Manager"))
                             {
-                               
+
                                 BD.Visible = true;
                                 Prod.Visible = true;
                                 SD.Visible = true;
@@ -558,6 +559,8 @@ namespace ITLDashboard.Modules.Master
             }
         }
 
+        ////////////////////////////////////////Methods//////////////////////////////////////////////////////
+
         private void BindPageLoad()
         {
             try
@@ -825,7 +828,7 @@ namespace ITLDashboard.Modules.Master
                     {
                         ((CheckBox)(c)).Enabled = State;
                     }
-                   
+
                     if (c is RadioButton)
                     {
                         ((RadioButton)(c)).Enabled = State;
@@ -1008,7 +1011,7 @@ namespace ITLDashboard.Modules.Master
                             {
                                 rbNewWeightCheck.SelectedValue = reader["NetWeightCheck"].ToString();
                             }
-                            
+
                             ddlWeightunitBD.SelectedValue = reader["WeightUni"].ToString();
                             txtVolume.Text = reader["Volume"].ToString();
                             ddlVOLUMEUNIT.SelectedValue = reader["VolumeUnit"].ToString();
@@ -3055,17 +3058,17 @@ namespace ITLDashboard.Modules.Master
         {
             try
             {
-                    error.Visible = false;
-                    lblUpError.Text = "";
-                    sucess.Visible = false;
-                    lblmessage.Text = "";
-                    EmailWorkApproved();
-                    ApplicationStatus();
-                    BindsysApplicationStatus();
-                    GetStatusHierachyCategoryControls();
-                    Page.MaintainScrollPositionOnPostBack = true;
-                    lblEmail.Focus();
-             
+                error.Visible = false;
+                lblUpError.Text = "";
+                sucess.Visible = false;
+                lblmessage.Text = "";
+                EmailWorkApproved();
+                ApplicationStatus();
+                BindsysApplicationStatus();
+                GetStatusHierachyCategoryControls();
+                Page.MaintainScrollPositionOnPostBack = true;
+                lblEmail.Focus();
+
             }
 
             catch (Exception ex)
@@ -3362,7 +3365,7 @@ namespace ITLDashboard.Modules.Master
                     Page.MaintainScrollPositionOnPostBack = false;
                     return;
                 }
-               
+
                 else
                 {
                     string upplant = "";
@@ -3898,7 +3901,392 @@ namespace ITLDashboard.Modules.Master
             }
         }
 
-        /////////////////////////////
+
+        #region
+
+        /// <summary>  /////////////////////////////////////////////////////////////////////
+        /// 
+
+        private void GetHarcheyNextData()
+        {
+            GetHarcheyID();
+            DataTable HIDDataTable = (DataTable)ViewState["HIDDataSet"];
+            ds = obj.GetHarachyNextData(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
+            ViewState["GetHarachyNextDataDataSet"] = ds.Tables["GetHarachyNextData"];
+            if (HIDDataTable.Rows.Count > 0)
+            {
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+                {
+                    using (SqlCommand cmdInsertEmail = new SqlCommand())//
+                    {
+                        int ResultSequance = 0;
+                        int ResultSerialNo = 0;
+                        int Value = Convert.ToInt32(HIDDataTable.Rows[0]["Sequance"]);
+                        int _Temp = Convert.ToInt32(2);
+                        ResultSequance = Value + _Temp;
+                        int SerialNo = Convert.ToInt32(HIDDataTable.Rows[0]["SerialNo"]);
+                        int _TempSerialNo = Convert.ToInt32(2);
+                        ResultSerialNo = SerialNo + _TempSerialNo;
+
+                        DateTime today = DateTime.Now;
+                        cmdInsertEmail.Connection = connection;
+                        cmdInsertEmail.CommandType = CommandType.Text;
+                        cmdInsertEmail.CommandText = @"INSERT INTO sysWorkFlow
+           (FormID,TransactionID,CreatedBy,HierachyCategory,RoughtingUserID,Sequance,DateTime,SerialNo)
+     VALUES  ('" + FormID.ToString() + "','" + lblMaxTransactionID.Text.ToString() + "','" + HIDDataTable.Rows[0]["CreatedBy"] + "','" + HIDDataTable.Rows[0]["HierachyCategory"] + "','" + HIDDataTable.Rows[0]["RoughtingUserID"] + "','" + ResultSequance + "','" + today.ToString() + "','" + ResultSerialNo + "')";
+
+                        try
+                        {
+                            connection.Open();
+                            cmdInsertEmail.ExecuteNonQuery();
+
+                        }
+                        catch (SqlException e)
+                        {
+                            lblError.Text = e.ToString();
+                        }
+                        finally
+                        {
+                            connection.Close();
+                        }
+                    }
+                }
+            }
+            DataTable GetHarachyNextDataDataSet = (DataTable)ViewState["GetHarachyNextDataDataSet"];
+
+
+            if (ds.Tables["GetHarachyNextData"].Rows.Count > 0)
+            {
+                for (int i = 0; i < ds.Tables["GetHarachyNextData"].Rows.Count; i++)
+                {
+                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+                    {
+                        using (SqlCommand cmdInsertEmail = new SqlCommand())
+                        {
+                            int value = (int)ds.Tables["GetHarachyNextData"].Rows[i]["Sequance"] + 2;
+                            cmdInsertEmail.Connection = connection;
+                            cmdInsertEmail.CommandType = CommandType.Text;
+                            cmdInsertEmail.CommandText = @"update sysWorkFlow set Sequance = '" + value + "' where TransactionID = '" + lblMaxTransactionID.Text + "' and FormID = '" + FormID.ToString() + "' and HierachyCategory = '" + ViewState["HID"].ToString() + "'  and RoughtingUserID like '" + ds.Tables["GetHarachyNextData"].Rows[i]["RoughtingUserID"] + "%'  and Sequance = '" + ds.Tables["GetHarachyNextData"].Rows[i]["Sequance"] + "'  and SerialNo = '" + ds.Tables["GetHarachyNextData"].Rows[i]["SerialNo"] + "'";
+
+                            try
+                            {
+                                connection.Open();
+                                cmdInsertEmail.ExecuteNonQuery();
+
+                            }
+                            catch (SqlException e)
+                            {
+                                lblError.Text = e.ToString();
+                            }
+                            finally
+                            {
+                                connection.Close();
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+        private void GetHarcheyDataAndInsertNextRow()
+        {
+            ds = obj.GetHarachyNextData(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
+            if (ds.Tables["GetHarachyNextData"].Rows.Count > 0)
+            {
+                for (int i = 0; i < ds.Tables["GetHarachyNextData"].Rows.Count - 1; i++)
+                {
+                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+                    {
+                        using (SqlCommand cmdInsertEmail = new SqlCommand())//
+                        {
+                            int ResultSequance = 0;
+                            int Value = Convert.ToInt32(ds.Tables["GetHarachyNextData"].Rows[i]["Sequance"]);
+
+                            int _Temp = Convert.ToInt32(1);
+                            // ds.Tables["GetHarachyNextData"].Rows[i]["RoughtingUserID"] + "%'
+                            ResultSequance = Value + _Temp;
+                            DateTime today = DateTime.Today;
+                            cmdInsertEmail.Connection = connection;
+                            cmdInsertEmail.CommandType = CommandType.Text;
+                            cmdInsertEmail.CommandText = @"INSERT INTO sysWorkFlow
+           (FormID
+           ,TransactionID
+           ,CreatedBy
+           ,HierachyCategory
+           ,RoughtingUserID
+           ,Sequance
+           ,DateTime)
+     VALUES  ('" + FormID.ToString() + "','" + lblMaxTransactionID.Text.ToString() + "','" + ds.Tables["GetHarachyNextData"].Rows[i]["CreatedBy"].ToString() + "','" + ds.Tables["GetHarachyNextData"].Rows[i]["HierachyCategory"] + "','" + ds.Tables["GetHarachyNextData"].Rows[i]["RoughtingUserID"].ToString() + "','" + ResultSequance + "','" + today.ToString() + "')";
+
+                            try
+                            {
+                                connection.Open();
+                                cmdInsertEmail.ExecuteNonQuery();
+
+                            }
+                            catch (SqlException e)
+                            {
+                                lblError.Text = e.ToString();
+                            }
+                            finally
+                            {
+                                connection.Close();
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+        protected void InsertTransferEmail()
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            {
+                using (SqlCommand cmdInsertEmail = new SqlCommand())//
+                {
+                    int ResultSequance = 0;
+                    int _ResultSerialNo = 0;
+                    int Value = Convert.ToInt32(ViewState["Sequance"]);
+                    int _Temp = Convert.ToInt32(1);
+                    ResultSequance = Value + _Temp;
+
+                    int _ValueSerialNo = Convert.ToInt32(ViewState["SerialNo"]);
+                    int TempSerialNo = Convert.ToInt32(1);
+                    _ResultSerialNo = _ValueSerialNo + TempSerialNo;
+
+                    DateTime today = DateTime.Now;
+                    cmdInsertEmail.Connection = connection;
+                    cmdInsertEmail.CommandType = CommandType.Text;
+                    cmdInsertEmail.CommandText = @"INSERT INTO sysWorkFlow
+           (FormID
+           ,TransactionID
+           ,CreatedBy
+           ,HierachyCategory
+           ,RoughtingUserID
+           ,Sequance
+           ,DateTime
+            ,SerialNo)
+     VALUES  ('" + FormID.ToString() + "','" + lblMaxTransactionID.Text.ToString() + "','" + ViewState["FormCreatedBy"].ToString() + "','" + ViewState["HID"] + "','" + ddlTransferUser.SelectedValue.ToString() + "','" + ResultSequance + "','" + today.ToString() + "','" + _ResultSerialNo + "')";
+
+                    try
+                    {
+                        connection.Open();
+                        cmdInsertEmail.ExecuteNonQuery();
+
+                    }
+                    catch (SqlException e)
+                    {
+                        lblError.Text = e.ToString();
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+
+        }
+
+        protected void UpdateSerialNumberAll()
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            {
+                using (SqlCommand cmdInsertEmail = new SqlCommand())//
+                {
+
+                    cmdInsertEmail.CommandText = "UpdateSerialNo";
+                    cmdInsertEmail.CommandType = CommandType.StoredProcedure;
+                    cmdInsertEmail.Connection = connection;
+                    adp.SelectCommand = cmdInsertEmail;
+                    cmdInsertEmail.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
+                    cmdInsertEmail.Parameters.AddWithValue("@FormID", FormID.ToString());
+
+                    try
+                    {
+                        connection.Open();
+                        cmdInsertEmail.ExecuteNonQuery();
+
+                    }
+
+
+                    catch (SqlException e)
+                    {
+                        lblError.Text = e.ToString();
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void EMailForwardToForwarder()
+        {
+
+            ds = obj.MailForwardToForwarder(ddlTransferUser.SelectedValue.ToString());
+
+            if (ds.Tables["MailForwardToForwarder"].Rows.Count > 0)
+            {
+                DataTableReader reader = ds.Tables["MailForwardToForwarder"].CreateDataReader();
+                while (reader.Read())
+                {
+                    string url = Request.Url.ToString();
+                    TransactionID = lblMaxTransactionID.Text.ToString();
+                    FormCode = FormID.ToString();
+                    UserName = reader["DisplayName"].ToString();
+                    UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
+                    EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " has forward you a New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL: <br><br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, <br>you do not need to reply to this message.<br>" +
+                        "<br>Material Master Application <br> Information Systems Dashboard";
+                    SessionUser = Session["User_Name"].ToString();
+                    DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                    InsertEmail();
+                }
+            }
+            //}
+            else
+            {
+
+            }
+
+        }
+
+        protected void ddlValuationClass_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ddlPlant_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ddlMHOD.Items.Clear();
+                ddlMerchandiser.Items.Clear();
+                bindSLfromPlant();
+                getUser();
+                DataTable tblusermodulecategoryMerchandiser = (DataTable)ViewState["tblusermodulecategoryMerchandiser"];
+                DataView dvDataMerchandiser = new DataView(tblusermodulecategoryMerchandiser);
+                dvDataMerchandiser.RowFilter = "ModuleName like '%" + ddlPlant.SelectedValue.ToString() + "%' and Category = 'Merchandiser'";
+
+                ddlMerchandiser.DataSource = dvDataMerchandiser;
+                ddlMerchandiser.DataTextField = "DisplayName";
+                ddlMerchandiser.DataValueField = "user_name";
+                ddlMerchandiser.DataBind();
+                ddlMerchandiser.Items.Insert(0, new ListItem("------Select------", "0"));
+
+                //    DataView dvDataMerchandiserHOD = new DataView(tblusermodulecategoryMerchandiser);
+                dvDataMerchandiser.RowFilter = "ModuleName like '%" + ddlPlant.SelectedValue.ToString() + "%' and Category = 'Merchandiser HOD'";
+
+                ddlMHOD.DataSource = dvDataMerchandiser;
+                ddlMHOD.DataTextField = "DisplayName";
+                ddlMHOD.DataValueField = "user_name";
+                ddlMHOD.DataBind();
+                ddlMHOD.Items.Insert(0, new ListItem("------Select------", "0"));
+                //ds.Tables.Add(dvData.ToTable("tblusermodulecategoryMerchandiser"));
+                //ddlMerchandiser.DataTextField = ds.Tables["tblusermodulecategoryMerchandiser"].Columns["DisplayName"].ToString(); // text field name of table dispalyed in dropdown
+                //ddlMerchandiser.DataValueField = ds.Tables["tblusermodulecategoryMerchandiser"].Columns["user_name"].ToString();             // to retrive specific  textfield name 
+                //ddlMerchandiser.DataSource = ds.Tables["tblusermodulecategoryMerchandiser"];      //assigning datasource to the dropdownlist
+                //ddlMerchandiser.DataBind();  //binding dropdownlist
+                //ddlMerchandiser.Items.Insert(0, new ListItem("------Select------", "0"));
+
+                if (ddlPlant.SelectedValue == "1000")
+                {
+                    ddlMG.SelectedValue = "0006";
+                    bindMSGfromMG();
+                    ddlMG.Enabled = false;
+                }
+                else if (ddlPlant.SelectedValue == "2000")
+                {
+                    ddlMG.SelectedValue = "0007";
+                    bindMSGfromMG();
+                    ddlMG.Enabled = false;
+                }
+                else if (ddlPlant.SelectedValue == "3000")
+                {
+                    ddlMG.SelectedValue = "0005";
+                    bindMSGfromMG();
+                    ddlMG.Enabled = false;
+                }
+                else if (ddlPlant.SelectedValue == "7000")
+                {
+                    ddlMG.Enabled = true;
+                    bindMSGfromMG();
+                }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "ddlPlant_SelectedIndexChanged" + ex.ToString();
+            }
+        }
+
+        /// </summary>   /////////////////////////////////////////////////////////////////////
+        #endregion
+
+        /////////////////////////////////////////Methods////////////////////////////////////////////////////
+
+        ////////////////////////////////button Control /////////////////////////////////////////////////////
+
+        //protected void btnSave_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //protected void btnSaveSubmit_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //protected void btnTransfer_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //protected void btnApprover_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //protected void btnReject_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //protected void btnReviewed_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //protected void btnEdit_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //protected void btnUpdate_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //protected void btnFUpdate_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //protected void btnTUpdate_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //protected void btnCancel_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+        ///////////////////////////////////////////////////////button Control //////////////////////////////////
+
+        //////////////////////////////////////////////Email Methods//////////////////////////////////////////
 
         #region methodEmailWorks
 
@@ -4421,327 +4809,6 @@ namespace ITLDashboard.Modules.Master
 
         #endregion
 
-        #region
-
-        /// <summary>  /////////////////////////////////////////////////////////////////////
-        /// 
-
-        private void GetHarcheyNextData()
-        {
-            GetHarcheyID();
-            DataTable HIDDataTable = (DataTable)ViewState["HIDDataSet"];
-            ds = obj.GetHarachyNextData(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
-            ViewState["GetHarachyNextDataDataSet"] = ds.Tables["GetHarachyNextData"];
-            if (HIDDataTable.Rows.Count > 0)
-            {
-                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
-                {
-                    using (SqlCommand cmdInsertEmail = new SqlCommand())//
-                    {
-                        int ResultSequance = 0;
-                        int ResultSerialNo = 0;
-                        int Value = Convert.ToInt32(HIDDataTable.Rows[0]["Sequance"]);
-                        int _Temp = Convert.ToInt32(2);
-                        ResultSequance = Value + _Temp;
-                        int SerialNo = Convert.ToInt32(HIDDataTable.Rows[0]["SerialNo"]);
-                        int _TempSerialNo = Convert.ToInt32(2);
-                        ResultSerialNo = SerialNo + _TempSerialNo;
-
-                        DateTime today = DateTime.Now;
-                        cmdInsertEmail.Connection = connection;
-                        cmdInsertEmail.CommandType = CommandType.Text;
-                        cmdInsertEmail.CommandText = @"INSERT INTO sysWorkFlow
-           (FormID,TransactionID,CreatedBy,HierachyCategory,RoughtingUserID,Sequance,DateTime,SerialNo)
-     VALUES  ('" + FormID.ToString() + "','" + lblMaxTransactionID.Text.ToString() + "','" + HIDDataTable.Rows[0]["CreatedBy"] + "','" + HIDDataTable.Rows[0]["HierachyCategory"] + "','" + HIDDataTable.Rows[0]["RoughtingUserID"] + "','" + ResultSequance + "','" + today.ToString() + "','" + ResultSerialNo + "')";
-
-                        try
-                        {
-                            connection.Open();
-                            cmdInsertEmail.ExecuteNonQuery();
-
-                        }
-                        catch (SqlException e)
-                        {
-                            lblError.Text = e.ToString();
-                        }
-                        finally
-                        {
-                            connection.Close();
-                        }
-                    }
-                }
-            }
-            DataTable GetHarachyNextDataDataSet = (DataTable)ViewState["GetHarachyNextDataDataSet"];
-
-
-            if (ds.Tables["GetHarachyNextData"].Rows.Count > 0)
-            {
-                for (int i = 0; i < ds.Tables["GetHarachyNextData"].Rows.Count; i++)
-                {
-                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
-                    {
-                        using (SqlCommand cmdInsertEmail = new SqlCommand())
-                        {
-                            int value = (int)ds.Tables["GetHarachyNextData"].Rows[i]["Sequance"] + 2;
-                            cmdInsertEmail.Connection = connection;
-                            cmdInsertEmail.CommandType = CommandType.Text;
-                            cmdInsertEmail.CommandText = @"update sysWorkFlow set Sequance = '" + value + "' where TransactionID = '" + lblMaxTransactionID.Text + "' and FormID = '" + FormID.ToString() + "' and HierachyCategory = '" + ViewState["HID"].ToString() + "'  and RoughtingUserID like '" + ds.Tables["GetHarachyNextData"].Rows[i]["RoughtingUserID"] + "%'  and Sequance = '" + ds.Tables["GetHarachyNextData"].Rows[i]["Sequance"] + "'  and SerialNo = '" + ds.Tables["GetHarachyNextData"].Rows[i]["SerialNo"] + "'";
-
-                            try
-                            {
-                                connection.Open();
-                                cmdInsertEmail.ExecuteNonQuery();
-
-                            }
-                            catch (SqlException e)
-                            {
-                                lblError.Text = e.ToString();
-                            }
-                            finally
-                            {
-                                connection.Close();
-                            }
-                        }
-                    }
-                }
-
-            }
-        }
-
-        private void GetHarcheyDataAndInsertNextRow()
-        {
-            ds = obj.GetHarachyNextData(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString(), ViewState["HID"].ToString());
-            if (ds.Tables["GetHarachyNextData"].Rows.Count > 0)
-            {
-                for (int i = 0; i < ds.Tables["GetHarachyNextData"].Rows.Count - 1; i++)
-                {
-                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
-                    {
-                        using (SqlCommand cmdInsertEmail = new SqlCommand())//
-                        {
-                            int ResultSequance = 0;
-                            int Value = Convert.ToInt32(ds.Tables["GetHarachyNextData"].Rows[i]["Sequance"]);
-
-                            int _Temp = Convert.ToInt32(1);
-                            // ds.Tables["GetHarachyNextData"].Rows[i]["RoughtingUserID"] + "%'
-                            ResultSequance = Value + _Temp;
-                            DateTime today = DateTime.Today;
-                            cmdInsertEmail.Connection = connection;
-                            cmdInsertEmail.CommandType = CommandType.Text;
-                            cmdInsertEmail.CommandText = @"INSERT INTO sysWorkFlow
-           (FormID
-           ,TransactionID
-           ,CreatedBy
-           ,HierachyCategory
-           ,RoughtingUserID
-           ,Sequance
-           ,DateTime)
-     VALUES  ('" + FormID.ToString() + "','" + lblMaxTransactionID.Text.ToString() + "','" + ds.Tables["GetHarachyNextData"].Rows[i]["CreatedBy"].ToString() + "','" + ds.Tables["GetHarachyNextData"].Rows[i]["HierachyCategory"] + "','" + ds.Tables["GetHarachyNextData"].Rows[i]["RoughtingUserID"].ToString() + "','" + ResultSequance + "','" + today.ToString() + "')";
-
-                            try
-                            {
-                                connection.Open();
-                                cmdInsertEmail.ExecuteNonQuery();
-
-                            }
-                            catch (SqlException e)
-                            {
-                                lblError.Text = e.ToString();
-                            }
-                            finally
-                            {
-                                connection.Close();
-                            }
-                        }
-                    }
-                }
-
-            }
-        }
-
-        protected void InsertTransferEmail()
-        {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
-            {
-                using (SqlCommand cmdInsertEmail = new SqlCommand())//
-                {
-                    int ResultSequance = 0;
-                    int _ResultSerialNo = 0;
-                    int Value = Convert.ToInt32(ViewState["Sequance"]);
-                    int _Temp = Convert.ToInt32(1);
-                    ResultSequance = Value + _Temp;
-
-                    int _ValueSerialNo = Convert.ToInt32(ViewState["SerialNo"]);
-                    int TempSerialNo = Convert.ToInt32(1);
-                    _ResultSerialNo = _ValueSerialNo + TempSerialNo;
-
-                    DateTime today = DateTime.Now;
-                    cmdInsertEmail.Connection = connection;
-                    cmdInsertEmail.CommandType = CommandType.Text;
-                    cmdInsertEmail.CommandText = @"INSERT INTO sysWorkFlow
-           (FormID
-           ,TransactionID
-           ,CreatedBy
-           ,HierachyCategory
-           ,RoughtingUserID
-           ,Sequance
-           ,DateTime
-            ,SerialNo)
-     VALUES  ('" + FormID.ToString() + "','" + lblMaxTransactionID.Text.ToString() + "','" + ViewState["FormCreatedBy"].ToString() + "','" + ViewState["HID"] + "','" + ddlTransferUser.SelectedValue.ToString() + "','" + ResultSequance + "','" + today.ToString() + "','" + _ResultSerialNo + "')";
-
-                    try
-                    {
-                        connection.Open();
-                        cmdInsertEmail.ExecuteNonQuery();
-
-                    }
-                    catch (SqlException e)
-                    {
-                        lblError.Text = e.ToString();
-                    }
-                    finally
-                    {
-                        connection.Close();
-                    }
-                }
-            }
-
-        }
-
-        protected void UpdateSerialNumberAll()
-        {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
-            {
-                using (SqlCommand cmdInsertEmail = new SqlCommand())//
-                {
-
-                    cmdInsertEmail.CommandText = "UpdateSerialNo";
-                    cmdInsertEmail.CommandType = CommandType.StoredProcedure;
-                    cmdInsertEmail.Connection = connection;
-                    adp.SelectCommand = cmdInsertEmail;
-                    cmdInsertEmail.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
-                    cmdInsertEmail.Parameters.AddWithValue("@FormID", FormID.ToString());
-
-                    try
-                    {
-                        connection.Open();
-                        cmdInsertEmail.ExecuteNonQuery();
-
-                    }
-
-
-                    catch (SqlException e)
-                    {
-                        lblError.Text = e.ToString();
-                    }
-                    finally
-                    {
-                        connection.Close();
-                    }
-                }
-            }
-        }
-
-        private void EMailForwardToForwarder()
-        {
-
-            ds = obj.MailForwardToForwarder(ddlTransferUser.SelectedValue.ToString());
-
-            if (ds.Tables["MailForwardToForwarder"].Rows.Count > 0)
-            {
-                DataTableReader reader = ds.Tables["MailForwardToForwarder"].CreateDataReader();
-                while (reader.Read())
-                {
-                    string url = Request.Url.ToString();
-                    TransactionID = lblMaxTransactionID.Text.ToString();
-                    FormCode = FormID.ToString();
-                    UserName = reader["DisplayName"].ToString();
-                    UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
-                    EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " has forward you a New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL: <br><br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, <br>you do not need to reply to this message.<br>" +
-                        "<br>Material Master Application <br> Information Systems Dashboard";
-                    SessionUser = Session["User_Name"].ToString();
-                    DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-                    InsertEmail();
-                }
-            }
-            //}
-            else
-            {
-
-            }
-
-        }
-
-        protected void ddlValuationClass_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void ddlPlant_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                ddlMHOD.Items.Clear();
-                ddlMerchandiser.Items.Clear();
-                bindSLfromPlant();
-                getUser();
-                DataTable tblusermodulecategoryMerchandiser = (DataTable)ViewState["tblusermodulecategoryMerchandiser"];
-                DataView dvDataMerchandiser = new DataView(tblusermodulecategoryMerchandiser);
-                dvDataMerchandiser.RowFilter = "ModuleName like '%" + ddlPlant.SelectedValue.ToString() + "%' and Category = 'Merchandiser'";
-
-                ddlMerchandiser.DataSource = dvDataMerchandiser;
-                ddlMerchandiser.DataTextField = "DisplayName";
-                ddlMerchandiser.DataValueField = "user_name";
-                ddlMerchandiser.DataBind();
-                ddlMerchandiser.Items.Insert(0, new ListItem("------Select------", "0"));
-
-                //    DataView dvDataMerchandiserHOD = new DataView(tblusermodulecategoryMerchandiser);
-                dvDataMerchandiser.RowFilter = "ModuleName like '%" + ddlPlant.SelectedValue.ToString() + "%' and Category = 'Merchandiser HOD'";
-
-                ddlMHOD.DataSource = dvDataMerchandiser;
-                ddlMHOD.DataTextField = "DisplayName";
-                ddlMHOD.DataValueField = "user_name";
-                ddlMHOD.DataBind();
-                ddlMHOD.Items.Insert(0, new ListItem("------Select------", "0"));
-                //ds.Tables.Add(dvData.ToTable("tblusermodulecategoryMerchandiser"));
-                //ddlMerchandiser.DataTextField = ds.Tables["tblusermodulecategoryMerchandiser"].Columns["DisplayName"].ToString(); // text field name of table dispalyed in dropdown
-                //ddlMerchandiser.DataValueField = ds.Tables["tblusermodulecategoryMerchandiser"].Columns["user_name"].ToString();             // to retrive specific  textfield name 
-                //ddlMerchandiser.DataSource = ds.Tables["tblusermodulecategoryMerchandiser"];      //assigning datasource to the dropdownlist
-                //ddlMerchandiser.DataBind();  //binding dropdownlist
-                //ddlMerchandiser.Items.Insert(0, new ListItem("------Select------", "0"));
-
-                if (ddlPlant.SelectedValue == "1000")
-                {
-                    ddlMG.SelectedValue = "0006";
-                    bindMSGfromMG();
-                    ddlMG.Enabled = false;
-                }
-                else if (ddlPlant.SelectedValue == "2000")
-                {
-                    ddlMG.SelectedValue = "0007";
-                    bindMSGfromMG();
-                    ddlMG.Enabled = false;
-                }
-                else if (ddlPlant.SelectedValue == "3000")
-                {
-                    ddlMG.SelectedValue = "0005";
-                    bindMSGfromMG();
-                    ddlMG.Enabled = false;
-                }
-                else if (ddlPlant.SelectedValue == "7000")
-                {
-                    ddlMG.Enabled = true;
-                    bindMSGfromMG();
-                }
-            }
-            catch (SqlException ex)
-            {
-                lblError.Text = "ddlPlant_SelectedIndexChanged" + ex.ToString();
-            }
-        }
-
-        /// </summary>   /////////////////////////////////////////////////////////////////////
-        #endregion
+        //////////////////////////////////////////////Email Methods//////////////////////////////////////////
     }
 }

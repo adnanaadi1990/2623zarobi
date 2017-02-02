@@ -23,7 +23,7 @@
                 }
             });
         });
-       </script>
+    </script>
     <script type="text/javascript">
         $(function () {
             /*
@@ -82,7 +82,27 @@
     </script>
     <script type="text/javascript">
         function pageLoad() {
-            $('[id*=ddlEmailApproval],[id*=ddlEmailApproval2nd],[id*=DropDownList1],[id*=DropDownList2],[id*=DropDownList3],[id*=DropDownList4],[id*=DropDownList5],[id*=DropDownList6],[id*=DropDownList7],[id*=DropDownList8],[id*=DropDownList9],[id*=DropDownList10],[id*=DropDownList11],[id*=DropDownList12],[id*=ddlEmailMDA]').multiselect({
+            $('[id*=ddlNotification]').multiselect({
+                includeSelectAllOption: true,
+                buttonWidth: '100%',
+                enableFiltering: true,
+                filterPlaceholder: 'Search for something...',
+                maxHeight: 200,
+                enableCaseInsensitiveFiltering: true
+            });
+        }
+        var clicked = false;
+        function AllowOneClick() {
+            if (!clicked) {
+                clicked = true;
+                return true;
+            }
+            return false;
+        }
+    </script>
+    <script type="text/javascript">
+        function pageLoad() {
+            $('[id*=ddlEmailApproval],[id*=ddlEmailApproval2nd],[id*=DropDownList1],[id*=DropDownList2],[id*=DropDownList3],[id*=DropDownList4],[id*=DropDownList5],[id*=DropDownList6],[id*=DropDownList7],[id*=DropDownList8],[id*=DropDownList9],[id*=DropDownList10],[id*=DropDownList11],[id*=DropDownList12],[id*=ddlEmailMDA],[id*=ddlNotification]').multiselect({
                 includeSelectAllOption: true,
                 buttonWidth: '100%',
                 enableFiltering: true,
@@ -177,7 +197,7 @@
                         <span class="help-block"></span>
                         <div class="row">
                             <div class="col-sm-12">
-                                <asp:Label ID="lblMSGIWF" runat="server" Text="Note: Please first upload IWF before saving the form"></asp:Label>
+                                <asp:Label ID="lblMSGIWF" runat="server" Text="Note: Please first upload Invoice before saving the form"></asp:Label>
                             </div>
                         </div>
                     </div>
@@ -270,6 +290,10 @@
                                     Reviwer
                                        <asp:DropDownList ID="ddlEmailMDA" CssClass="form-control" runat="server">
                                        </asp:DropDownList>
+                                </div>
+                                <div class="col-sm-4">
+                                    Notification  
+                                       <asp:ListBox ID="ddlNotification" SelectionMode="Multiple" runat="server"></asp:ListBox>
                                 </div>
                             </div>
 

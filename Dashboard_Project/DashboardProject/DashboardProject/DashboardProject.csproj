@@ -709,6 +709,7 @@
     <Content Include="Modules\Inventorymanagement\SearchInventoryAdjustment.aspx" />
     <Content Include="Modules\Inventorymanagement\SearchQuotationApprovalrequests.aspx" />
     <Content Include="Modules\Master\BOMApproval.aspx" />
+    <Content Include="Modules\Master\CreateFGMaterialWithBOM.aspx" />
     <Content Include="Modules\Master\CreateMaterialMaster.aspx" />
     <Content Include="Modules\Master\MaterialMasterMtypeCreation.aspx" />
     <Content Include="Modules\Master\MM_Main.aspx" />
@@ -1167,6 +1168,13 @@
     </Compile>
     <Compile Include="Modules\Master\BOMApproval.aspx.designer.cs">
       <DependentUpon>BOMApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Master\CreateFGMaterialWithBOM.aspx.cs">
+      <DependentUpon>CreateFGMaterialWithBOM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Master\CreateFGMaterialWithBOM.aspx.designer.cs">
+      <DependentUpon>CreateFGMaterialWithBOM.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Master\CreateMaterialMaster.aspx.cs">
       <DependentUpon>CreateMaterialMaster.aspx</DependentUpon>
