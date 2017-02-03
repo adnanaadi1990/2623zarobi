@@ -1535,7 +1535,7 @@ namespace ITLDashboard.Modules.SBApp
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "Transport Request Form – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + ",<br><br> Checked your transport request against Form ID # " + lblMaxTransactionID.Text.ToString() + " <br><br> The form can be reviewed at the following URL: " +
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " Checked your transport request against Form ID # " + lblMaxTransactionID.Text.ToString() + " <br><br> The form can be reviewed at the following URL: " +
                     "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                     "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                     "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
@@ -1734,7 +1734,7 @@ namespace ITLDashboard.Modules.SBApp
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "Transport Request Form – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ",<br> <br> A Transport Request For " + Transport.ToString() + " against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to approved the information on the following URL:,<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to approved the information on the following URL:,<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to provide authorization for the information on the following URL:,<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to provide authorization for the information on the following URL:,<br> <br> A Transport Request Form against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to provide authorization for the information on the following URL: " +
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ",<br> <br> A Transport Request For " + Transport.ToString() + " against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to approved the information on the following URL: <br> " +
                     "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                     "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                     "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
@@ -1759,19 +1759,23 @@ namespace ITLDashboard.Modules.SBApp
                     while (reader.Read())
                     {
 
-                        url = Request.Url.ToString();
+                        url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local");
+                        urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110");
                         TransactionID = reader["TransactionID"].ToString();
                         FormCode = reader["FormID"].ToString();
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                         EmailSubject = "Transport Request Form – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A Transport Request For " + Transport.ToString() + " against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br><br> You can transport request on the following URL:<br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message.<br>" +
-                        "<br>SAP Basis Application<br>Information Systems Dashboard";
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ",<br> <br> Transport Request For " + Transport.ToString() + " against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to transport the information on the following URL: <br> " +
+                        "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                        "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                        "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                        "<br>SAP Basis Application<br> Information Systems Dashboard";
                         SessionUser = Session["User_Name"].ToString();
                         DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                         InsertEmail();
-                        ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
                         lblEmail.Text = "*Transport Request Form against Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
+                        ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
                         lblEmail.Focus();
                         Page.MaintainScrollPositionOnPostBack = false;
                         Page.MaintainScrollPositionOnPostBack = true;
