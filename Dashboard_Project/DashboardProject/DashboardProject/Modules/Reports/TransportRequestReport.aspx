@@ -156,6 +156,7 @@
                                          <asp:ListItem Value="SD">SD Sales Distribution</asp:ListItem>
                                          <asp:ListItem Value="QM">QM Quality Management</asp:ListItem>
                                          <asp:ListItem Value="FICO">FICO (Financial Accounting) and CO (Controlling)</asp:ListItem>
+                                          <asp:ListItem Value="ABAP">ABAP Advanced Business Application Programming</asp:ListItem>
                                      </asp:DropDownList>
                     </div>
                     <div class="col-sm-4" runat="server" id="Div2">
@@ -221,6 +222,14 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="Description" FilterControlAltText="Filter column4 column" HeaderText="Description" UniqueName="column4">
                                             </telerik:GridBoundColumn>  
+                                             <telerik:GridBoundColumn DataField="LongText" FilterControlAltText="Filter column4 column" HeaderText="Long Text" UniqueName="column4"> 
+                                            </telerik:GridBoundColumn> 
+                                            <telerik:GridBoundColumn DataField="QASTransportSuccessfully" FilterControlAltText="Filter column4 column" HeaderText="QAS Transport Successfully" UniqueName="column4"> 
+                                            </telerik:GridBoundColumn>  
+                                            <telerik:GridBoundColumn DataField="TestingSuccessfully" FilterControlAltText="Filter column4 column" HeaderText="Testing Successfully" UniqueName="column4"> 
+                                            </telerik:GridBoundColumn>  
+                                            <telerik:GridBoundColumn DataField="PRDTransportSuccessfully" FilterControlAltText="Filter column4 column" HeaderText="PRD Transport Successfully" UniqueName="column4"> 
+                                            </telerik:GridBoundColumn>   
                                             <telerik:GridBoundColumn DataField="Approver" FilterControlAltText="Filter column6 column" HeaderText="Approver" UniqueName="column6">
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="MDA" FilterControlAltText="Filter column7 column" HeaderText="MDA" UniqueName="column7">
