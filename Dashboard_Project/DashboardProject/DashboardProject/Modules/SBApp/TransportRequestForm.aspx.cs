@@ -466,8 +466,8 @@ namespace ITLDashboard.Modules.SBApp
                         {
                             ddlTransportTo.Items[i].Attributes.Add("disabled", "disabled");
                         }
-                        updateQASTransportSuccessfully();
-                        updateTestingSuccessfully();
+
+                        updateQASTransportSuccessfully();                    
                         EmailWorkFirstHaracheyMDA();
                         ApplicationStatus();
                         BindsysApplicationStatus();
@@ -738,6 +738,7 @@ namespace ITLDashboard.Modules.SBApp
                         {
                             ddlTransportTo.Items[i].Attributes.Add("disabled", "disabled");
                         }
+                        updateTestingSuccessfully();
                         InsertUserExtra();
                         SP_MailForwardFormConsultantToHOD();
                         // InsertEmailHOD();
@@ -756,6 +757,7 @@ namespace ITLDashboard.Modules.SBApp
                         {
                             ddlTransportTo.Items[i].Attributes.Add("disabled", "disabled");
                         }
+                        updateTestingSuccessfully();
                         EmailWorkFirstHaracheyConsultant();
                         // InsertEmailHOD();
                         ApplicationStatus();
@@ -827,64 +829,82 @@ namespace ITLDashboard.Modules.SBApp
 
         protected void updateQASTransportSuccessfully()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                cmd.CommandText = @"SP_SYS_UpdateQASTransportSuccessfully";
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = conn;
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    try
+                    {
+                        cmd.CommandText = @"SP_SYS_UpdateQASTransportSuccessfully";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
 
-                cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
-                cmd.Parameters.AddWithValue("@QASTransportSuccessfully", rbtransport.SelectedValue);
-                conn.Open();
+                        cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
+                        cmd.Parameters.AddWithValue("@QASTransportSuccessfully", rbtransport.SelectedValue);
+                        connection.Open();
 
-                cmd.ExecuteNonQuery();
-                conn.Close();
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = ex.ToString();
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        lblError.Text = "updateQASTransportSuccessfully" + ex.ToString();
+                    }
+                }
             }
         }
 
         protected void updateTestingSuccessfully()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                cmd.CommandText = @"SP_SYS_UpdateTestingSuccessfully";
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = conn;
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    try
+                    {
+                        cmd.CommandText = @"SP_SYS_UpdateTestingSuccessfully";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
 
-                cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
-                cmd.Parameters.AddWithValue("@TestingSuccessfully", rbtesting.SelectedValue);
-                conn.Open();
+                        cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
+                        cmd.Parameters.AddWithValue("@TestingSuccessfully", rbtesting.SelectedValue);
+                        connection.Open();
 
-                cmd.ExecuteNonQuery();
-                conn.Close();
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = ex.ToString();
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        lblError.Text = "updateTestingSuccessfully" + ex.ToString();
+                    }
+                }
             }
         }
 
         protected void updatePRDTransportSuccessfully()
         {
-            try
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
             {
-                cmd.CommandText = @"SP_SYS_UpdatePRDTransportSuccessfully";
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = conn;
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    try
+                    {
+                        cmd.CommandText = @"SP_SYS_UpdatePRDTransportSuccessfully";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
 
-                cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
-                cmd.Parameters.AddWithValue("@PRDTransportSuccessfully", rbFMDA.SelectedValue);
-                conn.Open();
+                        cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
+                        cmd.Parameters.AddWithValue("@PRDTransportSuccessfully", rbFMDA.SelectedValue);
+                        connection.Open();
 
-                cmd.ExecuteNonQuery();
-                conn.Close();
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = ex.ToString();
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        lblError.Text = "updatePRDTransportSuccessfully" + ex.ToString();
+                    }
+                }
             }
         } 
 
@@ -1477,7 +1497,7 @@ namespace ITLDashboard.Modules.SBApp
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
 
-                    lblmessage.Text = " Request has been transported to PRD against Form ID  # " + lblMaxTransactionID.Text;
+                    lblmessage.Text = " Request has been transported against Form ID  # " + lblMaxTransactionID.Text;
 
                     lblmessage.ForeColor = System.Drawing.Color.Green;
                     conn.Close();
