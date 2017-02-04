@@ -213,10 +213,10 @@ namespace DashboardProject.Modules.Master
                         if (((string)ViewState["HID"]) == "2")
                         {
                             if ((((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Senior Merchandiser") ||
-                                (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Software Developer") ||
-                              (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Team Lead") ||
-                                (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Deputy Manager Production") ||
-                                (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Assistant Manager"))
+                               (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Software Developer") ||
+                               (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Team Lead") ||
+                               (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Deputy Manager Production") ||
+                               (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Assistant Manager"))
                             {
 
                                 BD.Visible = true;

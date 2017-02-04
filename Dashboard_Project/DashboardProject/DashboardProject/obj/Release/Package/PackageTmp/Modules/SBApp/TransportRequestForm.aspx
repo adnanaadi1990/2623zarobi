@@ -159,7 +159,7 @@
                             </div>
                             <div class="col-sm-4" runat="server" id="dvTransportTo">
                                 Transport To                     
-                                 <asp:ListBox ID="ddlTransportTo" runat="server" CssClass="form-control"  AppendDataBoundItems="True"></asp:ListBox>
+                                 <asp:ListBox ID="ddlTransportTo" runat="server" CssClass="form-control" AppendDataBoundItems="True"></asp:ListBox>
                             </div>
                             <div class="col-sm-4" runat="server" id="dvTRNo">
                                 Transport No
@@ -201,6 +201,15 @@
                        </asp:RadioButtonList>
                             </div>
                         </div>
+                        <div class="row" runat="server" id="rbFinalMDA" visible="false">
+                            <div class="col-sm-2">
+                                Transport Successfully
+                       <asp:RadioButtonList ID="rbFMDA" runat="server" RepeatDirection="Horizontal">
+                           <asp:ListItem Selected="True">Yes</asp:ListItem>
+                           <asp:ListItem>No</asp:ListItem>
+                       </asp:RadioButtonList>
+                            </div>
+                        </div>
                         <span class="help-block"></span>
                     </div>
                 </div>
@@ -227,10 +236,10 @@
                                 Function Consultant
                                        <asp:DropDownList ID="ddlFC" SelectionMode="Multiple" CssClass="form-control" runat="server"></asp:DropDownList>
                             </div>--%>
-                             <div class="col-sm-3"></div>
+                            <div class="col-sm-3"></div>
                             <div class="col-sm-3">
                                 Function Lead
-                                        <asp:DropDownList ID="ddlFLead" runat="server" CssClass="form-control" CausesValidation="True" ></asp:DropDownList>
+                                        <asp:DropDownList ID="ddlFLead" runat="server" CssClass="form-control" CausesValidation="True"></asp:DropDownList>
                             </div>
 
                             <div class="col-sm-3">
@@ -242,42 +251,41 @@
                                 Head Of Deparment
                                        <asp:Label ID="lblHOD" runat="server" CssClass="form-control"></asp:Label>
                             </div>
-                            <div class="col-sm-3"> </div>
+                            <div class="col-sm-3"></div>
                         </div>
                     </div>
-              
             </asp:Panel>
-  </div>
+        </div>
 
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <asp:TextBox ID="txtRemarksReview" runat="server" CssClass="form-control" Height="80px" TextMode="MultiLine" PlaceHolder="Comment Box" Visible="False" BackColor="AliceBlue"></asp:TextBox>
-                        </div>
-                    </div>
-                    <span class="help-block"></span>
-                    <div class="col-sm-12" style="text-align: left;" runat="server" id="dvemaillbl">
-                        <%--<%# Eval("Numerator") %>--%>
-                        <asp:Label ID="lblEmail" runat="server" Font-Bold="False" ForeColor="Blue" Font-Names="Berlin Sans FB"></asp:Label>
-                        <asp:Label ID="lblError" runat="server" Font-Bold="False" ForeColor="Red" Font-Names="Berlin Sans FB"></asp:Label>
-                        <asp:Label ID="lblProgress" runat="server" Font-Bold="False" ForeColor="Black" Font-Names="Berlin Sans FB"></asp:Label>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <asp:TextBox ID="txtRemarksReview" runat="server" CssClass="form-control" Height="80px" TextMode="MultiLine" PlaceHolder="Comment Box" Visible="False" BackColor="AliceBlue"></asp:TextBox>
                     </div>
                 </div>
                 <span class="help-block"></span>
+                <div class="col-sm-12" style="text-align: left;" runat="server" id="dvemaillbl">
+                    <%--<%# Eval("Numerator") %>--%>
+                    <asp:Label ID="lblEmail" runat="server" Font-Bold="False" ForeColor="Blue" Font-Names="Berlin Sans FB"></asp:Label>
+                    <asp:Label ID="lblError" runat="server" Font-Bold="False" ForeColor="Red" Font-Names="Berlin Sans FB"></asp:Label>
+                    <asp:Label ID="lblProgress" runat="server" Font-Bold="False" ForeColor="Black" Font-Names="Berlin Sans FB"></asp:Label>
+                </div>
             </div>
+            <span class="help-block"></span>
         </div>
+    </div>
 
-        <div class="col-sm-12" style="text-align: center;">
+    <div class="col-sm-12" style="text-align: center;">
 
-            <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Text="Save" ValidationGroup="grpSa" Width="60px" OnClick="btnSave_Click"></asp:Button>
-            <asp:Button ID="btnApprover" runat="server" CssClass="btn btn-primary" Text="Approve" Visible="False" Width="100px" CausesValidation="False" OnClick="btnApprover_Click" />
-            <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-primary" Text="Submit" CausesValidation="False" OnClick="btnSubmit_Click" Width="100px" Visible="False"></asp:Button>
-            <asp:Button ID="btnSubmitCons" runat="server" CssClass="btn btn-primary" Text="Submit" CausesValidation="False" Width="100px" Visible="False" OnClick="btnSubmitCons_Click"></asp:Button>
-            <asp:Button ID="Button1" runat="server" CssClass="btn btn-primary" Text="Reject" OnClick="btnReject_Click" Width="100px" CausesValidation="False" Visible="False"></asp:Button>
-            <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-primary" Text="Reset Form" CausesValidation="False" Width="100px" OnClick="btnCancel_Click"></asp:Button>
-            <asp:Label ID="lbltest" runat="server" Font-Bold="False" ForeColor="Blue" Font-Names="Berlin Sans FB"></asp:Label>
-        </div>
+        <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Text="Save" ValidationGroup="grpSa" Width="60px" OnClick="btnSave_Click"></asp:Button>
+        <asp:Button ID="btnApprover" runat="server" CssClass="btn btn-primary" Text="Approve" Visible="False" Width="100px" CausesValidation="False" OnClick="btnApprover_Click" />
+        <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-primary" Text="Submit" CausesValidation="False" OnClick="btnSubmit_Click" Width="100px" Visible="False"></asp:Button>
+        <asp:Button ID="btnSubmitCons" runat="server" CssClass="btn btn-primary" Text="Submit" CausesValidation="False" Width="100px" Visible="False" OnClick="btnSubmitCons_Click"></asp:Button>
+        <asp:Button ID="Button1" runat="server" CssClass="btn btn-primary" Text="Reject" OnClick="btnReject_Click" Width="100px" CausesValidation="False" Visible="False"></asp:Button>
+        <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-primary" Text="Reset Form" CausesValidation="False" Width="100px" OnClick="btnCancel_Click"></asp:Button>
+        <asp:Label ID="lbltest" runat="server" Font-Bold="False" ForeColor="Blue" Font-Names="Berlin Sans FB"></asp:Label>
+    </div>
     </div>
 
     <div class="panel-body fixed-panel">

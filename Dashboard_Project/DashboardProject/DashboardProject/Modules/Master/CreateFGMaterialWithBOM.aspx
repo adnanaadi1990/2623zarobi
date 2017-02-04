@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="CreateFGMaterialWithBOM.aspx.cs" Inherits="DashboardProject.Modules.Master.CreateFGMaterialWithBOM" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="../../Scripts/jquery-1.9.1.min.js"></script>
     <script src="../../Scripts/bootstrap.min.js"></script>
     <%--<link href="../../Content/bootstrap.min.css" rel="stylesheet" />--%>
@@ -188,7 +188,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    
+
     <div class="container" style="width: 100%; margin-top: 20px;">
 
         <div class="alert alert-success" id="sucess" runat="server" visible="false">
@@ -1150,6 +1150,42 @@
                                       <asp:DropDownList ID="ddlMerchandiser" runat="server" CssClass="form-control"></asp:DropDownList>
                             </div>
                             <div class="col-sm-3">
+                                Stiching Department
+                                      <asp:DropDownList ID="ddlStichingDep" runat="server" CssClass="form-control"></asp:DropDownList>
+                            </div>
+                            <div class="col-sm-3">
+                                Stiching Head Of Deparment
+                                       <asp:Label ID="lblStichingHOD" runat="server" CssClass="form-control"></asp:Label>
+                            </div>
+                            <div class="col-sm-3">
+                                Cutting Department
+                                      <asp:DropDownList ID="ddlCuttingDep" runat="server" CssClass="form-control"></asp:DropDownList>
+                            </div>
+                            <div class="col-sm-3">
+                                Cutting Head Of Deparment
+                                       <asp:Label ID="lblCuttingHOD" runat="server" CssClass="form-control"></asp:Label>
+                            </div>
+                            <div class="col-sm-3">
+                                Processing Department
+                                      <asp:DropDownList ID="ddlProcessingDep" runat="server" CssClass="form-control"></asp:DropDownList>
+                            </div>
+                            <div class="col-sm-3">
+                                Processing Head Of Deparment
+                                       <asp:Label ID="lblProcessingHOD" runat="server" CssClass="form-control"></asp:Label>
+                            </div>
+                            <div class="col-sm-3">
+                                Weaving Department
+                                      <asp:DropDownList ID="ddlWeavingDep" runat="server" CssClass="form-control"></asp:DropDownList>
+                            </div>
+                            <div class="col-sm-3">
+                                Weaving Head Of Deparment
+                                       <asp:Label ID="lblWeavingHOD" runat="server" CssClass="form-control"></asp:Label>
+                            </div>
+                            <div class="col-sm-4">
+                                Notification  
+                                       <asp:ListBox ID="ddlNotification" SelectionMode="Multiple" runat="server"></asp:ListBox>
+                            </div>
+                            <div class="col-sm-3">
                                 Taxes
                                       <asp:DropDownList ID="ddlTaxes" runat="server" CssClass="form-control"></asp:DropDownList>
                             </div>
@@ -1208,7 +1244,7 @@
     <div class="col-sm-12" style="text-align: center;">
         <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Text="Save" OnClientClick="return AllowOneClick()" OnClick="btnSave_Click" ValidationGroup="grpSa" Width="60px"></asp:Button>
         <asp:Button ID="btnSaveSubmit" runat="server" CssClass="btn btn-primary" OnClientClick="return AllowOneClick()" Text="Save / Submit" OnClick="btnSaveSubmit_Click" Width="120px" Visible="False" ValidationGroup="grpSave" CausesValidation="False"></asp:Button>
-        <asp:LinkButton ID="btnTransfer" runat="server" class="btn btn-primary" data-target="#TansferModel" data-toggle="modal" Text="Transfer Form" Visible="False" CssClass="btn btn-primary" OnClick="btnTransfer_Click"></asp:LinkButton>
+        <asp:LinkButton ID="btnTransfer" runat="server" class="btn btn-primary" data-target="#TansferModel" data-toggle="modal" Text="Transfer Form" Visible="False" CssClass="btn btn-primary"> </asp:LinkButton>
         <asp:Button ID="btnApprover" runat="server" OnClick="btnApprover_Click" CssClass="btn btn-primary" Text="Approved" Visible="False" CausesValidation="False" />
         <asp:Button ID="btnReject" runat="server" CssClass="btn btn-primary" Text="Reject" OnClick="btnReject_Click" Width="100px" CausesValidation="False" Visible="False"></asp:Button>
         <%--   <%# Eval("Denominator") %>--%>

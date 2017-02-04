@@ -1057,6 +1057,87 @@ namespace DashboardProject.Modules.Master {
         protected global::System.Web.UI.WebControls.DropDownList ddlMerchandiser;
         
         /// <summary>
+        /// ddlStichingDep control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlStichingDep;
+        
+        /// <summary>
+        /// lblStichingHOD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStichingHOD;
+        
+        /// <summary>
+        /// ddlCuttingDep control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCuttingDep;
+        
+        /// <summary>
+        /// lblCuttingHOD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCuttingHOD;
+        
+        /// <summary>
+        /// ddlProcessingDep control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlProcessingDep;
+        
+        /// <summary>
+        /// lblProcessingHOD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblProcessingHOD;
+        
+        /// <summary>
+        /// ddlWeavingDep control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlWeavingDep;
+        
+        /// <summary>
+        /// lblWeavingHOD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblWeavingHOD;
+        
+        /// <summary>
+        /// ddlNotification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox ddlNotification;
+        
+        /// <summary>
         /// ddlTaxes control.
         /// </summary>
         /// <remarks>
