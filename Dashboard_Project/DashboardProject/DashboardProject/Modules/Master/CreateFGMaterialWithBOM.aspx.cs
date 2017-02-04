@@ -43,6 +43,7 @@ namespace DashboardProject.Modules.Master
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString.ToString());
         ComponentClass obj = new ComponentClass();
         ComponentClass_FK objFK = new ComponentClass_FK();
+        ComponentClass_FD objFD = new ComponentClass_FD();
         DataTable dt = new DataTable();
         DataTable dtcon = new DataTable();
         DataSet ds = new DataSet();
@@ -83,15 +84,15 @@ namespace DashboardProject.Modules.Master
                 {
                     //divEmail.Visible = true;
                     //  BD.Visible = true;
-                    ////BindMaterialgroup();
-                    ////BindPlantMtype();
-                    ////BindPurchasingGroup();
-                    ////BindValuationClass();
-                    ////BindValuationCategoryMTYPE();
-                    ////BindBaseUnitOfMeasureMTYPR();
-                    ////BindMRPTypeMTYPE();
-                    ////BindMrpGroupMtype();
-                    ////BindMRPControllerMtype();
+                    BindMaterialgroup();
+                    BindPlantMtype();
+                    BindPurchasingGroup();
+                    BindValuationClass();
+                    BindValuationCategoryMTYPE();
+                    BindBaseUnitOfMeasureMTYPR();
+                    BindMRPTypeMTYPE();
+                    BindMrpGroupMtype();
+                    BindMRPControllerMtype();
                     // txtRemarksReview.Visible = true;
                     ddlMSG.BackColor = System.Drawing.Color.AliceBlue;
                     ddlMG.BackColor = System.Drawing.Color.AliceBlue;
@@ -116,7 +117,7 @@ namespace DashboardProject.Modules.Master
                     {
 
                         txtStandardPrice.Enabled = false;
-                   ////     BindPageLoad();
+                        BindPageLoad();
                         dvFormID.Visible = true;
                         dvTransactionNo.Visible = false;
                         BD.Visible = true;
@@ -138,7 +139,7 @@ namespace DashboardProject.Modules.Master
                         txtMSG.Visible = false;
                         ddlMSG.Visible = true;
                         grdWStatus.Visible = true;
-                    ////    DisableControls(Page, false);
+                        DisableControls(Page, false);
                         txtRemarks.Enabled = false;
                         btnSave.Visible = false;
                         btnSaveSubmit.Visible = false;
@@ -184,7 +185,7 @@ namespace DashboardProject.Modules.Master
                         btnForward.Visible = false;
                         btnTransfer.Visible = false;
                         btnTransfer.Visible = false;
-
+                        BindGridBOM();
                         if (((string)ViewState["HID"]) == "1")
                         {
                             btnSaveSubmit.Visible = false;
@@ -347,6 +348,37 @@ namespace DashboardProject.Modules.Master
                                 btnTransfer.Visible = false;
                                 controlForwardHide();
                             }
+                            else if ((((string)ViewState["Department"]) == "New Terry Stitching") || ((string)ViewState["Department"]) == "Old Terry Stitching")
+                            {                   
+                                if ((((string)ViewState["Sequance"]) == "2"))
+                                {
+                                    dvBOM.Visible = true;
+                                    btnSubmitStiching.Visible = true;
+                                    BD.Visible = true;
+                                    Prod.Visible = true;
+                                    SD.Visible = true;
+                                    QM.Visible = true;
+                                    MRP.Visible = true;
+                                    ddlRate.Enabled = true;
+                                    ddlRebatecategoryRate.Enabled = true;
+                                    ////////////BTN//////////////
+                                    btnReject.Visible = true;
+                                    btnTUpdate.Visible = false;
+                                    btnUpdate.Visible = false;
+                                    txtRemarksReview.Visible = true;
+                                    txtRemarks.Enabled = false;
+                                    txtRemarksReview.Visible = true;
+                                    btnApprover.Visible = false;
+                                    btnEdit.Visible = false;
+                                    btnForward.Visible = false;
+                                    btnTransfer.Visible = false;
+                                    ddlRate.BackColor = System.Drawing.Color.AliceBlue;
+                                    ddlRebatecategoryRate.BackColor = System.Drawing.Color.AliceBlue;
+                                    controlForwardHide();
+                                        
+                                }
+                            }
+
                             else if ((((string)ViewState["Department"]) == "Trade and Tax") || ((string)ViewState["Department"]) == "Trade and taxes")
                             {
                                 BD.Visible = true;
@@ -540,6 +572,7 @@ namespace DashboardProject.Modules.Master
                                 getUserDetail();
                                 GetTransactionID();
                                 BindPageLoad();
+                                BindGridBOM();
                             }
                             else
                             {
@@ -560,6 +593,28 @@ namespace DashboardProject.Modules.Master
         }
 
         ////////////////////////////////////////Methods//////////////////////////////////////////////////////
+
+        private void BindGridBOM()
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt.Columns.AddRange(new DataColumn[8] { new DataColumn("TransactionID"), new DataColumn("ComponentType"), new DataColumn("Material"), new DataColumn("MaterialDescription"), new DataColumn("Quantity"), new DataColumn("UOM"), new DataColumn("StoreLocation"), new DataColumn("Dept") });
+                DataColumn c = new DataColumn("sno", typeof(int));
+                c.AutoIncrement = true;
+                c.AutoIncrementSeed = 1;
+                c.AutoIncrementStep = 1;
+                dt.Columns.Add(c);
+                ViewState["BOMGrid"] = dt;
+                GridView2.DataSource = (DataTable)ViewState["BOMGrid"];
+                GridView2.DataBind();
+                GridView2.Columns[0].Visible = true;
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "BindGrid" + ex.ToString();
+            }
+        }
 
         private void BindPageLoad()
         {
@@ -971,7 +1026,7 @@ namespace DashboardProject.Modules.Master
 
                         conn.Close();
                         string a = Request.QueryString["TransactionNo"].ToString();
-                        cmdGetData.CommandText = @"SP_GetMaterialData";
+                        cmdGetData.CommandText = @"SP_GetMaterialDataFGBOM";
                         cmdGetData.CommandType = CommandType.StoredProcedure;
                         cmdGetData.Connection = connection;
                         cmdGetData.Parameters.AddWithValue("@TMAIN", a.ToString());
@@ -1166,6 +1221,70 @@ namespace DashboardProject.Modules.Master
                 conn.Close();
 
                 cmd.CommandText = "";
+                cmd.CommandText = "select * from tblusermodulecategory where Category = 'Stitching'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                conn.Open();
+                ddlStichingDep.DataSource = cmd.ExecuteReader();
+                ddlStichingDep.DataTextField = "DisplayName";
+                ddlStichingDep.DataValueField = "user_name";
+                ddlStichingDep.DataBind();
+                ddlStichingDep.Items.Insert(0, new ListItem("------Select------", "0"));
+                conn.Close();
+
+                cmd.CommandText = "";
+                cmd.CommandText = "select * from tblusermodulecategory where Category = 'Cutting'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                conn.Open();
+                ddlCuttingDep.DataSource = cmd.ExecuteReader();
+                ddlCuttingDep.DataTextField = "DisplayName";
+                ddlCuttingDep.DataValueField = "user_name";
+                ddlCuttingDep.DataBind();
+                ddlCuttingDep.Items.Insert(0, new ListItem("------Select------", "0"));
+                conn.Close();
+
+                cmd.CommandText = "";
+                cmd.CommandText = "select * from tblusermodulecategory where Category = 'Processing'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                conn.Open();
+                ddlProcessingDep.DataSource = cmd.ExecuteReader();
+                ddlProcessingDep.DataTextField = "DisplayName";
+                ddlProcessingDep.DataValueField = "user_name";
+                ddlProcessingDep.DataBind();
+                ddlProcessingDep.Items.Insert(0, new ListItem("------Select------", "0"));
+                conn.Close();
+
+                cmd.CommandText = "";
+                cmd.CommandText = "select * from tblusermodulecategory where Category = 'Weaving'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                conn.Open();
+                ddlWeavingDep.DataSource = cmd.ExecuteReader();
+                ddlWeavingDep.DataTextField = "DisplayName";
+                ddlWeavingDep.DataValueField = "user_name";
+                ddlWeavingDep.DataBind();
+                ddlWeavingDep.Items.Insert(0, new ListItem("------Select------", "0"));
+                conn.Close();
+
+
+                //cmd.CommandText = "";
+                //cmd.CommandText = "select * from tblusermodulecategory where Category = 'Stitching'";
+                //cmd.CommandType = CommandType.Text;
+                //cmd.Connection = conn;
+                //conn.Open();
+                //lblStichingHOD.DataSource = cmd.ExecuteReader();
+                //lblStichingHOD.DataTextField = "DisplayName";
+                //lblStichingHOD.DataValueField = "user_name";
+                //lblStichingHOD.DataBind();
+                //lblStichingHOD.Items.Insert(0, new ListItem("------Select------", "0"));
+                //conn.Close();
+
+
+
+
+                cmd.CommandText = "";
                 cmd.CommandText = "SP_getuserMDA";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
@@ -1221,8 +1340,6 @@ namespace DashboardProject.Modules.Master
                 ddlTaxes.Items.Insert(0, new ListItem("------Select------", "0"));
                 conn.Close();
 
-
-
                 cmd.CommandText = "";
                 cmd.CommandText = "SP_getuserMarketing";
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -1234,7 +1351,6 @@ namespace DashboardProject.Modules.Master
                 ddlMarketingHOD.DataBind();
                 ddlMarketingHOD.Items.Insert(0, new ListItem("------Select------", "0"));
                 conn.Close();
-
 
                 cmd.CommandText = "SP_getuserNotificationFI";
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -2604,10 +2720,7 @@ namespace DashboardProject.Modules.Master
 
         }
 
-        protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
 
-        }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
@@ -2856,9 +2969,11 @@ namespace DashboardProject.Modules.Master
 
 
 
-                Result = ddlMerchandiser.SelectedValue.ToString() + "," + ddlTaxes.SelectedValue.ToString() + "," + ddlMHOD.SelectedValue.ToString() + "," + ddlMarketingHOD.SelectedValue.ToString() + "," + ddlNotificationFI.SelectedValue.ToString() + "," + ddlNotificationMIS.SelectedValue.ToString();
+                Result = ddlMerchandiser.SelectedValue.ToString() + "," + ddlStichingDep.SelectedValue.ToString() + "," + lblStichingHOD.Text.ToString() + "," + ddlCuttingDep.SelectedValue.ToString() + "," + lblCuttingHOD.Text.ToString() + "," + ddlProcessingDep.SelectedValue.ToString() + "," +
+               lblProcessingHOD.Text.ToString() + "," + ddlWeavingDep.SelectedValue.ToString() + "," + lblWeavingHOD.Text.ToString() + "," + ddlNotification.SelectedValue.ToString() + "," + ddlTaxes.SelectedValue.ToString() + "," + ddlMHOD.SelectedValue.ToString() + "," +
+               ddlMarketingHOD.SelectedValue.ToString() + "," + ddlNotificationFI.SelectedValue.ToString() + "," + ddlNotificationMIS.SelectedValue.ToString();
                 cmd.CommandText = "";
-                cmd.CommandText = "SP_SYS_MaterialMasterMTYPE";
+                cmd.CommandText = "SP_SYS_MaterialMasterFGBOM";
 
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -2927,21 +3042,7 @@ namespace DashboardProject.Modules.Master
             txtSMC.BackColor = System.Drawing.Color.White;
             lblError.Text = "";
             try
-            {
-                //if (txtRemarksReview.Text == "")
-                //{
-
-                //    lblmessage.Text = "";
-                //    lblUpError.Text = "Remarks should not be left blank!";
-                //    sucess.Visible = false;
-                //    error.Visible = true;
-                //    lblmessage.Focus();
-                //    sucess.Focus();
-                //    Page.MaintainScrollPositionOnPostBack = false;
-                //    txtRemarksReview.BackColor = System.Drawing.Color.Red;
-                //    return;
-                //}
-
+            {    
                 if (chkLock.Checked == false)
                 {
                     lblEmail.Text = "";
@@ -3058,17 +3159,16 @@ namespace DashboardProject.Modules.Master
         {
             try
             {
-                error.Visible = false;
-                lblUpError.Text = "";
-                sucess.Visible = false;
-                lblmessage.Text = "";
-                EmailWorkApproved();
-                ApplicationStatus();
-                BindsysApplicationStatus();
-                GetStatusHierachyCategoryControls();
-                Page.MaintainScrollPositionOnPostBack = true;
-                lblEmail.Focus();
-
+                    error.Visible = false;
+                    lblUpError.Text = "";
+                    sucess.Visible = false;
+                    lblmessage.Text = "";
+                    EmailWorkApproved();
+                    ApplicationStatus();
+                    BindsysApplicationStatus();
+                    GetStatusHierachyCategoryControls();
+                    Page.MaintainScrollPositionOnPostBack = true;
+                    lblEmail.Focus();           
             }
 
             catch (Exception ex)
@@ -3418,7 +3518,7 @@ namespace DashboardProject.Modules.Master
                         valuechkQmProcActive = "0";
                     }
 
-                    cmd.CommandText = @"UPDATE tbl_SYS_MaterialMaster_FG
+                    cmd.CommandText = @"UPDATE tbl_SYS_MaterialMaster_FGBOM
       SET Plant = @UpPlant,
       Description = @UpDescription,
       BaseUnitofMeasure = @UpBaseUnitofMeasure,
@@ -3636,7 +3736,7 @@ namespace DashboardProject.Modules.Master
                     return;
                 }
 
-                cmd.CommandText = @"UPDATE tbl_SYS_MaterialMaster
+                cmd.CommandText = @"UPDATE tbl_SYS_MaterialMaster_FGBOM
                     SET  Material_Rebate_Rate = @UpMaterial_Rebate_Rate,
                     Rebate_Catg = @UpRebate_Catg
                     where TransactionID = '" + lblMaxTransactionID.Text + "' ";
@@ -3706,6 +3806,7 @@ namespace DashboardProject.Modules.Master
             cmd.ExecuteNonQuery();
             conn.Close();
         }
+
         protected void btnFUpdate_Click(object sender, EventArgs e)
         {
             try
@@ -4808,6 +4909,494 @@ namespace DashboardProject.Modules.Master
         }
 
         #endregion
+
+        protected void ddlStichingDep_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                dvemaillbl.Visible = false;
+                ds = obj.getUserHOD(ddlStichingDep.SelectedValue);
+                ViewState["HOD"] = "";
+                if (ds.Tables["getUserHOD"].Rows.Count > 0)
+                {
+                    lblStichingHOD.Text = ds.Tables["getUserHOD"].Rows[0]["HOD"].ToString().Trim();
+                    //    lblStichingHOD.Text = ds.Tables["getUserHOD"].Rows[0]["HODName"].ToString().Trim();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                dvemaillbl.Visible = true;
+                lblError.Text = "User HOD" + ex.ToString();
+            }
+        }
+
+        protected void ddlCuttingDep_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                dvemaillbl.Visible = false;
+                ds = obj.getUserHOD(ddlCuttingDep.SelectedValue);
+                ViewState["HOD"] = "";
+                if (ds.Tables["getUserHOD"].Rows.Count > 0)
+                {
+                    lblCuttingHOD.Text = ds.Tables["getUserHOD"].Rows[0]["HOD"].ToString().Trim();
+                    //    lblStichingHOD.Text = ds.Tables["getUserHOD"].Rows[0]["HODName"].ToString().Trim();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                dvemaillbl.Visible = true;
+                lblError.Text = "User HOD" + ex.ToString();
+            }
+
+        }
+
+        protected void ddlProcessingDep_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                dvemaillbl.Visible = false;
+                ds = obj.getUserHOD(ddlProcessingDep.SelectedValue);
+                ViewState["HOD"] = "";
+                if (ds.Tables["getUserHOD"].Rows.Count > 0)
+                {
+                    lblProcessingHOD.Text = ds.Tables["getUserHOD"].Rows[0]["HOD"].ToString().Trim();
+                    //    lblStichingHOD.Text = ds.Tables["getUserHOD"].Rows[0]["HODName"].ToString().Trim();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                dvemaillbl.Visible = true;
+                lblError.Text = "User HOD" + ex.ToString();
+            }
+        }
+
+        protected void ddlWeavingDep_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                dvemaillbl.Visible = false;
+                ds = obj.getUserHOD(ddlWeavingDep.SelectedValue);
+                ViewState["HOD"] = "";
+                if (ds.Tables["getUserHOD"].Rows.Count > 0)
+                {
+                    lblWeavingHOD.Text = ds.Tables["getUserHOD"].Rows[0]["HOD"].ToString().Trim();
+                    //    lblStichingHOD.Text = ds.Tables["getUserHOD"].Rows[0]["HODName"].ToString().Trim();
+                }
+            }
+            catch (Exception ex)
+            {
+                dvemaillbl.Visible = true;
+                lblError.Text = "User HOD" + ex.ToString();
+            }
+        }
+
+        decimal sum = 0;
+        protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            try
+            {
+                if (e.Row.RowType == DataControlRowType.EmptyDataRow)
+                {
+
+                    conn.Close();
+
+                    cmd.CommandText = "";
+                    //Find the DropDownList in the Row
+                    DropDownList ddlStLoc = (e.Row.FindControl("ddlStLoc") as DropDownList);
+                    ddlStLoc.DataSource = GetData("SP_StorageLocationPlantWise");
+                    ddlStLoc.DataTextField = "Description";
+                    ddlStLoc.DataValueField = "StorageLocationcode";
+                    ddlStLoc.DataBind();
+                    //Add Default Item in the DropDownList
+                    ddlStLoc.Items.Insert(0, new ListItem("Please select"));
+
+
+
+                }
+                else if (e.Row.RowType == DataControlRowType.Footer)
+                {
+
+                    conn.Close();
+
+                    cmd.CommandText = "";
+                    //Find the DropDownList in the Row
+                    DropDownList ddlStLoc = (e.Row.FindControl("ddlStLoc") as DropDownList);
+                    ddlStLoc.DataSource = GetData("SP_StorageLocationPlantWise");
+                    ddlStLoc.DataTextField = "Description";
+                    ddlStLoc.DataValueField = "StorageLocationcode";
+                    ddlStLoc.DataBind();
+                    //Add Default Item in the DropDownList
+                    ddlStLoc.Items.Insert(0, new ListItem("Please select"));
+                }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "OnRowDataBound" + ex.ToString();
+            }
+        }
+
+        protected void GridView2_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            try
+            {
+                var id = ((Label)GridView1.Rows[e.RowIndex].FindControl("Label1")).Text;
+
+                DataTable dt = (DataTable)ViewState["BOMGrid"];
+                DataColumn[] keyColumns = new DataColumn[1];
+                keyColumns[0] = dt.Columns["sno"];
+                dt.PrimaryKey = keyColumns;
+                dt.Rows.Find(id).Delete();
+                dt.AcceptChanges();
+                ViewState["BOMGrid"] = dt;
+                GridView1.DataSource = ViewState["BOMGrid"] as DataTable;
+                GridView1.DataBind();
+
+                float GTotal = 0f;
+                for (int i = 0; i < GridView1.Rows.Count; i++)
+                {
+                    if ((GridView1.Rows[i].FindControl("lblComponentType") as Label).Text == "Input Material" || (GridView1.Rows[i].FindControl("lblComponentType") as Label).Text == "Scrap Material")
+                    {
+                        String total = (GridView1.Rows[i].FindControl("lblQuantity") as Label).Text;
+                        GTotal += Convert.ToSingle(total);
+                    }
+                }
+                lblSum.Text = GTotal.ToString();
+
+            }
+            catch (SqlException ex)
+            {
+                dvemaillbl.Visible = true;
+                lblError.Text = ex.ToString();
+            }
+        }
+
+        private DataSet GetData(string query)
+        {
+            string conString = ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString;
+            SqlCommand cmd = new SqlCommand(query);
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                using (SqlDataAdapter sda = new SqlDataAdapter())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Plantcode", ddlPlant.SelectedValue.ToString());
+                    sda.SelectCommand = cmd;
+                    using (DataSet ds = new DataSet())
+                    {
+                        sda.Fill(ds);
+                        return ds;
+                    }
+                }
+            }
+        }
+
+        protected void insertLineItem()
+        {
+            try
+            {
+                DataTable dt = (DataTable)ViewState["BOMGrid"];
+
+                for (int i = 0; i <= dt.Rows.Count - 1; i++)
+                {
+                    dt.Rows[i]["TransactionID"] = lblMaxTransactionID.Text;
+                    dt.AcceptChanges();
+                    dt.Rows[i]["Dept"] = ViewState["Department"].ToString();
+                    dt.AcceptChanges();
+                }
+
+                if (dt.Rows.Count > 0)
+                {
+                    string consString = ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString;
+                    using (SqlConnection con = new SqlConnection(consString))
+                    {
+                        using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(con))
+                        {
+                            //Set the database table name
+                            sqlBulkCopy.DestinationTableName = "dbo.tbl_BOM_Approval_ITEM_FGBOM";
+                            //tbl_BOM_Approval_Header_FGBOM
+                            //[OPTIONAL]: Map the DataTable columns with that of the database table
+                            sqlBulkCopy.ColumnMappings.Add("Sno", "Sequance");
+                            sqlBulkCopy.ColumnMappings.Add("TransactionID", "TransactionID");
+                            sqlBulkCopy.ColumnMappings.Add("ComponentType", "ComType");
+                            sqlBulkCopy.ColumnMappings.Add("Material", "MaterialNo");
+                            sqlBulkCopy.ColumnMappings.Add("MaterialDescription", "MaterialDesc");
+                            sqlBulkCopy.ColumnMappings.Add("Quantity", "QTY");
+                            sqlBulkCopy.ColumnMappings.Add("UOM", "UOM");
+                            sqlBulkCopy.ColumnMappings.Add("StoreLocation", "StorageLocation");
+                            sqlBulkCopy.ColumnMappings.Add("Dept", "Dept");
+                            con.Open();
+                            sqlBulkCopy.WriteToServer(dt);
+                            con.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "insertLineItem" + ex.ToString();
+            }
+        }
+
+        protected void GetDataBOMWhenQueryStringpass()
+        {
+            cmd.CommandText = @"select * from tbl_BOM_Approval_Header_FGBOM where TransactionMain = @TransactionMain";
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = conn;
+            cmd.Parameters.AddWithValue("@TransactionMain", Request.QueryString["TransactionNo"].ToString());
+            adp.SelectCommand = cmd;
+            dt.Clear();
+            adp.Fill(dt);
+            DataTableReader reader = dt.CreateDataReader();
+            while (reader.Read())
+            {
+                BindPlant();
+                lblMaxTransactionNo.Text = reader["TransactionMain"].ToString();
+                lblMaxTransactionID.Text = reader["TransactionID"].ToString();
+                txtBillOfMaterial.Text = reader["BOM"].ToString();
+                ddlPlant.SelectedValue = reader["Plant"].ToString();
+
+                ddlStorageLocation.DataSource = GetData("SP_StorageLocationPlantWise");
+                ddlStorageLocation.DataTextField = "Description";
+                ddlStorageLocation.DataValueField = "StorageLocationcode";
+                ddlStorageLocation.DataBind();
+
+                ddlStorageLocation.SelectedValue = reader["StorageLocation"].ToString();
+                txtMaterial.Text = reader["MaterialNo"].ToString();
+                txtDescription.Text = reader["MaterialDesc"].ToString();
+                txtProductionLotSizefrom.Text = reader["ProdLotSizeFrom"].ToString();
+                txtProductionLotSizeTo.Text = reader["ProdLotSizeTo"].ToString();
+                txtProductionVersion.Text = reader["ProductionVersion"].ToString();
+                txtProductionVersionDescription.Text = reader["ProductionVersion"].ToString();
+                txtBOMValidFrom.Text = reader["BOMValidFrom"].ToString();
+                txtBOMValidTo.Text = reader["BOMValidTo"].ToString();
+                txtBaseQuantity.Text = reader["QTY"].ToString();
+                GetGridBOMWhenQueryStringpass();
+            }
+        }
+
+        protected void GetGridBOMWhenQueryStringpass()
+        {
+            ds = objFD.GetGridBOMWhenQueryStringpass(lblMaxTransactionID.Text.ToString());
+            if (ds.Tables["GetGridBOMWhenQueryStringpass"].Rows.Count > 0)
+            {
+                GridView1.DataSource = ds.Tables["GetGridBOMWhenQueryStringpass"];
+                GridView1.DataBind();
+                GridView1.FooterRow.Visible = false;
+                GridView1.Columns[0].Visible = false;
+                float GTotal = 0f;
+                for (int i = 0; i < GridView1.Rows.Count; i++)
+                {
+                    String total = (GridView1.Rows[i].FindControl("lblQuantity") as Label).Text;
+                    GTotal += Convert.ToSingle(total);
+                }
+                lblSum.Text = GTotal.ToString();
+            }
+
+        }
+
+        protected void SaveBOMGRID()
+        {
+            try
+            {
+                txtBaseQuantity.BackColor = System.Drawing.Color.White;
+                ddlPlant.BackColor = System.Drawing.Color.White;
+                ddlStorageLocation.BackColor = System.Drawing.Color.White;
+                txtMaterial.BackColor = System.Drawing.Color.White;
+                txtDescription.BackColor = System.Drawing.Color.White;
+                if (txtBaseQuantity.Text == "")
+                {
+
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Base Quantity should not be left blank";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblUpError.Focus();
+                    error.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    txtBaseQuantity.BackColor = System.Drawing.Color.Red;
+                }
+                else if (txtMaterial.Text == "")
+                {
+
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Material should not be left blank";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblUpError.Focus();
+                    error.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    txtMaterial.BackColor = System.Drawing.Color.Red;
+                }
+                else if (txtDescription.Text == "")
+                {
+
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Material Description should not be left blank";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblUpError.Focus();
+                    error.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    txtDescription.BackColor = System.Drawing.Color.Red;
+                }
+                else if (ddlPlant.SelectedValue == "")
+                {
+
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Please Select any plant";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblUpError.Focus();
+                    error.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    ddlPlant.BackColor = System.Drawing.Color.Red;
+                }
+                else if (ddlStorageLocation.SelectedValue == "")
+                {
+
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Please Select any Storage sLocation";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblUpError.Focus();
+                    error.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    ddlStorageLocation.BackColor = System.Drawing.Color.Red;
+                }
+                else if (ddlEmailMDA.SelectedValue == "0")
+                {
+
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Please Select any MDA";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblUpError.Focus();
+                    error.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    ddlEmailMDA.BackColor = System.Drawing.Color.Red;
+                }
+                else if (ddlNotification.SelectedValue == "")
+                {
+
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Please select any Person for Notification";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblUpError.Focus();
+                    error.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                    ddlEmailMDA.BackColor = System.Drawing.Color.Red;
+                }
+                else if (txtBaseQuantity.Text != lblSum.Text)
+                {
+                    lblmessage.Text = "";
+                    lblUpError.Text = "Line item Quantity in not equal to Header Base Quantity";
+                    sucess.Visible = false;
+                    error.Visible = true;
+                    lblUpError.Focus();
+                    error.Focus();
+                    Page.MaintainScrollPositionOnPostBack = false;
+                }
+                else
+                {
+                    string Notification = "";
+
+                    for (int i = 0; i <= ddlNotification.Items.Count - 1; i++)
+                    {
+                        if (ddlNotification.Items[i].Selected)
+                        {
+                            if (Notification == "") { Notification = ddlNotification.Items[i].Value; }
+                            else { Notification += "," + ddlNotification.Items[i].Value; }
+                        }
+
+                    }
+
+
+                    string conString = ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString;
+                    SqlCommand cmd = new SqlCommand("SP_SYS_Create_BOM_Approval_FG_BOM");
+                    using (SqlConnection con = new SqlConnection(conString))
+                    {
+                        using (SqlDataAdapter sda = new SqlDataAdapter())
+                        {
+                            string Approval = ViewState["HOD"].ToString();
+                            cmd.Connection = con;
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("@TransactionMain", lblMaxTransactionNo.Text);
+                            cmd.Parameters.AddWithValue("@MaterialNo", txtMaterial.Text.ToString());
+                            cmd.Parameters.AddWithValue("@MaterialDesc", txtDescription.Text.ToString());
+                            cmd.Parameters.AddWithValue("@Plant", ddlPlant.SelectedValue.ToString());
+                            cmd.Parameters.AddWithValue("@StorageLocation", ddlStorageLocation.SelectedValue.ToString());
+                            cmd.Parameters.AddWithValue("@ProdLotSizeFrom", txtProductionLotSizefrom.Text.ToString());
+                            cmd.Parameters.AddWithValue("@ProdLotSizeTo", txtProductionLotSizeTo.Text.ToString());
+                            cmd.Parameters.AddWithValue("@ProductionVersion", txtProductionVersion.Text.ToString());
+                            cmd.Parameters.AddWithValue("@ProdVersionDesc", txtProductionVersionDescription.Text.ToString());
+                            cmd.Parameters.AddWithValue("@BOMValidFrom", txtBOMValidFrom.Text.ToString());
+                            cmd.Parameters.AddWithValue("@BOMValidTo", txtBOMValidTo.Text.ToString());
+                            decimal yourValue = Convert.ToDecimal(txtBaseQuantity.Text);
+                            cmd.Parameters.AddWithValue("@QTY", yourValue);
+                            cmd.Parameters.AddWithValue("@APPROVAL", Approval.ToString());
+                            cmd.Parameters.AddWithValue("@REVIEWER", "");
+                            cmd.Parameters.AddWithValue("@MDA", ddlEmailMDA.SelectedValue.ToString());
+                            cmd.Parameters.AddWithValue("@Notification", Notification.ToString());
+                            cmd.Parameters.AddWithValue("@CreatedBy", Session["User_Name"].ToString());
+                            cmd.Parameters.AddWithValue("@Remarks", txtRemarksReview.Text.ToString());
+                            cmd.Parameters.AddWithValue("@Dept", txtRemarksReview.Text.ToString());
+                            con.Open();
+                            cmd.ExecuteNonQuery();
+                            con.Close();
+                            
+                            insertLineItem();
+                            lblmessage.Focus();
+                            error.Visible = false;
+                            lblmessage.Focus();
+                            Page.MaintainScrollPositionOnPostBack = false;
+                            EmailWorkSendFirstApproval();
+                            lblMaxTransactionID.Text = "";
+                            GetTransactionID();
+
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "SaveBOMGRID" + ex.ToString();
+            }
+
+        }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if ((((string)ViewState["Department"]) == "New Terry Stitching") || (((string)ViewState["Designation"]) == "Old Terry Stitching"))
+                {
+                    SaveBOMGRID();
+                    error.Visible = false;
+                    lblUpError.Text = "";
+                    sucess.Visible = false;
+                    lblmessage.Text = "";
+                    EmailWorkApproved();
+                    ApplicationStatus();
+                    BindsysApplicationStatus();
+                    GetStatusHierachyCategoryControls();
+                    Page.MaintainScrollPositionOnPostBack = true;
+                    lblEmail.Focus();
+
+                }
+            }  
+            catch (Exception ex)
+            {
+                lblError.Text = "btnSubmit_Click" + ex.ToString();
+            }
+        }
+
 
         //////////////////////////////////////////////Email Methods//////////////////////////////////////////
     }
