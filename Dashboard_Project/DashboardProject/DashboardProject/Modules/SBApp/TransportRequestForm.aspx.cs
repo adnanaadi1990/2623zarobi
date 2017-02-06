@@ -703,7 +703,7 @@ namespace ITLDashboard.Modules.SBApp
                 if (rbtransport.SelectedValue == "No")
                 {
                     lblmessage.Text = "";
-                    lblUpError.Text = " Testing Successfully Check must be No while Submit.";
+                    lblUpError.Text = " Testing Successfully Check must be Yes while Submit.";
                     sucess.Visible = false;
                     error.Visible = true;
                     lblmessage.Focus();
@@ -715,7 +715,7 @@ namespace ITLDashboard.Modules.SBApp
                 if (rbtesting.SelectedValue == "No")
                 {
                     lblmessage.Text = "";
-                    lblUpError.Text = " Testing Successfully Check must be No while Submit.";
+                    lblUpError.Text = " Testing Successfully Check must be Yes while Submit.";
                     sucess.Visible = false;
                     error.Visible = true;
                     lblmessage.Focus();
