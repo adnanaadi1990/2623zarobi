@@ -43,7 +43,7 @@
         function pageLoad() {
             $("#divExtandToOtherPlant").hide();
 
-            $('[id*=ddlTaxes],[id*=ddlMerchandiser],[id*=ddlEmailApproval] ,[id*=ddlEmailReviwer],[id*=ddlEmailMDA],[id*=ddlExtandPlant],[id*=ddlPlant],[id*=ddlExtOtherPlant],[id*=ddlStorageLocation],[id*=ddlValuationType],[id=*ddlSearchMC],[id=*ddlImmediateHead],[id*=ddlTransferUser]').multiselect({
+            $('[id*=ddlTaxes],[id*=ddlMerchandiser],[id*=ddlEmailApproval] ,[id*=ddlEmailReviwer],[id*=ddlEmailMDA],[id*=ddlExtandPlant],[id*=ddlPlant],[id*=ddlExtOtherPlant],[id$=ddlStorageLocation],[id*=ddlValuationType],[id=*ddlSearchMC],[id=*ddlImmediateHead],[id*=ddlTransferUser]').multiselect({
                 includeSelectAllOption: true,
                 buttonWidth: '100%',
                 enableFiltering: true,
@@ -128,7 +128,7 @@
                     this.value = this.value.replace(/[^,.0-9 ]/g, '');
                 }
             });
-            $('[id*=ddlTaxes],[id*=ddlMerchandiser],[id*=ddlEmailApproval] ,[id*=ddlEmailReviwer],[id*=ddlEmailMDA],[id*=ddlExtandPlant],[id*=ddlPlant],[id*=ddlExtOtherPlant],[id*=ddlStorageLocation],[id*=ddlValuationType],[id*=ddlSearchMC],[id*=ddlImmediateHead],[id*=ddlTransferUser],[id*=ddlNotification]').multiselect({
+            $('[id*=ddlTaxes],[id*=ddlMerchandiser],[id*=ddlEmailApproval] ,[id*=ddlEmailReviwer],[id*=ddlEmailMDA],[id*=ddlExtandPlant],[id*=ddlPlant],[id*=ddlExtOtherPlant],[id$=ddlStorageLocation],[id*=ddlValuationType],[id*=ddlSearchMC],[id*=ddlImmediateHead],[id*=ddlTransferUser],[id*=ddlNotification]').multiselect({
                 includeSelectAllOption: true,
                 buttonWidth: '100%',
                 enableFiltering: true,
@@ -202,7 +202,7 @@
         <div class="row">
 
             <div class="col-sm-7">
-                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Create Finished Material</p>
+                <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Create Finished Material with BOM</p>
             </div>
         </div>
         <div class="panel panel-default">
@@ -1144,14 +1144,6 @@
                 <div id="Div4" class="panel-collapse collapse in">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-sm-3" runat="server" id="Div5">
-                                Transaction No
-                                 <asp:Label ID="Label2" runat="server" CssClass="form-control"></asp:Label>
-                            </div>
-                            <div class="col-sm-3" runat="server" id="Div6" visible="false">
-                                Form ID
-                                 <asp:Label ID="Label3" runat="server" CssClass="form-control"></asp:Label>
-                            </div>
                             <div class="col-sm-3" runat="server" id="dvBillOfMaterial">
                                 Bill Of Material
                                  <asp:TextBox ID="txtBillOfMaterial" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
@@ -1167,18 +1159,18 @@
 
                             <div class="col-sm-8">
                                 Material Description
-                                <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="MaterialDescription" runat="server" CssClass="form-control"></asp:TextBox>
                             </div>
                         </div>
                         <span class="help-block"></span>
                         <div class="row" runat="server" id="dvCheque">
                             <div class="col-sm-5">
                                 Plant
-                                <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlPlant_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
+                                <asp:DropDownList ID="ddlPlantBom" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlPlant_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
                             </div>
                             <div class="col-sm-7">
                                 Storage Location
-                                <asp:DropDownList ID="DropDownList2" runat="server" CssClass="form-control"></asp:DropDownList>
+                                <asp:DropDownList ID="ddlStorageLocationBOM" runat="server" CssClass="form-control"></asp:DropDownList>
                             </div>
                         </div>
                         <span class="help-block"></span>
@@ -1240,7 +1232,7 @@
                                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="false" CommandName="delete" Text="Delete" OnClientClick="return ConfirmOnDelete();"></asp:LinkButton>
                                             </ItemTemplate>
                                             <FooterTemplate>
-                                                <asp:LinkButton ID="btnAdd" runat="server" UseSubmitBehavior="true" Text="Add" OnClick="Add" CommandName="Footer" />
+                                                <asp:LinkButton ID="btnAdd" runat="server" UseSubmitBehavior="true" Text="Add" OnClick="AddBOM" CommandName="Footer" />
                                             </FooterTemplate>
                                             <ItemStyle Width="1%" />
                                             <HeaderStyle Width="1%" />
@@ -1362,7 +1354,7 @@
 
                                             <tr>
                                                 <td>
-                                                    <asp:LinkButton ID="btnAdd" runat="server" Text="Add" OnClick="Add" UseSubmitBehavior="true" CommandName="EmptyDataTemplate" value="Reset" />
+                                                    <asp:LinkButton ID="btnAdd" runat="server" Text="Add" OnClick="AddBOM" UseSubmitBehavior="true" CommandName="EmptyDataTemplate" value="Reset" />
                                                 </td>
                                                 <td>
                                                     <asp:DropDownList ID="ddlComponentType" runat="server" CssClass="form-control">
@@ -1468,7 +1460,7 @@
                             </div>
                             <div class="col-sm-3">
                                 Cutting Department
-                                      <asp:DropDownList ID="ddlCuttingDep" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlCuttingDep_SelectedIndexChanged"></asp:DropDownList>
+                                      <asp:DropDownList ID="ddlCuttingDep" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlCuttingDep_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
                             </div>
                             <div class="col-sm-3" runat="server" visible="false">
                                 Cutting Head Of Deparment
@@ -1476,7 +1468,7 @@
                             </div>
                             <div class="col-sm-3">
                                 Processing Department
-                                      <asp:DropDownList ID="ddlProcessingDep" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlProcessingDep_SelectedIndexChanged"></asp:DropDownList>
+                                      <asp:DropDownList ID="ddlProcessingDep" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlProcessingDep_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
                             </div>
                             <div class="col-sm-3" runat="server" visible="false">
                                 Processing Head Of Deparment
@@ -1484,7 +1476,7 @@
                             </div>
                             <div class="col-sm-3">
                                 Weaving Department
-                                      <asp:DropDownList ID="ddlWeavingDep" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlWeavingDep_SelectedIndexChanged"></asp:DropDownList>
+                                      <asp:DropDownList ID="ddlWeavingDep" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlWeavingDep_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
                             </div>
                             <div class="col-sm-3" runat="server" visible="false">
                                 Weaving Head Of Deparment

@@ -348,9 +348,24 @@ namespace DashboardProject.Modules.Master
                                 btnTransfer.Visible = false;
                                 controlForwardHide();
                             }
-                            else if ((((string)ViewState["Department"]) == "New Terry Stitching") || ((string)ViewState["Department"]) == "Old Terry Stitching")
-                            {                   
-                                if ((((string)ViewState["Sequance"]) == "2"))
+                            else if ((((((((((((((((((string)ViewState["Department"]) == "New Terry Stitching")
+                                || ((string)ViewState["Department"]) == "Old Terry Stitching")
+                                || ((string)ViewState["Department"]) == "MJS Apron")
+                                || ((string)ViewState["Department"]) == "Garments")
+                                || ((string)ViewState["Department"]) == "MJS Fabric Store")
+                                || ((string)ViewState["Department"]) == "Terry Folding")
+                                || ((string)ViewState["Department"]) == "Weaving")
+                                || ((string)ViewState["Department"]) == "Terry Weaving Office")
+                                || ((string)ViewState["Department"]) == "Outside Weaving")
+                                || ((string)ViewState["Department"]) == "Terry Weaving Electrical")
+                                || ((string)ViewState["Department"]) == "Outside Processing")
+                                || ((string)ViewState["Department"]) == "MJS Processing")
+                                || ((string)ViewState["Department"]) == "Processing Electrical")
+                                || ((string)ViewState["Department"]) == "Terry Processing")
+                                || ((string)ViewState["Department"]) == "Processing Maintenance")
+                                    || ((string)ViewState["Department"]) == "Information System")
+                            {
+                                if ((((string)ViewState["Sequance"]) == "2") || (((string)ViewState["Sequance"]) == "4") || (((string)ViewState["Sequance"]) == "6") || (((string)ViewState["Sequance"]) == "8"))
                                 {
                                     dvBOM.Visible = true;
                                     btnSubmitStiching.Visible = true;
@@ -359,8 +374,22 @@ namespace DashboardProject.Modules.Master
                                     SD.Visible = true;
                                     QM.Visible = true;
                                     MRP.Visible = true;
-                                    ddlRate.Enabled = true;
-                                    ddlRebatecategoryRate.Enabled = true;
+                                    txtBillOfMaterial.Enabled = true;
+                                    txtMaterial.Enabled = true;
+                                    MaterialDescription.Enabled = true;
+                                    ddlPlantBom.Enabled = true;
+                                    ddlStorageLocationBOM.Enabled = true;
+                                    txtProductionLotSizefrom.Enabled = true;
+                                    txtProductionLotSizeTo.Enabled = true;
+                                    txtProductionVersion.Enabled = true;
+                                    txtProductionVersionDescription.Enabled = true;
+                                    txtBOMValidFrom.Enabled = true;
+                                    ddlStorageLocationBOM.Enabled = true;
+                                    txtBOMValidTo.Enabled = true;
+                                    txtBaseQuantity.Enabled = true;
+
+                                    ddlRate.Enabled = false;
+                                    ddlRebatecategoryRate.Enabled = false;
                                     ////////////BTN//////////////
                                     btnReject.Visible = true;
                                     btnTUpdate.Visible = false;
@@ -375,10 +404,49 @@ namespace DashboardProject.Modules.Master
                                     ddlRate.BackColor = System.Drawing.Color.AliceBlue;
                                     ddlRebatecategoryRate.BackColor = System.Drawing.Color.AliceBlue;
                                     controlForwardHide();
-                                        
+
+                                }
+                                else if ((((string)ViewState["Sequance"]) == "3") || (((string)ViewState["Sequance"]) == "5") || (((string)ViewState["Sequance"]) == "7") || (((string)ViewState["Sequance"]) == "9"))
+                                {
+                                    dvBOM.Visible = true;
+                                    btnSubmitStiching.Visible = true;
+                                    BD.Visible = true;
+                                    Prod.Visible = true;
+                                    SD.Visible = true;
+                                    QM.Visible = true;
+                                    MRP.Visible = true;
+                                    txtBillOfMaterial.Enabled = false;
+                                    txtMaterial.Enabled = false;
+                                    MaterialDescription.Enabled = false;
+                                    ddlPlantBom.Enabled = false;
+                                    ddlStorageLocationBOM.Enabled = false;
+                                    txtProductionLotSizefrom.Enabled = false;
+                                    txtProductionLotSizeTo.Enabled = false;
+                                    txtProductionVersion.Enabled = false;
+                                    txtProductionVersionDescription.Enabled = false;
+                                    txtBOMValidFrom.Enabled = false;
+                                    ddlStorageLocationBOM.Enabled = false;
+                                    txtBOMValidTo.Enabled = false;
+                                    txtBaseQuantity.Enabled = false;
+
+                                    ddlRate.Enabled = false;
+                                    ddlRebatecategoryRate.Enabled = false;
+                                    ////////////BTN//////////////
+                                    btnReject.Visible = true;
+                                    btnTUpdate.Visible = false;
+                                    btnUpdate.Visible = false;
+                                    txtRemarksReview.Visible = true;
+                                    txtRemarks.Enabled = false;
+                                    txtRemarksReview.Visible = true;
+                                    btnApprover.Visible = true;
+                                    btnEdit.Visible = false;
+                                    btnForward.Visible = false;
+                                    btnTransfer.Visible = false;
+                                    ddlRate.BackColor = System.Drawing.Color.AliceBlue;
+                                    ddlRebatecategoryRate.BackColor = System.Drawing.Color.AliceBlue;
+                                    controlForwardHide();
                                 }
                             }
-
                             else if ((((string)ViewState["Department"]) == "Trade and Tax") || ((string)ViewState["Department"]) == "Trade and taxes")
                             {
                                 BD.Visible = true;
@@ -404,30 +472,6 @@ namespace DashboardProject.Modules.Master
                                 controlForwardHide();
                             }
 
-                            //if ((((string)ViewState["Designation"]) == "Deputy Manager") && (((string)ViewState["Department"]) == "Trade and Tax")
-                            // || (((string)ViewState["Designation"]) == "Deputy Manager") && (((string)ViewState["Department"]) == "Trade and taxes"))
-                            //{
-                            //    BD.Visible = true;
-                            //    Prod.Visible = true;
-                            //    SD.Visible = true;
-                            //    QM.Visible = true;
-                            //    MRP.Visible = true;
-                            //    ddlRate.Enabled = false;
-                            //    ddlRebatecategoryRate.Enabled = false;
-                            //    ////////////BTN//////////////
-                            //    btnReject.Visible = true;
-                            //    btnTUpdate.Visible = false;
-                            //    btnUpdate.Visible = false;
-                            //    txtRemarksReview.Visible = true;
-                            //    txtRemarks.Enabled = false;
-                            //    btnApprover.Visible = true;
-                            //    btnEdit.Visible = false;
-                            //    btnForward.Visible = false;
-                            //    btnTransfer.Visible = false;
-                            //    ddlRate.BackColor = System.Drawing.Color.AliceBlue;
-                            //    ddlRebatecategoryRate.BackColor = System.Drawing.Color.AliceBlue;
-                            //    controlForwardHide();
-                            //}
                             else if ((((string)ViewState["Designation"]) == "Manager") && (((string)ViewState["Department"]) == "Marketing")
                              || (((string)ViewState["Designation"]) == "Senior Manager") && (((string)ViewState["Department"]) == "Marketing"))
                             {
@@ -1439,7 +1483,12 @@ namespace DashboardProject.Modules.Master
                 ddlPlant.DataValueField = ds.Tables["BindPlantMtype"].Columns["PlantId"].ToString();             // to retrive specific  textfield name 
                 ddlPlant.DataSource = ds.Tables["BindPlantMtype"];      //assigning datasource to the dropdownlist
                 ddlPlant.DataBind();  //binding dropdownlist
+                ddlPlantBom.DataTextField = ds.Tables["BindPlantMtype"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
+                ddlPlantBom.DataValueField = ds.Tables["BindPlantMtype"].Columns["PlantId"].ToString();             // to retrive specific  textfield name 
+                ddlPlantBom.DataSource = ds.Tables["BindPlantMtype"];      //assigning datasource to the dropdownlist
+                ddlPlantBom.DataBind();  //binding dropdownlist
                 ddlPlant.Items.Insert(0, new ListItem("------Select------", "0"));
+                ddlPlantBom.Items.Insert(0, new ListItem("------Select------", "0"));
             }
             catch (SqlException ex)
             {
@@ -2491,6 +2540,13 @@ namespace DashboardProject.Modules.Master
                     ddlStorageLocation.DataSource = ds.Tables["SL"];      //assigning datasource to the dropdownlist
                     ddlStorageLocation.DataBind();  //binding dropdownlist
                     conn.Close();
+
+                    ddlStorageLocationBOM.DataTextField = ds.Tables["SL"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
+                    ddlStorageLocationBOM.DataValueField = ds.Tables["SL"].Columns["StorageLocationcode"].ToString();             // to retrive specific  textfield name 
+                    ddlStorageLocationBOM.DataSource = ds.Tables["SL"];      //assigning datasource to the dropdownlist
+                    ddlStorageLocationBOM.DataBind();  //binding dropdownlist
+                    ddlStorageLocationBOM.Items.Insert(0, new ListItem("------Select------", "0"));
+                    conn.Close();
                 }
             }
             catch (SqlException ex)
@@ -3042,7 +3098,7 @@ namespace DashboardProject.Modules.Master
             txtSMC.BackColor = System.Drawing.Color.White;
             lblError.Text = "";
             try
-            {    
+            {
                 if (chkLock.Checked == false)
                 {
                     lblEmail.Text = "";
@@ -3159,16 +3215,16 @@ namespace DashboardProject.Modules.Master
         {
             try
             {
-                    error.Visible = false;
-                    lblUpError.Text = "";
-                    sucess.Visible = false;
-                    lblmessage.Text = "";
-                    EmailWorkApproved();
-                    ApplicationStatus();
-                    BindsysApplicationStatus();
-                    GetStatusHierachyCategoryControls();
-                    Page.MaintainScrollPositionOnPostBack = true;
-                    lblEmail.Focus();           
+                error.Visible = false;
+                lblUpError.Text = "";
+                sucess.Visible = false;
+                lblmessage.Text = "";
+                EmailWorkApproved();
+                ApplicationStatus();
+                BindsysApplicationStatus();
+                GetStatusHierachyCategoryControls();
+                Page.MaintainScrollPositionOnPostBack = true;
+                lblEmail.Focus();
             }
 
             catch (Exception ex)
@@ -5043,7 +5099,7 @@ namespace DashboardProject.Modules.Master
         {
             try
             {
-                var id = ((Label)GridView1.Rows[e.RowIndex].FindControl("Label1")).Text;
+                var id = ((Label)GridView2.Rows[e.RowIndex].FindControl("Label1")).Text;
 
                 DataTable dt = (DataTable)ViewState["BOMGrid"];
                 DataColumn[] keyColumns = new DataColumn[1];
@@ -5052,15 +5108,15 @@ namespace DashboardProject.Modules.Master
                 dt.Rows.Find(id).Delete();
                 dt.AcceptChanges();
                 ViewState["BOMGrid"] = dt;
-                GridView1.DataSource = ViewState["BOMGrid"] as DataTable;
-                GridView1.DataBind();
+                GridView2.DataSource = ViewState["BOMGrid"] as DataTable;
+                GridView2.DataBind();
 
                 float GTotal = 0f;
-                for (int i = 0; i < GridView1.Rows.Count; i++)
+                for (int i = 0; i < GridView2.Rows.Count; i++)
                 {
-                    if ((GridView1.Rows[i].FindControl("lblComponentType") as Label).Text == "Input Material" || (GridView1.Rows[i].FindControl("lblComponentType") as Label).Text == "Scrap Material")
+                    if ((GridView2.Rows[i].FindControl("lblComponentType") as Label).Text == "Input Material" || (GridView2.Rows[i].FindControl("lblComponentType") as Label).Text == "Scrap Material")
                     {
-                        String total = (GridView1.Rows[i].FindControl("lblQuantity") as Label).Text;
+                        String total = (GridView2.Rows[i].FindControl("lblQuantity") as Label).Text;
                         GTotal += Convert.ToSingle(total);
                     }
                 }
@@ -5244,7 +5300,7 @@ namespace DashboardProject.Modules.Master
                     Page.MaintainScrollPositionOnPostBack = false;
                     txtDescription.BackColor = System.Drawing.Color.Red;
                 }
-                else if (ddlPlant.SelectedValue == "")
+                else if (ddlPlantBom.SelectedValue == "")
                 {
 
                     lblmessage.Text = "";
@@ -5256,9 +5312,8 @@ namespace DashboardProject.Modules.Master
                     Page.MaintainScrollPositionOnPostBack = false;
                     ddlPlant.BackColor = System.Drawing.Color.Red;
                 }
-                else if (ddlStorageLocation.SelectedValue == "")
+                else if (ddlStorageLocationBOM.SelectedValue == "")
                 {
-
                     lblmessage.Text = "";
                     lblUpError.Text = "Please Select any Storage sLocation";
                     sucess.Visible = false;
@@ -5267,30 +5322,6 @@ namespace DashboardProject.Modules.Master
                     error.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
                     ddlStorageLocation.BackColor = System.Drawing.Color.Red;
-                }
-                else if (ddlEmailMDA.SelectedValue == "0")
-                {
-
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Please Select any MDA";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblUpError.Focus();
-                    error.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    ddlEmailMDA.BackColor = System.Drawing.Color.Red;
-                }
-                else if (ddlNotification.SelectedValue == "")
-                {
-
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Please select any Person for Notification";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblUpError.Focus();
-                    error.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    ddlEmailMDA.BackColor = System.Drawing.Color.Red;
                 }
                 else if (txtBaseQuantity.Text != lblSum.Text)
                 {
@@ -5304,26 +5335,13 @@ namespace DashboardProject.Modules.Master
                 }
                 else
                 {
-                    string Notification = "";
-
-                    for (int i = 0; i <= ddlNotification.Items.Count - 1; i++)
-                    {
-                        if (ddlNotification.Items[i].Selected)
-                        {
-                            if (Notification == "") { Notification = ddlNotification.Items[i].Value; }
-                            else { Notification += "," + ddlNotification.Items[i].Value; }
-                        }
-
-                    }
-
-
                     string conString = ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString;
                     SqlCommand cmd = new SqlCommand("SP_SYS_Create_BOM_Approval_FG_BOM");
                     using (SqlConnection con = new SqlConnection(conString))
                     {
                         using (SqlDataAdapter sda = new SqlDataAdapter())
                         {
-                            string Approval = ViewState["HOD"].ToString();
+                          
                             cmd.Connection = con;
                             cmd.CommandType = CommandType.StoredProcedure;
                             cmd.Parameters.AddWithValue("@TransactionMain", lblMaxTransactionNo.Text);
@@ -5339,17 +5357,13 @@ namespace DashboardProject.Modules.Master
                             cmd.Parameters.AddWithValue("@BOMValidTo", txtBOMValidTo.Text.ToString());
                             decimal yourValue = Convert.ToDecimal(txtBaseQuantity.Text);
                             cmd.Parameters.AddWithValue("@QTY", yourValue);
-                            cmd.Parameters.AddWithValue("@APPROVAL", Approval.ToString());
-                            cmd.Parameters.AddWithValue("@REVIEWER", "");
-                            cmd.Parameters.AddWithValue("@MDA", ddlEmailMDA.SelectedValue.ToString());
-                            cmd.Parameters.AddWithValue("@Notification", Notification.ToString());
                             cmd.Parameters.AddWithValue("@CreatedBy", Session["User_Name"].ToString());
                             cmd.Parameters.AddWithValue("@Remarks", txtRemarksReview.Text.ToString());
-                            cmd.Parameters.AddWithValue("@Dept", txtRemarksReview.Text.ToString());
+                            cmd.Parameters.AddWithValue("@Dept", ViewState["Department"].ToString());
                             con.Open();
                             cmd.ExecuteNonQuery();
                             con.Close();
-                            
+
                             insertLineItem();
                             lblmessage.Focus();
                             error.Visible = false;
@@ -5375,9 +5389,53 @@ namespace DashboardProject.Modules.Master
         {
             try
             {
-                if ((((string)ViewState["Department"]) == "New Terry Stitching") || (((string)ViewState["Designation"]) == "Old Terry Stitching"))
+                if ((((((((((((((((((string)ViewState["Department"]) == "New Terry Stitching")
+                                 || ((string)ViewState["Department"]) == "Old Terry Stitching")
+                                 || ((string)ViewState["Department"]) == "MJS Apron")
+                                 || ((string)ViewState["Department"]) == "Garments")
+                                 || ((string)ViewState["Department"]) == "MJS Fabric Store")
+                                 || ((string)ViewState["Department"]) == "Terry Folding")
+                                 || ((string)ViewState["Department"]) == "Weaving")
+                                 || ((string)ViewState["Department"]) == "Terry Weaving Office")
+                                 || ((string)ViewState["Department"]) == "Outside Weaving")
+                                 || ((string)ViewState["Department"]) == "Terry Weaving Electrical")
+                                 || ((string)ViewState["Department"]) == "Outside Processing")
+                                 || ((string)ViewState["Department"]) == "MJS Processing")
+                                 || ((string)ViewState["Department"]) == "Processing Electrical")
+                                 || ((string)ViewState["Department"]) == "Terry Processing")
+                                 || ((string)ViewState["Department"]) == "Processing Maintenance")
+                                     || ((string)ViewState["Department"]) == "Information System")
                 {
-                    SaveBOMGRID();
+                    if ((((string)ViewState["Sequance"]) == "2") || (((string)ViewState["Sequance"]) == "4") || (((string)ViewState["Sequance"]) == "6") || (((string)ViewState["Sequance"]) == "8"))
+                    {
+                        SaveBOMGRID();
+                        error.Visible = false;
+                        lblUpError.Text = "";
+                        sucess.Visible = false;
+                        lblmessage.Text = "";
+                        EmailWorkApproved();
+                        ApplicationStatus();
+                        BindsysApplicationStatus();
+                        GetStatusHierachyCategoryControls();
+                        Page.MaintainScrollPositionOnPostBack = true;
+                        lblEmail.Focus();
+                    }
+                    else
+                    {
+                        error.Visible = false;
+                        lblUpError.Text = "";
+                        sucess.Visible = false;
+                        lblmessage.Text = "";
+                        EmailWorkApproved();
+                        ApplicationStatus();
+                        BindsysApplicationStatus();
+                        GetStatusHierachyCategoryControls();
+                        Page.MaintainScrollPositionOnPostBack = true;
+                        lblEmail.Focus();
+                    }
+                }
+                else
+                {
                     error.Visible = false;
                     lblUpError.Text = "";
                     sucess.Visible = false;
@@ -5388,15 +5446,108 @@ namespace DashboardProject.Modules.Master
                     GetStatusHierachyCategoryControls();
                     Page.MaintainScrollPositionOnPostBack = true;
                     lblEmail.Focus();
-
                 }
-            }  
+            }
             catch (Exception ex)
             {
                 lblError.Text = "btnSubmit_Click" + ex.ToString();
             }
         }
+        protected void AddBOM(object sender, EventArgs e)
+        {
+            try
+            {
+                if (ddlPlant.SelectedValue != "")
+                {
+                    lblgridError.Text = "";
+                    Control control = null;
+                    if (GridView2.FooterRow != null)
+                    {
+                        control = GridView2.FooterRow;
+                    }
+                    else
+                    {
+                        control = GridView2.Controls[0].Controls[0];
+                    }
+                    string customerName = (control.FindControl("ddlComponentType") as DropDownList).SelectedValue;
+                    string companyName2 = (control.FindControl("txtMaterial") as TextBox).Text;
+                    string companyName3 = (control.FindControl("txtMaterialDescription") as TextBox).Text;
+                    string companyName4 = (control.FindControl("txtQuantity") as TextBox).Text;
+                    string companyName5 = (control.FindControl("ddlUOM") as DropDownList).SelectedValue;
+                    string companyName6 = (control.FindControl("ddlStLoc") as DropDownList).SelectedValue;
 
+                    if (customerName.ToString() == "")
+                    {
+                        lblgridError.Text = "Component Type should not be left blank";
+                        return;
+                    }
+                    if (companyName2.ToString() == "")
+                    {
+                        lblgridError.Text = "Material No should not be left blank";
+                        return;
+                    }
+                    if (companyName3.ToString() == "")
+                    {
+                        lblgridError.Text = "Material Description should not be left blank";
+                        return;
+                    }
+                    if (companyName4.ToString() == "")
+                    {
+                        lblgridError.Text = "Quantity should not be left blank";
+                        return;
+                    }
+                    if (companyName5.ToString() == "")
+                    {
+                        lblgridError.Text = "UOM should not be left blank";
+                        return;
+                    }
+                    if (companyName6.ToString() == "")
+                    {
+                        lblgridError.Text = "Store Location should not be left blank";
+                        return;
+                    }
+                    else
+                    {
+                        if (customerName.ToString() == "Scrap Material")
+                        {
+                            companyName4 = "-" + companyName4.ToString();
+                        }
+                        else
+                        {
+                            companyName4 = companyName4.ToString();
+                        }
+
+                        DataTable dt = (DataTable)ViewState["BOMGrid"];
+                        dt.Rows.Add("", customerName.ToString().Trim(), companyName2.ToString().Trim(), companyName3.ToString().Trim(),
+                           companyName4.ToString().Trim(), companyName5.ToString().Trim(), companyName6.ToString().Trim());
+                        ViewState["BOMGrid"] = dt;
+                        GridView2.DataSource = (DataTable)ViewState["BOMGrid"];
+                        GridView2.DataBind();
+                        GridView2.Columns[0].Visible = true;
+
+
+                        float GTotal = 0f;
+                        for (int i = 0; i < GridView2.Rows.Count; i++)
+                        {
+                            if ((GridView2.Rows[i].FindControl("lblComponentType") as Label).Text == "Input Material" || (GridView2.Rows[i].FindControl("lblComponentType") as Label).Text == "Scrap Material")
+                            {
+                                String total = (GridView2.Rows[i].FindControl("lblQuantity") as Label).Text;
+                                GTotal += Convert.ToSingle(total);
+                            }
+                        }
+                        lblSum.Text = GTotal.ToString();
+                    }
+                }
+                else
+                {
+                    lblgridError.Text = "Select any plant!";
+                }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Add" + ex.ToString();
+            }
+        }
 
         //////////////////////////////////////////////Email Methods//////////////////////////////////////////
     }
