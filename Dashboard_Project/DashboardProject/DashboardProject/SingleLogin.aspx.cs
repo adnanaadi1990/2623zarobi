@@ -63,7 +63,8 @@ namespace ITLDashboard
                 {
                     if (user.StartsWith("ITL"))
                     {
-                        Session["User_Name"] = "Dashboard.1";
+                        Session["User_Name"] = Environment.UserName.ToString();
+                        //Session["User_Name"] = "Dashboard.1";
                         Response.Redirect(Session["Test"].ToString());
                     }
                     else
@@ -76,8 +77,8 @@ namespace ITLDashboard
                 {
                     if (user.StartsWith("ITL"))
                     {
-                        //Session["User_Name"] = Environment.UserName.ToString();
-                        Session["User_Name"] = "Dashboard.1";
+                        Session["User_Name"] = Environment.UserName.ToString();
+                        //Session["User_Name"] = "Dashboard.1";
                         Response.Redirect("Main.aspx");
                     }
 

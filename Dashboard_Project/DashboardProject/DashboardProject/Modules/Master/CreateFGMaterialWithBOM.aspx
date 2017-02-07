@@ -1143,12 +1143,12 @@
                 </div>
                 <div id="Div4" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        <div class="row">
+                        <%--          <div class="row">
                             <div class="col-sm-3" runat="server" id="dvBillOfMaterial">
                                 Bill Of Material
                                  <asp:TextBox ID="txtBillOfMaterial" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
                             </div>
-                        </div>
+                        </div>--%>
                         <span class="help-block"></span>
                         <div class="row" runat="server" id="Div7">
                             <div class="col-sm-4">
@@ -1426,8 +1426,10 @@
                             <div class="col-sm-2"></div>
                             <div class="col-sm-2"></div>
                             <div class="col-sm-2"></div>
-                            <div class="col-sm-4">Total Base Quantity:
-                                <asp:Label ID="lblSum" runat="server" CssClass="form-control"></asp:Label></div>
+                            <div class="col-sm-4">
+                                Total Base Quantity:
+                                <asp:Label ID="lblSum" runat="server" CssClass="form-control"></asp:Label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1435,6 +1437,77 @@
 
 
         </div>
+
+
+        <div class="panel-group" id="dvBillofMaterialsDisplay" runat="server" visible="false">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Bill of Materials Display
+                    </h4>
+                </div>
+                <div id="Div17" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div class="row fixed-panel">
+                            <div class="col-sm-12">
+
+                                <asp:GridView ID="grdBomDisplay" CssClass="table table-striped table-bordered footable" runat="server" AutoGenerateColumns="False" Width="1200px"
+                                    ShowFooter="true" OnSelectedIndexChanging="grdBomDisplay_SelectedIndexChanging">
+                                    <Columns>
+                                          <asp:TemplateField>
+                                            <ItemTemplate>
+                                                <asp:LinkButton runat="server" ID="lnkSelect" Text="Select" CommandName="Select"></asp:LinkButton>
+                                            </ItemTemplate>
+                                            <ItemStyle Width="1%" />
+                                            <HeaderStyle Width="1%" />
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Transaction ID">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="lblTID" Text='<%# Bind("TransactionID") %>'></asp:Label>
+                                                <%--<%# Eval("Numerator") %>--%>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:BoundField DataField="MaterialNo" HeaderText="User Name" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="MaterialDesc" HeaderText="User Name" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="Plant" HeaderText="User Name" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="StorageLocation" HeaderText="User Name" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="ProdLotSizeFrom" HeaderText="User Name" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="ProdLotSizeTo" HeaderText="User Name" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="ProductionVersion" HeaderText="User Name" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="ProdVersionDesc" HeaderText="User Name" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="BOMValidFrom" HeaderText="User Name" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="BOMValidTo" HeaderText="User Name" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="QTY" HeaderText="User Name" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="CreatedBy" HeaderText="User Name" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="CreatedDateTime" HeaderText="User Name" ItemStyle-Width="50px" />
+                                        <asp:TemplateField HeaderText="Department">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="lblDept" Text='<%# Bind("Dept") %>'></asp:Label>
+                                                <%--<%# Eval("Numerator") %>--%>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                            </div>
+                        </div>
+                                    <span class="help-block"></span>
+                    <div class="row fixed-panel">
+                            <div class="col-sm-12">
+
+                                <asp:GridView ID="grdDisplayBOMITEM" CssClass="table table-striped table-bordered footable" runat="server" AutoGenerateColumns="true" Width="1200px"
+                                    ShowFooter="true">
+                                    
+                                </asp:GridView>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
         <!-- Panel -->
 
         <div id="divEmail" runat="server" visible="false">
@@ -1482,10 +1555,7 @@
                                 Weaving Head Of Deparment
                                        <asp:Label ID="lblWeavingHOD" runat="server" CssClass="form-control"></asp:Label>
                             </div>
-                            <div class="col-sm-3">
-                                Notification  
-                                       <asp:ListBox ID="ddlNotification" SelectionMode="Multiple" runat="server"></asp:ListBox>
-                            </div>
+                            
                             <div class="col-sm-3">
                                 Taxes
                                       <asp:DropDownList ID="ddlTaxes" runat="server" CssClass="form-control"></asp:DropDownList>
@@ -1515,7 +1585,10 @@
                                 Master Data Administrator
                                         <asp:DropDownList ID="ddlEmailMDA" runat="server"></asp:DropDownList>
                             </div>
-
+                            <div class="col-sm-3">
+                                Notification  
+                                       <asp:ListBox ID="ddlNotification" SelectionMode="Multiple" runat="server"></asp:ListBox>
+                            </div>
                         </div>
 
                     </div>

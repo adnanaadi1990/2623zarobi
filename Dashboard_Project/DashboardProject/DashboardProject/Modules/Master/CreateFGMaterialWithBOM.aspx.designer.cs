@@ -1039,24 +1039,6 @@ namespace DashboardProject.Modules.Master {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvBOM;
         
         /// <summary>
-        /// dvBillOfMaterial control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvBillOfMaterial;
-        
-        /// <summary>
-        /// txtBillOfMaterial control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBillOfMaterial;
-        
-        /// <summary>
         /// Div7 control.
         /// </summary>
         /// <remarks>
@@ -1237,6 +1219,33 @@ namespace DashboardProject.Modules.Master {
         protected global::System.Web.UI.WebControls.Label lblSum;
         
         /// <summary>
+        /// dvBillofMaterialsDisplay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvBillofMaterialsDisplay;
+        
+        /// <summary>
+        /// grdBomDisplay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdBomDisplay;
+        
+        /// <summary>
+        /// grdDisplayBOMITEM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdDisplayBOMITEM;
+        
+        /// <summary>
         /// divEmail control.
         /// </summary>
         /// <remarks>
@@ -1336,15 +1345,6 @@ namespace DashboardProject.Modules.Master {
         protected global::System.Web.UI.WebControls.Label lblWeavingHOD;
         
         /// <summary>
-        /// ddlNotification control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox ddlNotification;
-        
-        /// <summary>
         /// ddlTaxes control.
         /// </summary>
         /// <remarks>
@@ -1415,6 +1415,15 @@ namespace DashboardProject.Modules.Master {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlEmailMDA;
+        
+        /// <summary>
+        /// ddlNotification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox ddlNotification;
         
         /// <summary>
         /// txtRemarksReview control.

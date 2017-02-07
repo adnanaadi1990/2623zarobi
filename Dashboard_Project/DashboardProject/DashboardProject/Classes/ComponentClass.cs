@@ -1706,6 +1706,27 @@ namespace ITLDashboard.Classes
             return ds;
         }
 
+        public DataSet UpdateMaterialFGBOM(string MetrialNo, string SAPCode, string MLock)
+        {
+            try
+            {
+                cmd.CommandText = "EXEC SP_UpdateMaterial_FGBOM" + " @TransactionID  ='" + MetrialNo.ToString() + "', " +
+                       " @Materiallock ='" + MLock.ToString() + "', " +
+                       " @SAPCode ='" + SAPCode.ToString() + "'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+
+                adp.SelectCommand = cmd;
+                adp.Fill(ds, "Message");
+            }
+            catch (Exception ex)
+            { ex.ToString(); }
+            finally
+            { conn.Close(); }
+            return ds;
+        }
+
+
         public DataSet InsertsysApplicationStatus(string FormID, string TransactionID, string HierachyCategory,
 
         string RoughtingUserID, string Status, string Remarks)

@@ -151,6 +151,7 @@ namespace DashboardProject.Modules.Master
                         this.ddlStorageLocation.Attributes.Add("disabled", "");
                         this.pnlemail.Visible = false;
                         whenquerystringpass();
+                        whenquerystringBOMDISPLAY();
                         BindsysApplicationStatus();
                         GetHarcheyID();
                         getUserDetail();
@@ -367,6 +368,8 @@ namespace DashboardProject.Modules.Master
                             {
                                 if ((((string)ViewState["Sequance"]) == "2") || (((string)ViewState["Sequance"]) == "4") || (((string)ViewState["Sequance"]) == "6") || (((string)ViewState["Sequance"]) == "8"))
                                 {
+                                    dvBillofMaterialsDisplay.Visible = false;
+                                    dvBOM.Visible = true;
                                     dvBOM.Visible = true;
                                     btnSubmitStiching.Visible = true;
                                     BD.Visible = true;
@@ -374,7 +377,7 @@ namespace DashboardProject.Modules.Master
                                     SD.Visible = true;
                                     QM.Visible = true;
                                     MRP.Visible = true;
-                                    txtBillOfMaterial.Enabled = true;
+                                    //txtBillOfMaterial.Enabled = true;
                                     txtMaterial.Enabled = true;
                                     MaterialDescription.Enabled = true;
                                     ddlPlantBom.Enabled = true;
@@ -397,6 +400,7 @@ namespace DashboardProject.Modules.Master
                                     txtRemarksReview.Visible = true;
                                     txtRemarks.Enabled = false;
                                     txtRemarksReview.Visible = true;
+                                    txtRemarksReview.Enabled = true;
                                     btnApprover.Visible = false;
                                     btnEdit.Visible = false;
                                     btnForward.Visible = false;
@@ -408,14 +412,15 @@ namespace DashboardProject.Modules.Master
                                 }
                                 else if ((((string)ViewState["Sequance"]) == "3") || (((string)ViewState["Sequance"]) == "5") || (((string)ViewState["Sequance"]) == "7") || (((string)ViewState["Sequance"]) == "9"))
                                 {
-                                    dvBOM.Visible = true;
-                                    btnSubmitStiching.Visible = true;
+                                    dvBillofMaterialsDisplay.Visible = true;
+                                    dvBOM.Visible = false;
+                                    btnSubmitStiching.Visible = false;
                                     BD.Visible = true;
                                     Prod.Visible = true;
                                     SD.Visible = true;
                                     QM.Visible = true;
                                     MRP.Visible = true;
-                                    txtBillOfMaterial.Enabled = false;
+                                    //txtBillOfMaterial.Enabled = false;
                                     txtMaterial.Enabled = false;
                                     MaterialDescription.Enabled = false;
                                     ddlPlantBom.Enabled = false;
@@ -438,6 +443,7 @@ namespace DashboardProject.Modules.Master
                                     txtRemarksReview.Visible = true;
                                     txtRemarks.Enabled = false;
                                     txtRemarksReview.Visible = true;
+                                    txtRemarksReview.Enabled = true;
                                     btnApprover.Visible = true;
                                     btnEdit.Visible = false;
                                     btnForward.Visible = false;
@@ -470,6 +476,8 @@ namespace DashboardProject.Modules.Master
                                 ddlRate.BackColor = System.Drawing.Color.AliceBlue;
                                 ddlRebatecategoryRate.BackColor = System.Drawing.Color.AliceBlue;
                                 controlForwardHide();
+                                dvBillofMaterialsDisplay.Visible = true;
+                                dvBOM.Visible = false;
                             }
 
                             else if ((((string)ViewState["Designation"]) == "Manager") && (((string)ViewState["Department"]) == "Marketing")
@@ -493,6 +501,8 @@ namespace DashboardProject.Modules.Master
                                 btnForward.Visible = false;
                                 btnTransfer.Visible = false;
                                 controlForwardHide();
+                                dvBillofMaterialsDisplay.Visible = true;
+                                dvBOM.Visible = false;
                             }
 
                             else if (((string)ViewState["Department"]) == "Finance")
@@ -526,6 +536,8 @@ namespace DashboardProject.Modules.Master
                                 btnTransfer.Visible = false;
                                 // btnFUpdate.Visible = false;
                                 controlForwardHide();
+                                dvBillofMaterialsDisplay.Visible = true;
+                                dvBOM.Visible = false;
                             }
                             else if (((string)ViewState["Department"]) == "MIS")
                             {
@@ -547,6 +559,8 @@ namespace DashboardProject.Modules.Master
                                 btnForward.Visible = false;
                                 btnTransfer.Visible = false;
                                 controlForwardHide();
+                                dvBillofMaterialsDisplay.Visible = true;
+                                dvBOM.Visible = false;
                             }
                         }
                         if (((string)ViewState["HID"]) == "4")
@@ -571,6 +585,8 @@ namespace DashboardProject.Modules.Master
                             txtRemarksReview.Visible = true;
                             txtRemarksReview.Enabled = true;
                             controlForwardHide();
+                            dvBillofMaterialsDisplay.Visible = true;
+                            dvBOM.Visible = false;
                         }
                         if (((string)ViewState["HID"]) == "3")
                         {
@@ -595,6 +611,8 @@ namespace DashboardProject.Modules.Master
                             txtSMC.Visible = true;
                             cbML.Enabled = false;
                             controlForwardHide();
+                            dvBillofMaterialsDisplay.Visible = true;
+                            dvBOM.Visible = false;
                         }
                         btnTransfer.Visible = false;
                         btnForward.Visible = false;
@@ -1000,6 +1018,7 @@ namespace DashboardProject.Modules.Master
                 }
                 if (((string)ViewState["StatusHierachyCategory"]) == "01" || ((string)ViewState["StatusHierachyCategory"]) == "02" || ((string)ViewState["StatusHierachyCategory"]) == "03" || ((string)ViewState["StatusHierachyCategory"]) == "04" || ((string)ViewState["StatusHierachyCategory"]) == "00" || ((string)ViewState["StatusHierachyCategory"]) == "06")
                 {
+                    btnSubmitStiching.Enabled = false;
                     btnSave.Enabled = false;
                     btnApprover.Enabled = false;
                     btnReviewed.Enabled = false;
@@ -1029,6 +1048,12 @@ namespace DashboardProject.Modules.Master
 
                     rbNewWeightCheck.Items[0].Enabled = false;
                     rbNewWeightCheck.Items[1].Enabled = false;
+                    if ((((string)ViewState["Sequance"]) == "2") || (((string)ViewState["Sequance"]) == "4") || (((string)ViewState["Sequance"]) == "6") || (((string)ViewState["Sequance"]) == "8"))
+                    {
+                        whenquerystringBOMDISPLAY();
+                        dvBOM.Visible = false;
+                        dvBillofMaterialsDisplay.Visible = true;
+                    }
 
                 }
             }
@@ -1247,6 +1272,33 @@ namespace DashboardProject.Modules.Master
                 lblError.Text = "whenquerystringpass" + ex.ToString();
             }
         }
+        private void whenquerystringBOMDISPLAY()
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+                {
+                    using (SqlCommand cmdGetData = new SqlCommand())
+                    {
+
+                        conn.Close();
+                      
+                        cmdGetData.CommandText = @"SP_getBOMFGITEMDATA";
+                        cmdGetData.CommandType = CommandType.StoredProcedure;
+                        cmdGetData.Connection = connection;
+                        cmdGetData.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text.ToString());
+                        adp.SelectCommand = cmdGetData;
+                        adp.Fill(ds, "SP_getBOMFGITEMDATA");
+                        grdBomDisplay.DataSource = ds.Tables["SP_getBOMFGITEMDATA"];
+                        grdBomDisplay.DataBind();
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "whenquerystringpass" + ex.ToString();
+            }
+        }
 
         protected void getUser()
         {
@@ -1313,17 +1365,17 @@ namespace DashboardProject.Modules.Master
                 conn.Close();
 
 
-                //cmd.CommandText = "";
-                //cmd.CommandText = "select * from tblusermodulecategory where Category = 'Stitching'";
-                //cmd.CommandType = CommandType.Text;
-                //cmd.Connection = conn;
-                //conn.Open();
-                //lblStichingHOD.DataSource = cmd.ExecuteReader();
-                //lblStichingHOD.DataTextField = "DisplayName";
-                //lblStichingHOD.DataValueField = "user_name";
-                //lblStichingHOD.DataBind();
-                //lblStichingHOD.Items.Insert(0, new ListItem("------Select------", "0"));
-                //conn.Close();
+                cmd.CommandText = "";
+                cmd.CommandText = "select * from tbl_EmailToSpecificPerson where FormID = '104'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                conn.Open();
+                ddlNotification.DataSource = cmd.ExecuteReader();
+                ddlNotification.DataTextField = "DisplayName";
+                ddlNotification.DataValueField = "user_name";
+                ddlNotification.DataBind();
+                //ddlNotification.Items.Insert(0, new ListItem("------Select------", "0"));
+                conn.Close();
 
 
 
@@ -2961,6 +3013,7 @@ namespace DashboardProject.Modules.Master
                 string EmailMDA = "";
                 string StorageLocation = "";
                 string ValuationType = "";
+                string NotificationFINAL = "";
 
                 for (int i = 0; i <= ddlPlant.Items.Count - 1; i++)
                 {
@@ -2997,6 +3050,16 @@ namespace DashboardProject.Modules.Master
                         else { Notification += "," + ddlNotificationMIS.Items[i].Value.Trim(); }
                     }
                 }
+
+                for (int i = 0; i <= ddlNotification.Items.Count - 1; i++)
+                {
+                    if (ddlNotification.Items[i].Selected)
+                    {
+                        if (NotificationFINAL == "") { NotificationFINAL = ddlNotification.Items[i].Value; }
+                        else { NotificationFINAL += "," + ddlNotification.Items[i].Value.Trim(); }
+                    }
+                }
+
                 for (int i = 0; i <= ddlNotificationFI.Items.Count - 1; i++)
                 {
                     if (ddlNotificationFI.Items[i].Selected)
@@ -3026,7 +3089,7 @@ namespace DashboardProject.Modules.Master
 
 
                 Result = ddlMerchandiser.SelectedValue.ToString() + "," + ddlStichingDep.SelectedValue.ToString() + "," + lblStichingHOD.Text.ToString() + "," + ddlCuttingDep.SelectedValue.ToString() + "," + lblCuttingHOD.Text.ToString() + "," + ddlProcessingDep.SelectedValue.ToString() + "," +
-               lblProcessingHOD.Text.ToString() + "," + ddlWeavingDep.SelectedValue.ToString() + "," + lblWeavingHOD.Text.ToString() + "," + ddlNotification.SelectedValue.ToString() + "," + ddlTaxes.SelectedValue.ToString() + "," + ddlMHOD.SelectedValue.ToString() + "," +
+               lblProcessingHOD.Text.ToString() + "," + ddlWeavingDep.SelectedValue.ToString() + "," + lblWeavingHOD.Text.ToString() + "," + ddlTaxes.SelectedValue.ToString() + "," + ddlMHOD.SelectedValue.ToString() + "," +
                ddlMarketingHOD.SelectedValue.ToString() + "," + ddlNotificationFI.SelectedValue.ToString() + "," + ddlNotificationMIS.SelectedValue.ToString();
                 cmd.CommandText = "";
                 cmd.CommandText = "SP_SYS_MaterialMasterFGBOM";
@@ -3052,6 +3115,7 @@ namespace DashboardProject.Modules.Master
                 cmd.Parameters.AddWithValue("@BatchManagmet", chkBatchManagement.SelectedValue);
                 cmd.Parameters.AddWithValue("@APPROVAL", Result.ToString());
                 cmd.Parameters.AddWithValue("@MDA", EmailMDA.ToString());
+                cmd.Parameters.AddWithValue("@Notification", NotificationFINAL.ToString());
                 cmd.Parameters.AddWithValue("@ClosedBox", RadioButtonList2.SelectedValue.ToString());
                 cmd.Parameters.AddWithValue("@CreatedBy", Session["User_Name"].ToString());
                 cmd.Parameters.AddWithValue("@Remarks", txtRemarksReview.Text.ToString());
@@ -3168,7 +3232,7 @@ namespace DashboardProject.Modules.Master
                     lblUpError.Text = "";
                     sucess.Visible = false;
                     error.Visible = false;
-                    ds = obj.UpdateMaterial(lblMaxTransactionID.Text, txtSMC.Text.Trim(), MLock.ToString());
+                    ds = obj.UpdateMaterialFGBOM(lblMaxTransactionID.Text, txtSMC.Text.Trim(), MLock.ToString());
                     //ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup2();", true);
                     //lblmessage.Text = "SAP Material Code " + txtSMC.Text.Trim() + " has been saved against  Form ID # " + Request.QueryString["TransactionNo"].ToString();
 
@@ -4897,7 +4961,7 @@ namespace DashboardProject.Modules.Master
                             cmdInsert.Parameters.AddWithValue("@HierachyCategory", HierachyCategory.ToString());
                             cmdInsert.Parameters.AddWithValue("@RoughtingUserID", Session["User_Name"].ToString());
                             cmdInsert.Parameters.AddWithValue("@Status", Status.ToString());
-                            cmdInsert.Parameters.AddWithValue("@TransferredTo", ddlTransferUser.SelectedValue.ToString());
+                            cmdInsert.Parameters.AddWithValue("@TransferredTo", "");
                             cmdInsert.Parameters.AddWithValue("@SerialNo", ViewState["SerialNo"]);
                             cmdInsert.Parameters.AddWithValue("@Sequence", ViewState["Sequance"]);
                             cmdInsert.Parameters.AddWithValue("@Remarks", txtRemarksReview.Text);
@@ -5213,7 +5277,7 @@ namespace DashboardProject.Modules.Master
                 BindPlant();
                 lblMaxTransactionNo.Text = reader["TransactionMain"].ToString();
                 lblMaxTransactionID.Text = reader["TransactionID"].ToString();
-                txtBillOfMaterial.Text = reader["BOM"].ToString();
+                //txtBillOfMaterial.Text = reader["BOM"].ToString();
                 ddlPlant.SelectedValue = reader["Plant"].ToString();
 
                 ddlStorageLocation.DataSource = GetData("SP_StorageLocationPlantWise");
@@ -5345,6 +5409,7 @@ namespace DashboardProject.Modules.Master
                             cmd.Connection = con;
                             cmd.CommandType = CommandType.StoredProcedure;
                             cmd.Parameters.AddWithValue("@TransactionMain", lblMaxTransactionNo.Text);
+                            cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
                             cmd.Parameters.AddWithValue("@MaterialNo", txtMaterial.Text.ToString());
                             cmd.Parameters.AddWithValue("@MaterialDesc", txtDescription.Text.ToString());
                             cmd.Parameters.AddWithValue("@Plant", ddlPlant.SelectedValue.ToString());
@@ -5369,9 +5434,16 @@ namespace DashboardProject.Modules.Master
                             error.Visible = false;
                             lblmessage.Focus();
                             Page.MaintainScrollPositionOnPostBack = false;
-                            EmailWorkSendFirstApproval();
-                            lblMaxTransactionID.Text = "";
-                            GetTransactionID();
+                            error.Visible = false;
+                            lblUpError.Text = "";
+                            sucess.Visible = false;
+                            lblmessage.Text = "";
+                            EmailWorkApproved();
+                            ApplicationStatus();
+                            BindsysApplicationStatus();
+                            GetStatusHierachyCategoryControls();
+                            Page.MaintainScrollPositionOnPostBack = true;
+                            lblEmail.Focus();
 
                         }
                     }
@@ -5409,16 +5481,6 @@ namespace DashboardProject.Modules.Master
                     if ((((string)ViewState["Sequance"]) == "2") || (((string)ViewState["Sequance"]) == "4") || (((string)ViewState["Sequance"]) == "6") || (((string)ViewState["Sequance"]) == "8"))
                     {
                         SaveBOMGRID();
-                        error.Visible = false;
-                        lblUpError.Text = "";
-                        sucess.Visible = false;
-                        lblmessage.Text = "";
-                        EmailWorkApproved();
-                        ApplicationStatus();
-                        BindsysApplicationStatus();
-                        GetStatusHierachyCategoryControls();
-                        Page.MaintainScrollPositionOnPostBack = true;
-                        lblEmail.Focus();
                     }
                     else
                     {
@@ -5546,6 +5608,39 @@ namespace DashboardProject.Modules.Master
             catch (Exception ex)
             {
                 lblError.Text = "Add" + ex.ToString();
+            }
+        }
+
+        protected void grdBomDisplay_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
+        {
+            try
+            {
+
+
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+                {
+                    using (SqlCommand cmdGetData = new SqlCommand())
+                    {
+                        var TID = ((Label)grdBomDisplay.Rows[e.NewSelectedIndex].FindControl("lblTID")).Text;
+                        var Dept = ((Label)grdBomDisplay.Rows[e.NewSelectedIndex].FindControl("lblDept")).Text;
+
+                        conn.Close();
+
+                        cmdGetData.CommandText = @"SP_getBOMFGITEMDATAItem";
+                        cmdGetData.CommandType = CommandType.StoredProcedure;
+                        cmdGetData.Connection = connection;
+                        cmdGetData.Parameters.AddWithValue("@TransactionID", TID.ToString());
+                        cmdGetData.Parameters.AddWithValue("@Dept", Dept.ToString());
+                        adp.SelectCommand = cmdGetData;
+                        adp.Fill(ds, "SP_getBOMFGITEMDATAItem");
+                        grdDisplayBOMITEM.DataSource = ds.Tables["SP_getBOMFGITEMDATAItem"];
+                        grdDisplayBOMITEM.DataBind();
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                lblError.Text = "grdDisplayBOMITEM" + ex.ToString();
             }
         }
 
