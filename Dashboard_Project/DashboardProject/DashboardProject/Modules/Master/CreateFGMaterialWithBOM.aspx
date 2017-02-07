@@ -1467,11 +1467,11 @@
                                                 <%--<%# Eval("Numerator") %>--%>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:BoundField DataField="MaterialNo" HeaderText="User Name" ItemStyle-Width="50px" />
-                                        <asp:BoundField DataField="MaterialDesc" HeaderText="User Name" ItemStyle-Width="50px" />
-                                        <asp:BoundField DataField="Plant" HeaderText="User Name" ItemStyle-Width="50px" />
-                                        <asp:BoundField DataField="StorageLocation" HeaderText="User Name" ItemStyle-Width="50px" />
-                                        <asp:BoundField DataField="ProdLotSizeFrom" HeaderText="User Name" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="MaterialNo" HeaderText="Material No" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="MaterialDesc" HeaderText="Material Description" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="Plant" HeaderText="Plant" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="StorageLocation" HeaderText="Storage Location" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="ProdLotSizeFrom" HeaderText="Prod Lot Size From" ItemStyle-Width="50px" />
                                         <asp:BoundField DataField="ProdLotSizeTo" HeaderText="User Name" ItemStyle-Width="50px" />
                                         <asp:BoundField DataField="ProductionVersion" HeaderText="User Name" ItemStyle-Width="50px" />
                                         <asp:BoundField DataField="ProdVersionDesc" HeaderText="User Name" ItemStyle-Width="50px" />

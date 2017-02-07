@@ -618,6 +618,24 @@ namespace DashboardProject.Modules.Master
                         btnForward.Visible = false;
                         controlForwardHide();
                     }
+
+                    if (((string)ViewState["HID"]) == "5")
+                    {
+                        btnApprover.Visible = false;
+                        btnReject.Visible = false;
+                        btnSave.Visible = false;
+                        btnCancel.Visible = false;
+                        //btnMDA.Visible = false;
+                        divEmail.Visible = false;
+                        dvFormID.Visible = true;
+                        dvTransactionNo.Visible = false;
+                        dvTransactionNo.Visible = false;
+                        //btnShowFile.Visible = true;
+                        ViewState["Status"] = "05";
+                        ApplicationStatus();
+                        BindsysApplicationStatus();
+                    }
+
                     else
                     {
                         ds = objFK.FormDepartmentMarketing(Session["User_Name"].ToString());
