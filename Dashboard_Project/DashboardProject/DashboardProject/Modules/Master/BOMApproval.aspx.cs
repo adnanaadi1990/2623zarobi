@@ -235,6 +235,7 @@ namespace DashboardProject.Modules.Master
             }
 
         }
+
         private void mandatcolor()
         {
             try

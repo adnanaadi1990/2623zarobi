@@ -216,19 +216,21 @@
                             </div>
                             <div class="panel-body">
                                 <div class="row" style="text-align: center;">
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-2"></div>
+                                     <div class="col-sm-4">
                                         Head Of Deparment
                                        <asp:Label ID="lblHOD" runat="server" CssClass="form-control"></asp:Label>
                                     </div>
-                                    <div class="col-sm-4">
+                                   <%-- <div class="col-sm-4">
                                         IS Representative  
                                        <asp:DropDownList ID="ddlEmailMDA" CssClass="form-control" runat="server">
                                        </asp:DropDownList>
-                                    </div>
+                                    </div>--%>
                                     <div class="col-sm-4">
                                         Notification  
                                        <asp:ListBox ID="ddlNotification" SelectionMode="Multiple" runat="server"></asp:ListBox>
                                     </div>
+                                       <div class="col-sm-2"></div>
                                 </div>
 
                             </div>

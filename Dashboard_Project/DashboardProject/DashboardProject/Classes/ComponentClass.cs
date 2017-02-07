@@ -1706,6 +1706,27 @@ namespace ITLDashboard.Classes
             return ds;
         }
 
+        public DataSet UpdateMaterialFGBOM(string MetrialNo, string SAPCode, string MLock)
+        {
+            try
+            {
+                cmd.CommandText = "EXEC SP_UpdateMaterial_FGBOM" + " @TransactionID  ='" + MetrialNo.ToString() + "', " +
+                       " @Materiallock ='" + MLock.ToString() + "', " +
+                       " @SAPCode ='" + SAPCode.ToString() + "'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+
+                adp.SelectCommand = cmd;
+                adp.Fill(ds, "Message");
+            }
+            catch (Exception ex)
+            { ex.ToString(); }
+            finally
+            { conn.Close(); }
+            return ds;
+        }
+
+
         public DataSet InsertsysApplicationStatus(string FormID, string TransactionID, string HierachyCategory,
 
         string RoughtingUserID, string Status, string Remarks)
@@ -2325,6 +2346,33 @@ namespace ITLDashboard.Classes
                         cmd.Parameters.AddWithValue("@HierachyCategory", HierachyCategory.ToString());
                         adp.SelectCommand = cmd;
                         adp.Fill(ds, "MailForwardToAllFromMDA");
+                    }
+                    catch (Exception ex)
+                    { ex.ToString(); }
+                    finally
+                    { conn.Close(); }
+                    return ds;
+                }
+            }
+        }
+
+        public DataSet MailForwardToAllFromConsltantToHOD(string TransactionNo, string FormID, string HierachyCategory, string SENDTO)
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())//
+                {
+                    try
+                    {
+                        ds.Clear();
+                        cmd.CommandText = "SP_MailForwardFormConsultantToHOD";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
+                        cmd.Parameters.AddWithValue("@TransactionID", TransactionNo.ToString());
+                        cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
+                        cmd.Parameters.AddWithValue("@SendTo", SENDTO.ToString());
+                        adp.SelectCommand = cmd;
+                        adp.Fill(ds, "SP_MailForwardFormConsultantToHOD");
                     }
                     catch (Exception ex)
                     { ex.ToString(); }

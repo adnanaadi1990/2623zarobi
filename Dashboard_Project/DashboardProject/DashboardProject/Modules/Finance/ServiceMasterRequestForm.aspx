@@ -274,7 +274,7 @@
             <asp:Button ID="btnApprover" runat="server" CssClass="btn btn-primary" Text="Approve" Visible="False" Width="100px" CausesValidation="False" OnClick="btnApprover_Click" />
             <asp:LinkButton ID="btnTransfer" runat="server" class="btn btn-primary" data-target="#TansferModel" data-toggle="modal" Text="Transfer Form" Visible="False" CssClass="btn btn-primary"></asp:LinkButton>
             <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-primary" Text="Submit" CausesValidation="False" OnClick="btnSubmit_Click" Width="100px" Visible="False"></asp:Button>
-            <asp:Button ID="btnFUpdate" runat="server" CssClass="btn btn-primary" Text="Update" CausesValidation="False" Width="100px" Visible="False" ></asp:Button>
+            <asp:Button ID="btnFUpdate" runat="server" CssClass="btn btn-primary" Text="Update" CausesValidation="False" Width="100px" Visible="False" OnClick="btnFUpdate_Click" ></asp:Button>
             <asp:Button ID="btnReject" runat="server" CssClass="btn btn-primary" Text="Reject" OnClick="btnReject_Click" Width="100px" CausesValidation="False" Visible="False"></asp:Button>
             <asp:Button ID="btnEdit" runat="server" CssClass="btn btn-primary" Text="Edit" CausesValidation="False" OnClick="btnEdit_Click" Width="80px" Visible="False"></asp:Button>
             <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-primary" Text="Reset Form" CausesValidation="False" Width="100px" OnClick="btnCancel_Click"></asp:Button>

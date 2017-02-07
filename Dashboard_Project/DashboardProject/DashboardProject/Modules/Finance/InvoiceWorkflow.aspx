@@ -287,7 +287,7 @@
                                        </asp:DropDownList>
                                 </div>
                                 <div class="col-sm-4">
-                                    Reviwer
+                                    Reviewer
                                        <asp:DropDownList ID="ddlEmailMDA" CssClass="form-control" runat="server">
                                        </asp:DropDownList>
                                 </div>
