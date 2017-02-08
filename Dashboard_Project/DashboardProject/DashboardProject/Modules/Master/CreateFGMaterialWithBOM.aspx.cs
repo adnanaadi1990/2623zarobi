@@ -617,25 +617,27 @@ namespace DashboardProject.Modules.Master
                         btnTransfer.Visible = false;
                         btnForward.Visible = false;
                         controlForwardHide();
-                    }
 
-                    if (((string)ViewState["HID"]) == "5")
-                    {
-                        btnApprover.Visible = false;
-                        btnReject.Visible = false;
-                        btnSave.Visible = false;
-                        btnCancel.Visible = false;
-                        //btnMDA.Visible = false;
-                        divEmail.Visible = false;
-                        dvFormID.Visible = true;
-                        dvTransactionNo.Visible = false;
-                        dvTransactionNo.Visible = false;
-                        //btnShowFile.Visible = true;
-                        ViewState["Status"] = "05";
-                        ApplicationStatus();
-                        BindsysApplicationStatus();
-                    }
 
+                        if (((string)ViewState["HID"]) == "5")
+                        {
+                            btnApprover.Visible = false;
+                            btnSubmitStiching.Visible = false;
+                            btnSaveSubmit.Visible = false;
+                            btnReject.Visible = false;
+                            btnSave.Visible = false;
+                            btnCancel.Visible = false;
+                            //btnMDA.Visible = false;
+                            divEmail.Visible = false;
+                            dvFormID.Visible = true;
+                            dvTransactionNo.Visible = false;
+                            dvTransactionNo.Visible = false;
+                            //btnShowFile.Visible = true;
+                            ViewState["Status"] = "05";
+                            ApplicationStatus();
+                            BindsysApplicationStatus();
+                        }
+                    }
                     else
                     {
                         ds = objFK.FormDepartmentMarketing(Session["User_Name"].ToString());
@@ -651,7 +653,7 @@ namespace DashboardProject.Modules.Master
                                 DummyGrid();
                                 getUserDetail();
                                 GetTransactionID();
-                                BindPageLoad();
+                                 BindPageLoad();
                                 BindGridBOM();
                             }
                             else
@@ -1300,7 +1302,7 @@ namespace DashboardProject.Modules.Master
                     {
 
                         conn.Close();
-                      
+
                         cmdGetData.CommandText = @"SP_getBOMFGITEMDATA";
                         cmdGetData.CommandType = CommandType.StoredProcedure;
                         cmdGetData.Connection = connection;
@@ -1770,7 +1772,7 @@ namespace DashboardProject.Modules.Master
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     ds.Clear();
-                    cmd.CommandText = "SELECT distinct [H1ID],[H1ID]+ ' ' + [H1Desc] as [H1Desc] FROM [dbo].[TBL_ProductHierarchy]";
+                    cmd.CommandText = "SELECT distinct H1ID,H1ID + ' ' + H1Desc as H1Desc FROM TBL_ProductHierarchy";
                     cmd.CommandType = CommandType.Text;
                     cmd.Connection = conn;
                     adp.SelectCommand = cmd;
@@ -1795,7 +1797,7 @@ namespace DashboardProject.Modules.Master
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     ds.Clear();
-                    cmd.CommandText = "SELECT distinct [H2ID],[H2ID]+ ' ' + [H2Desc] as [H2Desc] FROM [dbo].[TBL_ProductHierarchy]";
+                    cmd.CommandText = "SELECT distinct H2ID,H2ID + ' ' + H2Desc as H2Desc FROM dbo.TBL_ProductHierarchy";
                     cmd.CommandType = CommandType.Text;
                     cmd.Connection = conn;
                     adp.SelectCommand = cmd;
@@ -1821,7 +1823,7 @@ namespace DashboardProject.Modules.Master
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     ds.Clear();
-                    cmd.CommandText = "SELECT distinct [H3ID],[H3ID]+ ' ' + [H3Desc] as [H3Desc] FROM [dbo].[TBL_ProductHierarchy]";
+                    cmd.CommandText = "SELECT distinct H3ID,H3ID + ' ' + H3Desc as H3Desc FROM TBL_ProductHierarchy";
                     cmd.CommandType = CommandType.Text;
                     cmd.Connection = conn;
                     adp.SelectCommand = cmd;
@@ -5423,7 +5425,7 @@ namespace DashboardProject.Modules.Master
                     {
                         using (SqlDataAdapter sda = new SqlDataAdapter())
                         {
-                          
+
                             cmd.Connection = con;
                             cmd.CommandType = CommandType.StoredProcedure;
                             cmd.Parameters.AddWithValue("@TransactionMain", lblMaxTransactionNo.Text);
