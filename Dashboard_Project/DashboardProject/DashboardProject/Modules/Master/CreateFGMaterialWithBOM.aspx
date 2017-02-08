@@ -669,7 +669,7 @@
                                 <%--<%# Eval("Numerator") %>--%>
                                 <div class="col-sm-4">
                                     Product Hierarchy
-                            <asp:DropDownList ID="ddlProdCatg" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlProdCatg_SelectedIndexChanged" ViewStateMode="Enabled">
+                            <asp:DropDownList ID="ddlProdCatg" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlProdCatg_SelectedIndexChanged" ViewStateMode="Enabled">                   
                             </asp:DropDownList>
 
                                 </div>
