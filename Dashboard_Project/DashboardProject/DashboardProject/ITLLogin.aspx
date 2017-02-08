@@ -81,7 +81,7 @@
         <div class="container">
             <div class="bs-example">
                 <h2 style="font-family: fantasy;">
-                    <asp:Image ID="Image1" ImageUrl="~/Images/ITL LOGO.png" Height="100px" Width="100px" runat="server" />
+                    <asp:Image ID="Image1" ImageUrl="~/Images/ITLLOGO.png" Height="100px" Width="100px" runat="server" />
                     International Textile Limited</h2>
             </div>
 
