@@ -115,7 +115,6 @@ namespace DashboardProject.Modules.Master
 
                     if (Request.QueryString["TransactionNo"] != null)
                     {
-
                         txtStandardPrice.Enabled = false;
                         BindPageLoad();
                         dvFormID.Visible = true;
@@ -283,6 +282,7 @@ namespace DashboardProject.Modules.Master
                                 controlForwardHide();
                                 rbNewWeightCheck.Enabled = true;
                             }
+
                             if ((((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "Senior Manager") ||
                                 (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "SAP Business Analyst") ||
                                 (((string)ViewState["Department"]) == "Merchandising") && (((string)ViewState["Designation"]) == "General Manager") ||
@@ -621,6 +621,14 @@ namespace DashboardProject.Modules.Master
 
                         if (((string)ViewState["HID"]) == "5")
                         {
+                            BD.Visible = true;
+                            Prod.Visible = true;
+                            Account.Visible = true;
+                            SD.Visible = true;
+                            QM.Visible = true;
+                            MRP.Visible = true;
+                            Account.Visible = true;
+                            dvBillofMaterialsDisplay.Visible = true;
                             btnApprover.Visible = false;
                             btnSubmitStiching.Visible = false;
                             btnSaveSubmit.Visible = false;
@@ -653,7 +661,7 @@ namespace DashboardProject.Modules.Master
                                 DummyGrid();
                                 getUserDetail();
                                 GetTransactionID();
-                                 BindPageLoad();
+                                BindPageLoad();
                                 BindGridBOM();
                             }
                             else
@@ -2584,6 +2592,7 @@ namespace DashboardProject.Modules.Master
                 string Plant = "";
                 string strQuery = "";
                 ddlStorageLocation.Items.Clear();
+
                 for (int i = 0; i <= ddlPlant.Items.Count - 1; i++)
                 {
                     if (ddlPlant.Items[i].Selected)
@@ -2591,8 +2600,8 @@ namespace DashboardProject.Modules.Master
                         if (Plant == "") { Plant = ddlPlant.Items[i].Value; }
                         else { Plant += "," + ddlPlant.Items[i].Value; }
                     }
-
                 }
+
                 ddlStorageLocation.SelectedIndex = -1;
                 strQuery = @"SP_BindStorageLocation";
                 using (SqlCommand cmd = new SqlCommand())
@@ -2613,12 +2622,6 @@ namespace DashboardProject.Modules.Master
                     ddlStorageLocation.DataBind();  //binding dropdownlist
                     conn.Close();
 
-                    ddlStorageLocationBOM.DataTextField = ds.Tables["SL"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
-                    ddlStorageLocationBOM.DataValueField = ds.Tables["SL"].Columns["StorageLocationcode"].ToString();             // to retrive specific  textfield name 
-                    ddlStorageLocationBOM.DataSource = ds.Tables["SL"];      //assigning datasource to the dropdownlist
-                    ddlStorageLocationBOM.DataBind();  //binding dropdownlist
-                    ddlStorageLocationBOM.Items.Insert(0, new ListItem("------Select------", "0"));
-                    conn.Close();
                 }
             }
             catch (SqlException ex)
@@ -2847,8 +2850,6 @@ namespace DashboardProject.Modules.Master
         {
 
         }
-
-
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
@@ -3194,6 +3195,16 @@ namespace DashboardProject.Modules.Master
                     Page.MaintainScrollPositionOnPostBack = false;
                     lblmessage.ForeColor = System.Drawing.Color.Red;
                     txtRemarksReview.Enabled = true;
+
+                    for (int i = 0; i < ddlPlant.Items.Count; i++)
+                    {
+                        ddlPlant.Items[i].Attributes.Add("disabled", "disabled");
+                    }
+                    for (int i = 0; i < ddlStorageLocation.Items.Count; i++)
+                    {
+                        ddlStorageLocation.Items[i].Attributes.Add("disabled", "disabled");
+                    }
+
                     return;
                 }
 
@@ -3210,6 +3221,14 @@ namespace DashboardProject.Modules.Master
                     txtSMC.BackColor = System.Drawing.Color.Red;
                     lblmessage.ForeColor = System.Drawing.Color.Red;
                     txtRemarksReview.Enabled = true;
+                    for (int i = 0; i < ddlPlant.Items.Count; i++)
+                    {
+                        ddlPlant.Items[i].Attributes.Add("disabled", "disabled");
+                    }
+                    for (int i = 0; i < ddlStorageLocation.Items.Count; i++)
+                    {
+                        ddlStorageLocation.Items[i].Attributes.Add("disabled", "disabled");
+                    }
                     return;
                 }
 
@@ -3234,6 +3253,15 @@ namespace DashboardProject.Modules.Master
                     Page.MaintainScrollPositionOnPostBack = false;
                     txtSMC.BackColor = System.Drawing.Color.Red;
                     lblmessage.ForeColor = System.Drawing.Color.Red;
+
+                    for (int i = 0; i < ddlPlant.Items.Count; i++)
+                    {
+                        ddlPlant.Items[i].Attributes.Add("disabled", "disabled");
+                    }
+                    for (int i = 0; i < ddlStorageLocation.Items.Count; i++)
+                    {
+                        ddlStorageLocation.Items[i].Attributes.Add("disabled", "disabled");
+                    }
                 }
                 else
                 {
@@ -3267,7 +3295,6 @@ namespace DashboardProject.Modules.Master
                         sucess.Visible = true;
                         error.Visible = false;
                         Page.MaintainScrollPositionOnPostBack = false;
-
                     }
                     catch (Exception ex)
                     {
@@ -3288,6 +3315,7 @@ namespace DashboardProject.Modules.Master
                     }
                 }
             }
+
             catch (Exception ex)
             {
                 lblError.Text = "MDA" + ex.ToString();
@@ -5135,49 +5163,6 @@ namespace DashboardProject.Modules.Master
         }
 
         decimal sum = 0;
-        protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            try
-            {
-                if (e.Row.RowType == DataControlRowType.EmptyDataRow)
-                {
-
-                    conn.Close();
-
-                    cmd.CommandText = "";
-                    //Find the DropDownList in the Row
-                    DropDownList ddlStLoc = (e.Row.FindControl("ddlStLoc") as DropDownList);
-                    ddlStLoc.DataSource = GetData("SP_StorageLocationPlantWise");
-                    ddlStLoc.DataTextField = "Description";
-                    ddlStLoc.DataValueField = "StorageLocationcode";
-                    ddlStLoc.DataBind();
-                    //Add Default Item in the DropDownList
-                    ddlStLoc.Items.Insert(0, new ListItem("Please select"));
-
-
-
-                }
-                else if (e.Row.RowType == DataControlRowType.Footer)
-                {
-
-                    conn.Close();
-
-                    cmd.CommandText = "";
-                    //Find the DropDownList in the Row
-                    DropDownList ddlStLoc = (e.Row.FindControl("ddlStLoc") as DropDownList);
-                    ddlStLoc.DataSource = GetData("SP_StorageLocationPlantWise");
-                    ddlStLoc.DataTextField = "Description";
-                    ddlStLoc.DataValueField = "StorageLocationcode";
-                    ddlStLoc.DataBind();
-                    //Add Default Item in the DropDownList
-                    ddlStLoc.Items.Insert(0, new ListItem("Please select"));
-                }
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "OnRowDataBound" + ex.ToString();
-            }
-        }
 
         protected void GridView2_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
@@ -5224,7 +5209,7 @@ namespace DashboardProject.Modules.Master
                 {
                     cmd.Connection = con;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@Plantcode", ddlPlant.SelectedValue.ToString());
+                    cmd.Parameters.AddWithValue("@Plant", ddlPlantBom.SelectedValue.ToString());
                     sda.SelectCommand = cmd;
                     using (DataSet ds = new DataSet())
                     {
@@ -5535,6 +5520,7 @@ namespace DashboardProject.Modules.Master
                 lblError.Text = "btnSubmit_Click" + ex.ToString();
             }
         }
+
         protected void AddBOM(object sender, EventArgs e)
         {
             try
@@ -5661,6 +5647,96 @@ namespace DashboardProject.Modules.Master
             catch (SqlException ex)
             {
                 lblError.Text = "grdDisplayBOMITEM" + ex.ToString();
+            }
+        }
+
+        protected void ddlPlantBom_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+
+
+                ddlStorageLocationBOM.DataSource = GetData("SP_BindStorageLocation");
+                ddlStorageLocationBOM.DataTextField = "Description";
+                ddlStorageLocationBOM.DataValueField = "StorageLocationcode";
+                ddlStorageLocationBOM.DataBind();
+                //Add Default Item in the DropDownList
+                ddlStorageLocationBOM.Items.Insert(0, new ListItem("------Select------", ""));
+                GridView2.DataSource = (DataTable)ViewState["BOMGrid"];
+                GridView2.DataBind();
+                lblgridError.Text = "";
+
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "ddlPlantBom_SelectedIndexChanged" + ex.ToString();
+            }
+        }
+
+        protected void OnDataBound(object sender, EventArgs e)
+        {
+            try
+            {
+
+                conn.Close();
+
+                cmd.CommandText = "";
+                //Find the DropDownList in the Row
+                DropDownList ddlCountries = GridView2.FooterRow.FindControl("ddlStLoc") as DropDownList;
+                ddlCountries.DataSource = GetData("SP_StorageLocation");
+                ddlCountries.DataTextField = "Description";
+                ddlCountries.DataValueField = "StorageLocationcode";
+                ddlCountries.DataBind();
+                //Add Default Item in the DropDownList
+                ddlCountries.Items.Insert(0, new ListItem("Please select"));
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "OnDataBound" + ex.ToString();
+            }
+        }
+
+        protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            try
+            {
+                if (e.Row.RowType == DataControlRowType.EmptyDataRow)
+                {
+
+                    conn.Close();
+
+                    cmd.CommandText = "";
+                    //Find the DropDownList in the Row
+                    DropDownList ddlStLoc = (e.Row.FindControl("ddlStLoc") as DropDownList);
+                    ddlStLoc.DataSource = GetData("SP_BindStorageLocation");
+                    ddlStLoc.DataTextField = "Description";
+                    ddlStLoc.DataValueField = "StorageLocationcode";
+                    ddlStLoc.DataBind();
+                    //Add Default Item in the DropDownList
+                    ddlStLoc.Items.Insert(0, new ListItem("Please select"));
+
+
+
+                }
+                else if (e.Row.RowType == DataControlRowType.Footer)
+                {
+
+                    conn.Close();
+
+                    cmd.CommandText = "";
+                    //Find the DropDownList in the Row
+                    DropDownList ddlStLoc = (e.Row.FindControl("ddlStLoc") as DropDownList);
+                    ddlStLoc.DataSource = GetData("SP_BindStorageLocation");
+                    ddlStLoc.DataTextField = "Description";
+                    ddlStLoc.DataValueField = "StorageLocationcode";
+                    ddlStLoc.DataBind();
+                    //Add Default Item in the DropDownList
+                    ddlStLoc.Items.Insert(0, new ListItem("Please select"));
+                }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "OnRowDataBound" + ex.ToString();
             }
         }
 

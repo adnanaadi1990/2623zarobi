@@ -714,6 +714,7 @@
     <Content Include="Modules\Master\MaterialMasterMtypeCreation.aspx" />
     <Content Include="Modules\Master\MM_Main.aspx" />
     <Content Include="Modules\Master\SearchBOMApproval.aspx" />
+    <Content Include="Modules\Master\SearchCreateFGMaterialWithBOM.aspx" />
     <Content Include="Modules\Master\SearchMaterialMasterMtypeCreation.aspx" />
     <Content Include="Modules\Master\SearchMeterialMaster.aspx" />
     <Content Include="Modules\Master\WebForm1.aspx" />
@@ -727,6 +728,7 @@
     <Content Include="Modules\Reports\CustomerMasterReport.aspx" />
     <Content Include="Modules\Reports\DeadStockReport.aspx" />
     <Content Include="Modules\Reports\DeliveryChallanWorkflowReport.aspx" />
+    <Content Include="Modules\Reports\FGBOMMaterialMasterReport.aspx" />
     <Content Include="Modules\Reports\InventoryAdjustmentReport.aspx" />
     <Content Include="Modules\Reports\InvoiceWorkflowReport.aspx" />
     <Content Include="Modules\Reports\MaterialMasterMtypeCreationReport.aspx" />
@@ -1204,6 +1206,13 @@
     <Compile Include="Modules\Master\SearchBOMApproval.aspx.designer.cs">
       <DependentUpon>SearchBOMApproval.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Master\SearchCreateFGMaterialWithBOM.aspx.cs">
+      <DependentUpon>SearchCreateFGMaterialWithBOM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Master\SearchCreateFGMaterialWithBOM.aspx.designer.cs">
+      <DependentUpon>SearchCreateFGMaterialWithBOM.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Master\SearchMaterialMasterMtypeCreation.aspx.cs">
       <DependentUpon>SearchMaterialMasterMtypeCreation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1294,6 +1303,13 @@
     </Compile>
     <Compile Include="Modules\Reports\DeliveryChallanWorkflowReport.aspx.designer.cs">
       <DependentUpon>DeliveryChallanWorkflowReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\FGBOMMaterialMasterReport.aspx.cs">
+      <DependentUpon>FGBOMMaterialMasterReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Reports\FGBOMMaterialMasterReport.aspx.designer.cs">
+      <DependentUpon>FGBOMMaterialMasterReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\InventoryAdjustmentReport.aspx.cs">
       <DependentUpon>InventoryAdjustmentReport.aspx</DependentUpon>

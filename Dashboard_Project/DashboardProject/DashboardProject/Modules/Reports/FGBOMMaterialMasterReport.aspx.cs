@@ -19,7 +19,7 @@ using ITLDashboard.Classes;
 
 namespace DashboardProject.Modules.Reports
 {
-    public partial class MaterialMasterMtype_creationReport : System.Web.UI.Page
+    public partial class FGBOMMaterialMasterReport : System.Web.UI.Page
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString.ToString());
         ComponentClass obj = new ComponentClass();
@@ -28,7 +28,7 @@ namespace DashboardProject.Modules.Reports
         SqlDataAdapter adp = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
         DataTable table = new DataTable();
-        public string FormID = "103";
+        public string FormID = "104";
         public int Coint = 0;
         protected void Page_Load(object sender, EventArgs e)
         {

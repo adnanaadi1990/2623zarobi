@@ -120,10 +120,10 @@
                 });
             });
         };
-
+        
         /////////////////////////////////////////////////////////////////////////////////////////////////
         function pageLoad() {
-            $('[id*=txtStandardPrice],[id*=txtCustomerNo ],[id*=txtNumerator] ,[id*=txtDenominator],[id*=txtVolume],[id*=txtLenght],[id*=txtWidth],[id*=txtheight],[id*=txtGROSSWEIGHT] ,[id*=txtNETWEIGHT],[id*=txtVolume],[id*=txtNumeratorValue],[id*=txtDenominatorValue],[id*=txtReoderPoint],[id*=txtPlannedDeliveryTimeInDays],[id*=txtInHouseProductionTimeInDays],[id*=txtGRPROCESSINGTIMEINDAYS],[id*=txtSafetyStock],[id*=txtOverDeliveryTollerance],[id*=txtExcessWeightTolerance],[id*=txtUnderDeliveryTollerance],[id*=txtExcessVolumeTolerance],[id*=txtSMC]').keyup(function () {
+            $('[id*=txtStandardPrice],[id*=txtCustomerNo],[id*=txtBaseQuantity],[id*=txtMaterial],[id*=txtNumerator],[id*=txtDenominator],[id*=txtVolume],[id*=txtLenght],[id*=txtWidth],[id*=txtheight],[id*=txtGROSSWEIGHT] ,[id*=txtNETWEIGHT],[id*=txtVolume],[id*=txtNumeratorValue],[id*=txtDenominatorValue],[id*=txtReoderPoint],[id*=txtPlannedDeliveryTimeInDays],[id*=txtInHouseProductionTimeInDays],[id*=txtGRPROCESSINGTIMEINDAYS],[id*=txtSafetyStock],[id*=txtOverDeliveryTollerance],[id*=txtExcessWeightTolerance],[id*=txtUnderDeliveryTollerance],[id*=txtExcessVolumeTolerance],[id*=txtSMC]').keyup(function () {
                 if (this.value.match(/[^,.0-9 ]/g)) {
                     this.value = this.value.replace(/[^,.0-9 ]/g, '');
                 }
@@ -1166,7 +1166,7 @@
                         <div class="row" runat="server" id="dvCheque">
                             <div class="col-sm-5">
                                 Plant
-                                <asp:DropDownList ID="ddlPlantBom" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlPlant_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
+                                <asp:DropDownList ID="ddlPlantBom" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlPlantBom_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
                             </div>
                             <div class="col-sm-7">
                                 Storage Location
@@ -1467,19 +1467,19 @@
                                                 <%--<%# Eval("Numerator") %>--%>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:BoundField DataField="MaterialNo" HeaderText="Material No" ItemStyle-Width="50px" />
-                                        <asp:BoundField DataField="MaterialDesc" HeaderText="Material Description" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="MaterialNo" HeaderText="Material No" ItemStyle-Width="80px" />
+                                        <asp:BoundField DataField="MaterialDesc" HeaderText="Material Description" ItemStyle-Width="100px" />
                                         <asp:BoundField DataField="Plant" HeaderText="Plant" ItemStyle-Width="50px" />
                                         <asp:BoundField DataField="StorageLocation" HeaderText="Storage Location" ItemStyle-Width="50px" />
-                                        <asp:BoundField DataField="ProdLotSizeFrom" HeaderText="Prod Lot Size From" ItemStyle-Width="50px" />
-                                        <asp:BoundField DataField="ProdLotSizeTo" HeaderText="User Name" ItemStyle-Width="50px" />
-                                        <asp:BoundField DataField="ProductionVersion" HeaderText="User Name" ItemStyle-Width="50px" />
-                                        <asp:BoundField DataField="ProdVersionDesc" HeaderText="User Name" ItemStyle-Width="50px" />
-                                        <asp:BoundField DataField="BOMValidFrom" HeaderText="User Name" ItemStyle-Width="50px" />
-                                        <asp:BoundField DataField="BOMValidTo" HeaderText="User Name" ItemStyle-Width="50px" />
-                                        <asp:BoundField DataField="QTY" HeaderText="User Name" ItemStyle-Width="50px" />
-                                        <asp:BoundField DataField="CreatedBy" HeaderText="User Name" ItemStyle-Width="50px" />
-                                        <asp:BoundField DataField="CreatedDateTime" HeaderText="User Name" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="ProdLotSizeFrom" HeaderText="Prod Lot Size From" ItemStyle-Width="80px" />
+                                        <asp:BoundField DataField="ProdLotSizeTo" HeaderText="Prod Lot Size To" ItemStyle-Width="80px" />
+                                        <asp:BoundField DataField="ProductionVersion" HeaderText="Production Version" ItemStyle-Width="80px" />
+                                        <asp:BoundField DataField="ProdVersionDesc" HeaderText="Prod Version Desc" ItemStyle-Width="100px" />
+                                        <asp:BoundField DataField="BOMValidFrom" HeaderText="BOM Valid From" ItemStyle-Width="100px" />
+                                        <asp:BoundField DataField="BOMValidTo" HeaderText="BOM Valid To" ItemStyle-Width="100px" />
+                                        <asp:BoundField DataField="QTY" HeaderText="QTY" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="CreatedBy" HeaderText="Created By" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="CreatedDateTime" HeaderText="Created Date Time" ItemStyle-Width="100px" />
                                         <asp:TemplateField HeaderText="Department">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="lblDept" Text='<%# Bind("Dept") %>'></asp:Label>
@@ -1494,7 +1494,7 @@
                     <div class="row fixed-panel">
                             <div class="col-sm-12">
 
-                                <asp:GridView ID="grdDisplayBOMITEM" CssClass="table table-striped table-bordered footable" runat="server" AutoGenerateColumns="true" Width="1200px"
+                                <asp:GridView ID="grdDisplayBOMITEM" CssClass="table table-striped table-bordered footable" runat="server" AutoGenerateColumns="true" Width="1300px"
                                     ShowFooter="true">
                                     
                                 </asp:GridView>
