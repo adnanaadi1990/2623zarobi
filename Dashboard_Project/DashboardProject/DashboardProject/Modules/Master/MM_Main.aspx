@@ -32,20 +32,20 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-      <script type="text/javascript">
+    <script type="text/javascript">
 
-          function DivClickedMM() {
-              var btnHiddenMM = $('#<%= btnMM.ClientID %>');
-              if (btnHiddenMM != null) {
-                  btnHiddenMM.click();
-              }
-          }
+        function DivClickedMM() {
+            var btnHiddenMM = $('#<%= btnMM.ClientID %>');
+            if (btnHiddenMM != null) {
+                btnHiddenMM.click();
+            }
+        }
 
-          function DivClickedFG() {
-              var btnHiddenbtnFG = $('#<%= btnFG.ClientID %>');
+        function DivClickedFG() {
+            var btnHiddenbtnFG = $('#<%= btnFG.ClientID %>');
               if (btnHiddenbtnFG != null) {
                   btnHiddenbtnFG.click();
-               }
+              }
           }
 
           function DivClickedSM() {
@@ -54,178 +54,191 @@
                   btnHiddenbtnSM.click();
               }
           }
-          
-  </script>
-    
-        
+
+        function DivClickedBOMFG() {
+              var btnHiddenbtnFGBOM = $('#<%= btnFGBOM.ClientID %>');
+            if (btnHiddenbtnFGBOM != null) {
+                btnHiddenbtnFGBOM.click();
+            }
+          }
+
+    </script>
+
+
 
 </head>
 
-<body  id="page-top">
+<body id="page-top">
 
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top" style="background-color:black;">
-      
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-               
-                <a href="#page-top"> <img src="../../img/portfolio/logoHe1.png" style="width: 154px; margin-left: 10px; padding-top: 2px;"></a>
-                </div>
-           
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top" style="background-color: black;">
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                  <li>
-                        <a style="color:#f05f40;">Welcome : <asp:Label runat="server" ID="lblUSerName" Font-Bold="true" Font-Names="Arial Narrow" Font-Size="Small"> </asp:Label>
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
 
-                        </a>
-                    </li>
-                      <li>
-              <a class="page-scroll" href="../../Main.aspx" style="width: 112px;">Main Page</a>
-                    </li>
-                     <li>
-                     <a class="page-scroll" href="../../Logout.aspx" style="width: 112px;">Logout</a>
-                    </li>
+            <a href="#page-top">
+                <img src="../../img/portfolio/logoHe1.png" style="width: 154px; margin-left: 10px; padding-top: 2px;"></a>
+        </div>
 
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-      
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a style="color: #f05f40;">Welcome :
+                        <asp:Label runat="server" ID="lblUSerName" Font-Bold="true" Font-Names="Arial Narrow" Font-Size="Small"> </asp:Label>
+
+                    </a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="../../Main.aspx" style="width: 112px;">Main Page</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="../../Logout.aspx" style="width: 112px;">Logout</a>
+                </li>
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+
         <!-- /.container-fluid -->
     </nav>
 
 
 
-    
-   
-   
-   
+
+
+
+
     <form id="Form1" runat="server">
-    <section class="no-padding" id="APPLICATION" style="    margin-top: 52px;">
-        <div class="container-fluid">
-            <div class="row no-gutter">
-                <div class="col-lg-4 col-sm-6">
-                       <a href="#" class="portfolio-box">
-                        <%--<img src="../../img/portfolio/MMaster.jpg" class="img-responsive" alt="">--%>
-                        <asp:ImageButton ID="btnMM" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/MMge.jpg" OnClick="btnMM_Click" CausesValidation="False" />
-                        <div class="portfolio-box-caption"  onclick="javascript:DivClickedMM(); return true;">
-                            <div class="portfolio-box-caption-content" >
-                                <div class="project-category text-faded">Form</div>
-                                <div class="project-name">
-                                    Material Master</div>
+        <section class="no-padding" id="APPLICATION" style="margin-top: 52px;">
+            <div class="container-fluid">
+                <div class="row no-gutter">
+                    <div class="col-lg-4 col-sm-6">
+                        <a href="#" class="portfolio-box">
+                            <%--<img src="../../img/portfolio/MMaster.jpg" class="img-responsive" alt="">--%>
+                            <asp:ImageButton ID="btnMM" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/MMge.jpg" OnClick="btnMM_Click" CausesValidation="False" />
+                            <div class="portfolio-box-caption" onclick="javascript:DivClickedMM(); return true;">
+                                <div class="portfolio-box-caption-content">
+                                    <div class="project-category text-faded">Form</div>
+                                    <div class="project-name">
+                                        Material Master
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                   </a>
-                </div>
+                        </a>
+                    </div>
 
-                                   <div class="col-lg-4 col-sm-6">
-                       <a href="#" class="portfolio-box">
-                        <%--<img src="../../img/portfolio/MMaster.jpg" class="img-responsive" alt="">--%>
-                        <asp:ImageButton ID="btnFG" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/Finish-goods.png" CausesValidation="False" OnClick="btnFG_Click" />
-                        <div class="portfolio-box-caption"  onclick="javascript:DivClickedFG(); return true;">
-                            <div class="portfolio-box-caption-content" >
-                                <div class="project-category text-faded">Form</div>
-                                <div class="project-name">
-                                   Finished Goods Material Master</div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a href="#" class="portfolio-box">
+                            <%--<img src="../../img/portfolio/MMaster.jpg" class="img-responsive" alt="">--%>
+                            <asp:ImageButton ID="btnFG" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/Finish-goods.png" CausesValidation="False" OnClick="btnFG_Click" />
+                            <div class="portfolio-box-caption" onclick="javascript:DivClickedFG(); return true;">
+                                <div class="portfolio-box-caption-content">
+                                    <div class="project-category text-faded">Form</div>
+                                    <div class="project-name">
+                                        Finished Goods Material Master
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                   </a>
-                </div>
-               
+                        </a>
+                    </div>
 
-                
-                                   <div class="col-lg-4 col-sm-6">
-                       <a href="#" class="portfolio-box">
-                        <%--<img src="../../img/portfolio/MMaster.jpg" class="img-responsive" alt="">--%>
-                        <asp:ImageButton ID="btnSM" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/SMR.jpg" CausesValidation="False" OnClick="btnSM_Click"/>
-                        <div class="portfolio-box-caption"  onclick="javascript:DivClickedSM(); return true;">
-                            <div class="portfolio-box-caption-content" >
-                                <div class="project-category text-faded">Form</div>
-                                <div class="project-name">
-                                   Service Master</div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a href="#" class="portfolio-box">
+                            <%--<img src="../../img/portfolio/MMaster.jpg" class="img-responsive" alt="">--%>
+                            <asp:ImageButton ID="btnSM" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/SMR.jpg" CausesValidation="False" OnClick="btnSM_Click" />
+                            <div class="portfolio-box-caption" onclick="javascript:DivClickedSM(); return true;">
+                                <div class="portfolio-box-caption-content">
+                                    <div class="project-category text-faded">Form</div>
+                                    <div class="project-name">
+                                        Service Master
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                   </a>
-                </div>
-               
-                <div class="col-lg-4 col-sm-6">
-                    <a href="#" class="portfolio-box">
-                        <img src="../../img/portfolio/UNDERPROCESS.png" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">Form</div>
-                                <div class="project-name">TOLET</div>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-4 col-sm-6">
+                        <a href="#" class="portfolio-box">
+                            <%--<img src="../../img/portfolio/MMaster.jpg" class="img-responsive" alt="">--%>
+                            <asp:ImageButton ID="btnFGBOM" runat="server" CssClass="img-responsive" ImageUrl="~/img/portfolio/FGBOM.png" CausesValidation="False" OnClick="btnFGBOM_Click" />
+                            <div class="portfolio-box-caption" onclick="javascript:DivClickedBOMFG(); return true;">
+                                <div class="portfolio-box-caption-content">
+                                    <div class="project-category text-faded">Form</div>
+                                    <div class="project-name">
+                                        Finished Goods Material Master With BOM
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a href="#" class="portfolio-box">
-                        <img src="../../img/portfolio/UNDERPROCESS.png" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">Form</div>
-                                <div class="project-name">TOLET</div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a href="#" class="portfolio-box">
+                            <img src="../../img/portfolio/UNDERPROCESS.png" class="img-responsive" alt="">
+                            <div class="portfolio-box-caption">
+                                <div class="portfolio-box-caption-content">
+                                    <div class="project-category text-faded">Form</div>
+                                    <div class="project-name">TOLET</div>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a href="#" class="portfolio-box">
-                        <img src="../../img/portfolio/UNDERPROCESS.png" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">Form</div>
-                                <div class="project-name">TOLET</div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a href="#" class="portfolio-box">
+                            <img src="../../img/portfolio/UNDERPROCESS.png" class="img-responsive" alt="">
+                            <div class="portfolio-box-caption">
+                                <div class="portfolio-box-caption-content">
+                                    <div class="project-category text-faded">Form</div>
+                                    <div class="project-name">TOLET</div>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
-				<div class="col-lg-4 col-sm-6">
-                    <a href="#" class="portfolio-box">
-                        <img src="../../img/portfolio/UNDERPROCESS.png" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">Form</div>
-                                <div class="project-name">TOLET</div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a href="#" class="portfolio-box">
+                            <img src="../../img/portfolio/UNDERPROCESS.png" class="img-responsive" alt="">
+                            <div class="portfolio-box-caption">
+                                <div class="portfolio-box-caption-content">
+                                    <div class="project-category text-faded">Form</div>
+                                    <div class="project-name">TOLET</div>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
-				<div class="col-lg-4 col-sm-6">
-                    <a href="#" class="portfolio-box">
-                        <img src="../../img/portfolio/UNDERPROCESS.png" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">Form</div>
-                                <div class="project-name">TOLET</div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a href="#" class="portfolio-box">
+                            <img src="../../img/portfolio/UNDERPROCESS.png" class="img-responsive" alt="">
+                            <div class="portfolio-box-caption">
+                                <div class="portfolio-box-caption-content">
+                                    <div class="project-category text-faded">Form</div>
+                                    <div class="project-name">TOLET</div>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
-				<div class="col-lg-4 col-sm-6">
-                    <a href="#" class="portfolio-box">
-                        <img src="../../img/portfolio/UNDERPROCESS.png" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">Form</div>
-                                <div class="project-name">TOLET</div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a href="#" class="portfolio-box">
+                            <img src="../../img/portfolio/UNDERPROCESS.png" class="img-responsive" alt="">
+                            <div class="portfolio-box-caption">
+                                <div class="portfolio-box-caption-content">
+                                    <div class="project-category text-faded">Form</div>
+                                    <div class="project-name">TOLET</div>
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>   
-      <!-- Contact Section -->
- </form>
-<!-- jQuery -->
+        </section>
+        <!-- Contact Section -->
+    </form>
+    <!-- jQuery -->
     <script src="../../js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->

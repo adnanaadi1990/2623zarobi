@@ -156,7 +156,22 @@ namespace ITLDashboard.Modules.Master
 
         }
 
-       
-       
+        protected void btnFGBOM_Click(object sender, ImageClickEventArgs e)
+        {
+
+            Session["Application"] = "FBMM";
+            //  Response.Redirect("~/Default.aspx");
+            getFormsName();
+            if (((string)ViewState["FNAME"]) == "FBMM")
+            {
+                // Response.Redirect("CreateMaterialMaster.aspx");
+                Response.Redirect("~/Default.aspx");
+            }
+            else
+            {
+                Response.Redirect("~/AccessDenied.aspx");
+
+            }
+        } 
     }
 }
