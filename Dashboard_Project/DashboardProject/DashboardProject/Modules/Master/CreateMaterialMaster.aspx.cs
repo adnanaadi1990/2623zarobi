@@ -2951,7 +2951,6 @@ namespace ITLDashboard.Modules.Master
 
         }
 
-
         private void EmailWorkSendFirstApproval()
         {
             try
@@ -3131,7 +3130,7 @@ namespace ITLDashboard.Modules.Master
                     "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                     "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                     "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                        "<br>Material Master Application <br> Information Systems Dashboard";
+                    "<br>Material Master Application <br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
@@ -3157,11 +3156,11 @@ namespace ITLDashboard.Modules.Master
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                         EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new material creation request against Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to create a masterial code on the following URL: <br>  <br>" +
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new material creation request against Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to create a material code on the following URL: <br>  <br>" +
                         "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                         "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                         "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                            "<br>Material Master Application <br> Information Systems Dashboard";
+                        "<br>Material Master Application <br> Information Systems Dashboard";
                         SessionUser = Session["User_Name"].ToString();
                         DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                         InsertEmail();
@@ -3270,12 +3269,12 @@ namespace ITLDashboard.Modules.Master
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new material creation request against Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been disapproved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to create a masterial code on the following URL: <br>  <br>" +
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new material creation request against Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been disapproved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to create a material code on the following URL: <br>  <br>" +
                     "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                     "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                     "<br> <br> <br><b>Reject Remarks: " + txtRemarksReview.Text + "</b> " +
                     "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                        "<br>Material Master Application <br> Information Systems Dashboard";
+                    "<br>Material Master Application <br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
@@ -3293,9 +3292,6 @@ namespace ITLDashboard.Modules.Master
                 dvemaillbl.Visible = true;
             }
         }
-
-
-
 
         private void ApplicationStatus()
         {
@@ -3479,13 +3475,6 @@ namespace ITLDashboard.Modules.Master
         }
         //-------------------------------------END METHODS-------------------------------------------
 
-        #region methodEmailWorks
-
-        #endregion
-
-
-
-
         protected void btnApprover_Click(object sender, EventArgs e)
         {
             try
@@ -3540,6 +3529,7 @@ namespace ITLDashboard.Modules.Master
                 dvemaillbl.Visible = true;
             }
         }
+
         protected void ClosedFormAfterReject()
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
@@ -3599,6 +3589,7 @@ namespace ITLDashboard.Modules.Master
             btnSave.Focus();
 
         }
+
         protected void ddlEmailMDA_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlEmailMDA.SelectedValue != "")
@@ -3622,6 +3613,7 @@ namespace ITLDashboard.Modules.Master
             Page.MaintainScrollPositionOnPostBack = true;
             btnSave.Focus();
         }
+
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             try
@@ -3846,6 +3838,7 @@ namespace ITLDashboard.Modules.Master
                 lblError.Text = ex.ToString();
             }
         }
+
         protected void btnEdit_Click(object sender, EventArgs e)
         {
             btnUpdate.Visible = true;
@@ -4163,6 +4156,7 @@ namespace ITLDashboard.Modules.Master
                 lblError.Text = ex.ToString();
             }
         }
+
         protected void btnForward_Click(object sender, EventArgs e)
         {
             try
@@ -4208,10 +4202,7 @@ namespace ITLDashboard.Modules.Master
             }
         }
 
-
-
-
-        #region Form Forward Working By adnan khan 03-10-2016
+        #region Form Forward Working 03-10-2016
         /// <summary>   Form Forward Working By adnan khan 03-10-2016/////////////////////////////////////////////////////////////////////
         private void GetHarcheyNextData()
         {
@@ -4473,8 +4464,6 @@ namespace ITLDashboard.Modules.Master
             {
             }
         }
-
-
 
         protected void updateStdPrice()
         {

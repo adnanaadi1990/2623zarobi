@@ -894,6 +894,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                     {
                         url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
                         urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110") + "?TransactionNo=" + ViewState["MaterialMaxID"] + "";
+
                         TransactionIDEmail = reader["TransactionID"].ToString();
                         FormCode = reader["FormID"].ToString();
                         UserName = reader["user_name"].ToString();
@@ -934,7 +935,9 @@ namespace DashboardProject.Modules.Inventorymanagement
                     DataTableReader reader = ds.Tables["MailForwardToAllFromMDA"].CreateDataReader();
                     while (reader.Read())
                     {
-                        url = Request.Url.ToString();
+                        url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local");
+                        urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110");
+
                         TransactionIDEmail = reader["TransactionID"].ToString();
                         FormCode = reader["FormID"].ToString();
                         UserName = reader["user_name"].ToString();
@@ -942,7 +945,9 @@ namespace DashboardProject.Modules.Inventorymanagement
                         EmailSubject = "Quotation Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
                         EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() +
                         " has sent you a Quotation Approval Request against Form ID # " + lblMaxTransactionID.Text.ToString() +
-                        " for approval. <br><br> Your kind approval is required on the following URL: <br><br><a href =" + url.ToString() + ">" + url.ToString() +
+                        " for approval. <br><br> Your kind approval is required on the following URL:"+
+                        "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                        "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                         "</a> <br> <br> This is an auto-generated email from IS Dashboard, <br>you do not need to reply to this message.<br>" +
                         "<br>Inventory Management Application <br> Information Systems Dashboard";
                         SessionUser = Session["User_Name"].ToString();
