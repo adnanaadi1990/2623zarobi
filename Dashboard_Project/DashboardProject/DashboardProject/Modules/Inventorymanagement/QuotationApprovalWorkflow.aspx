@@ -202,6 +202,12 @@
                                 </div>
 
                             </div>
+                              <span class="help-block"></span>
+                            <div class="row">
+                                  <div class="col-sm-3">
+                                    <asp:Label ID="Label4" runat="server" Text="Please upload the Quotation Comparison Sheet before Saving Form"></asp:Label>
+                                </div>
+                                </div>
                         </div>
 
                     </div>

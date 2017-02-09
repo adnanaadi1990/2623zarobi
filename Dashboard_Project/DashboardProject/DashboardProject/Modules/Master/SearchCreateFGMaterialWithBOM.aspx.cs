@@ -23,7 +23,7 @@ using ITLDashboard.Classes;
 
 namespace DashboardProject.Modules.Master
 {
-    public partial class SearchMaterialMasterMtypeCreation : System.Web.UI.Page
+    public partial class SearchCreateFGMaterialWithBOM : System.Web.UI.Page
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString.ToString());
         ComponentClass obj = new ComponentClass();
@@ -32,7 +32,8 @@ namespace DashboardProject.Modules.Master
         SqlDataAdapter adp = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
         DataTable table = new DataTable();
-        public static string FormID = "103";
+        public static string FormID = "104";
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -54,11 +55,20 @@ namespace DashboardProject.Modules.Master
                 }
             }
         }
-               //---------------------------------------------------------Buttons Events----------------------------------------------------------------//
+        //---------------------------------------------------------Buttons Events----------------------------------------------------------------//
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             try
             {
+
+                try
+                {
+                    getFileName();
+                }
+                catch (Exception ex)
+                {
+                    lblError.Text = "btnSearch_Click" + ex.ToString();
+                }
                 //    lblError.Text = "";
 
                 //    ds.Clear();
@@ -105,7 +115,7 @@ namespace DashboardProject.Modules.Master
             try
             {
                 string Link = "";
-                cmd.CommandText = @"select top(1) TransactionMain,TransactionID from tbl_SYS_MaterialMaster_FG where TransactionID = @TNo and MaterialType in ('FERT','HAWA')";
+                cmd.CommandText = @"select top(1) TransactionMain,TransactionID from tbl_SYS_MaterialMaster_FGBOM where TransactionID = @TNo and MaterialType in ('FERT','HAWA')";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
                 cmd.Parameters.AddWithValue("@TNo", txtFormID.Text.ToString());
@@ -122,7 +132,7 @@ namespace DashboardProject.Modules.Master
                         Link = reader["TransactionMain"].ToString();
 
                     }
-                    Response.Redirect("~/Modules/Master/MaterialMasterMtypeCreation.aspx?TransactionNo=" + Link.ToString());
+                    Response.Redirect("~/Modules/Master/CreateFGMaterialWithBOM.aspx?TransactionNo=" + Link.ToString());
                 }
                 else
                 {
@@ -135,6 +145,5 @@ namespace DashboardProject.Modules.Master
 
             }
         }
-
     }
 }

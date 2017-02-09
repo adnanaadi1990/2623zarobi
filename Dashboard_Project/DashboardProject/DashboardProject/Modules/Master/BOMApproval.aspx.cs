@@ -705,7 +705,9 @@ namespace DashboardProject.Modules.Master
         {
 
         }
+
         decimal sum = 0;
+
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
             try
