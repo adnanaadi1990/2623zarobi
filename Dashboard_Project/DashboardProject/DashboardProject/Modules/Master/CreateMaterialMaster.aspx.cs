@@ -2950,7 +2950,7 @@ namespace ITLDashboard.Modules.Master
                                 sqlBulkCopy.ColumnMappings.Add("Width", "Width");
                                 sqlBulkCopy.ColumnMappings.Add("height", "height");
                                 sqlBulkCopy.ColumnMappings.Add("UOM", "UOM");
-                                sqlBulkCopy.ColumnMappings.Add("Seq", "sno");
+                                sqlBulkCopy.ColumnMappings.Add("sno", "Seq");
 
                                 //new DataColumn("TransactionID"), 
                                 //new DataColumn("AltUnitOfMeasureCode"), 
