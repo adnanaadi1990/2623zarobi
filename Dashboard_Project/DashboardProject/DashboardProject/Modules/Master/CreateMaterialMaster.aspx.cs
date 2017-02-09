@@ -2893,34 +2893,89 @@ namespace ITLDashboard.Modules.Master
 
             if (dtCurrentTable != null)
             {
-                string consString = ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(consString))
+                //string consString = ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString;
+                //using (SqlConnection con = new SqlConnection(consString))
+                //{
+                //    using (SqlCommand cmdSP = new SqlCommand("SP_SYS_ createAltUnitOfMeasure"))
+                //    {
+                //        cmdSP.CommandType = CommandType.StoredProcedure;
+                //        cmdSP.Connection = con;
+                //        for (int i = dtCurrentTable.Rows.Count - 1; i >= 0; i--)
+                //        {
+                //            if (dtCurrentTable.Rows[i][1] == DBNull.Value)
+                //                dtCurrentTable.Rows[i].Delete();
+                //        }
+                //        //dtCurrentTable.AcceptChanges();@TransactionIDDelete
+                //        dtCurrentTable.PrimaryKey = null;
+                //        dtCurrentTable.Columns.Remove("sno");
+                //        cmdSP.Parameters.AddWithValue("@tblAltUnitOfMeasure", dtCurrentTable);
+                //        cmdSP.Parameters.AddWithValue("@TransactionIDDelete", lblMaxTransactionID.Text);
+                //        con.Open();
+                //        cmdSP.ExecuteNonQuery();
+                //        con.Close();
+                //        ViewState["ConvertionFacter"] = dtcon;
+                //        DataColumn c = new DataColumn("sno", typeof(int));
+                //        c.AutoIncrement = true;
+                //        c.AutoIncrementSeed = 1;
+                //        c.AutoIncrementStep = 1;
+                //        dtcon.Columns.Add(c);
+                //    }
+                //}
+
+                try
                 {
-                    using (SqlCommand cmdSP = new SqlCommand("SP_SYS_ createAltUnitOfMeasure"))
+
+                    for (int i = 0; i <= dtCurrentTable.Rows.Count - 1; i++)
                     {
-                        cmdSP.CommandType = CommandType.StoredProcedure;
-                        cmdSP.Connection = con;
-                        for (int i = dtCurrentTable.Rows.Count - 1; i >= 0; i--)
+                        dtCurrentTable.Rows[i]["TransactionID"] = lblMaxTransactionID.Text;
+                        dtCurrentTable.AcceptChanges();
+                    }
+
+                    if (dtCurrentTable.Rows.Count > 0)
+                    {
+                        string consString = ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString;
+                        using (SqlConnection con = new SqlConnection(consString))
                         {
-                            if (dtCurrentTable.Rows[i][1] == DBNull.Value)
-                                dtCurrentTable.Rows[i].Delete();
+                            using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(con))
+                            {
+                                //Set the database table name
+                                sqlBulkCopy.DestinationTableName = "dbo.tblAltUnitOfMeasure";
+
+                                //[OPTIONAL]: Map the DataTable columns with that of the database table
+                                sqlBulkCopy.ColumnMappings.Add("TransactionID", "TransactionID");
+                                sqlBulkCopy.ColumnMappings.Add("AltUnitOfMeasureCode", "AltUnitOfMeasureCode");
+                                sqlBulkCopy.ColumnMappings.Add("Numerator", "Numerator");
+                                sqlBulkCopy.ColumnMappings.Add("Denominator", "Denominator");
+                                sqlBulkCopy.ColumnMappings.Add("Lenght", "Lenght");
+                                sqlBulkCopy.ColumnMappings.Add("Width", "Width");
+                                sqlBulkCopy.ColumnMappings.Add("height", "height");
+                                sqlBulkCopy.ColumnMappings.Add("UOM", "UOM");
+                                sqlBulkCopy.ColumnMappings.Add("Seq", "sno");
+
+                                //new DataColumn("TransactionID"), 
+                                //new DataColumn("AltUnitOfMeasureCode"), 
+                                //new DataColumn("Numerator"), 
+                                //new DataColumn("Denominator"), 
+                                //new DataColumn("Lenght"), 
+                                //new DataColumn("Width"),
+                                //new DataColumn("height"), 
+                                //new DataColumn("UOM")
+
+
+                                con.Open();
+                                sqlBulkCopy.WriteToServer(dtCurrentTable);
+                                con.Close();
+                            }
                         }
-                        //dtCurrentTable.AcceptChanges();@TransactionIDDelete
-                        dtCurrentTable.PrimaryKey = null;
-                        dtCurrentTable.Columns.Remove("sno");
-                        cmdSP.Parameters.AddWithValue("@tblAltUnitOfMeasure", dtCurrentTable);
-                        cmdSP.Parameters.AddWithValue("@TransactionIDDelete", lblMaxTransactionID.Text);
-                        con.Open();
-                        cmdSP.ExecuteNonQuery();
-                        con.Close();
-                        ViewState["ConvertionFacter"] = dtcon;
-                        DataColumn c = new DataColumn("sno", typeof(int));
-                        c.AutoIncrement = true;
-                        c.AutoIncrementSeed = 1;
-                        c.AutoIncrementStep = 1;
-                        dtcon.Columns.Add(c);
                     }
                 }
+                catch (Exception ex)
+                {
+                    lblError.Text = "insertLineItem" + ex.ToString();
+                }
+
+
+
             }
             //else
             //{
