@@ -4035,7 +4035,7 @@ namespace DashboardProject.Modules.Master
 
                     }
 
-                    cmd.CommandText = @"SP_SYS_UpdateFGMMFI";
+                    cmd.CommandText = @"SP_SYS_UpdateFGMMBOMFI";
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = conn;
                     cmd.Parameters.AddWithValue("@ValuationClass", ddlValuationClass.SelectedValue);
