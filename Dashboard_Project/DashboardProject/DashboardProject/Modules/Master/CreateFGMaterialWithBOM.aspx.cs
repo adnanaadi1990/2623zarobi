@@ -5708,7 +5708,7 @@ namespace DashboardProject.Modules.Master
                 ddlCountries.Items.Insert(0, new ListItem("------Select------", ""));
      
             }
-            catch (Exception ex)
+            catch (Exception ex)  
             {
                 lblError.Text = "OnDataBound" + ex.ToString();
             }
