@@ -1300,6 +1300,7 @@ namespace DashboardProject.Modules.Master
                 lblError.Text = "whenquerystringpass" + ex.ToString();
             }
         }
+
         private void whenquerystringBOMDISPLAY()
         {
             try
@@ -5704,7 +5705,8 @@ namespace DashboardProject.Modules.Master
                 ddlCountries.DataValueField = "StorageLocationcode";
                 ddlCountries.DataBind();
                 //Add Default Item in the DropDownList
-                ddlCountries.Items.Insert(0, new ListItem("Please select"));
+                ddlCountries.Items.Insert(0, new ListItem("------Select------", ""));
+     
             }
             catch (Exception ex)
             {
@@ -5729,7 +5731,7 @@ namespace DashboardProject.Modules.Master
                     ddlStLoc.DataValueField = "StorageLocationcode";
                     ddlStLoc.DataBind();
                     //Add Default Item in the DropDownList
-                    ddlStLoc.Items.Insert(0, new ListItem("Please select"));
+                    ddlStLoc.Items.Insert(0, new ListItem("------Select------", ""));
 
 
 
@@ -5747,7 +5749,7 @@ namespace DashboardProject.Modules.Master
                     ddlStLoc.DataValueField = "StorageLocationcode";
                     ddlStLoc.DataBind();
                     //Add Default Item in the DropDownList
-                    ddlStLoc.Items.Insert(0, new ListItem("Please select"));
+                    ddlStLoc.Items.Insert(0, new ListItem("------Select------", ""));
                 }
             }
             catch (Exception ex)
