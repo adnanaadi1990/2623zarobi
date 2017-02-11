@@ -288,7 +288,7 @@
                             <div class="col-sm-7">
                                 Storage Location
                     
-                                 <asp:ListBox ID="ddlStorageLocation" runat="server" CssClass="form-control" SelectionMode="Multiple" AppendDataBoundItems="True"></asp:ListBox>
+                                 <asp:ListBox ID="ddlStorageLocation" runat="server" CssClass="form-control" AppendDataBoundItems="True"></asp:ListBox>
 
                                 <asp:TextBox ID="txtStLocation" runat="server" CssClass="form-control" Visible="false"> </asp:TextBox>
                             </div>
@@ -1149,8 +1149,8 @@
                                  <asp:TextBox ID="txtBillOfMaterial" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
                             </div>
                         </div>--%>
-                        <span class="help-block"></span>
-                        <div class="row" runat="server" id="Div7">
+                    <%--    <span class="help-block"></span>--%>
+<%--                        <div class="row" runat="server" id="Div7">
                             <div class="col-sm-4">
                                 Material No
                                 
@@ -1161,9 +1161,9 @@
                                 Material Description
                                 <asp:TextBox ID="MaterialDescription" runat="server" CssClass="form-control"></asp:TextBox>
                             </div>
-                        </div>
-                        <span class="help-block"></span>
-                        <div class="row" runat="server" id="dvCheque">
+                        </div>--%>
+                      <%--  <span class="help-block"></span>--%>
+<%--                        <div class="row" runat="server" id="dvCheque">
                             <div class="col-sm-5">
                                 Plant
                                 <asp:DropDownList ID="ddlPlantBom" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlPlantBom_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
@@ -1172,7 +1172,7 @@
                                 Storage Location
                                 <asp:DropDownList ID="ddlStorageLocationBOM" runat="server" CssClass="form-control"></asp:DropDownList>
                             </div>
-                        </div>
+                        </div>--%>
                         <span class="help-block"></span>
                         <div id="Div8" class="row" runat="server">
                             <div class="col-sm-4">
@@ -1467,10 +1467,10 @@
                                                 <%--<%# Eval("Numerator") %>--%>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:BoundField DataField="MaterialNo" HeaderText="Material No" ItemStyle-Width="80px" />
+                                       <%-- <asp:BoundField DataField="MaterialNo" HeaderText="Material No" ItemStyle-Width="80px" />
                                         <asp:BoundField DataField="MaterialDesc" HeaderText="Material Description" ItemStyle-Width="100px" />
                                         <asp:BoundField DataField="Plant" HeaderText="Plant" ItemStyle-Width="50px" />
-                                        <asp:BoundField DataField="StorageLocation" HeaderText="Storage Location" ItemStyle-Width="50px" />
+                                        <asp:BoundField DataField="StorageLocation" HeaderText="Storage Location" ItemStyle-Width="50px" />--%>
                                         <asp:BoundField DataField="ProdLotSizeFrom" HeaderText="Prod Lot Size From" ItemStyle-Width="80px" />
                                         <asp:BoundField DataField="ProdLotSizeTo" HeaderText="Prod Lot Size To" ItemStyle-Width="80px" />
                                         <asp:BoundField DataField="ProductionVersion" HeaderText="Production Version" ItemStyle-Width="80px" />
@@ -1619,7 +1619,7 @@
         <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Text="Save" OnClientClick="return AllowOneClick()" OnClick="btnSave_Click" ValidationGroup="grpSa" Width="60px"></asp:Button>
         <asp:Button ID="btnSaveSubmit" runat="server" CssClass="btn btn-primary" OnClientClick="return AllowOneClick()" Text="Save / Submit" OnClick="btnSaveSubmit_Click" Width="120px" Visible="False" ValidationGroup="grpSave" CausesValidation="False"></asp:Button>
         <asp:LinkButton ID="btnTransfer" runat="server" class="btn btn-primary" data-target="#TansferModel" data-toggle="modal" Text="Transfer Form" Visible="False" CssClass="btn btn-primary"> </asp:LinkButton>
-        <asp:Button ID="btnApprover" runat="server" OnClick="btnApprover_Click" CssClass="btn btn-primary" Text="Approved" Visible="False" CausesValidation="False" />
+        <asp:Button ID="btnApprover" runat="server" OnClick="btnApprover_Click" CssClass="btn btn-primary" Text="Approve" Visible="False" CausesValidation="False" />
         <asp:Button ID="btnSubmitStiching" runat="server" CssClass="btn btn-primary" OnClientClick="return AllowOneClick()" Text="Submit" OnClick="btnSubmit_Click" Width="120px" Visible="False" ValidationGroup="grpSave" CausesValidation="False"></asp:Button>
         <asp:Button ID="btnReject" runat="server" CssClass="btn btn-primary" Text="Reject" OnClick="btnReject_Click" Width="100px" CausesValidation="False" Visible="False"></asp:Button>
         <%--   <%# Eval("Denominator") %>--%>

@@ -378,16 +378,15 @@ namespace DashboardProject.Modules.Master
                                     QM.Visible = true;
                                     MRP.Visible = true;
                                     //txtBillOfMaterial.Enabled = true;
-                                    txtMaterial.Enabled = true;
-                                    MaterialDescription.Enabled = true;
-                                    ddlPlantBom.Enabled = true;
-                                    ddlStorageLocationBOM.Enabled = true;
+                                    ////////txtMaterial.Enabled = true;
+                                    ////////MaterialDescription.Enabled = true;
+                                    ////////ddlPlantBom.Enabled = true;
+                                    ////////ddlStorageLocationBOM.Enabled = true;
                                     txtProductionLotSizefrom.Enabled = true;
                                     txtProductionLotSizeTo.Enabled = true;
                                     txtProductionVersion.Enabled = true;
                                     txtProductionVersionDescription.Enabled = true;
                                     txtBOMValidFrom.Enabled = true;
-                                    ddlStorageLocationBOM.Enabled = true;
                                     txtBOMValidTo.Enabled = true;
                                     txtBaseQuantity.Enabled = true;
 
@@ -421,16 +420,15 @@ namespace DashboardProject.Modules.Master
                                     QM.Visible = true;
                                     MRP.Visible = true;
                                     //txtBillOfMaterial.Enabled = false;
-                                    txtMaterial.Enabled = false;
-                                    MaterialDescription.Enabled = false;
-                                    ddlPlantBom.Enabled = false;
-                                    ddlStorageLocationBOM.Enabled = false;
+                                    ////////txtMaterial.Enabled = false;
+                                    ////////MaterialDescription.Enabled = false;
+                                    ////////ddlPlantBom.Enabled = false;
+                                    ////////ddlStorageLocationBOM.Enabled = false;
                                     txtProductionLotSizefrom.Enabled = false;
                                     txtProductionLotSizeTo.Enabled = false;
                                     txtProductionVersion.Enabled = false;
                                     txtProductionVersionDescription.Enabled = false;
                                     txtBOMValidFrom.Enabled = false;
-                                    ddlStorageLocationBOM.Enabled = false;
                                     txtBOMValidTo.Enabled = false;
                                     txtBaseQuantity.Enabled = false;
 
@@ -1564,12 +1562,7 @@ namespace DashboardProject.Modules.Master
                 ddlPlant.DataValueField = ds.Tables["BindPlantMtype"].Columns["PlantId"].ToString();             // to retrive specific  textfield name 
                 ddlPlant.DataSource = ds.Tables["BindPlantMtype"];      //assigning datasource to the dropdownlist
                 ddlPlant.DataBind();  //binding dropdownlist
-                ddlPlantBom.DataTextField = ds.Tables["BindPlantMtype"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
-                ddlPlantBom.DataValueField = ds.Tables["BindPlantMtype"].Columns["PlantId"].ToString();             // to retrive specific  textfield name 
-                ddlPlantBom.DataSource = ds.Tables["BindPlantMtype"];      //assigning datasource to the dropdownlist
-                ddlPlantBom.DataBind();  //binding dropdownlist
                 ddlPlant.Items.Insert(0, new ListItem("------Select------", "0"));
-                ddlPlantBom.Items.Insert(0, new ListItem("------Select------", "0"));
             }
             catch (SqlException ex)
             {
@@ -3024,7 +3017,6 @@ namespace DashboardProject.Modules.Master
             try
             {
                 string aaa = ddlMaterialType.SelectedItem.Value;
-                string FormID = "101";
                 string MMCreatedBy = Session["User_Name"].ToString();
                 string Plant = "";
                 string ExToPlant = "";
@@ -3034,7 +3026,6 @@ namespace DashboardProject.Modules.Master
                 string NotificationFI = "";
                 string EmailMDA = "";
                 string StorageLocation = "";
-                string ValuationType = "";
                 string NotificationFINAL = "";
 
                 for (int i = 0; i <= ddlPlant.Items.Count - 1; i++)
@@ -4485,6 +4476,11 @@ namespace DashboardProject.Modules.Master
                     ddlMG.Enabled = true;
                     bindMSGfromMG();
                 }
+
+                GridView2.DataSource = (DataTable)ViewState["BOMGrid"];
+                GridView2.DataBind();
+                lblgridError.Text = "";
+
             }
             catch (SqlException ex)
             {
@@ -5226,7 +5222,7 @@ namespace DashboardProject.Modules.Master
                 {
                     cmd.Connection = con;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@Plant", ddlPlantBom.SelectedValue.ToString());
+                    cmd.Parameters.AddWithValue("@Plant", ddlPlant.SelectedValue.ToString());
                     sda.SelectCommand = cmd;
                     using (DataSet ds = new DataSet())
                     {
@@ -5308,7 +5304,6 @@ namespace DashboardProject.Modules.Master
                 ddlStorageLocation.DataBind();
 
                 ddlStorageLocation.SelectedValue = reader["StorageLocation"].ToString();
-                txtMaterial.Text = reader["MaterialNo"].ToString();
                 txtDescription.Text = reader["MaterialDesc"].ToString();
                 txtProductionLotSizefrom.Text = reader["ProdLotSizeFrom"].ToString();
                 txtProductionLotSizeTo.Text = reader["ProdLotSizeTo"].ToString();
@@ -5348,7 +5343,7 @@ namespace DashboardProject.Modules.Master
                 txtBaseQuantity.BackColor = System.Drawing.Color.White;
                 ddlPlant.BackColor = System.Drawing.Color.White;
                 ddlStorageLocation.BackColor = System.Drawing.Color.White;
-                txtMaterial.BackColor = System.Drawing.Color.White;
+                //txtMaterial.BackColor = System.Drawing.Color.White;
                 txtDescription.BackColor = System.Drawing.Color.White;
                 if (txtBaseQuantity.Text == "")
                 {
@@ -5362,53 +5357,53 @@ namespace DashboardProject.Modules.Master
                     Page.MaintainScrollPositionOnPostBack = false;
                     txtBaseQuantity.BackColor = System.Drawing.Color.Red;
                 }
-                else if (txtMaterial.Text == "")
-                {
+                //else if (txtMaterial.Text == "")
+                //{
 
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Material should not be left blank";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblUpError.Focus();
-                    error.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    txtMaterial.BackColor = System.Drawing.Color.Red;
-                }
-                else if (txtDescription.Text == "")
-                {
+                //    lblmessage.Text = "";
+                //    lblUpError.Text = "Material should not be left blank";
+                //    sucess.Visible = false;
+                //    error.Visible = true;
+                //    lblUpError.Focus();
+                //    error.Focus();
+                //    Page.MaintainScrollPositionOnPostBack = false;
+                //    txtMaterial.BackColor = System.Drawing.Color.Red;
+                //}
+                //else if (txtDescription.Text == "")
+                //{
 
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Material Description should not be left blank";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblUpError.Focus();
-                    error.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    txtDescription.BackColor = System.Drawing.Color.Red;
-                }
-                else if (ddlPlantBom.SelectedValue == "")
-                {
+                //    lblmessage.Text = "";
+                //    lblUpError.Text = "Material Description should not be left blank";
+                //    sucess.Visible = false;
+                //    error.Visible = true;
+                //    lblUpError.Focus();
+                //    error.Focus();
+                //    Page.MaintainScrollPositionOnPostBack = false;
+                //    txtDescription.BackColor = System.Drawing.Color.Red;
+                //}
+                //else if (ddlPlantBom.SelectedValue == "")
+                //{
 
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Please Select any plant";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblUpError.Focus();
-                    error.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    ddlPlant.BackColor = System.Drawing.Color.Red;
-                }
-                else if (ddlStorageLocationBOM.SelectedValue == "")
-                {
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Please Select any Storage sLocation";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblUpError.Focus();
-                    error.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    ddlStorageLocation.BackColor = System.Drawing.Color.Red;
-                }
+                //    lblmessage.Text = "";
+                //    lblUpError.Text = "Please Select any plant";
+                //    sucess.Visible = false;
+                //    error.Visible = true;
+                //    lblUpError.Focus();
+                //    error.Focus();
+                //    Page.MaintainScrollPositionOnPostBack = false;
+                //    ddlPlant.BackColor = System.Drawing.Color.Red;
+                //}
+                //else if (ddlStorageLocationBOM.SelectedValue == "")
+                //{
+                //    lblmessage.Text = "";
+                //    lblUpError.Text = "Please Select any Storage sLocation";
+                //    sucess.Visible = false;
+                //    error.Visible = true;
+                //    lblUpError.Focus();
+                //    error.Focus();
+                //    Page.MaintainScrollPositionOnPostBack = false;
+                //    ddlStorageLocation.BackColor = System.Drawing.Color.Red;
+                //}
                 else if (txtBaseQuantity.Text != lblSum.Text)
                 {
                     lblmessage.Text = "";
@@ -5422,7 +5417,7 @@ namespace DashboardProject.Modules.Master
                 else
                 {
                     string conString = ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString;
-                    SqlCommand cmd = new SqlCommand("SP_SYS_Create_BOM_Approval_FG_BOM");
+                    SqlCommand cmd = new SqlCommand("SP_SYS_Create_BOM_Approval_FG_BOM"); 
                     using (SqlConnection con = new SqlConnection(conString))
                     {
                         using (SqlDataAdapter sda = new SqlDataAdapter())
@@ -5432,10 +5427,9 @@ namespace DashboardProject.Modules.Master
                             cmd.CommandType = CommandType.StoredProcedure;
                             cmd.Parameters.AddWithValue("@TransactionMain", lblMaxTransactionNo.Text);
                             cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
-                            cmd.Parameters.AddWithValue("@MaterialNo", txtMaterial.Text.ToString());
-                            cmd.Parameters.AddWithValue("@MaterialDesc", txtDescription.Text.ToString());
-                            cmd.Parameters.AddWithValue("@Plant", ddlPlant.SelectedValue.ToString());
-                            cmd.Parameters.AddWithValue("@StorageLocation", ddlStorageLocation.SelectedValue.ToString());
+                            //cmd.Parameters.AddWithValue("@MaterialDesc", txtDescription.Text.ToString());
+                            //cmd.Parameters.AddWithValue("@Plant", ddlPlant.SelectedValue.ToString());
+                            //cmd.Parameters.AddWithValue("@StorageLocation", ddlStorageLocation.SelectedValue.ToString());
                             cmd.Parameters.AddWithValue("@ProdLotSizeFrom", txtProductionLotSizefrom.Text.ToString());
                             cmd.Parameters.AddWithValue("@ProdLotSizeTo", txtProductionLotSizeTo.Text.ToString());
                             cmd.Parameters.AddWithValue("@ProductionVersion", txtProductionVersion.Text.ToString());
@@ -5638,8 +5632,6 @@ namespace DashboardProject.Modules.Master
         {
             try
             {
-
-
                 using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
                 {
                     using (SqlCommand cmdGetData = new SqlCommand())
@@ -5667,28 +5659,28 @@ namespace DashboardProject.Modules.Master
             }
         }
 
-        protected void ddlPlantBom_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
+        //protected void ddlPlantBom_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
 
 
-                ddlStorageLocationBOM.DataSource = GetData("SP_BindStorageLocation");
-                ddlStorageLocationBOM.DataTextField = "Description";
-                ddlStorageLocationBOM.DataValueField = "StorageLocationcode";
-                ddlStorageLocationBOM.DataBind();
-                //Add Default Item in the DropDownList
-                ddlStorageLocationBOM.Items.Insert(0, new ListItem("------Select------", ""));
-                GridView2.DataSource = (DataTable)ViewState["BOMGrid"];
-                GridView2.DataBind();
-                lblgridError.Text = "";
+        //        ddlStorageLocation.DataSource = GetData("SP_BindStorageLocation");
+        //        ddlStorageLocation.DataTextField = "Description";
+        //        ddlStorageLocation.DataValueField = "StorageLocationcode";
+        //        ddlStorageLocation.DataBind();
+        //        //Add Default Item in the DropDownList
+        //        ddlStorageLocation.Items.Insert(0, new ListItem("------Select------", ""));
+        //        GridView2.DataSource = (DataTable)ViewState["BOMGrid"];
+        //        GridView2.DataBind();
+        //        lblgridError.Text = "";
 
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "ddlPlantBom_SelectedIndexChanged" + ex.ToString();
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        lblError.Text = "ddlPlant_SelectedIndexChanged" + ex.ToString();
+        //    }
+        //}
 
         protected void OnDataBound(object sender, EventArgs e)
         {

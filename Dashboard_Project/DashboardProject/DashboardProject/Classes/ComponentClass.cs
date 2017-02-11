@@ -590,7 +590,6 @@ namespace ITLDashboard.Classes
                 {
                     try
                     {
-
                         ds.Clear();
                         cmd.CommandText = "";
                         cmd.CommandText = "SP_BindPlantMtype";

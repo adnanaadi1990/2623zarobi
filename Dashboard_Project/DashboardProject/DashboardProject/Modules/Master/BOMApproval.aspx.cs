@@ -529,16 +529,16 @@ namespace DashboardProject.Modules.Master
                     Page.MaintainScrollPositionOnPostBack = false;
                     ddlEmailMDA.BackColor = System.Drawing.Color.Red;
                 }
-                else if (txtBaseQuantity.Text != lblSum.Text)
-                {
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Line item Quantity in not equal to Header Base Quantity";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblUpError.Focus();
-                    error.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                }
+                //else if (txtBaseQuantity.Text != lblSum.Text)
+                //{
+                //    lblmessage.Text = "";
+                //    lblUpError.Text = "Line item Quantity in not equal to Header Base Quantity";
+                //    sucess.Visible = false;
+                //    error.Visible = true;
+                //    lblUpError.Focus();
+                //    error.Focus();
+                //    Page.MaintainScrollPositionOnPostBack = false;
+                //}
                 else
                 {
                     string Notification = "";
