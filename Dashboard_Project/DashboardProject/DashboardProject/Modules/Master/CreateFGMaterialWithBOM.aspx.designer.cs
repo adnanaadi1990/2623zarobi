@@ -1039,60 +1039,6 @@ namespace DashboardProject.Modules.Master {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvBOM;
         
         /// <summary>
-        /// Div7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div7;
-        
-        /// <summary>
-        /// txtMaterial control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMaterial;
-        
-        /// <summary>
-        /// MaterialDescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox MaterialDescription;
-        
-        /// <summary>
-        /// dvCheque control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvCheque;
-        
-        /// <summary>
-        /// ddlPlantBom control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPlantBom;
-        
-        /// <summary>
-        /// ddlStorageLocationBOM control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlStorageLocationBOM;
-        
-        /// <summary>
         /// Div8 control.
         /// </summary>
         /// <remarks>
