@@ -2565,7 +2565,14 @@ namespace ITLDashboard.Modules.Master
             try
             {
                 DataTable dt = new DataTable();
-                dt.Columns.AddRange(new DataColumn[8] { new DataColumn("TransactionID"), new DataColumn("AltUnitOfMeasureCode"), new DataColumn("Numerator"), new DataColumn("Denominator"), new DataColumn("Lenght"), new DataColumn("Width"), new DataColumn("height"), new DataColumn("UOM") });
+                dt.Columns.AddRange(new DataColumn[8] { new DataColumn("TransactionID",typeof(string)),
+                    new DataColumn("AltUnitOfMeasureCode",typeof(string)), 
+                    new DataColumn("Numerator",typeof(string)),
+                    new DataColumn("Denominator",typeof(string)), 
+                    new DataColumn("Lenght",typeof(string)), 
+                    new DataColumn("Width",typeof(string)), 
+                    new DataColumn("height",typeof(string)), 
+                    new DataColumn("UOM",typeof(string)) });
                 DataColumn c = new DataColumn("sno", typeof(int));
                 c.AutoIncrement = true;
                 c.AutoIncrementSeed = 1;
@@ -2929,6 +2936,15 @@ namespace ITLDashboard.Modules.Master
                     {
                         dtCurrentTable.Rows[i]["TransactionID"] = lblMaxTransactionID.Text;
                         dtCurrentTable.AcceptChanges();
+                        
+                        int ResultSequance = 0;
+
+                        int Value = Convert.ToInt32(dtCurrentTable.Rows[i]["sno"]);
+                        int _Temp = Convert.ToInt32(1);
+                        ResultSequance = Value + _Temp;
+
+                        dtCurrentTable.Rows[i]["sno"] = ResultSequance;
+                        dtCurrentTable.AcceptChanges();
                     }
 
                     if (dtCurrentTable.Rows.Count > 0)
@@ -2939,18 +2955,19 @@ namespace ITLDashboard.Modules.Master
                             using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(con))
                             {
                                 //Set the database table name
-                                sqlBulkCopy.DestinationTableName = "dbo.tblAltUnitOfMeasure";
+                                sqlBulkCopy.DestinationTableName = "tblAltUnitOfMeasure";
+
 
                                 //[OPTIONAL]: Map the DataTable columns with that of the database table
                                 sqlBulkCopy.ColumnMappings.Add("TransactionID", "TransactionID");
                                 sqlBulkCopy.ColumnMappings.Add("AltUnitOfMeasureCode", "AltUnitOfMeasureCode");
                                 sqlBulkCopy.ColumnMappings.Add("Numerator", "Numerator");
-                                sqlBulkCopy.ColumnMappings.Add("Denominator", "Denominator");
+                                sqlBulkCopy.ColumnMappings.Add("Denominator", "Denumerator");
                                 sqlBulkCopy.ColumnMappings.Add("Lenght", "Lenght");
                                 sqlBulkCopy.ColumnMappings.Add("Width", "Width");
                                 sqlBulkCopy.ColumnMappings.Add("height", "height");
                                 sqlBulkCopy.ColumnMappings.Add("UOM", "UOM");
-                                sqlBulkCopy.ColumnMappings.Add("sno", "Seq");
+                                sqlBulkCopy.ColumnMappings.Add("sno", "sno");
 
                                 //new DataColumn("TransactionID"), 
                                 //new DataColumn("AltUnitOfMeasureCode"), 
