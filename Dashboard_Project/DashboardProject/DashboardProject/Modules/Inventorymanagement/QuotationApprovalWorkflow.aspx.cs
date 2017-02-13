@@ -694,7 +694,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                         " @Description='" + txtDescription.Text + "', " +
                         " @FilePath='" + FilePath.ToString() + "', " +
                         " @APPROVAL='" + Approval.ToString() + "', " +
-                        " @REVIEWER='', " +
+                        " @REVIEWER='" + ddlEmailRev.SelectedValue.ToString() + "', " +
                         " @Notification='" + Notification.ToString() + "', " +
                         " @MDA='', " +
                         " @CreatedBy='" + Session["User_Name"].ToString() + "', " +
