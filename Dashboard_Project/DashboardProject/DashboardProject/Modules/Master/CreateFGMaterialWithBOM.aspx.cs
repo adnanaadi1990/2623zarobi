@@ -4480,7 +4480,6 @@ namespace DashboardProject.Modules.Master
                 GridView2.DataSource = (DataTable)ViewState["BOMGrid"];
                 GridView2.DataBind();
                 lblgridError.Text = "";
-
             }
             catch (SqlException ex)
             {
