@@ -484,7 +484,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                     GetStatusHierachyCategoryControls();
 
 
-                    lblmessage.Text = "Documnet No " + txtDocNo.Text + " has been issued against  New Petty Cash Request Form ID #  " + lblMaxTransactionID.Text + " ";
+                    lblmessage.Text = "Documnet No " + txtDocNo.Text + " has been issued against  New Quotation Approval Request Form ID #  " + lblMaxTransactionID.Text + " ";
                     lblmessage.ForeColor = System.Drawing.Color.Green;
                     conn.Close();
                     sucess.Visible = true;
@@ -741,7 +741,10 @@ namespace DashboardProject.Modules.Inventorymanagement
 
         protected void btnSaveSubmit_Click(object sender, EventArgs e)
         {
-
+            //EmailWorkSendMDA();
+            //ApplicationStatus();
+            //BindsysApplicationStatus();
+            //GetStatusHierachyCategoryControls();
         }
         //-///////////////----------------------------------Approved Button------------------------///////////////////
         protected void btnApproved_Click(object sender, EventArgs e)
