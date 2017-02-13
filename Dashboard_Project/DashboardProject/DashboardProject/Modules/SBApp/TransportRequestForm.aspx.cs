@@ -537,7 +537,7 @@ namespace ITLDashboard.Modules.SBApp
                     if (rbtesting.SelectedValue == "Yes")
                     {
                         lblmessage.Text = "";
-                        lblUpError.Text = " Testing Successfully Check must be No while Reject.";
+                        lblUpError.Text = " Tested Successfully Check must be No while Reject.";
                         sucess.Visible = false;
                         error.Visible = true;
                         lblmessage.Focus();
@@ -576,7 +576,7 @@ namespace ITLDashboard.Modules.SBApp
                     if (rbFMDA.SelectedValue == "Yes")
                     {
                         lblmessage.Text = "";
-                        lblUpError.Text = " Testing Successfully Check must be No while Reject.";
+                        lblUpError.Text = " Tested Successfully Check must be No while Reject.";
                         sucess.Visible = false;
                         error.Visible = true;
                         lblmessage.Focus();
@@ -703,7 +703,7 @@ namespace ITLDashboard.Modules.SBApp
                 if (rbtransport.SelectedValue == "No")
                 {
                     lblmessage.Text = "";
-                    lblUpError.Text = " Testing Successfully Check must be Yes while Submit.";
+                    lblUpError.Text = " Transport Successfully Check must be Yes while Submit.";
                     sucess.Visible = false;
                     error.Visible = true;
                     lblmessage.Focus();
@@ -715,7 +715,7 @@ namespace ITLDashboard.Modules.SBApp
                 if (rbtesting.SelectedValue == "No")
                 {
                     lblmessage.Text = "";
-                    lblUpError.Text = " Testing Successfully Check must be Yes while Submit.";
+                    lblUpError.Text = " Tested Successfully Check must be Yes while Submit.";
                     sucess.Visible = false;
                     error.Visible = true;
                     lblmessage.Focus();
@@ -1544,7 +1544,7 @@ namespace ITLDashboard.Modules.SBApp
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
 
-                    lblmessage.Text = "Request has been transported to PRD against Form ID # " + lblMaxTransactionID.Text;
+                    lblmessage.Text = "Request has been transported against Form ID # " + lblMaxTransactionID.Text;
 
                     lblmessage.ForeColor = System.Drawing.Color.Green;
                     conn.Close();

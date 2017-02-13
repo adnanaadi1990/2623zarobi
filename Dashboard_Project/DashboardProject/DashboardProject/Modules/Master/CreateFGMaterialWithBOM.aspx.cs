@@ -223,6 +223,7 @@ namespace DashboardProject.Modules.Master
                                 BD.Visible = true;
                                 Prod.Visible = true;
                                 SD.Visible = true;
+                                Pack.Visible = true;
                                 QM.Visible = true;
                                 MRP.Visible = true;
                                 ddlProdCatg.Enabled = true;
@@ -252,6 +253,16 @@ namespace DashboardProject.Modules.Master
                                 txtUnderDeliveryTollerance.Enabled = true;
                                 txtOverDeliveryTollerance.Enabled = true;
                                 ddlTaskListUsage.Enabled = true;
+                                //////////Pack//////////
+                                ddlPackagingMaterialCateguory.Enabled = true;
+                                ddlPackagingMaterialType.Enabled = true;
+                                txtAllowedPackagingWeight.Enabled = true;
+                                ddlWeightUnit.Enabled = true;
+                                txtAllowedPackagingVolme.Enabled = true;
+                                ddlVolumUnit.Enabled = true;
+                                txtExcessWeightTolerance.Enabled = true;
+                                txtExcessVolumeTolerance.Enabled = true;
+                                //////////Pack//////////
                                 //////////QM////////////
                                 ddlQMControlKey.Enabled = true;
                                 chkInspectionSetup.Enabled = true;
@@ -291,6 +302,7 @@ namespace DashboardProject.Modules.Master
                                 BD.Visible = true;
                                 Prod.Visible = true;
                                 SD.Visible = true;
+                                Pack.Visible = true;
                                 QM.Visible = true;
                                 MRP.Visible = true;
                                 ddlProdCatg.Enabled = false;
@@ -320,6 +332,16 @@ namespace DashboardProject.Modules.Master
                                 txtUnderDeliveryTollerance.Enabled = false;
                                 txtOverDeliveryTollerance.Enabled = false;
                                 ddlTaskListUsage.Enabled = false;
+                                //////////Pack//////////
+                                ddlPackagingMaterialCateguory.Enabled = false;
+                                ddlPackagingMaterialType.Enabled = false;
+                                txtAllowedPackagingWeight.Enabled = false;
+                                ddlWeightUnit.Enabled = false;
+                                txtAllowedPackagingVolme.Enabled = false;
+                                ddlVolumUnit.Enabled = false;
+                                txtExcessWeightTolerance.Enabled = false;
+                                txtExcessVolumeTolerance.Enabled = false;
+                                //////////Pack//////////
                                 //////////QM////////////
                                 ddlQMControlKey.Enabled = false;
                                 chkInspectionSetup.Enabled = false;
@@ -375,6 +397,7 @@ namespace DashboardProject.Modules.Master
                                     BD.Visible = true;
                                     Prod.Visible = true;
                                     SD.Visible = true;
+                                    Pack.Visible = true;
                                     QM.Visible = true;
                                     MRP.Visible = true;
                                     //txtBillOfMaterial.Enabled = true;
@@ -417,6 +440,7 @@ namespace DashboardProject.Modules.Master
                                     BD.Visible = true;
                                     Prod.Visible = true;
                                     SD.Visible = true;
+                                    Pack.Visible = true;
                                     QM.Visible = true;
                                     MRP.Visible = true;
                                     //txtBillOfMaterial.Enabled = false;
@@ -456,6 +480,7 @@ namespace DashboardProject.Modules.Master
                                 BD.Visible = true;
                                 Prod.Visible = true;
                                 SD.Visible = true;
+                                Pack.Visible = true;
                                 QM.Visible = true;
                                 MRP.Visible = true;
                                 ddlRate.Enabled = true;
@@ -484,6 +509,7 @@ namespace DashboardProject.Modules.Master
                                 BD.Visible = true;
                                 Prod.Visible = true;
                                 SD.Visible = true;
+                                Pack.Visible = true;
                                 QM.Visible = true;
                                 MRP.Visible = true;
                                 Account.Visible = false;
@@ -508,6 +534,7 @@ namespace DashboardProject.Modules.Master
                                 BD.Visible = true;
                                 Prod.Visible = true;
                                 SD.Visible = true;
+                                Pack.Visible = true;
                                 QM.Visible = true;
                                 MRP.Visible = true;
                                 Account.Visible = true;
@@ -542,6 +569,7 @@ namespace DashboardProject.Modules.Master
                                 BD.Visible = true;
                                 Prod.Visible = true;
                                 SD.Visible = true;
+                                Pack.Visible = true;
                                 QM.Visible = true;
                                 MRP.Visible = true;
                                 Account.Visible = true;
@@ -567,6 +595,7 @@ namespace DashboardProject.Modules.Master
                             Prod.Visible = true;
                             Account.Visible = true;
                             SD.Visible = true;
+                            Pack.Visible = true;
                             QM.Visible = true;
                             MRP.Visible = true;
                             Account.Visible = true;
@@ -623,6 +652,7 @@ namespace DashboardProject.Modules.Master
                             Prod.Visible = true;
                             Account.Visible = true;
                             SD.Visible = true;
+                            Pack.Visible = true;
                             QM.Visible = true;
                             MRP.Visible = true;
                             Account.Visible = true;
@@ -1261,7 +1291,21 @@ namespace DashboardProject.Modules.Master
                             }
 
                             txtStandardPrice.Text = reader["StandardPrice"].ToString();
-                            RadioButtonList2.SelectedValue = reader["ClosedBox"].ToString();
+           
+                            ddlPackagingMaterialCateguory.SelectedValue = reader["Packaging_Material_Categuory"].ToString();
+                            //BindPackagingMaterialCateguory();
+                            ddlPackagingMaterialType.SelectedValue = reader["Packaging_Material_Type"].ToString();
+                            //BindPackagingMaterialType();
+                            txtAllowedPackagingWeight.Text = reader["Allowed_Packaging_Weight"].ToString();
+                            ddlWeightUnit.SelectedValue = reader["AllowedPackagingWeightUnit"].ToString();
+                            //Bindweightunit();
+                            txtAllowedPackagingVolme.Text = reader["AllowedPackagingVolme"].ToString();
+                            ddlVolumUnit.SelectedValue = reader["AllowedPackagingVolmeUnit"].ToString();
+                            //BindVolumeunit();
+                            txtExcessWeightTolerance.Text = reader["ExcessWeightTolerance"].ToString();
+                            txtExcessVolumeTolerance.Text = reader["ExcessVolumnTolerance"].ToString();
+                           
+
                             string MatLock = "";
                             MatLock = reader["Materiallock"].ToString();
                             if (MatLock == "1")
@@ -2145,12 +2189,12 @@ namespace DashboardProject.Modules.Master
                 ddlVOLUMEUNIT.DataBind();  //binding dropdownlist
                 ddlVOLUMEUNIT.Items.Insert(0, new ListItem("------Select------", "0"));
 
-                //ddlVolumUnit.DataTextField = ds.Tables["Volumeunit"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
-                //ddlVolumUnit.DataValueField = ds.Tables["Volumeunit"].Columns["Volumeunit"].ToString();             // to retrive specific  textfield name 
-                //ddlVolumUnit.DataSource = ds.Tables["Volumeunit"];      //assigning datasource to the dropdownlist
-                //ddlVolumUnit.DataBind();  //binding dropdownlist
-                ////Adding "Please select" option in dropdownlist for validation
-                //ddlVolumUnit.Items.Insert(0, new ListItem("------Select------", "0"));
+                ddlVolumUnit.DataTextField = ds.Tables["Volumeunit"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
+                ddlVolumUnit.DataValueField = ds.Tables["Volumeunit"].Columns["Volumeunit"].ToString();             // to retrive specific  textfield name 
+                ddlVolumUnit.DataSource = ds.Tables["Volumeunit"];      //assigning datasource to the dropdownlist
+                ddlVolumUnit.DataBind();  //binding dropdownlist
+                //Adding "Please select" option in dropdownlist for validation
+                ddlVolumUnit.Items.Insert(0, new ListItem("------Select------", "0"));
             }
             catch (SqlException ex)
             {
@@ -3225,7 +3269,7 @@ namespace DashboardProject.Modules.Master
                 }
 
 
-                cmd.CommandText = @"Select SAPMaterialCode from tbl_SYS_MaterialMaster where SAPMaterialCode = '" + txtSMC.Text.ToString() + "'";
+                cmd.CommandText = @"Select SAPMaterialCode from tbl_SYS_MaterialMaster_FGBOM where SAPMaterialCode = '" + txtSMC.Text.ToString() + "'";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
 
@@ -3734,7 +3778,15 @@ namespace DashboardProject.Modules.Master
       SchedMarginkey = @UpSchedMarginkey,
       PeriodIndicator = @UpPeriodIndicator,
       Strategygroup = @UpStrategygroup,
-      Lotsize = @UpLotsize  
+      Lotsize = @UpLotsize,
+      Packaging_Material_Categuory = @UpPackaging_Material_Categuory,
+      Packaging_Material_Type = @UpPackaging_Material_Type,
+      Allowed_Packaging_Weight = @UpAllowed_Packaging_Weight,
+      AllowedPackagingWeightUnit = @UpAllowedPackagingWeightUnit,
+      AllowedPackagingVolme = @UpAllowedPackagingVolme,
+      AllowedPackagingVolmeUnit = @UpAllowedPackagingVolmeUnit,
+      ExcessWeightTolerance = @UpExcessWeightTolerance,
+      ExcessVolumnTolerance = @UpExcessVolumnTolerance
       where TransactionID = '" + lblMaxTransactionID.Text + "' ";
                     cmd.CommandType = CommandType.Text;
                     cmd.Connection = conn;
@@ -3795,6 +3847,14 @@ namespace DashboardProject.Modules.Master
                     cmd.Parameters.AddWithValue("@UpPeriodIndicator", ddlPeriodIndicator.SelectedValue);
                     cmd.Parameters.AddWithValue("@UpStrategygroup", ddlStrategygroup.SelectedValue.Trim());
                     cmd.Parameters.AddWithValue("@UpLotsize", ddlLotsize.SelectedValue);
+                    cmd.Parameters.AddWithValue("@UpPackaging_Material_Categuory", ddlPackagingMaterialCateguory.SelectedValue);
+                    cmd.Parameters.AddWithValue("@UpPackaging_Material_Type", ddlPackagingMaterialType.Text);
+                    cmd.Parameters.AddWithValue("@UpAllowed_Packaging_Weight", txtAllowedPackagingWeight.Text);
+                    cmd.Parameters.AddWithValue("@UpAllowedPackagingWeightUnit", ddlWeightUnit.SelectedValue);
+                    cmd.Parameters.AddWithValue("@UpAllowedPackagingVolme", txtAllowedPackagingVolme.Text);
+                    cmd.Parameters.AddWithValue("@UpAllowedPackagingVolmeUnit", ddlVolumUnit.SelectedValue);
+                    cmd.Parameters.AddWithValue("@UpExcessWeightTolerance", txtExcessWeightTolerance.Text);
+                    cmd.Parameters.AddWithValue("@UpExcessVolumnTolerance", txtExcessVolumeTolerance.Text);
                     cmd.Parameters.AddWithValue("@NetWeightCheck", rbNewWeightCheck.SelectedValue);
 
 
@@ -4097,7 +4157,8 @@ namespace DashboardProject.Modules.Master
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-
+            string url = HttpContext.Current.Request.Url.ToString();
+            Response.Redirect(url.ToString());
         }
 
         protected void btnForward_Click(object sender, EventArgs e)
@@ -4585,7 +4646,7 @@ namespace DashboardProject.Modules.Master
                         InsertEmail();
                     }
                 }
-               
+
                 else
                 {
 
@@ -5403,20 +5464,20 @@ namespace DashboardProject.Modules.Master
                 //    Page.MaintainScrollPositionOnPostBack = false;
                 //    ddlStorageLocation.BackColor = System.Drawing.Color.Red;
                 //}
-                else if (txtBaseQuantity.Text != lblSum.Text)
-                {
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Line item Quantity in not equal to Header Base Quantity";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblUpError.Focus();
-                    error.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                }
+                //else if (txtBaseQuantity.Text != lblSum.Text)
+                //{
+                //    lblmessage.Text = "";
+                //    lblUpError.Text = "Line item Quantity in not equal to Header Base Quantity";
+                //    sucess.Visible = false;
+                //    error.Visible = true;
+                //    lblUpError.Focus();
+                //    error.Focus();
+                //    Page.MaintainScrollPositionOnPostBack = false;
+                //}
                 else
                 {
                     string conString = ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString;
-                    SqlCommand cmd = new SqlCommand("SP_SYS_Create_BOM_Approval_FG_BOM"); 
+                    SqlCommand cmd = new SqlCommand("SP_SYS_Create_BOM_Approval_FG_BOM");
                     using (SqlConnection con = new SqlConnection(conString))
                     {
                         using (SqlDataAdapter sda = new SqlDataAdapter())
@@ -5697,9 +5758,9 @@ namespace DashboardProject.Modules.Master
                 ddlCountries.DataBind();
                 //Add Default Item in the DropDownList
                 ddlCountries.Items.Insert(0, new ListItem("------Select------", ""));
-     
+
             }
-            catch (Exception ex)  
+            catch (Exception ex)
             {
                 lblError.Text = "OnDataBound" + ex.ToString();
             }

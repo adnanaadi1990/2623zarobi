@@ -2091,7 +2091,6 @@ namespace ITLDashboard.Modules.Master
                 lblError.Text = "Bindweightunit" + ex.ToString();
                 dvemaillbl.Visible = true;
             }
-
         }
 
         private void BindDivision()

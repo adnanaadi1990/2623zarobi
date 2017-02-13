@@ -120,7 +120,7 @@
                 });
             });
         };
-        
+
         /////////////////////////////////////////////////////////////////////////////////////////////////
         function pageLoad() {
             $('[id*=txtStandardPrice],[id*=txtCustomerNo],[id*=txtBaseQuantity],[id$=txtMaterial],[id*=txtNumerator],[id*=txtDenominator],[id*=txtVolume],[id*=txtLenght],[id*=txtWidth],[id*=txtheight],[id*=txtGROSSWEIGHT] ,[id*=txtNETWEIGHT],[id*=txtVolume],[id*=txtNumeratorValue],[id*=txtDenominatorValue],[id*=txtReoderPoint],[id*=txtPlannedDeliveryTimeInDays],[id*=txtInHouseProductionTimeInDays],[id*=txtGRPROCESSINGTIMEINDAYS],[id*=txtSafetyStock],[id*=txtOverDeliveryTollerance],[id*=txtExcessWeightTolerance],[id*=txtUnderDeliveryTollerance],[id*=txtExcessVolumeTolerance],[id*=txtSMC]').keyup(function () {
@@ -669,7 +669,7 @@
                                 <%--<%# Eval("Numerator") %>--%>
                                 <div class="col-sm-4">
                                     Product Hierarchy
-                            <asp:DropDownList ID="ddlProdCatg" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlProdCatg_SelectedIndexChanged" ViewStateMode="Enabled">                   
+                            <asp:DropDownList ID="ddlProdCatg" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlProdCatg_SelectedIndexChanged" ViewStateMode="Enabled">
                             </asp:DropDownList>
 
                                 </div>
@@ -1143,36 +1143,6 @@
                 </div>
                 <div id="Div4" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        <%--          <div class="row">
-                            <div class="col-sm-3" runat="server" id="dvBillOfMaterial">
-                                Bill Of Material
-                                 <asp:TextBox ID="txtBillOfMaterial" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                            </div>
-                        </div>--%>
-                    <%--    <span class="help-block"></span>--%>
-<%--                        <div class="row" runat="server" id="Div7">
-                            <div class="col-sm-4">
-                                Material No
-                                
-                             <asp:TextBox ID="txtMaterial" runat="server" CssClass="form-control"></asp:TextBox>
-                            </div>
-
-                            <div class="col-sm-8">
-                                Material Description
-                                <asp:TextBox ID="MaterialDescription" runat="server" CssClass="form-control"></asp:TextBox>
-                            </div>
-                        </div>--%>
-                      <%--  <span class="help-block"></span>--%>
-<%--                        <div class="row" runat="server" id="dvCheque">
-                            <div class="col-sm-5">
-                                Plant
-                                <asp:DropDownList ID="ddlPlantBom" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlPlantBom_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
-                            </div>
-                            <div class="col-sm-7">
-                                Storage Location
-                                <asp:DropDownList ID="ddlStorageLocationBOM" runat="server" CssClass="form-control"></asp:DropDownList>
-                            </div>
-                        </div>--%>
                         <span class="help-block"></span>
                         <div id="Div8" class="row" runat="server">
                             <div class="col-sm-4">
@@ -1454,7 +1424,7 @@
                                 <asp:GridView ID="grdBomDisplay" CssClass="table table-striped table-bordered footable" runat="server" AutoGenerateColumns="False" Width="1200px"
                                     ShowFooter="true" OnSelectedIndexChanging="grdBomDisplay_SelectedIndexChanging">
                                     <Columns>
-                                          <asp:TemplateField>
+                                        <asp:TemplateField>
                                             <ItemTemplate>
                                                 <asp:LinkButton runat="server" ID="lnkSelect" Text="Select" CommandName="Select"></asp:LinkButton>
                                             </ItemTemplate>
@@ -1467,7 +1437,7 @@
                                                 <%--<%# Eval("Numerator") %>--%>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                       <%-- <asp:BoundField DataField="MaterialNo" HeaderText="Material No" ItemStyle-Width="80px" />
+                                        <%-- <asp:BoundField DataField="MaterialNo" HeaderText="Material No" ItemStyle-Width="80px" />
                                         <asp:BoundField DataField="MaterialDesc" HeaderText="Material Description" ItemStyle-Width="100px" />
                                         <asp:BoundField DataField="Plant" HeaderText="Plant" ItemStyle-Width="50px" />
                                         <asp:BoundField DataField="StorageLocation" HeaderText="Storage Location" ItemStyle-Width="50px" />--%>
@@ -1490,13 +1460,12 @@
                                 </asp:GridView>
                             </div>
                         </div>
-                                    <span class="help-block"></span>
-                    <div class="row fixed-panel">
+                        <span class="help-block"></span>
+                        <div class="row fixed-panel">
                             <div class="col-sm-12">
 
                                 <asp:GridView ID="grdDisplayBOMITEM" CssClass="table table-striped table-bordered footable" runat="server" AutoGenerateColumns="true" Width="1300px"
                                     ShowFooter="true">
-                                    
                                 </asp:GridView>
                             </div>
                         </div>
@@ -1555,7 +1524,7 @@
                                 Weaving Head Of Deparment
                                        <asp:Label ID="lblWeavingHOD" runat="server" CssClass="form-control"></asp:Label>
                             </div>
-                            
+
                             <div class="col-sm-3">
                                 Taxes
                                       <asp:DropDownList ID="ddlTaxes" runat="server" CssClass="form-control"></asp:DropDownList>
