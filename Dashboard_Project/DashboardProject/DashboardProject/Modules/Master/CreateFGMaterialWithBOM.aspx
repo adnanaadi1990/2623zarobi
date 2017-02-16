@@ -205,6 +205,7 @@
                 <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Create Finished Material with BOM</p>
             </div>
         </div>
+
         <div class="panel panel-default">
             <div class="panel-heading"></div>
             <div class="panel-body">
@@ -219,10 +220,7 @@
                                  <asp:Label ID="lblMaxTransactionID" runat="server" CssClass="form-control"></asp:Label>
                     </div>
                 </div>
-
                 <span class="help-block"></span>
-
-
                 <div class="row" id="MeterialType">
                     <div class="col-sm-4">
                         Material Type
@@ -232,11 +230,9 @@
                             <asp:ListItem Value="HAWA">HAWA Trading Goods</asp:ListItem>
                         </asp:DropDownList>
                     </div>
-
                     <div class="col-sm-3" id="divSMC" runat="server">
                         <asp:Label runat="server" ID="lblSap" Text="SAP Material Code" Visible="false"></asp:Label>
                         <asp:TextBox ID="txtSMC" runat="server" CssClass="form-control" Visible="false" placeholder="SAP Material Code" MaxLength="10"></asp:TextBox>
-
                     </div>
                     <div class="col-sm-5" runat="server" visible="false" id="dvLock">
                         <br />
@@ -245,11 +241,9 @@
                             <asp:ListItem Selected="True" Value="1">Material is locked</asp:ListItem>
                             <asp:ListItem Value="0">Material is un-locked</asp:ListItem>
                         </asp:RadioButtonList>
-
                     </div>
                 </div>
                 <span class="help-block"></span>
-
 
                 <div class="row" runat="server" id="dvSMC" visible="false">
                     <div class="col-sm-6">
@@ -260,7 +254,6 @@
                         <br />
                         <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-primary" OnClick="btnSearch_Click"></asp:Button>
                     </div>
-
                 </div>
                 <br />
             </div>
@@ -1145,6 +1138,9 @@
                     <div class="panel-body">
                         <span class="help-block"></span>
                         <div id="Div8" class="row" runat="server">
+                            <div class="col-sm-4">
+                                <asp:Button ID="btnNewMaterial" runat="server" Text="New Material Form" OnClick="btnNewMaterial_Click" />
+                            </div>
                             <div class="col-sm-4">
                                 Production  Lot Size From
                                 <asp:TextBox ID="txtProductionLotSizefrom" runat="server" CssClass="form-control"></asp:TextBox>
