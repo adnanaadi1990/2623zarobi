@@ -228,7 +228,7 @@
                                        <asp:Label ID="lblHOD" runat="server" CssClass="form-control"></asp:Label>
                                     </div>
                                     <div class="col-sm-4">
-                                        IS Representative  
+                                     Specific Additional Approver
                                        <asp:DropDownList ID="ddlEmailRev" CssClass="form-control" runat="server">
                                        </asp:DropDownList>
                                     </div>
