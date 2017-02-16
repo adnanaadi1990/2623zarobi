@@ -203,7 +203,7 @@
                                        <asp:Label ID="lblHOD" runat="server" CssClass="form-control"></asp:Label>
                             </div>
                                   <div class="col-sm-4">
-                               Director
+                                      C.E.O
                                       <asp:DropDownList ID="ddlDirector" CssClass="form-control" runat="server">
                                        </asp:DropDownList>
                             </div>
