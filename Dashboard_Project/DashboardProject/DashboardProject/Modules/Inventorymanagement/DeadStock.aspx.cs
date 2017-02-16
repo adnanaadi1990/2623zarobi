@@ -222,11 +222,6 @@ namespace ITLDashboard.Modules.Inventorymanagement
 
                 }
             }
-            for (int i = 0; i < ddlNotification.Items.Count; i++)
-            {
-                ddlNotification.Items[i].Selected = true;
-                ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
-            }
         }
         private void GetSockDetail()
         {
@@ -571,11 +566,7 @@ namespace ITLDashboard.Modules.Inventorymanagement
                 GetTransactionID();
                 btnDelete.Visible = false;
                 btnShowFile.Visible = true;
-                for (int i = 0; i < ddlNotification.Items.Count; i++)
-                {
-                    ddlNotification.Items[i].Selected = true;
-                    ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
-                }
+               
             }
 
             catch (Exception ex)
