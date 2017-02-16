@@ -795,7 +795,7 @@ namespace ITLDashboard.Modules.SBApp
         protected void bindModuleCatg()
         {
             string strQuery2 = "";
-            strQuery2 = @"Select user_name,DisplayName from tblusermodulecategory where ModuleName Like '%" + ddlApplicableArea.SelectedValue.ToString() + "%' and Category like '%Reviewer%'";
+            strQuery2 = @"Select user_name,DisplayName from tblusermodulecategory where ModuleName Like '%" + ddlApplicableArea.SelectedValue.ToString() + "%' and FormID = 'TRF01'";
             using (SqlCommand cmd = new SqlCommand())
             {
                 ds.Clear();
