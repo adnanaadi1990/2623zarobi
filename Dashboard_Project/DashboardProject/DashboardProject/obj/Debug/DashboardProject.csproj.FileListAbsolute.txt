@@ -13,3 +13,4 @@ D:\DashboardLocal\26zaro235252\Dashboard_Project\DashboardProject\DashboardProje
 D:\DashboardLocal\26zaro235252\Dashboard_Project\DashboardProject\DashboardProject\obj\Debug\RdlCompile.compiled
 D:\DashboardLocal\26zaro235252\Dashboard_Project\DashboardProject\DashboardProject\obj\Debug\DashboardProject.dll
 D:\DashboardLocal\26zaro235252\Dashboard_Project\DashboardProject\DashboardProject\obj\Debug\DashboardProject.pdb
+D:\DashboardLocal\26zaro235252\Dashboard_Project\DashboardProject\DashboardProject\obj\Debug\DashboardProject.csprojResolveAssemblyReference.cache
