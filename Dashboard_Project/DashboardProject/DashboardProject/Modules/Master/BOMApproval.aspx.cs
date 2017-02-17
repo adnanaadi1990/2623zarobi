@@ -333,7 +333,7 @@ namespace DashboardProject.Modules.Master
                     }
                     else
                     {
-                        if (customerName.ToString() == "Scrap Material")
+                        if (customerName.ToString() == "Scrap/Wastages Material")
                         {
                             companyName4 = "-" + companyName4.ToString();
                         }
@@ -354,7 +354,7 @@ namespace DashboardProject.Modules.Master
                         float GTotal = 0f;
                         for (int i = 0; i < GridView1.Rows.Count; i++)
                         {
-                            if ((GridView1.Rows[i].FindControl("lblComponentType") as Label).Text == "Input Material" || (GridView1.Rows[i].FindControl("lblComponentType") as Label).Text == "Scrap Material")
+                            if ((GridView1.Rows[i].FindControl("lblComponentType") as Label).Text == "Input Material" || (GridView1.Rows[i].FindControl("lblComponentType") as Label).Text == "Scrap/Wastages Material")
                             {
                                     String total = (GridView1.Rows[i].FindControl("lblQuantity") as Label).Text;
                                     GTotal += Convert.ToSingle(total);
@@ -1510,7 +1510,7 @@ namespace DashboardProject.Modules.Master
                 float GTotal = 0f;
                 for (int i = 0; i < GridView1.Rows.Count; i++)
                 {
-                    if ((GridView1.Rows[i].FindControl("lblComponentType") as Label).Text == "Input Material" || (GridView1.Rows[i].FindControl("lblComponentType") as Label).Text == "Scrap Material")
+                    if ((GridView1.Rows[i].FindControl("lblComponentType") as Label).Text == "Input Material" || (GridView1.Rows[i].FindControl("lblComponentType") as Label).Text == "Scrap/Wastages Material")
                     {
                         String total = (GridView1.Rows[i].FindControl("lblQuantity") as Label).Text;
                         GTotal += Convert.ToSingle(total);
