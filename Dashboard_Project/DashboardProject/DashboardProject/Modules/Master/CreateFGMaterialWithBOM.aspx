@@ -1138,9 +1138,13 @@
                     <div class="panel-body">
                         <span class="help-block"></span>
                         <div id="Div8" class="row" runat="server">
-                            <div class="col-sm-4">
-                                <asp:Button ID="btnNewMaterial" runat="server" Text="New Material Form" OnClick="btnNewMaterial_Click" />
-                            </div>
+                             <div class="col-sm-12">
+                                <asp:Label ID="lblMSGNewMaterial" runat="server" ><asp:LinkButton ID="LBNewMaterial" runat="server" PostBackUrl="~/Modules/Master/CreateMaterialMaster.aspx">Note: If Material does not exsist then click here</asp:LinkButton></asp:Label>
+                            
+                             </div>
+                            <br />
+                            <br />
+                            <span class="help-block"></span>
                             <div class="col-sm-4">
                                 Production  Lot Size From
                                 <asp:TextBox ID="txtProductionLotSizefrom" runat="server" CssClass="form-control"></asp:TextBox>
