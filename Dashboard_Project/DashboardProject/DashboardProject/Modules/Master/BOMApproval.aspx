@@ -307,7 +307,7 @@
                                                                             <asp:ListItem Value="">---Select---</asp:ListItem>
                                                                             <asp:ListItem>Input Material</asp:ListItem>
                                                                             <asp:ListItem>Additive Material</asp:ListItem>
-                                                                            <asp:ListItem>Scrap Material</asp:ListItem>
+                                                                            <asp:ListItem>Scrap/Wastages Material</asp:ListItem>
                                                                             <asp:ListItem>Packaging Material</asp:ListItem>
                                                                         </asp:DropDownList>
                                                                     </FooterTemplate>
@@ -420,7 +420,7 @@
                                                                             <asp:ListItem Value="">---Select---</asp:ListItem>
                                                                             <asp:ListItem>Input Material</asp:ListItem>
                                                                             <asp:ListItem>Additive Material</asp:ListItem>
-                                                                            <asp:ListItem>Scrap Material</asp:ListItem>
+                                                                            <asp:ListItem>Scrap/Wastages Material</asp:ListItem>
                                                                             <asp:ListItem>Packaging Material</asp:ListItem>
                                                                         </asp:DropDownList>
                                                                         </td>

@@ -849,7 +849,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                     "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                     "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                     "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                        "<br>Inventory Management Application <br> Information Systems Dashboard";
+                        "<br>Inventory Adjustment Application <br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
@@ -882,7 +882,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
                     EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " has sent you a Inventory Adjustment Approval Request against Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL: <br><br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, <br>you do not need to reply to this message.<br>" +
-                        "<br>Inventory Management Application <br> Information Systems Dashboard";
+                        "<br>Inventory Adjustment Application <br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
@@ -927,7 +927,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                     "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                     "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                     "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                        "<br>Inventory Management Application<br> Information Systems Dashboard";
+                        "<br>Inventory Adjustment Application<br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
@@ -959,7 +959,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                         "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                         "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                         "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                            "<br>Inventory Management Application<br> Information Systems Dashboard";
+                            "<br>Inventory Adjustment Application<br> Information Systems Dashboard";
                         SessionUser = Session["User_Name"].ToString();
                         DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                         InsertEmail();
@@ -990,17 +990,17 @@ namespace DashboardProject.Modules.Inventorymanagement
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + ",<br> <br> Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + " has been disapproved by  " + ViewState["SessionUser"].ToString() + " <br><br> The reason of rejection is given below you can review your form on following url: " +
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>  Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + " has been disapproved by  " + ViewState["SessionUser"].ToString() + " <br><br> The reason of rejection is given below you can review your form on following url: " +
                     "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                     "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                     "<br> <br> <br><b>Reject Remarks: " + txtRemarksReview.Text +
                     "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                        "<br>Inventory Management Application  <br> Information Systems Dashboard";
+                        "<br>Inventory Adjustment Application  <br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
                     ViewState["Status"] = "00"; // For Status Reject
-                    lblEmail.Text = "Dead Stock Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been rejected by you";
+                    lblEmail.Text = "Inventory Adjustment Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been rejected by you";
                     lblEmail.Focus();
                     Page.MaintainScrollPositionOnPostBack = false;
                     Page.MaintainScrollPositionOnPostBack = true;
@@ -1034,7 +1034,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                         "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                         "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                         "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                        "<br>Inventory Management Application<br> Information Systems Dashboard";
+                        "<br>Inventory Adjustment Application<br> Information Systems Dashboard";
                         SessionUser = Session["User_Name"].ToString();
                         DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                         InsertEmail();

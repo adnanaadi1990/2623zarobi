@@ -213,7 +213,7 @@
                                             </telerik:GridBoundColumn>
 
 
-                                                  <telerik:GridBoundColumn DataField="Sequance" FilterControlAltText="Filter column column" FooterText="Item" HeaderText="Item" UniqueName="Item">
+                                                  <%--<telerik:GridBoundColumn DataField="Sequance" FilterControlAltText="Filter column column" FooterText="Item" HeaderText="Item" UniqueName="Item">
                                             </telerik:GridBoundColumn>
 
                                                   <telerik:GridBoundColumn DataField="ComType" FilterControlAltText="Filter column column" FooterText="Com Type" HeaderText="Com Type" UniqueName="ComType">
@@ -232,7 +232,7 @@
                                             </telerik:GridBoundColumn>
 
                                                             <telerik:GridBoundColumn DataField="ItemStorageLocation" FilterControlAltText="Filter column column" FooterText="Item Storage Location" HeaderText="Item Storage Location" UniqueName="ItemStorageLocation">
-                                            </telerik:GridBoundColumn>
+                                            </telerik:GridBoundColumn>--%>
 
 
                                               <telerik:GridBoundColumn DataField="CreatedBy" FilterControlAltText="Filter column5 column" HeaderText="Created By" UniqueName="column5">
