@@ -5810,19 +5810,21 @@ namespace DashboardProject.Modules.Master
             }
         }
 
-        protected void btnNewMaterial_Click(object sender, EventArgs e)
-        {
-            if (btnNewMaterial.Text == "New Material Form")
-            {
-                
-            }
-            else
-            {
-                
-            }
-            //script = String.Format(script, url, target, windowFeatures);
-            //ScriptManager.RegisterStartupScript(page, typeof(Page), "Redirect", script, true); 
-        }
+        //protected void LBNewMaterial_Click(object sender, EventArgs e)
+        //{
+        //    if (LBNewMaterial.Text == "New Material")
+        //    {
+        //        string url = HttpContext.Current.Request.Url.ToString();
+        //        //Response.Redirect(url.ToString());
+        //        Response.Redirect("~/Modules/Master/CreateFGMaterialWithBOM.aspx?TransactionNo=" + url.ToString());
+        //    }
+        //    else
+        //    {
+
+        //    }
+        //    //script = String.Format(script, url, target, windowFeatures);
+        //    //ScriptManager.RegisterStartupScript(page, typeof(Page), "Redirect", script, true); 
+        //}
 
         //////////////////////////////////////////////Email Methods//////////////////////////////////////////
     }
