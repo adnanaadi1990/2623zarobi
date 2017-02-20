@@ -24,7 +24,7 @@
          window.addEventListener('popstate', function (event) {
              history.pushState(null, null, 'AccessDenied.aspx');
          });
-
+        
     </script>
 </head>
 <body>
