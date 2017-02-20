@@ -1139,8 +1139,8 @@
                         <span class="help-block"></span>
                         <div id="Div8" class="row" runat="server">
                              <div class="col-sm-12">
-                             <%--<asp:LinkButton ID="LBNewMaterial" runat="server" PostBackUrl="~/Modules/Master/CreateMaterialMaster.aspx">Note: If Component Material does not exist then click here</asp:LinkButton>--%>
-                            <a href="CreateMaterialMaster.aspx" target="_blank">Note: If Component Material does not exist then click here</a>
+                                <asp:Label ID="lblMSGNewMaterial" runat="server" ><asp:LinkButton ID="LBNewMaterial" runat="server" PostBackUrl="~/Modules/Master/CreateMaterialMaster.aspx">Note: If Material does not exist then click here</asp:LinkButton></asp:Label>
+                            
                              </div>
                             <br />
                             <br />
@@ -1704,6 +1704,5 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </asp:Content>

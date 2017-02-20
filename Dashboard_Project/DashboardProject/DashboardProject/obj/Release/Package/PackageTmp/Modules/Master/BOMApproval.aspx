@@ -485,7 +485,7 @@
                                   <div class="col-sm-2"></div>
                                   <div class="col-sm-2"></div>
                                   <div class="col-sm-2"></div>
-                                  <div class="col-sm-4">Total Base Quantity: <asp:Label ID="lblSum" runat="server" CssClass="form-control"></asp:Label></div>
+                                  <div class="col-sm-4">Net Quantity: <asp:Label ID="lblSum" runat="server" CssClass="form-control"></asp:Label></div>
                                 </div>
                         </div>
                     </div>

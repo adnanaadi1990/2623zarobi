@@ -70,7 +70,7 @@ namespace ITLDashboard
                 }
 
             }
-            if (Session["User_Name"].ToString() == "faraz.quddusi" || Session["User_Name"].ToString() == "faraz" || Session["User_Name"].ToString() == "Muhammad.Farrukh" || Session["User_Name"].ToString() == "adnan.yousufzai" || Session["User_Name"].ToString() == "farrukh.aslam")
+            if (Session["User_Name"].ToString() == "faraz.quddusi" || Session["User_Name"].ToString() == "faraz" || Session["User_Name"].ToString() == "Farrukh.Aslam" || Session["User_Name"].ToString() == "adnan.yousufzai" || Session["User_Name"].ToString() == "farrukh.aslam")
             {
                 dvAdmin.Visible = true;
             }
