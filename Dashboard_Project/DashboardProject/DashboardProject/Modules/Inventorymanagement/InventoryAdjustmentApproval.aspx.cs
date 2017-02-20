@@ -347,6 +347,38 @@ namespace DashboardProject.Modules.Inventorymanagement
 
             try
             {
+<<<<<<< HEAD
+=======
+            cmd.CommandText = "SELECT * FROM tblEmailSequanceWise where FormID = @FormID order by Sequance asc";
+            //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = conn;
+
+            conn.Open();
+            ddlNotification.DataSource = cmd.ExecuteReader();
+            cmd.Parameters.AddWithValue("@FormID",FormID.ToString());
+            ddlNotification.DataTextField = "DisplayName";
+            ddlNotification.DataValueField = "user_name";
+            ddlNotification.DataBind();
+            conn.Close();
+            cmd.CommandText = "SP_getFormID";
+                //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'adnan.yousufzai'";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@FormID", FormID.ToString());
+                conn.Open();
+                ddlNotification.DataSource = cmd.ExecuteReader();
+                ddlNotification.DataTextField = "DisplayName";
+                ddlNotification.DataValueField = "user_name";
+                ddlNotification.DataBind();
+                conn.Close();
+                for (int i = 0; i < ddlNotification.Items.Count; i++)
+                {
+                    ddlNotification.Items[i].Selected = true;
+                    ddlNotification.Items[i].Attributes.Add("disabled", "disabled");
+                }
+
+>>>>>>> refs/remotes/origin/master
                 cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'IAA'";
                 //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
                 cmd.CommandType = CommandType.Text;

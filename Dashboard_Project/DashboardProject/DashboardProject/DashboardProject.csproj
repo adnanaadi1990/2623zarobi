@@ -751,12 +751,38 @@
     <Content Include="Modules\SBApp\TransportRequestForm.aspx" />
     <Content Include="Modules\SBApp\UserAuthorizationRequest.aspx" />
     <Content Include="NoRightsUser.aspx" />
+<<<<<<< HEAD
+=======
+    <Content Include="pages\blank.html" />
+    <Content Include="pages\buttons.html" />
+    <Content Include="pages\flot.html" />
+    <Content Include="pages\forms.html" />
+    <Content Include="pages\grid.html" />
+    <Content Include="pages\icons.html" />
+    <Content Include="pages\index.html" />
+    <Content Include="pages\login.html" />
+    <Content Include="pages\morris.html" />
+    <Content Include="pages\notifications.html" />
+    <Content Include="pages\panels-wells.html" />
+    <Content Include="pages\tables.html" />
+    <Content Include="pages\typography.html" />
+>>>>>>> refs/remotes/origin/master
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\footable.min.js" />
+<<<<<<< HEAD
     <Content Include="DashboardDocument\InventoryAdjustment\ed31933b_11e62940_4606smart.pdf" />
+=======
+    <Content Include="DashboardDocument\DeadStockDoc\419de11d_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\DeadStockDoc\f4ee22c8_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\DeadStockDoc\6554c6a9_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\DeadStockDoc\9b5fcf5f_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\DeadStockDoc\b5013066_8fa2940_5155smart.pdf" />
+    <Content Include="DashboardDocument\DeadStockDoc\e8a608cf_11e62940_4606smart.pdf" />
+    <Content Include="DashboardDocument\DeadStockDoc\fc8357b7_8fa2940_5155smart.pdf" />
+>>>>>>> refs/remotes/origin/master
     <None Include="Properties\PublishProfiles\PublishDashboard.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
