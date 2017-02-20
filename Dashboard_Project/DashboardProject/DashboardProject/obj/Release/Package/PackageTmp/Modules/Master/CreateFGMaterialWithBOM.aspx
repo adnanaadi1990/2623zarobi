@@ -205,6 +205,13 @@
                 <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Create Finished Material with BOM</p>
             </div>
         </div>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/Development
+>>>>>>> origin/Development
         <div class="panel panel-default">
             <div class="panel-heading"></div>
             <div class="panel-body">
@@ -219,10 +226,20 @@
                                  <asp:Label ID="lblMaxTransactionID" runat="server" CssClass="form-control"></asp:Label>
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/Development
 
                 <span class="help-block"></span>
 
 
+<<<<<<< HEAD
+=======
+=======
+                <span class="help-block"></span>
+>>>>>>> origin/Development
+>>>>>>> origin/Development
                 <div class="row" id="MeterialType">
                     <div class="col-sm-4">
                         Material Type
@@ -232,11 +249,23 @@
                             <asp:ListItem Value="HAWA">HAWA Trading Goods</asp:ListItem>
                         </asp:DropDownList>
                     </div>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/Development
 
                     <div class="col-sm-3" id="divSMC" runat="server">
                         <asp:Label runat="server" ID="lblSap" Text="SAP Material Code" Visible="false"></asp:Label>
                         <asp:TextBox ID="txtSMC" runat="server" CssClass="form-control" Visible="false" placeholder="SAP Material Code" MaxLength="10"></asp:TextBox>
 
+<<<<<<< HEAD
+=======
+=======
+                    <div class="col-sm-3" id="divSMC" runat="server">
+                        <asp:Label runat="server" ID="lblSap" Text="SAP Material Code" Visible="false"></asp:Label>
+                        <asp:TextBox ID="txtSMC" runat="server" CssClass="form-control" Visible="false" placeholder="SAP Material Code" MaxLength="10"></asp:TextBox>
+>>>>>>> origin/Development
+>>>>>>> origin/Development
                     </div>
                     <div class="col-sm-5" runat="server" visible="false" id="dvLock">
                         <br />
@@ -245,12 +274,26 @@
                             <asp:ListItem Selected="True" Value="1">Material is locked</asp:ListItem>
                             <asp:ListItem Value="0">Material is un-locked</asp:ListItem>
                         </asp:RadioButtonList>
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/Development
+>>>>>>> origin/Development
                     </div>
                 </div>
                 <span class="help-block"></span>
 
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/Development
+>>>>>>> origin/Development
                 <div class="row" runat="server" id="dvSMC" visible="false">
                     <div class="col-sm-6">
                         Search Existing Material
@@ -260,7 +303,14 @@
                         <br />
                         <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-primary" OnClick="btnSearch_Click"></asp:Button>
                     </div>
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/Development
+>>>>>>> origin/Development
                 </div>
                 <br />
             </div>
@@ -1145,6 +1195,19 @@
                     <div class="panel-body">
                         <span class="help-block"></span>
                         <div id="Div8" class="row" runat="server">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+                             <div class="col-sm-12">
+                                <asp:Label ID="lblMSGNewMaterial" runat="server" ><asp:LinkButton ID="LBNewMaterial" runat="server" PostBackUrl="~/Modules/Master/CreateMaterialMaster.aspx">Note: If Material does not exsist then click here</asp:LinkButton></asp:Label>
+                            
+                             </div>
+                            <br />
+                            <br />
+                            <span class="help-block"></span>
+>>>>>>> origin/Development
+>>>>>>> origin/Development
                             <div class="col-sm-4">
                                 Production  Lot Size From
                                 <asp:TextBox ID="txtProductionLotSizefrom" runat="server" CssClass="form-control"></asp:TextBox>
@@ -1705,5 +1768,12 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     </div>
+=======
+<<<<<<< HEAD
+    </div>
+=======
+>>>>>>> origin/Development
+>>>>>>> origin/Development
 </asp:Content>
