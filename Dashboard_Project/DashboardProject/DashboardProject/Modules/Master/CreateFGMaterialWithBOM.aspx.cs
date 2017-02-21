@@ -400,6 +400,7 @@ namespace DashboardProject.Modules.Master
                                     Pack.Visible = true;
                                     QM.Visible = true;
                                     MRP.Visible = true;
+
                                     //txtBillOfMaterial.Enabled = true;
                                     ////////txtMaterial.Enabled = true;
                                     ////////MaterialDescription.Enabled = true;
@@ -3420,6 +3421,21 @@ namespace DashboardProject.Modules.Master
                                 whenquerystringpass();
                                 txtRemarksReview.Enabled = true;
                                 return;
+                            }
+                            else if (((string)ViewState["HID"]) == "7")
+                            {
+                                if (rbAvailable.SelectedValue == "Yes")
+                                {
+                                    lblmessage.Text = "";
+                                    lblUpError.Text = " Available Check must be No while Reject.";
+                                    sucess.Visible = false;
+                                    error.Visible = true;
+                                    lblmessage.Focus();
+                                    sucess.Focus();
+                                    Page.MaintainScrollPositionOnPostBack = false;
+                                    //whenquerystringpass();
+                                    return;
+                                }
                             }
                             else
                             {

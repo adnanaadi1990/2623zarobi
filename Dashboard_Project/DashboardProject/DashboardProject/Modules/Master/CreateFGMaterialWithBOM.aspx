@@ -1138,11 +1138,20 @@
                     <div class="panel-body">
                         <span class="help-block"></span>
                         <div id="Div8" class="row" runat="server">
-                             <div class="col-sm-12">
-                                 <a target="_blank" href="CreateMaterialMaster.aspx">Note: If Component Material does not exist then click here </a>
-                             </div>
-                            <br />
-                            <br />
+                            <div class="col-sm-4">
+                                <a target="_blank" href="CreateMaterialMaster.aspx">Note: If Component Material does not exist then click here </a>
+                            </div>
+                            <div class="row" runat="server" id="rbdivAvailable" visible="false">
+                                <div class="col-sm-2" aria-busy="False">
+                                    Available
+                       <asp:RadioButtonList ID="rbAvailable" runat="server" RepeatDirection="Horizontal">
+                           <asp:ListItem>Yes</asp:ListItem>
+                           <asp:ListItem Selected="True">No</asp:ListItem>
+                       </asp:RadioButtonList>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="Div2" class="row" runat="server">
                             <span class="help-block"></span>
                             <div class="col-sm-4">
                                 Production  Lot Size From
@@ -1217,7 +1226,7 @@
                                                     <asp:ListItem Value="">---Select---</asp:ListItem>
                                                     <asp:ListItem>Input Material</asp:ListItem>
                                                     <asp:ListItem>Additive Material</asp:ListItem>
-                                                    <asp:ListItem>Scrap Material</asp:ListItem>
+                                                    <asp:ListItem>Scrap/Wastages Material</asp:ListItem>
                                                     <asp:ListItem>Packaging Material</asp:ListItem>
                                                 </asp:DropDownList>
                                             </FooterTemplate>
@@ -1316,7 +1325,6 @@
                                             <th>Component Type</th>
                                             <th>Material</th>
                                             <th>Material Description</th>
-
                                             <th>Quantity</th>
                                             <th>UOM</th>
                                             <th>Store Location</th>
@@ -1330,7 +1338,7 @@
                                                         <asp:ListItem Value="">---Select---</asp:ListItem>
                                                         <asp:ListItem>Input Material</asp:ListItem>
                                                         <asp:ListItem>Additive Material</asp:ListItem>
-                                                        <asp:ListItem>Scrap Material</asp:ListItem>
+                                                        <asp:ListItem>Scrap/Wastages Material</asp:ListItem>
                                                         <asp:ListItem>Packaging Material</asp:ListItem>
                                                     </asp:DropDownList>
                                                 </td>
@@ -1396,7 +1404,7 @@
                             <div class="col-sm-2"></div>
                             <div class="col-sm-2"></div>
                             <div class="col-sm-4">
-                                Total Base Quantity:
+                                Net Quantity:
                                 <asp:Label ID="lblSum" runat="server" CssClass="form-control"></asp:Label>
                             </div>
                         </div>
