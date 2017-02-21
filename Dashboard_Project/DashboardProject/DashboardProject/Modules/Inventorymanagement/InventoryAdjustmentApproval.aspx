@@ -180,8 +180,7 @@
                                     <input id="btnShow" type="button" class="btn btn-primary" value="Show Document" style="display: none;" />
                                     <asp:Button ID="btnShowFile" CssClass="btn btn-primary" Text="Show Document" runat="server" OnClick="btnShowFile_Click" Visible="False"></asp:Button>
                                     <asp:Button ID="btnDownload" CssClass="btn btn-primary" Text="Download Document" runat="server" OnClick="btnDownload_Click" Visible="False"></asp:Button>
-                                    <input runat="server" value="Print" type="button" id="btnPrint" class="btn btn-primary" onclick="PrintDivContent('dialog');" visible="False" />
-                                    <%-- <iframe src="../../AA/Files/VendorCreationForm.version1.0.pdf" width="400"></iframe>--%>
+                                    <input runat="server" value="Print" type="button" id="btnPrint" class="btn btn-primary" onclick="PrintDivContent('dialog');" visible="False" />                                    <%--<asp:Button ID="btnReject11" runat="server" CssClass="btn btn-primary" Text="Reject" Width="100px" Visible="False"></asp:Button>--%>
                                 </div>
 
                             </div>
@@ -230,7 +229,7 @@
                         </div>
                         <span class="help-block"></span>
                         <div class="col-sm-12" style="text-align: left;" runat="server" id="dvemaillbl">
-                            <%--<asp:Button ID="btnReject11" runat="server" CssClass="btn btn-primary" Text="Reject" Width="100px" Visible="False"></asp:Button>--%>
+                            <%-- <iframe src="../../AA/Files/VendorCreationForm.version1.0.pdf" width="400"></iframe>--%>
                             <asp:Label ID="Label1" runat="server" Font-Bold="False" ForeColor="Blue" Font-Names="Berlin Sans FB"></asp:Label>
                             <asp:Label ID="Label2" runat="server" Font-Bold="False" ForeColor="Red" Font-Names="Berlin Sans FB"></asp:Label>
                             <asp:Label ID="Label3" runat="server" Font-Bold="False" ForeColor="Black" Font-Names="Berlin Sans FB"></asp:Label>
@@ -263,6 +262,7 @@
                             <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" OnClientClick="return AllowOneClick()" Text="Save" Width="100px" OnClick="btnSave_Click"></asp:Button>
                             <asp:Button ID="btnSaveSubmit" runat="server" CssClass="btn btn-primary" Text="Save / Submit" Width="100px" Visible="False" ValidationGroup="grpSave" OnClientClick="return AllowOneClick()" CausesValidation="False" OnClick="btnSaveSubmit_Click"></asp:Button>
                             <asp:Button ID="btnApproved" runat="server" CssClass="btn btn-primary" Text="Approve" OnClick="btnApproved_Click" Width="100px" Visible="False" OnClientClick="return AllowOneClick()"></asp:Button>
+                            <asp:Button ID="btnReviwed" runat="server" CssClass="btn btn-primary" Text="Approve" OnClick="btnReviwed_Click" Width="100px" Visible="False" OnClientClick="return AllowOneClick()"></asp:Button>
                             <%-- <iframe src="../../AA/Files/VendorCreationForm.version1.0.pdf" width="400"></iframe>--%>
                             <asp:Button ID="btnReject" runat="server" CssClass="btn btn-primary" Text="Reject" OnClick="btnReject_Click" Width="100px" CausesValidation="False" Visible="False"></asp:Button>
                             <asp:Button ID="btnMDA" runat="server" CssClass="btn btn-primary" OnClientClick="return AllowOneClick()" OnClick="btnMDA_Click" Text="Submit" Width="100px" Visible="False" />
