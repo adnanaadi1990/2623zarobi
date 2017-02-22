@@ -357,17 +357,17 @@ namespace DashboardProject.Modules.Inventorymanagement
             try
             {
 
-                //cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserMDA where FormName = 'QAF'";
-                ////cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
-                //cmd.CommandType = CommandType.Text;
-                //cmd.Connection = conn;
-                //conn.Open();
-                //ddlEmailMDA.DataSource = cmd.ExecuteReader();
-                //ddlEmailMDA.DataTextField = "DisplayName";
-                //ddlEmailMDA.DataValueField = "user_name";
-                //ddlEmailMDA.DataBind();
-                //conn.Close();
-                //ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
+                cmd.CommandText = "SELECT user_name,DisplayName FROM tbluserReviwer where FormName = 'QAF'";
+                //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                conn.Open();
+                ddlEmailRevSpe.DataSource = cmd.ExecuteReader();
+                ddlEmailRevSpe.DataTextField = "DisplayName";
+                ddlEmailRevSpe.DataValueField = "user_name";
+                ddlEmailRevSpe.DataBind();
+                conn.Close();
+                ddlEmailRevSpe.Items.Insert(0, new ListItem("------Select------", "0"));
 
                 cmd.CommandText = "SELECT user_name,DisplayName FROM tbl_EmailToSpecificPerson where FormID = 'QAF01'";
                 cmd.CommandType = CommandType.Text;
@@ -675,6 +675,20 @@ namespace DashboardProject.Modules.Inventorymanagement
                     return;
 
                 }
+
+                string EmailRevSpe = "";
+
+                for (int i = 0; i <= ddlEmailRevSpe.Items.Count - 1; i++)
+                {
+                    if (ddlEmailRevSpe.Items[i].Selected)
+                    {
+                        if (EmailRevSpe == "") { EmailRevSpe = ddlEmailRevSpe.Items[i].Value; }
+                        else { EmailRevSpe += "," + ddlEmailRevSpe.Items[i].Value; }
+                    }
+
+                }
+
+
                 string Notification = "";
 
                 for (int i = 0; i <= ddlNotification.Items.Count - 1; i++)
@@ -694,7 +708,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                         " @Description='" + txtDescription.Text + "', " +
                         " @FilePath='" + FilePath.ToString() + "', " +
                         " @APPROVAL='" + Approval.ToString() + "', " +
-                        " @REVIEWER='" + ddlEmailRev.SelectedValue.ToString() + "', " +
+                        " @REVIEWER='" + EmailRevSpe.ToString() + "', " +
                         " @Notification='" + Notification.ToString() + "', " +
                         " @MDA='', " +
                         " @CreatedBy='" + Session["User_Name"].ToString() + "', " +
