@@ -6,11 +6,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\Users\muhammad.farrukh\Desktop\Dasboard Publish QA</_PublishTargetUrl>
+    <_PublishTargetUrl>D:\Users\Farrukh.Aslam.ITL\Desktop\Dasboard Publish QA</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="AccessDenied.aspx">
-      <publishTime>01/16/2017 12:50:27</publishTime>
+      <publishTime>02/20/2017 16:18:50</publishTime>
     </File>
     <File Include="bin/AjaxControlToolkit.dll">
       <publishTime>01/16/2017 12:50:27</publishTime>
@@ -19,7 +19,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/16/2017 12:50:27</publishTime>
     </File>
     <File Include="bin/DashboardProject.dll">
-      <publishTime>02/20/2017 09:58:29</publishTime>
+      <publishTime>02/22/2017 13:44:16</publishTime>
     </File>
     <File Include="bin/itextsharp.dll">
       <publishTime>01/16/2017 12:50:28</publishTime>
@@ -3469,7 +3469,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/07/2017 19:37:50</publishTime>
     </File>
     <File Include="Modules/Inventorymanagement/InventoryAdjustmentApproval.aspx">
-      <publishTime>02/18/2017 12:48:45</publishTime>
+      <publishTime>02/21/2017 12:02:58</publishTime>
     </File>
     <File Include="Modules/Inventorymanagement/Inventorymanagement_Main.aspx">
       <publishTime>01/16/2017 12:50:27</publishTime>
@@ -3487,10 +3487,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/16/2017 12:50:27</publishTime>
     </File>
     <File Include="Modules/Master/BOMApproval.aspx">
-      <publishTime>02/18/2017 14:32:19</publishTime>
+      <publishTime>02/20/2017 15:22:17</publishTime>
     </File>
     <File Include="Modules/Master/CreateFGMaterialWithBOM.aspx">
-      <publishTime>02/20/2017 09:58:51</publishTime>
+      <publishTime>02/20/2017 18:11:25</publishTime>
     </File>
     <File Include="Modules/Master/CreateMaterialMaster.aspx">
       <publishTime>02/09/2017 15:52:30</publishTime>
@@ -3595,7 +3595,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/16/2017 12:50:27</publishTime>
     </File>
     <File Include="Modules/SBApp/TransportRequestForm.aspx">
-      <publishTime>02/16/2017 10:32:48</publishTime>
+      <publishTime>02/22/2017 13:42:06</publishTime>
     </File>
     <File Include="Modules/SBApp/UserAuthorizationRequest.aspx">
       <publishTime>01/16/2017 12:50:27</publishTime>
@@ -3736,7 +3736,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/16/2017 12:50:27</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>02/18/2017 12:48:45</publishTime>
+      <publishTime>02/22/2017 12:27:42</publishTime>
     </File>
   </ItemGroup>
 </Project>

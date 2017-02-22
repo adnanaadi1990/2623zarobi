@@ -205,6 +205,7 @@
                 <p style="font-family: inherit; font-size: 35px !important; font-weight: normal; color: hsla(160, 10%, 18%, 0.35)">Create Finished Material with BOM</p>
             </div>
         </div>
+
         <div class="panel panel-default">
             <div class="panel-heading"></div>
             <div class="panel-body">
@@ -219,10 +220,7 @@
                                  <asp:Label ID="lblMaxTransactionID" runat="server" CssClass="form-control"></asp:Label>
                     </div>
                 </div>
-
                 <span class="help-block"></span>
-
-
                 <div class="row" id="MeterialType">
                     <div class="col-sm-4">
                         Material Type
@@ -232,11 +230,9 @@
                             <asp:ListItem Value="HAWA">HAWA Trading Goods</asp:ListItem>
                         </asp:DropDownList>
                     </div>
-
                     <div class="col-sm-3" id="divSMC" runat="server">
                         <asp:Label runat="server" ID="lblSap" Text="SAP Material Code" Visible="false"></asp:Label>
                         <asp:TextBox ID="txtSMC" runat="server" CssClass="form-control" Visible="false" placeholder="SAP Material Code" MaxLength="10"></asp:TextBox>
-
                     </div>
                     <div class="col-sm-5" runat="server" visible="false" id="dvLock">
                         <br />
@@ -245,11 +241,9 @@
                             <asp:ListItem Selected="True" Value="1">Material is locked</asp:ListItem>
                             <asp:ListItem Value="0">Material is un-locked</asp:ListItem>
                         </asp:RadioButtonList>
-
                     </div>
                 </div>
                 <span class="help-block"></span>
-
 
                 <div class="row" runat="server" id="dvSMC" visible="false">
                     <div class="col-sm-6">
@@ -260,7 +254,6 @@
                         <br />
                         <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-primary" OnClick="btnSearch_Click"></asp:Button>
                     </div>
-
                 </div>
                 <br />
             </div>
@@ -1146,6 +1139,21 @@
                         <span class="help-block"></span>
                         <div id="Div8" class="row" runat="server">
                             <div class="col-sm-4">
+                                <a target="_blank" href="CreateMaterialMaster.aspx">Note: If Component Material does not exist then click here </a>
+                            </div>
+                            <div class="row" runat="server" id="rbdivAvailable" visible="false">
+                                <div class="col-sm-2" aria-busy="False">
+                                    Available
+                       <asp:RadioButtonList ID="rbAvailable" runat="server" RepeatDirection="Horizontal">
+                           <asp:ListItem>Yes</asp:ListItem>
+                           <asp:ListItem Selected="True">No</asp:ListItem>
+                       </asp:RadioButtonList>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="Div2" class="row" runat="server">
+                            <span class="help-block"></span>
+                            <div class="col-sm-4">
                                 Production  Lot Size From
                                 <asp:TextBox ID="txtProductionLotSizefrom" runat="server" CssClass="form-control"></asp:TextBox>
                             </div>
@@ -1218,7 +1226,7 @@
                                                     <asp:ListItem Value="">---Select---</asp:ListItem>
                                                     <asp:ListItem>Input Material</asp:ListItem>
                                                     <asp:ListItem>Additive Material</asp:ListItem>
-                                                    <asp:ListItem>Scrap Material</asp:ListItem>
+                                                    <asp:ListItem>Scrap/Wastages Material</asp:ListItem>
                                                     <asp:ListItem>Packaging Material</asp:ListItem>
                                                 </asp:DropDownList>
                                             </FooterTemplate>
@@ -1317,7 +1325,6 @@
                                             <th>Component Type</th>
                                             <th>Material</th>
                                             <th>Material Description</th>
-
                                             <th>Quantity</th>
                                             <th>UOM</th>
                                             <th>Store Location</th>
@@ -1331,7 +1338,7 @@
                                                         <asp:ListItem Value="">---Select---</asp:ListItem>
                                                         <asp:ListItem>Input Material</asp:ListItem>
                                                         <asp:ListItem>Additive Material</asp:ListItem>
-                                                        <asp:ListItem>Scrap Material</asp:ListItem>
+                                                        <asp:ListItem>Scrap/Wastages Material</asp:ListItem>
                                                         <asp:ListItem>Packaging Material</asp:ListItem>
                                                     </asp:DropDownList>
                                                 </td>
@@ -1397,7 +1404,7 @@
                             <div class="col-sm-2"></div>
                             <div class="col-sm-2"></div>
                             <div class="col-sm-4">
-                                Total Base Quantity:
+                                Net Quantity:
                                 <asp:Label ID="lblSum" runat="server" CssClass="form-control"></asp:Label>
                             </div>
                         </div>
@@ -1704,6 +1711,5 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </asp:Content>

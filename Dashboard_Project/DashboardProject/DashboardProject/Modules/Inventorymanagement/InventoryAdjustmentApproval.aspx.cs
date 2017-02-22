@@ -192,7 +192,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                             btnSave.Visible = false;
                             btnSaveSubmit.Visible = false;
                             btnCancel.Visible = false;
-                            btnMDA.Visible = true;
+                            btnReviwed.Visible = true;
                             btnShowFile.Visible = true;
                             btnDelete.Visible = false;
                             dvCheque.Visible = true;
@@ -279,6 +279,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                     btnSaveSubmit.Enabled = false;
                     txtRemarksReview.Enabled = false;
                     txtDocNo.Enabled = false;
+                    btnReviwed.Enabled = false;
 
                 }
             }
@@ -582,7 +583,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                         " @Description='" + txtDescription.Text + "', " +
                         " @FilePath='" + FilePath.ToString() + "', " +
                         " @APPROVAL='" + Approval.ToString() + "', " +
-                        " @REVIEWER='', " +
+                        " @REVIEWER='" + ddlDirector.SelectedValue.ToString() + "', " +
                         " @MDA='" + ddlEmailMDA.SelectedValue + "', " +
                         " @CreatedBy='" + Session["User_Name"].ToString() + "', " +
                         " @Remarks = '" + txtRemarksReview.Text.ToString() + "'";
@@ -765,7 +766,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                     GetStatusHierachyCategoryControls();
 
 
-                    lblmessage.Text = "Documnet No " + txtDocNo.Text + " has been issued against  New Petty Cash Request Form ID #  " + lblMaxTransactionID.Text + " ";
+                    lblmessage.Text = "Document No " + txtDocNo.Text + " has been issued against  New Petty Cash Request Form ID #  " + lblMaxTransactionID.Text + " ";
                     lblmessage.ForeColor = System.Drawing.Color.Green;
                     conn.Close();
                     sucess.Visible = true;
@@ -864,11 +865,11 @@ namespace DashboardProject.Modules.Inventorymanagement
 
         }
 
-        private void EmailWorkFirstHaracheyMDA()
+        private void EmailWorkRevToMDA()
         {
             string HierachyCategory = "4";
-            string HierachyCategoryStatus = "04"; // Allow based on reqierment if there is No MDA if other wise allow "4"//
-            ds = obj.MailForwardToAllFromMDA(lblMaxTransactionID.Text, FormID.ToString(), HierachyCategory.ToString());
+            string HierachyCategoryStatus = "03"; // Allow based on reqierment if there is No MDA if other wise allow "4"//
+            ds = obj.MailForwardFromReviwerToMDA(lblMaxTransactionID.Text, FormID.ToString(), HierachyCategory.ToString());
 
             if (ds.Tables["MailForwardToAllFromMDA"].Rows.Count > 0)
             {
@@ -881,8 +882,11 @@ namespace DashboardProject.Modules.Inventorymanagement
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " has sent you a Inventory Adjustment Approval Request against Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL: <br><br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard, <br>you do not need to reply to this message.<br>" +
-                        "<br>Inventory Adjustment Application <br> Information Systems Dashboard";
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " has sent you a Inventory Adjustment Approval Request against Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> You can create a code on the following URL: " +
+                                       "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                                       "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                                       "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                                           "<br>Inventory Adjustment Application<br> Information Systems Dashboard";
                     SessionUser = Session["User_Name"].ToString();
                     DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     InsertEmail();
@@ -923,7 +927,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                     UserName = reader["user_name"].ToString();
                     UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                     EmailSubject = "Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + "has sent you a Inventory Adjustment Approval Request against Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL: " +
+                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " has sent you a Inventory Adjustment Approval Request against Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL: " +
                     "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                     "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                     "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
@@ -955,7 +959,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                         EmailSubject = "Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + "has sent you a Inventory Adjustment Approval Request against Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL: " +
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ViewState["SessionUser"].ToString() + " has sent you a Inventory Adjustment Approval Request against Form ID # " + lblMaxTransactionID.Text.ToString() + " for approval. <br><br> Your kind approval is required on the following URL: " +
                         "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                         "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                         "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
@@ -1013,8 +1017,8 @@ namespace DashboardProject.Modules.Inventorymanagement
         {
             try
             {
-                string HierachyCategory = "3";
-                string HierachyCategoryStatus = "03"; // Allow based on reqierment if there is No MDA if other wise allow "4"//
+                string HierachyCategory = "4";
+                string HierachyCategoryStatus = "04"; // Allow based on reqierment if there is No MDA if other wise allow "4"//
                 ds = obj.MailForwardToAllFromMDA(lblMaxTransactionID.Text, FormID.ToString(), HierachyCategory.ToString());
 
                 if (ds.Tables["MailForwardToAllFromMDA"].Rows.Count > 0)
@@ -1030,7 +1034,7 @@ namespace DashboardProject.Modules.Inventorymanagement
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                         EmailSubject = "Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ",<br> <br>  Documnet No " + txtDocNo.Text + " has been  created by " + ViewState["SessionUser"].ToString() + " Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + " <br><br> The form can be reviewed at the following URL: " +
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>   " + ",<br> <br>  Document No " + txtDocNo.Text + " has been  created by " + ViewState["SessionUser"].ToString() + " Inventory Adjustment Approval Request – Form ID # " + lblMaxTransactionID.Text.ToString() + " <br><br> The form can be reviewed at the following URL: " +
                         "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                         "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                         "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
@@ -1149,6 +1153,15 @@ namespace DashboardProject.Modules.Inventorymanagement
             Response.AppendHeader("Content-Disposition", "attachment; filename= " + lblFileName.Text.ToString() + "");
             Response.TransmitFile(pathDelete.ToString());
             Response.End();
+        }
+
+        protected void btnReviwed_Click(object sender, EventArgs e)
+        {
+            EmailWorkRevToMDA();
+            ApplicationStatus();
+            BindsysApplicationStatus();
+            GetStatusHierachyCategoryControls();
+
         }
     }
 }
