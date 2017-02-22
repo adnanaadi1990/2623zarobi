@@ -1127,213 +1127,104 @@
             </div>
         </div>
 
-        <div class="panel-group" id="dvBOM" runat="server" visible="false">
-            <div class="panel panel-default" runat="server">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion10" href="#collapse10">Bill of Materials</a>
-                    </h4>
-                </div>
-                <div id="Div4" class="panel-collapse collapse in">
-                    <div class="panel-body">
-                        <span class="help-block"></span>
-                        <div id="Div8" class="row" runat="server">
-                            <div class="col-sm-4">
-                                <a target="_blank" href="CreateMaterialMaster.aspx">Note: If Component Material does not exist then click here </a>
-                            </div>
-                            <div class="row" runat="server" id="rbdivAvailable" visible="false">
-                                <div class="col-sm-2" aria-busy="False">
-                                    Available
-                       <asp:RadioButtonList ID="rbAvailable" runat="server" RepeatDirection="Horizontal">
-                           <asp:ListItem>Yes</asp:ListItem>
-                           <asp:ListItem Selected="True">No</asp:ListItem>
+        <div class="panel-group">
+            <div class="row" runat="server" id="rbdivAvailable" visible="false">
+                <div class="col-sm-12">
+                    Component Material Available (IF Component Material Available then Yes Or Select No)
+                       <asp:RadioButtonList ID="rbAvailable" runat="server" RepeatDirection="Horizontal" OnSelectedIndexChanged="rbAvailable_SelectedIndexChanged" AutoPostBack="True">
+                           <asp:ListItem Selected="True">Yes</asp:ListItem>
+                           <asp:ListItem>No</asp:ListItem>
                        </asp:RadioButtonList>
+                </div>
+            </div>
+            <div runat="server" id="dvBOM" visible="false">
+
+                <div class="panel panel-default" runat="server">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion10" href="#collapse10">Bill of Materials</a>
+                        </h4>
+                    </div>
+                    <div id="Div4" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <span class="help-block"></span>
+                            <div id="Div8" class="row" runat="server">
+                                <div class="col-sm-4">
+                                    <a target="_blank" href="CreateMaterialMaster.aspx">Note: If Component Material does not exist then click here </a>
+                                </div>
+
+                            </div>
+                            <div id="Div2" class="row" runat="server">
+                                <span class="help-block"></span>
+                                <div class="col-sm-4">
+                                    Production  Lot Size From
+                                <asp:TextBox ID="txtProductionLotSizefrom" runat="server" CssClass="form-control"></asp:TextBox>
+                                </div>
+                                <div class="col-sm-4">
+                                    Production  Lot Size To
+                                <asp:TextBox ID="txtProductionLotSizeTo" runat="server" CssClass="form-control"></asp:TextBox>
+                                </div>
+                                <div class="col-sm-4">
+                                    Production Version
+                                <asp:TextBox ID="txtProductionVersion" runat="server" CssClass="form-control"></asp:TextBox>
                                 </div>
                             </div>
-                        </div>
-                        <div id="Div2" class="row" runat="server">
                             <span class="help-block"></span>
-                            <div class="col-sm-4">
-                                Production  Lot Size From
-                                <asp:TextBox ID="txtProductionLotSizefrom" runat="server" CssClass="form-control"></asp:TextBox>
-                            </div>
-                            <div class="col-sm-4">
-                                Production  Lot Size To
-                                <asp:TextBox ID="txtProductionLotSizeTo" runat="server" CssClass="form-control"></asp:TextBox>
-                            </div>
-                            <div class="col-sm-4">
-                                Production Version
-                                <asp:TextBox ID="txtProductionVersion" runat="server" CssClass="form-control"></asp:TextBox>
-                            </div>
-                        </div>
-                        <span class="help-block"></span>
-                        <div id="Div9" class="row" runat="server">
-                            <div class="col-sm-4">
-                                Production Version Description
+                            <div id="Div9" class="row" runat="server">
+                                <div class="col-sm-4">
+                                    Production Version Description
                                 <asp:TextBox ID="txtProductionVersionDescription" runat="server" CssClass="form-control"></asp:TextBox>
-                            </div>
-                            <div class="col-sm-4">
-                                BOM Valid From
+                                </div>
+                                <div class="col-sm-4">
+                                    BOM Valid From
                                 <asp:TextBox ID="txtBOMValidFrom" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
-                            </div>
-                            <div class="col-sm-4">
-                                BOM Valid To
+                                </div>
+                                <div class="col-sm-4">
+                                    BOM Valid To
                                 <asp:TextBox ID="txtBOMValidTo" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                                </div>
                             </div>
-                        </div>
-                        <span class="help-block"></span>
-                        <div id="Div10" class="row" runat="server">
-                            <div class="col-sm-4">
-                                Base Quantity
+                            <span class="help-block"></span>
+                            <div id="Div10" class="row" runat="server">
+                                <div class="col-sm-4">
+                                    Base Quantity
                                 <asp:TextBox ID="txtBaseQuantity" runat="server" CssClass="form-control"></asp:TextBox>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">Item List
-                    </h4>
-                </div>
-                <div id="Div11" class="panel-collapse collapse in">
-                    <div class="panel-body">
-                        <div class="row fixed-panel">
-                            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Item List
+                        </h4>
+                    </div>
+                    <div id="Div11" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row fixed-panel">
+                                <div class="col-sm-12">
 
-                                <asp:GridView ID="GridView2" CssClass="table table-striped table-bordered footable" runat="server" AutoGenerateColumns="false" Width="1200px"
-                                    AlternatingRowStyle-BackColor="#f05f40" HeaderStyle-BackColor="" ShowFooter="true" OnRowDataBound="OnRowDataBound" OnRowDeleting="GridView2_RowDeleting">
-                                    <Columns>
-                                        <asp:TemplateField ShowHeader="False">
-                                            <ItemTemplate>
-                                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="false" CommandName="delete" Text="Delete" OnClientClick="return ConfirmOnDelete();"></asp:LinkButton>
-                                            </ItemTemplate>
-                                            <FooterTemplate>
-                                                <asp:LinkButton ID="btnAdd" runat="server" UseSubmitBehavior="true" Text="Add" OnClick="AddBOM" CommandName="Footer" />
-                                            </FooterTemplate>
-                                            <ItemStyle Width="1%" />
-                                            <HeaderStyle Width="1%" />
-                                        </asp:TemplateField>
+                                    <asp:GridView ID="GridView2" CssClass="table table-striped table-bordered footable" runat="server" AutoGenerateColumns="false" Width="1200px"
+                                        AlternatingRowStyle-BackColor="#f05f40" HeaderStyle-BackColor="" ShowFooter="true" OnRowDataBound="OnRowDataBound" OnRowDeleting="GridView2_RowDeleting">
+                                        <Columns>
+                                            <asp:TemplateField ShowHeader="False">
+                                                <ItemTemplate>
+                                                    <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="false" CommandName="delete" Text="Delete" OnClientClick="return ConfirmOnDelete();"></asp:LinkButton>
+                                                </ItemTemplate>
+                                                <FooterTemplate>
+                                                    <asp:LinkButton ID="btnAdd" runat="server" UseSubmitBehavior="true" Text="Add" OnClick="AddBOM" CommandName="Footer" />
+                                                </FooterTemplate>
+                                                <ItemStyle Width="1%" />
+                                                <HeaderStyle Width="1%" />
+                                            </asp:TemplateField>
 
-                                        <asp:TemplateField HeaderText="Component Type">
-                                            <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblComponentType" Text='<%# Bind("ComponentType") %>'></asp:Label>
-                                                <%--<%# Eval("Numerator") %>--%>
-                                            </ItemTemplate>
-                                            <FooterTemplate>
-                                                <asp:DropDownList ID="ddlComponentType" runat="server" CssClass="form-control">
-                                                    <asp:ListItem Value="">---Select---</asp:ListItem>
-                                                    <asp:ListItem>Input Material</asp:ListItem>
-                                                    <asp:ListItem>Additive Material</asp:ListItem>
-                                                    <asp:ListItem>Scrap/Wastages Material</asp:ListItem>
-                                                    <asp:ListItem>Packaging Material</asp:ListItem>
-                                                </asp:DropDownList>
-                                            </FooterTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Material No">
-                                            <ItemTemplate>
-                                                <%--   <%# Eval("Denominator") %>--%>
-                                                <asp:Label runat="server" ID="lblMaterial" Text='<%# Bind("Material") %>'></asp:Label>
-                                            </ItemTemplate>
-                                            <FooterTemplate>
-                                                <asp:TextBox ID="txtMaterial" runat="server" CssClass="form-control"></asp:TextBox>
-                                            </FooterTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Material Description">
-                                            <ItemTemplate>
-                                                <%--<%# Eval("Lenght") %>--%>
-                                                <asp:Label runat="server" ID="lblMaterialDescription" Text='<%# Bind("MaterialDescription") %>'></asp:Label>
-                                            </ItemTemplate>
-                                            <FooterTemplate>
-                                                <asp:TextBox ID="txtMaterialDescription" runat="server" CssClass="form-control"></asp:TextBox>
-                                            </FooterTemplate>
-                                        </asp:TemplateField>
-
-                                        <asp:TemplateField HeaderText="Quantity">
-                                            <ItemTemplate>
-                                                <%--<%# Eval("Width") %>--%>
-                                                <asp:Label runat="server" ID="lblQuantity" Text='<%# Bind("Quantity") %>'></asp:Label>
-                                            </ItemTemplate>
-                                            <FooterTemplate>
-                                                <asp:TextBox ID="txtQuantity" runat="server" Width="95px" CssClass="form-control"> </asp:TextBox>
-                                            </FooterTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Unit of Measure">
-                                            <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblUOM" Text='<%# Bind("UOM") %>'></asp:Label>
-                                                <%--<%# Eval("UOM") %>--%>
-                                            </ItemTemplate>
-                                            <FooterTemplate>
-                                                <asp:DropDownList ID="ddlUOM" runat="server" CssClass="form-control" Width="80px">
-                                                    <asp:ListItem Value="">------Select------</asp:ListItem>
-                                                    <asp:ListItem Value="BAG">BAG</asp:ListItem>
-                                                    <asp:ListItem Value="BOX">BOX</asp:ListItem>
-                                                    <asp:ListItem Value="CN">CN</asp:ListItem>
-                                                    <asp:ListItem Value="DR">DR</asp:ListItem>
-                                                    <asp:ListItem Value="DZ">DZ</asp:ListItem>
-                                                    <asp:ListItem Value="EA">EA</asp:ListItem>
-                                                    <asp:ListItem Value="FT">FT</asp:ListItem>
-                                                    <asp:ListItem Value="FT2">FT2</asp:ListItem>
-                                                    <asp:ListItem Value="G">G</asp:ListItem>
-                                                    <asp:ListItem Value="GLL">GLL</asp:ListItem>
-                                                    <asp:ListItem Value="IN">IN</asp:ListItem>
-                                                    <asp:ListItem Value="KAN">KAN</asp:ListItem>
-                                                    <asp:ListItem Value="KAR">KAR</asp:ListItem>
-                                                    <asp:ListItem Value="KG">KG</asp:ListItem>
-                                                    <asp:ListItem Value="KI">KI</asp:ListItem>
-                                                    <asp:ListItem Value="L">L</asp:ListItem>
-                                                    <asp:ListItem Value="LB">LB</asp:ListItem>
-                                                    <asp:ListItem Value="M">M</asp:ListItem>
-                                                    <asp:ListItem Value="OZ">OZ</asp:ListItem>
-                                                    <asp:ListItem Value="PAA">PAA</asp:ListItem>
-                                                    <asp:ListItem Value="PAK">PAK</asp:ListItem>
-                                                    <asp:ListItem Value="PC">PC</asp:ListItem>
-                                                    <asp:ListItem Value="ROL">ROL</asp:ListItem>
-                                                    <asp:ListItem Value="SET">SET</asp:ListItem>
-                                                    <asp:ListItem Value="STR">STR</asp:ListItem>
-                                                    <asp:ListItem Value="TIN">TIN</asp:ListItem>
-                                                    <asp:ListItem Value="YD">YD</asp:ListItem>
-                                                </asp:DropDownList>
-                                            </FooterTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Store Location">
-                                            <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblStLoc" Text='<%# Bind("StoreLocation") %>'></asp:Label>
-                                                <%--<%# Eval("UOM") %>--%>
-                                            </ItemTemplate>
-                                            <FooterTemplate>
-                                                <asp:DropDownList ID="ddlStLoc" runat="server" CssClass="form-control">
-                                                </asp:DropDownList>
-                                            </FooterTemplate>
-                                        </asp:TemplateField>
-
-                                        <asp:TemplateField HeaderText="S.No" Visible="false">
-
-                                            <ItemTemplate>
-                                                <asp:Label ID="Label1" runat="server" Text='<%# Eval("sno") %>'></asp:Label>
-                                            </ItemTemplate>
-                                            <HeaderStyle Width="13%" />
-                                            <ItemStyle Width="11%" />
-
-                                        </asp:TemplateField>
-                                    </Columns>
-                                    <AlternatingRowStyle BackColor="White" />
-                                    <EmptyDataTemplate>
-                                        <tr>
-                                            <th></th>
-                                            <th>Component Type</th>
-                                            <th>Material</th>
-                                            <th>Material Description</th>
-                                            <th>Quantity</th>
-                                            <th>UOM</th>
-                                            <th>Store Location</th>
-
-                                            <tr>
-                                                <td>
-                                                    <asp:LinkButton ID="btnAdd" runat="server" Text="Add" OnClick="AddBOM" UseSubmitBehavior="true" CommandName="EmptyDataTemplate" value="Reset" />
-                                                </td>
-                                                <td>
+                                            <asp:TemplateField HeaderText="Component Type">
+                                                <ItemTemplate>
+                                                    <asp:Label runat="server" ID="lblComponentType" Text='<%# Bind("ComponentType") %>'></asp:Label>
+                                                    <%--<%# Eval("Numerator") %>--%>
+                                                </ItemTemplate>
+                                                <FooterTemplate>
                                                     <asp:DropDownList ID="ddlComponentType" runat="server" CssClass="form-control">
                                                         <asp:ListItem Value="">---Select---</asp:ListItem>
                                                         <asp:ListItem>Input Material</asp:ListItem>
@@ -1341,19 +1232,43 @@
                                                         <asp:ListItem>Scrap/Wastages Material</asp:ListItem>
                                                         <asp:ListItem>Packaging Material</asp:ListItem>
                                                     </asp:DropDownList>
-                                                </td>
-                                                <td>
-                                                    <asp:TextBox ID="txtMaterial" runat="server" CssClass="form-control" />
-                                                </td>
-                                                <td>
-                                                    <asp:TextBox ID="txtMaterialDescription" runat="server" CssClass="form-control" />
-                                                </td>
-                                                <td>
-                                                    <asp:TextBox ID="txtQuantity" runat="server" CssClass="form-control" />
+                                                </FooterTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Material No">
+                                                <ItemTemplate>
+                                                    <%--   <%# Eval("Denominator") %>--%>
+                                                    <asp:Label runat="server" ID="lblMaterial" Text='<%# Bind("Material") %>'></asp:Label>
+                                                </ItemTemplate>
+                                                <FooterTemplate>
+                                                    <asp:TextBox ID="txtMaterial" runat="server" CssClass="form-control"></asp:TextBox>
+                                                </FooterTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Material Description">
+                                                <ItemTemplate>
+                                                    <%--<%# Eval("Lenght") %>--%>
+                                                    <asp:Label runat="server" ID="lblMaterialDescription" Text='<%# Bind("MaterialDescription") %>'></asp:Label>
+                                                </ItemTemplate>
+                                                <FooterTemplate>
+                                                    <asp:TextBox ID="txtMaterialDescription" runat="server" CssClass="form-control"></asp:TextBox>
+                                                </FooterTemplate>
+                                            </asp:TemplateField>
 
-                                                </td>
-                                                <td>
-                                                    <asp:DropDownList ID="ddlUOM" runat="server" CssClass="form-control">
+                                            <asp:TemplateField HeaderText="Quantity">
+                                                <ItemTemplate>
+                                                    <%--<%# Eval("Width") %>--%>
+                                                    <asp:Label runat="server" ID="lblQuantity" Text='<%# Bind("Quantity") %>'></asp:Label>
+                                                </ItemTemplate>
+                                                <FooterTemplate>
+                                                    <asp:TextBox ID="txtQuantity" runat="server" Width="95px" CssClass="form-control"> </asp:TextBox>
+                                                </FooterTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Unit of Measure">
+                                                <ItemTemplate>
+                                                    <asp:Label runat="server" ID="lblUOM" Text='<%# Bind("UOM") %>'></asp:Label>
+                                                    <%--<%# Eval("UOM") %>--%>
+                                                </ItemTemplate>
+                                                <FooterTemplate>
+                                                    <asp:DropDownList ID="ddlUOM" runat="server" CssClass="form-control" Width="80px">
                                                         <asp:ListItem Value="">------Select------</asp:ListItem>
                                                         <asp:ListItem Value="BAG">BAG</asp:ListItem>
                                                         <asp:ListItem Value="BOX">BOX</asp:ListItem>
@@ -1383,38 +1298,126 @@
                                                         <asp:ListItem Value="TIN">TIN</asp:ListItem>
                                                         <asp:ListItem Value="YD">YD</asp:ListItem>
                                                     </asp:DropDownList>
-                                                </td>
-                                                <td>
+                                                </FooterTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Store Location">
+                                                <ItemTemplate>
+                                                    <asp:Label runat="server" ID="lblStLoc" Text='<%# Bind("StoreLocation") %>'></asp:Label>
+                                                    <%--<%# Eval("UOM") %>--%>
+                                                </ItemTemplate>
+                                                <FooterTemplate>
                                                     <asp:DropDownList ID="ddlStLoc" runat="server" CssClass="form-control">
                                                     </asp:DropDownList>
-                                                </td>
+                                                </FooterTemplate>
+                                            </asp:TemplateField>
 
-                                            </tr>
+                                            <asp:TemplateField HeaderText="S.No" Visible="false">
+
+                                                <ItemTemplate>
+                                                    <asp:Label ID="Label1" runat="server" Text='<%# Eval("sno") %>'></asp:Label>
+                                                </ItemTemplate>
+                                                <HeaderStyle Width="13%" />
+                                                <ItemStyle Width="11%" />
+
+                                            </asp:TemplateField>
+                                        </Columns>
+                                        <AlternatingRowStyle BackColor="White" />
+                                        <EmptyDataTemplate>
                                             <tr>
-                                    </EmptyDataTemplate>
+                                                <th></th>
+                                                <th>Component Type</th>
+                                                <th>Material</th>
+                                                <th>Material Description</th>
+                                                <th>Quantity</th>
+                                                <th>UOM</th>
+                                                <th>Store Location</th>
 
-                                </asp:GridView>
-                                <asp:Label ID="Label4" runat="server" Font-Bold="False" ForeColor="Red" Font-Names="Berlin Sans FB"></asp:Label>
+                                                <tr>
+                                                    <td>
+                                                        <asp:LinkButton ID="btnAdd" runat="server" Text="Add" OnClick="AddBOM" UseSubmitBehavior="true" CommandName="EmptyDataTemplate" value="Reset" />
+                                                    </td>
+                                                    <td>
+                                                        <asp:DropDownList ID="ddlComponentType" runat="server" CssClass="form-control">
+                                                            <asp:ListItem Value="">---Select---</asp:ListItem>
+                                                            <asp:ListItem>Input Material</asp:ListItem>
+                                                            <asp:ListItem>Additive Material</asp:ListItem>
+                                                            <asp:ListItem>Scrap/Wastages Material</asp:ListItem>
+                                                            <asp:ListItem>Packaging Material</asp:ListItem>
+                                                        </asp:DropDownList>
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtMaterial" runat="server" CssClass="form-control" />
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtMaterialDescription" runat="server" CssClass="form-control" />
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtQuantity" runat="server" CssClass="form-control" />
+
+                                                    </td>
+                                                    <td>
+                                                        <asp:DropDownList ID="ddlUOM" runat="server" CssClass="form-control">
+                                                            <asp:ListItem Value="">------Select------</asp:ListItem>
+                                                            <asp:ListItem Value="BAG">BAG</asp:ListItem>
+                                                            <asp:ListItem Value="BOX">BOX</asp:ListItem>
+                                                            <asp:ListItem Value="CN">CN</asp:ListItem>
+                                                            <asp:ListItem Value="DR">DR</asp:ListItem>
+                                                            <asp:ListItem Value="DZ">DZ</asp:ListItem>
+                                                            <asp:ListItem Value="EA">EA</asp:ListItem>
+                                                            <asp:ListItem Value="FT">FT</asp:ListItem>
+                                                            <asp:ListItem Value="FT2">FT2</asp:ListItem>
+                                                            <asp:ListItem Value="G">G</asp:ListItem>
+                                                            <asp:ListItem Value="GLL">GLL</asp:ListItem>
+                                                            <asp:ListItem Value="IN">IN</asp:ListItem>
+                                                            <asp:ListItem Value="KAN">KAN</asp:ListItem>
+                                                            <asp:ListItem Value="KAR">KAR</asp:ListItem>
+                                                            <asp:ListItem Value="KG">KG</asp:ListItem>
+                                                            <asp:ListItem Value="KI">KI</asp:ListItem>
+                                                            <asp:ListItem Value="L">L</asp:ListItem>
+                                                            <asp:ListItem Value="LB">LB</asp:ListItem>
+                                                            <asp:ListItem Value="M">M</asp:ListItem>
+                                                            <asp:ListItem Value="OZ">OZ</asp:ListItem>
+                                                            <asp:ListItem Value="PAA">PAA</asp:ListItem>
+                                                            <asp:ListItem Value="PAK">PAK</asp:ListItem>
+                                                            <asp:ListItem Value="PC">PC</asp:ListItem>
+                                                            <asp:ListItem Value="ROL">ROL</asp:ListItem>
+                                                            <asp:ListItem Value="SET">SET</asp:ListItem>
+                                                            <asp:ListItem Value="STR">STR</asp:ListItem>
+                                                            <asp:ListItem Value="TIN">TIN</asp:ListItem>
+                                                            <asp:ListItem Value="YD">YD</asp:ListItem>
+                                                        </asp:DropDownList>
+                                                    </td>
+                                                    <td>
+                                                        <asp:DropDownList ID="ddlStLoc" runat="server" CssClass="form-control">
+                                                        </asp:DropDownList>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                        </EmptyDataTemplate>
+
+                                    </asp:GridView>
+                                    <asp:Label ID="Label4" runat="server" Font-Bold="False" ForeColor="Red" Font-Names="Berlin Sans FB"></asp:Label>
+                                </div>
                             </div>
-                        </div>
-                        <span class="help-block"></span>
-                        <div id="Div12" class="row" runat="server">
-                            <div class="col-sm-2"></div>
-                            <div class="col-sm-2"></div>
-                            <div class="col-sm-2"></div>
-                            <div class="col-sm-2"></div>
-                            <div class="col-sm-4">
-                                Net Quantity:
+                            <span class="help-block"></span>
+                            <div id="Div12" class="row" runat="server">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-4">
+                                    Net Quantity:
                                 <asp:Label ID="lblSum" runat="server" CssClass="form-control"></asp:Label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
             </div>
-
-
         </div>
-
 
         <div class="panel-group" id="dvBillofMaterialsDisplay" runat="server" visible="false">
 

@@ -600,6 +600,7 @@ namespace DashboardProject.Modules.Master
                             GetTransactionID();
                             ClearInputs(Page.Controls);
                             lblgridError.Text = "";
+                            lblSum.Text = "";
                         }
                     }
 
