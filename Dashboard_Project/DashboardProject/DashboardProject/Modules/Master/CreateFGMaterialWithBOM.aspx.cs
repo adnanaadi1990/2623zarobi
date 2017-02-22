@@ -400,7 +400,8 @@ namespace DashboardProject.Modules.Master
                                     Pack.Visible = true;
                                     QM.Visible = true;
                                     MRP.Visible = true;
-
+                                    rbAvailable.Visible = true;
+                                    rbAvailable.Enabled = true;
                                     //txtBillOfMaterial.Enabled = true;
                                     ////////txtMaterial.Enabled = true;
                                     ////////MaterialDescription.Enabled = true;
@@ -1105,6 +1106,11 @@ namespace DashboardProject.Modules.Master
 
                     rbNewWeightCheck.Items[0].Enabled = false;
                     rbNewWeightCheck.Items[1].Enabled = false;
+
+
+                    rbAvailable.Items[0].Enabled = false;
+                    rbAvailable.Items[1].Enabled = false;
+
                     if ((((string)ViewState["Sequance"]) == "2") || (((string)ViewState["Sequance"]) == "4") || (((string)ViewState["Sequance"]) == "6") || (((string)ViewState["Sequance"]) == "8"))
                     {
                         whenquerystringBOMDISPLAY();
@@ -3364,16 +3370,54 @@ namespace DashboardProject.Modules.Master
         {
             try
             {
+                if ((((((((((((((((((string)ViewState["Department"]) == "New Terry Stitching")
+                    || ((string)ViewState["Department"]) == "Old Terry Stitching")
+                    || ((string)ViewState["Department"]) == "MJS Apron")
+                    || ((string)ViewState["Department"]) == "Garments")
+                    || ((string)ViewState["Department"]) == "MJS Fabric Store")
+                    || ((string)ViewState["Department"]) == "Terry Folding")
+                    || ((string)ViewState["Department"]) == "Weaving")
+                    || ((string)ViewState["Department"]) == "Terry Weaving Office")
+                    || ((string)ViewState["Department"]) == "Outside Weaving")
+                    || ((string)ViewState["Department"]) == "Terry Weaving Electrical")
+                    || ((string)ViewState["Department"]) == "Outside Processing")
+                    || ((string)ViewState["Department"]) == "MJS Processing")
+                    || ((string)ViewState["Department"]) == "Processing Electrical")
+                    || ((string)ViewState["Department"]) == "Terry Processing")
+                    || ((string)ViewState["Department"]) == "Processing Maintenance")
+                    || ((string)ViewState["Department"]) == "Information System")
+                {
+                    if ((((string)ViewState["Sequance"]) == "2") || (((string)ViewState["Sequance"]) == "4") || (((string)ViewState["Sequance"]) == "6") || (((string)ViewState["Sequance"]) == "8"))
+                    {
+                        if (rbAvailable.SelectedValue == "Yes")
+                        {
+                            if (txtRemarksReview.Text == "")
+                            {
+                                lblmessage.Text = "";
+                                lblUpError.Text = "Remarks should not be left blank!.";
+                                sucess.Visible = false;
+                                error.Visible = true;
+                                lblmessage.Focus();
+                                sucess.Focus();
+                                Page.MaintainScrollPositionOnPostBack = false;
+                                //whenquerystringpass();
+                                return;
+                            }
+                        }
+                    }
+                }
                 error.Visible = false;
                 lblUpError.Text = "";
                 sucess.Visible = false;
                 lblmessage.Text = "";
+                UpdateAvailableCheck();
                 EmailWorkApproved();
                 ApplicationStatus();
                 BindsysApplicationStatus();
                 GetStatusHierachyCategoryControls();
                 Page.MaintainScrollPositionOnPostBack = true;
                 lblEmail.Focus();
+
             }
 
             catch (Exception ex)
@@ -3422,19 +3466,37 @@ namespace DashboardProject.Modules.Master
                                 txtRemarksReview.Enabled = true;
                                 return;
                             }
-                            else if (((string)ViewState["HID"]) == "7")
+                            else if ((((((((((((((((((string)ViewState["Department"]) == "New Terry Stitching")
+                        || ((string)ViewState["Department"]) == "Old Terry Stitching")
+                        || ((string)ViewState["Department"]) == "MJS Apron")
+                        || ((string)ViewState["Department"]) == "Garments")
+                        || ((string)ViewState["Department"]) == "MJS Fabric Store")
+                        || ((string)ViewState["Department"]) == "Terry Folding")
+                        || ((string)ViewState["Department"]) == "Weaving")
+                        || ((string)ViewState["Department"]) == "Terry Weaving Office")
+                        || ((string)ViewState["Department"]) == "Outside Weaving")
+                        || ((string)ViewState["Department"]) == "Terry Weaving Electrical")
+                        || ((string)ViewState["Department"]) == "Outside Processing")
+                        || ((string)ViewState["Department"]) == "MJS Processing")
+                        || ((string)ViewState["Department"]) == "Processing Electrical")
+                        || ((string)ViewState["Department"]) == "Terry Processing")
+                        || ((string)ViewState["Department"]) == "Processing Maintenance")
+                            || ((string)ViewState["Department"]) == "Information System")
                             {
-                                if (rbAvailable.SelectedValue == "Yes")
+                                if ((((string)ViewState["Sequance"]) == "2") || (((string)ViewState["Sequance"]) == "4") || (((string)ViewState["Sequance"]) == "6") || (((string)ViewState["Sequance"]) == "8"))
                                 {
-                                    lblmessage.Text = "";
-                                    lblUpError.Text = " Available Check must be No while Reject.";
-                                    sucess.Visible = false;
-                                    error.Visible = true;
-                                    lblmessage.Focus();
-                                    sucess.Focus();
-                                    Page.MaintainScrollPositionOnPostBack = false;
-                                    //whenquerystringpass();
-                                    return;
+                                    if (rbAvailable.SelectedValue == "Yes")
+                                    {
+                                        lblmessage.Text = "";
+                                        lblUpError.Text = " Available Check must be No while Reject.";
+                                        sucess.Visible = false;
+                                        error.Visible = true;
+                                        lblmessage.Focus();
+                                        sucess.Focus();
+                                        Page.MaintainScrollPositionOnPostBack = false;
+                                        //whenquerystringpass();
+                                        return;
+                                    }
                                 }
                             }
                             else
@@ -4571,60 +4633,6 @@ namespace DashboardProject.Modules.Master
 
         ////////////////////////////////button Control /////////////////////////////////////////////////////
 
-        //protected void btnSave_Click(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //protected void btnSaveSubmit_Click(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //protected void btnTransfer_Click(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //protected void btnApprover_Click(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //protected void btnReject_Click(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //protected void btnReviewed_Click(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //protected void btnEdit_Click(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //protected void btnUpdate_Click(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //protected void btnFUpdate_Click(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //protected void btnTUpdate_Click(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //protected void btnCancel_Click(object sender, EventArgs e)
-        //{
-
-        //}
 
         ///////////////////////////////////////////////////////button Control //////////////////////////////////
 
@@ -5373,12 +5381,10 @@ namespace DashboardProject.Modules.Master
                 lblMaxTransactionID.Text = reader["TransactionID"].ToString();
                 //txtBillOfMaterial.Text = reader["BOM"].ToString();
                 ddlPlant.SelectedValue = reader["Plant"].ToString();
-
                 ddlStorageLocation.DataSource = GetData("SP_StorageLocationPlantWise");
                 ddlStorageLocation.DataTextField = "Description";
                 ddlStorageLocation.DataValueField = "StorageLocationcode";
                 ddlStorageLocation.DataBind();
-
                 ddlStorageLocation.SelectedValue = reader["StorageLocation"].ToString();
                 txtDescription.Text = reader["MaterialDesc"].ToString();
                 txtProductionLotSizefrom.Text = reader["ProdLotSizeFrom"].ToString();
@@ -5388,6 +5394,8 @@ namespace DashboardProject.Modules.Master
                 txtBOMValidFrom.Text = reader["BOMValidFrom"].ToString();
                 txtBOMValidTo.Text = reader["BOMValidTo"].ToString();
                 txtBaseQuantity.Text = reader["QTY"].ToString();
+
+
                 GetGridBOMWhenQueryStringpass();
             }
         }
@@ -5826,21 +5834,32 @@ namespace DashboardProject.Modules.Master
             }
         }
 
-        //protected void LBNewMaterial_Click(object sender, EventArgs e)
-        //{
-        //    if (LBNewMaterial.Text == "New Material")
-        //    {
-        //        string url = HttpContext.Current.Request.Url.ToString();
-        //        //Response.Redirect(url.ToString());
-        //        Response.Redirect("~/Modules/Master/CreateFGMaterialWithBOM.aspx?TransactionNo=" + url.ToString());
-        //    }
-        //    else
-        //    {
+        protected void UpdateAvailableCheck()
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    try
+                    {
+                        cmd.CommandText = @"[SP_SYS_UpdateAvailable]";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = connection;
 
-        //    }
-        //    //script = String.Format(script, url, target, windowFeatures);
-        //    //ScriptManager.RegisterStartupScript(page, typeof(Page), "Redirect", script, true); 
-        //}
+                        cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
+                        cmd.Parameters.AddWithValue("@Available", rbAvailable.SelectedValue);
+                        connection.Open();
+
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        lblError.Text = "UpdateAvailableCheck" + ex.ToString();
+                    }
+                }
+            }
+        }
 
         //////////////////////////////////////////////Email Methods//////////////////////////////////////////
     }
