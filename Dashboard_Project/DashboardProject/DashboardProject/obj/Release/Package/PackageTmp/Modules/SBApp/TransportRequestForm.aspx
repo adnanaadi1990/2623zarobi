@@ -92,6 +92,7 @@
             margin-top: 1px 9px;
             line-height: normal;
         }
+        .form-control {}
     </style>
 
 </asp:Content>
@@ -163,7 +164,7 @@
                             </div>
                             <div class="col-sm-4" runat="server" id="dvTRNo">
                                 Transport No
-                                   <asp:TextBox ID="TxtTRNo" runat="server" CssClass="form-control" CausesValidation="True"></asp:TextBox>
+                                   <asp:TextBox ID="TxtTRNo" runat="server" CssClass="form-control" CausesValidation="True" TextMode="MultiLine" Height="79px" Width="246px"></asp:TextBox>
                             </div>
 
                         </div>

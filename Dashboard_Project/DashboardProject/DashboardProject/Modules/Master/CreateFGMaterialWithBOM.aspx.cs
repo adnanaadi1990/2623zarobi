@@ -391,8 +391,6 @@ namespace DashboardProject.Modules.Master
                                 if ((((string)ViewState["Sequance"]) == "2") || (((string)ViewState["Sequance"]) == "4") || (((string)ViewState["Sequance"]) == "6") || (((string)ViewState["Sequance"]) == "8"))
                                 {
                                     dvBillofMaterialsDisplay.Visible = false;
-                                    dvBOM.Visible = true;
-                                    dvBOM.Visible = true;
                                     btnSubmitStiching.Visible = true;
                                     BD.Visible = true;
                                     Prod.Visible = true;
@@ -402,6 +400,7 @@ namespace DashboardProject.Modules.Master
                                     MRP.Visible = true;
                                     rbAvailable.Visible = true;
                                     rbAvailable.Enabled = true;
+                                    rbdivAvailable.Visible = true;
                                     //txtBillOfMaterial.Enabled = true;
                                     ////////txtMaterial.Enabled = true;
                                     ////////MaterialDescription.Enabled = true;
@@ -445,6 +444,10 @@ namespace DashboardProject.Modules.Master
                                     Pack.Visible = true;
                                     QM.Visible = true;
                                     MRP.Visible = true;
+                                    rbAvailable.Visible = true;
+                                    rbAvailable.Enabled = false;
+                                    rbdivAvailable.Visible = true;
+                                  
                                     //txtBillOfMaterial.Enabled = false;
                                     ////////txtMaterial.Enabled = false;
                                     ////////MaterialDescription.Enabled = false;
@@ -1110,6 +1113,8 @@ namespace DashboardProject.Modules.Master
 
                     rbAvailable.Items[0].Enabled = false;
                     rbAvailable.Items[1].Enabled = false;
+                    rbdivAvailable.Visible = true;
+                    //rbdivAvailable.Enabled = true;
 
                     if ((((string)ViewState["Sequance"]) == "2") || (((string)ViewState["Sequance"]) == "4") || (((string)ViewState["Sequance"]) == "6") || (((string)ViewState["Sequance"]) == "8"))
                     {
@@ -3370,47 +3375,10 @@ namespace DashboardProject.Modules.Master
         {
             try
             {
-                if ((((((((((((((((((string)ViewState["Department"]) == "New Terry Stitching")
-                    || ((string)ViewState["Department"]) == "Old Terry Stitching")
-                    || ((string)ViewState["Department"]) == "MJS Apron")
-                    || ((string)ViewState["Department"]) == "Garments")
-                    || ((string)ViewState["Department"]) == "MJS Fabric Store")
-                    || ((string)ViewState["Department"]) == "Terry Folding")
-                    || ((string)ViewState["Department"]) == "Weaving")
-                    || ((string)ViewState["Department"]) == "Terry Weaving Office")
-                    || ((string)ViewState["Department"]) == "Outside Weaving")
-                    || ((string)ViewState["Department"]) == "Terry Weaving Electrical")
-                    || ((string)ViewState["Department"]) == "Outside Processing")
-                    || ((string)ViewState["Department"]) == "MJS Processing")
-                    || ((string)ViewState["Department"]) == "Processing Electrical")
-                    || ((string)ViewState["Department"]) == "Terry Processing")
-                    || ((string)ViewState["Department"]) == "Processing Maintenance")
-                    || ((string)ViewState["Department"]) == "Information System")
-                {
-                    if ((((string)ViewState["Sequance"]) == "2") || (((string)ViewState["Sequance"]) == "4") || (((string)ViewState["Sequance"]) == "6") || (((string)ViewState["Sequance"]) == "8"))
-                    {
-                        if (rbAvailable.SelectedValue == "Yes")
-                        {
-                            if (txtRemarksReview.Text == "")
-                            {
-                                lblmessage.Text = "";
-                                lblUpError.Text = "Remarks should not be left blank!.";
-                                sucess.Visible = false;
-                                error.Visible = true;
-                                lblmessage.Focus();
-                                sucess.Focus();
-                                Page.MaintainScrollPositionOnPostBack = false;
-                                //whenquerystringpass();
-                                return;
-                            }
-                        }
-                    }
-                }
                 error.Visible = false;
                 lblUpError.Text = "";
                 sucess.Visible = false;
                 lblmessage.Text = "";
-                UpdateAvailableCheck();
                 EmailWorkApproved();
                 ApplicationStatus();
                 BindsysApplicationStatus();
@@ -5394,8 +5362,6 @@ namespace DashboardProject.Modules.Master
                 txtBOMValidFrom.Text = reader["BOMValidFrom"].ToString();
                 txtBOMValidTo.Text = reader["BOMValidTo"].ToString();
                 txtBaseQuantity.Text = reader["QTY"].ToString();
-
-
                 GetGridBOMWhenQueryStringpass();
             }
         }
@@ -5424,130 +5390,133 @@ namespace DashboardProject.Modules.Master
         {
             try
             {
-                txtBaseQuantity.BackColor = System.Drawing.Color.White;
-                ddlPlant.BackColor = System.Drawing.Color.White;
-                ddlStorageLocation.BackColor = System.Drawing.Color.White;
-                //txtMaterial.BackColor = System.Drawing.Color.White;
-                txtDescription.BackColor = System.Drawing.Color.White;
-                if (txtBaseQuantity.Text == "")
+                if (rbAvailable.SelectedValue == "No")
                 {
+                    txtBaseQuantity.BackColor = System.Drawing.Color.White;
+                    ddlPlant.BackColor = System.Drawing.Color.White;
+                    ddlStorageLocation.BackColor = System.Drawing.Color.White;
+                    //txtMaterial.BackColor = System.Drawing.Color.White;
+                    txtDescription.BackColor = System.Drawing.Color.White;
 
-                    lblmessage.Text = "";
-                    lblUpError.Text = "Base Quantity should not be left blank";
-                    sucess.Visible = false;
-                    error.Visible = true;
-                    lblUpError.Focus();
-                    error.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    txtBaseQuantity.BackColor = System.Drawing.Color.Red;
-                }
-                //else if (txtMaterial.Text == "")
-                //{
-
-                //    lblmessage.Text = "";
-                //    lblUpError.Text = "Material should not be left blank";
-                //    sucess.Visible = false;
-                //    error.Visible = true;
-                //    lblUpError.Focus();
-                //    error.Focus();
-                //    Page.MaintainScrollPositionOnPostBack = false;
-                //    txtMaterial.BackColor = System.Drawing.Color.Red;
-                //}
-                //else if (txtDescription.Text == "")
-                //{
-
-                //    lblmessage.Text = "";
-                //    lblUpError.Text = "Material Description should not be left blank";
-                //    sucess.Visible = false;
-                //    error.Visible = true;
-                //    lblUpError.Focus();
-                //    error.Focus();
-                //    Page.MaintainScrollPositionOnPostBack = false;
-                //    txtDescription.BackColor = System.Drawing.Color.Red;
-                //}
-                //else if (ddlPlantBom.SelectedValue == "")
-                //{
-
-                //    lblmessage.Text = "";
-                //    lblUpError.Text = "Please Select any plant";
-                //    sucess.Visible = false;
-                //    error.Visible = true;
-                //    lblUpError.Focus();
-                //    error.Focus();
-                //    Page.MaintainScrollPositionOnPostBack = false;
-                //    ddlPlant.BackColor = System.Drawing.Color.Red;
-                //}
-                //else if (ddlStorageLocationBOM.SelectedValue == "")
-                //{
-                //    lblmessage.Text = "";
-                //    lblUpError.Text = "Please Select any Storage sLocation";
-                //    sucess.Visible = false;
-                //    error.Visible = true;
-                //    lblUpError.Focus();
-                //    error.Focus();
-                //    Page.MaintainScrollPositionOnPostBack = false;
-                //    ddlStorageLocation.BackColor = System.Drawing.Color.Red;
-                //}
-                //else if (txtBaseQuantity.Text != lblSum.Text)
-                //{
-                //    lblmessage.Text = "";
-                //    lblUpError.Text = "Line item Quantity in not equal to Header Base Quantity";
-                //    sucess.Visible = false;
-                //    error.Visible = true;
-                //    lblUpError.Focus();
-                //    error.Focus();
-                //    Page.MaintainScrollPositionOnPostBack = false;
-                //}
-                else
-                {
-                    string conString = ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString;
-                    SqlCommand cmd = new SqlCommand("SP_SYS_Create_BOM_Approval_FG_BOM");
-                    using (SqlConnection con = new SqlConnection(conString))
+                    if (txtBaseQuantity.Text == "")
                     {
-                        using (SqlDataAdapter sda = new SqlDataAdapter())
-                        {
-
-                            cmd.Connection = con;
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.AddWithValue("@TransactionMain", lblMaxTransactionNo.Text);
-                            cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
-                            //cmd.Parameters.AddWithValue("@MaterialDesc", txtDescription.Text.ToString());
-                            //cmd.Parameters.AddWithValue("@Plant", ddlPlant.SelectedValue.ToString());
-                            //cmd.Parameters.AddWithValue("@StorageLocation", ddlStorageLocation.SelectedValue.ToString());
-                            cmd.Parameters.AddWithValue("@ProdLotSizeFrom", txtProductionLotSizefrom.Text.ToString());
-                            cmd.Parameters.AddWithValue("@ProdLotSizeTo", txtProductionLotSizeTo.Text.ToString());
-                            cmd.Parameters.AddWithValue("@ProductionVersion", txtProductionVersion.Text.ToString());
-                            cmd.Parameters.AddWithValue("@ProdVersionDesc", txtProductionVersionDescription.Text.ToString());
-                            cmd.Parameters.AddWithValue("@BOMValidFrom", txtBOMValidFrom.Text.ToString());
-                            cmd.Parameters.AddWithValue("@BOMValidTo", txtBOMValidTo.Text.ToString());
-                            decimal yourValue = Convert.ToDecimal(txtBaseQuantity.Text);
-                            cmd.Parameters.AddWithValue("@QTY", yourValue);
-                            cmd.Parameters.AddWithValue("@CreatedBy", Session["User_Name"].ToString());
-                            cmd.Parameters.AddWithValue("@Remarks", txtRemarksReview.Text.ToString());
-                            cmd.Parameters.AddWithValue("@Dept", ViewState["Department"].ToString());
-                            con.Open();
-                            cmd.ExecuteNonQuery();
-                            con.Close();
-
-                            insertLineItem();
-                            lblmessage.Focus();
-                            error.Visible = false;
-                            lblmessage.Focus();
-                            Page.MaintainScrollPositionOnPostBack = false;
-                            error.Visible = false;
-                            lblUpError.Text = "";
-                            sucess.Visible = false;
-                            lblmessage.Text = "";
-                            EmailWorkApproved();
-                            ApplicationStatus();
-                            BindsysApplicationStatus();
-                            GetStatusHierachyCategoryControls();
-                            Page.MaintainScrollPositionOnPostBack = true;
-                            lblEmail.Focus();
-
-                        }
+                        lblmessage.Text = "";
+                        lblUpError.Text = "Base Quantity should not be left blank";
+                        sucess.Visible = false;
+                        error.Visible = true;
+                        lblUpError.Focus();
+                        error.Focus();
+                        Page.MaintainScrollPositionOnPostBack = false;
+                        txtBaseQuantity.BackColor = System.Drawing.Color.Red;
                     }
+                    //else if (txtMaterial.Text == "")
+                    //{
 
+                //    lblmessage.Text = "";
+                    //    lblUpError.Text = "Material should not be left blank";
+                    //    sucess.Visible = false;
+                    //    error.Visible = true;
+                    //    lblUpError.Focus();
+                    //    error.Focus();
+                    //    Page.MaintainScrollPositionOnPostBack = false;
+                    //    txtMaterial.BackColor = System.Drawing.Color.Red;
+                    //}
+                    //else if (txtDescription.Text == "")
+                    //{
+
+                //    lblmessage.Text = "";
+                    //    lblUpError.Text = "Material Description should not be left blank";
+                    //    sucess.Visible = false;
+                    //    error.Visible = true;
+                    //    lblUpError.Focus();
+                    //    error.Focus();
+                    //    Page.MaintainScrollPositionOnPostBack = false;
+                    //    txtDescription.BackColor = System.Drawing.Color.Red;
+                    //}
+                    //else if (ddlPlantBom.SelectedValue == "")
+                    //{
+
+                //    lblmessage.Text = "";
+                    //    lblUpError.Text = "Please Select any plant";
+                    //    sucess.Visible = false;
+                    //    error.Visible = true;
+                    //    lblUpError.Focus();
+                    //    error.Focus();
+                    //    Page.MaintainScrollPositionOnPostBack = false;
+                    //    ddlPlant.BackColor = System.Drawing.Color.Red;
+                    //}
+                    //else if (ddlStorageLocationBOM.SelectedValue == "")
+                    //{
+                    //    lblmessage.Text = "";
+                    //    lblUpError.Text = "Please Select any Storage sLocation";
+                    //    sucess.Visible = false;
+                    //    error.Visible = true;
+                    //    lblUpError.Focus();
+                    //    error.Focus();
+                    //    Page.MaintainScrollPositionOnPostBack = false;
+                    //    ddlStorageLocation.BackColor = System.Drawing.Color.Red;
+                    //}
+                    //else if (txtBaseQuantity.Text != lblSum.Text)
+                    //{
+                    //    lblmessage.Text = "";
+                    //    lblUpError.Text = "Line item Quantity in not equal to Header Base Quantity";
+                    //    sucess.Visible = false;
+                    //    error.Visible = true;
+                    //    lblUpError.Focus();
+                    //    error.Focus();
+                    //    Page.MaintainScrollPositionOnPostBack = false;
+                    //}
+                    else
+                    {
+                        string conString = ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString;
+                        SqlCommand cmd = new SqlCommand("SP_SYS_Create_BOM_Approval_FG_BOM");
+                        using (SqlConnection con = new SqlConnection(conString))
+                        {
+                            using (SqlDataAdapter sda = new SqlDataAdapter())
+                            {
+
+                                cmd.Connection = con;
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Parameters.AddWithValue("@TransactionMain", lblMaxTransactionNo.Text);
+                                cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
+                                //cmd.Parameters.AddWithValue("@MaterialDesc", txtDescription.Text.ToString());
+                                //cmd.Parameters.AddWithValue("@Plant", ddlPlant.SelectedValue.ToString());
+                                //cmd.Parameters.AddWithValue("@StorageLocation", ddlStorageLocation.SelectedValue.ToString());
+                                cmd.Parameters.AddWithValue("@ProdLotSizeFrom", txtProductionLotSizefrom.Text.ToString());
+                                cmd.Parameters.AddWithValue("@ProdLotSizeTo", txtProductionLotSizeTo.Text.ToString());
+                                cmd.Parameters.AddWithValue("@ProductionVersion", txtProductionVersion.Text.ToString());
+                                cmd.Parameters.AddWithValue("@ProdVersionDesc", txtProductionVersionDescription.Text.ToString());
+                                cmd.Parameters.AddWithValue("@BOMValidFrom", txtBOMValidFrom.Text.ToString());
+                                cmd.Parameters.AddWithValue("@BOMValidTo", txtBOMValidTo.Text.ToString());
+                                decimal yourValue = Convert.ToDecimal(txtBaseQuantity.Text);
+                                cmd.Parameters.AddWithValue("@QTY", yourValue);
+                                cmd.Parameters.AddWithValue("@CreatedBy", Session["User_Name"].ToString());
+                                cmd.Parameters.AddWithValue("@Remarks", txtRemarksReview.Text.ToString());
+                                cmd.Parameters.AddWithValue("@Dept", ViewState["Department"].ToString());
+                                con.Open();
+                                cmd.ExecuteNonQuery();
+                                con.Close();
+
+                                insertLineItem();
+                                lblmessage.Focus();
+                                error.Visible = false;
+                                lblmessage.Focus();
+                                Page.MaintainScrollPositionOnPostBack = false;
+                                error.Visible = false;
+                                lblUpError.Text = "";
+                                sucess.Visible = false;
+                                lblmessage.Text = "";
+                                EmailWorkApproved();
+                                ApplicationStatus();
+                                BindsysApplicationStatus();
+                                GetStatusHierachyCategoryControls();
+                                Page.MaintainScrollPositionOnPostBack = true;
+                                lblEmail.Focus();
+
+                            }
+                        }
+
+                    }
                 }
             }
             catch (Exception ex)
@@ -5580,7 +5549,38 @@ namespace DashboardProject.Modules.Master
                 {
                     if ((((string)ViewState["Sequance"]) == "2") || (((string)ViewState["Sequance"]) == "4") || (((string)ViewState["Sequance"]) == "6") || (((string)ViewState["Sequance"]) == "8"))
                     {
-                        SaveBOMGRID();
+                        if (rbAvailable.SelectedValue == "Yes")
+                        {
+                            if (txtRemarksReview.Text == "")
+                            {
+                                lblmessage.Text = "";
+                                lblUpError.Text = "If Available Check Yes then Remarks should not be left blank!.";
+                                sucess.Visible = false;
+                                error.Visible = true;
+                                lblmessage.Focus();
+                                sucess.Focus();
+                                Page.MaintainScrollPositionOnPostBack = false;
+                                txtRemarksReview.BackColor = System.Drawing.Color.Red;
+                                //whenquerystringpass();
+                                return;
+                            }
+                            else
+                            {
+                                UpdateAvailableCheck();
+                                EmailWorkApproved();
+                                ApplicationStatus();
+                                BindsysApplicationStatus();
+                                GetStatusHierachyCategoryControls();
+                                Page.MaintainScrollPositionOnPostBack = true;
+                                lblEmail.Focus();
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            SaveBOMGRID();
+                            return;
+                        }
                     }
                     else
                     {
@@ -5848,6 +5848,7 @@ namespace DashboardProject.Modules.Master
 
                         cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
                         cmd.Parameters.AddWithValue("@Available", rbAvailable.SelectedValue);
+                        cmd.Parameters.AddWithValue("@Dept", ViewState["Department"].ToString());
                         connection.Open();
 
                         cmd.ExecuteNonQuery();
@@ -5858,6 +5859,18 @@ namespace DashboardProject.Modules.Master
                         lblError.Text = "UpdateAvailableCheck" + ex.ToString();
                     }
                 }
+            }
+        }
+
+        protected void rbAvailable_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (rbAvailable.SelectedValue == "No")
+            {
+                dvBOM.Visible = true;
+            }
+            else
+            {
+                dvBOM.Visible = false;
             }
         }
 
