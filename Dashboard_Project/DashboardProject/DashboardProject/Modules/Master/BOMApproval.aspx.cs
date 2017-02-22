@@ -598,7 +598,8 @@ namespace DashboardProject.Modules.Master
                             EmailWorkSendFirstApproval();
                             lblMaxTransactionID.Text = "";
                             GetTransactionID();
-
+                            ClearInputs(Page.Controls);
+                            lblgridError.Text = "";
                         }
                     }
 
@@ -1526,7 +1527,28 @@ namespace DashboardProject.Modules.Master
             }
         }
 
+        void ClearInputs(ControlCollection ctrls)
+        {
+            foreach (Control ctrl in ctrls)
+            {
+                if (ctrl is TextBox)
+                    ((TextBox)ctrl).Text = string.Empty;
 
+                if (ctrl is DropDownList)
+                    ((DropDownList)ctrl).SelectedIndex = 0;
+                if (ctrl is ListBox)
+                    ((ListBox)ctrl).SelectedIndex = -1;
+                ClearInputs(ctrl.Controls);
+            }
+
+            DataTable dt = (DataTable)ViewState["BOMGrid"];
+            dt.Clear();
+            ViewState["BOMGrid"] = dt;
+            GridView1.DataSource = (DataTable)ViewState["BOMGrid"];
+            GridView1.DataBind();
+            lblError.Text = "";
+
+        }
     }
 
 }
