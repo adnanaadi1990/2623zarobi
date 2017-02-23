@@ -1030,24 +1030,6 @@ namespace DashboardProject.Modules.Master {
         protected global::System.Web.UI.WebControls.DropDownList ddlPeriodIndicator;
         
         /// <summary>
-        /// rbdivAvailable control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl rbdivAvailable;
-        
-        /// <summary>
-        /// rbAvailable control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList rbAvailable;
-        
-        /// <summary>
         /// dvBOM control.
         /// </summary>
         /// <remarks>
@@ -1064,6 +1046,24 @@ namespace DashboardProject.Modules.Master {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div8;
+        
+        /// <summary>
+        /// rbdivAvailable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl rbdivAvailable;
+        
+        /// <summary>
+        /// rbAvailable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList rbAvailable;
         
         /// <summary>
         /// Div2 control.

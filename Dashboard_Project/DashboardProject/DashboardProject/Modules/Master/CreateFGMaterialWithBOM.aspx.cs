@@ -128,6 +128,7 @@ namespace DashboardProject.Modules.Master
                         //SD.Visible = true;
                         //QM.Visible = true;
                         //MRP.Visible = true;
+                        rbdivAvailable.Visible = false;
                         dvSMC.Visible = false;
                         btnSearch.Visible = false;
                         txtRemarksReview.Visible = false;
@@ -208,6 +209,7 @@ namespace DashboardProject.Modules.Master
                             btnEdit.Visible = false;
                             btnForward.Visible = false;
                             btnTransfer.Visible = false;
+                            rbdivAvailable.Visible = false;
                             controlForwardHide();
                         }
 
@@ -226,6 +228,7 @@ namespace DashboardProject.Modules.Master
                                 Pack.Visible = true;
                                 QM.Visible = true;
                                 MRP.Visible = true;
+                                rbdivAvailable.Visible = false;
                                 ddlProdCatg.Enabled = true;
                                 ddlProdCatgsub1.Enabled = true;
                                 ddlProdCatgsub2.Enabled = true;
@@ -390,6 +393,7 @@ namespace DashboardProject.Modules.Master
                             {
                                 if ((((string)ViewState["Sequance"]) == "2") || (((string)ViewState["Sequance"]) == "4") || (((string)ViewState["Sequance"]) == "6") || (((string)ViewState["Sequance"]) == "8"))
                                 {
+                                    dvBOM.Visible = true;
                                     dvBillofMaterialsDisplay.Visible = false;
                                     btnSubmitStiching.Visible = true;
                                     BD.Visible = true;
@@ -436,7 +440,7 @@ namespace DashboardProject.Modules.Master
                                 else if ((((string)ViewState["Sequance"]) == "3") || (((string)ViewState["Sequance"]) == "5") || (((string)ViewState["Sequance"]) == "7") || (((string)ViewState["Sequance"]) == "9"))
                                 {
                                     dvBillofMaterialsDisplay.Visible = true;
-                                    dvBOM.Visible = false;
+                                  
                                     btnSubmitStiching.Visible = false;
                                     BD.Visible = true;
                                     Prod.Visible = true;
@@ -1114,7 +1118,6 @@ namespace DashboardProject.Modules.Master
                     rbAvailable.Items[0].Enabled = false;
                     rbAvailable.Items[1].Enabled = false;
                     rbdivAvailable.Visible = true;
-                    //rbdivAvailable.Enabled = true;
 
                     if ((((string)ViewState["Sequance"]) == "2") || (((string)ViewState["Sequance"]) == "4") || (((string)ViewState["Sequance"]) == "6") || (((string)ViewState["Sequance"]) == "8"))
                     {
@@ -5580,6 +5583,7 @@ namespace DashboardProject.Modules.Master
                         {
                             SaveBOMGRID();
                             return;
+
                         }
                     }
                     else
@@ -5594,26 +5598,15 @@ namespace DashboardProject.Modules.Master
                         GetStatusHierachyCategoryControls();
                         Page.MaintainScrollPositionOnPostBack = true;
                         lblEmail.Focus();
+
                     }
-                }
-                else
-                {
-                    error.Visible = false;
-                    lblUpError.Text = "";
-                    sucess.Visible = false;
-                    lblmessage.Text = "";
-                    EmailWorkApproved();
-                    ApplicationStatus();
-                    BindsysApplicationStatus();
-                    GetStatusHierachyCategoryControls();
-                    Page.MaintainScrollPositionOnPostBack = true;
-                    lblEmail.Focus();
                 }
             }
             catch (Exception ex)
             {
                 lblError.Text = "btnSubmit_Click" + ex.ToString();
             }
+
         }
 
         protected void AddBOM(object sender, EventArgs e)
@@ -5849,6 +5842,7 @@ namespace DashboardProject.Modules.Master
                         cmd.Parameters.AddWithValue("@TransactionID", lblMaxTransactionID.Text);
                         cmd.Parameters.AddWithValue("@Available", rbAvailable.SelectedValue);
                         cmd.Parameters.AddWithValue("@Dept", ViewState["Department"].ToString());
+                        cmd.Parameters.AddWithValue("@User", Session["User_Name"].ToString());
                         connection.Open();
 
                         cmd.ExecuteNonQuery();
@@ -5862,17 +5856,6 @@ namespace DashboardProject.Modules.Master
             }
         }
 
-        protected void rbAvailable_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (rbAvailable.SelectedValue == "No")
-            {
-                dvBOM.Visible = true;
-            }
-            else
-            {
-                dvBOM.Visible = false;
-            }
-        }
 
         //////////////////////////////////////////////Email Methods//////////////////////////////////////////
     }
