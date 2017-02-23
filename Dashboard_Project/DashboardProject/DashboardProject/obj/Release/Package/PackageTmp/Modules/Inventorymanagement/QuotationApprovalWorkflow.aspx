@@ -61,7 +61,7 @@
     <script type="text/javascript">
         function pageLoad() {
 
-            $('[id*=ddlNotification]').multiselect({
+            $('[id*=ddlNotification],[id*=ddlEmailRevSpe]').multiselect({
                 includeSelectAllOption: true,
                 buttonWidth: '100%',
                 enableFiltering: true,
@@ -204,7 +204,7 @@
                             </div>
                               <span class="help-block"></span>
                             <div class="row">
-                                  <div class="col-sm-3">
+                                  <div class="col-sm-12">
                                     <asp:Label ID="Label4" runat="server" Text="Please upload the Quotation Comparison Sheet before Saving Form"></asp:Label>
                                 </div>
                                 </div>
@@ -222,21 +222,20 @@
                             </div>
                             <div class="panel-body">
                                 <div class="row" style="text-align: center;">
-                                    <div class="col-sm-2"></div>
+                             
                                      <div class="col-sm-4">
                                         Head Of Deparment
                                        <asp:Label ID="lblHOD" runat="server" CssClass="form-control"></asp:Label>
                                     </div>
                                     <div class="col-sm-4">
                                      Specific Additional Approver
-                                       <asp:DropDownList ID="ddlEmailRev" CssClass="form-control" runat="server">
-                                       </asp:DropDownList>
+                                    <asp:ListBox ID="ddlEmailRevSpe" runat="server"></asp:ListBox>
                                     </div>
                                     <div class="col-sm-4">
                                         Notification  
                                        <asp:ListBox ID="ddlNotification" SelectionMode="Multiple" runat="server"></asp:ListBox>
                                     </div>
-                                       <div class="col-sm-2"></div>
+                            
                                 </div>
 
                             </div>
