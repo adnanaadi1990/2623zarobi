@@ -5562,7 +5562,7 @@ namespace DashboardProject.Modules.Master
                             if (txtRemarksReview.Text == "")
                             {
                                 lblmessage.Text = "";
-                                lblUpError.Text = "If Available Check Yes then Remarks should not be left blank!.";
+                                lblUpError.Text = "If Bom already exist then please update the Remarks at the bottom of this form!.";
                                 sucess.Visible = false;
                                 error.Visible = true;
                                 lblmessage.Focus();
