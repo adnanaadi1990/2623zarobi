@@ -3917,7 +3917,7 @@ namespace DashboardProject.Modules.Master
                     int aa = cmd.ExecuteNonQuery();
                     if (aa > 0)
                     {
-                        lblmessage.Text = "Record updated sucessfully!";
+                        lblmessage.Text = "Record updated sucessfully you are now required to approve the form!";
                         lblmessage.Focus();
                         sucess.Visible = true;
                         error.Visible = false;
@@ -5579,7 +5579,12 @@ namespace DashboardProject.Modules.Master
                                 ApplicationStatus();
                                 BindsysApplicationStatus();
                                 GetStatusHierachyCategoryControls();
+                                lblmessage.Focus();
+                                error.Visible = false;
+                                sucess.Visible = false;
+                                txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
                                 Page.MaintainScrollPositionOnPostBack = true;
+                                Page.MaintainScrollPositionOnPostBack = false;
                                 lblEmail.Focus();
                                 return;
                             }
@@ -5601,7 +5606,10 @@ namespace DashboardProject.Modules.Master
                         ApplicationStatus();
                         BindsysApplicationStatus();
                         GetStatusHierachyCategoryControls();
-                        Page.MaintainScrollPositionOnPostBack = true;
+                        lblmessage.Focus();
+                        error.Visible = false;
+                        sucess.Visible = true;
+                        Page.MaintainScrollPositionOnPostBack = false;
                         lblEmail.Focus();
 
                     }
