@@ -665,6 +665,11 @@ namespace DashboardProject.Modules.Master
                             QM.Visible = true;
                             MRP.Visible = true;
                             Account.Visible = true;
+                            txtSMC.Enabled = false;
+                            lblSap.Visible = true;
+                            txtSMC.Visible = true;
+                            dvLock.Visible = true;
+                            chkLock.Enabled = false;
                             dvBillofMaterialsDisplay.Visible = true;
                             btnApprover.Visible = false;
                             btnSubmitStiching.Visible = false;
