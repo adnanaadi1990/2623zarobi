@@ -1128,17 +1128,7 @@
         </div>
 
         <div class="panel-group">
-            <div class="row" runat="server" id="rbdivAvailable" visible="false">
-                <div class="col-sm-12">
-                    Component Material Available (IF Component Material Available then Yes Or Select No)
-                       <asp:RadioButtonList ID="rbAvailable" runat="server" RepeatDirection="Horizontal" OnSelectedIndexChanged="rbAvailable_SelectedIndexChanged" AutoPostBack="True">
-                           <asp:ListItem Selected="True">Yes</asp:ListItem>
-                           <asp:ListItem>No</asp:ListItem>
-                       </asp:RadioButtonList>
-                </div>
-            </div>
             <div runat="server" id="dvBOM" visible="false">
-
                 <div class="panel panel-default" runat="server">
                     <div class="panel-heading">
                         <h4 class="panel-title">
@@ -1147,13 +1137,8 @@
                     </div>
                     <div id="Div4" class="panel-collapse collapse in">
                         <div class="panel-body">
-                            <span class="help-block"></span>
-                            <div id="Div8" class="row" runat="server">
-                                <div class="col-sm-4">
-                                    <a target="_blank" href="CreateMaterialMaster.aspx">Note: If Component Material does not exist then click here </a>
-                                </div>
+                            
 
-                            </div>
                             <div id="Div2" class="row" runat="server">
                                 <span class="help-block"></span>
                                 <div class="col-sm-4">
@@ -1190,7 +1175,23 @@
                                     Base Quantity
                                 <asp:TextBox ID="txtBaseQuantity" runat="server" CssClass="form-control"></asp:TextBox>
                                 </div>
-                            </div>
+                                </div>
+                            <span class="help-block"></span>
+                                <div id="Div8" class="row" runat="server">
+                                    <div class="col-sm-10">
+                                        <a target="_blank" href="CreateMaterialMaster.aspx">Note: If Component Material does not exist in SAP then click here to move a new form, Writte down new material field to complete this form</a>
+                                    </div>
+                                </div>
+                            <span class="help-block"></span>
+                                <div class="row" runat="server" id="rbdivAvailable" visible="false">
+                                    <div class="col-sm-12">
+                                        Bom exist for this level&nbsp;
+                       <asp:RadioButtonList ID="rbAvailable" runat="server" RepeatDirection="Horizontal">
+                           <asp:ListItem>Yes</asp:ListItem>
+                           <asp:ListItem Selected="True">No</asp:ListItem>
+                       </asp:RadioButtonList>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -1466,6 +1467,7 @@
                                                 <%--<%# Eval("Numerator") %>--%>
                                             </ItemTemplate>
                                         </asp:TemplateField>
+                                        <asp:BoundField DataField="Available" HeaderText="Component Available" ItemStyle-Width="100px" />
                                     </Columns>
                                 </asp:GridView>
                             </div>

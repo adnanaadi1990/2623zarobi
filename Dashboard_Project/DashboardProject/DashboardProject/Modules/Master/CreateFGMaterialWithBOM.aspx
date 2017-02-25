@@ -120,10 +120,10 @@
                 });
             });
         };
-
+        
         /////////////////////////////////////////////////////////////////////////////////////////////////
         function pageLoad() {
-            $('[id*=txtStandardPrice],[id*=txtCustomerNo],[id*=txtBaseQuantity],[id$=txtMaterial],[id*=txtNumerator],[id*=txtDenominator],[id*=txtVolume],[id*=txtLenght],[id*=txtWidth],[id*=txtheight],[id*=txtGROSSWEIGHT] ,[id*=txtNETWEIGHT],[id*=txtVolume],[id*=txtNumeratorValue],[id*=txtDenominatorValue],[id*=txtReoderPoint],[id*=txtPlannedDeliveryTimeInDays],[id*=txtInHouseProductionTimeInDays],[id*=txtGRPROCESSINGTIMEINDAYS],[id*=txtSafetyStock],[id*=txtOverDeliveryTollerance],[id*=txtExcessWeightTolerance],[id*=txtUnderDeliveryTollerance],[id*=txtExcessVolumeTolerance],[id*=txtSMC]').keyup(function () {
+            $('[id*=txtStandardPrice],[id*=txtCustomerNo],[id*=txtBaseQuantity],[id$=txtQuantity],[id*=txtNumerator],[id*=txtDenominator],[id*=txtVolume],[id*=txtLenght],[id*=txtWidth],[id*=txtheight],[id*=txtGROSSWEIGHT] ,[id*=txtNETWEIGHT],[id*=txtVolume],[id*=txtNumeratorValue],[id*=txtDenominatorValue],[id*=txtReoderPoint],[id*=txtPlannedDeliveryTimeInDays],[id*=txtInHouseProductionTimeInDays],[id*=txtGRPROCESSINGTIMEINDAYS],[id*=txtSafetyStock],[id*=txtOverDeliveryTollerance],[id*=txtExcessWeightTolerance],[id*=txtUnderDeliveryTollerance],[id*=txtExcessVolumeTolerance],[id*=txtSMC]').keyup(function () {
                 if (this.value.match(/[^,.0-9 ]/g)) {
                     this.value = this.value.replace(/[^,.0-9 ]/g, '');
                 }
@@ -1137,21 +1137,8 @@
                     </div>
                     <div id="Div4" class="panel-collapse collapse in">
                         <div class="panel-body">
-                            <span class="help-block"></span>
-                            <div id="Div8" class="row" runat="server">
-                                <div class="col-sm-4">
-                                    <a target="_blank" href="CreateMaterialMaster.aspx">Note: If Component Material does not exist then click here </a>
-                                </div>
-                            </div>
-                            <div class="row" runat="server" id="rbdivAvailable" visible="false">
-                                <div class="col-sm-12">
-                                    Component Material Available&nbsp;
-                       <asp:RadioButtonList ID="rbAvailable" runat="server" RepeatDirection="Horizontal">
-                           <asp:ListItem>Yes</asp:ListItem>
-                           <asp:ListItem Selected="True">No</asp:ListItem>
-                       </asp:RadioButtonList>
-                                </div>
-                            </div>
+                            
+
                             <div id="Div2" class="row" runat="server">
                                 <span class="help-block"></span>
                                 <div class="col-sm-4">
@@ -1188,7 +1175,23 @@
                                     Base Quantity
                                 <asp:TextBox ID="txtBaseQuantity" runat="server" CssClass="form-control"></asp:TextBox>
                                 </div>
-                            </div>
+                                </div>
+                            <span class="help-block"></span>
+                                <div id="Div8" class="row" runat="server">
+                                    <div class="col-sm-10">
+                                        <a target="_blank" href="CreateMaterialMaster.aspx">Note: If Component Material does not exist in SAP then click here to move a new form, Writte down "new" in material field below to complete this form</a>
+                                    </div>
+                                </div>
+                            <span class="help-block"></span>
+                                <div class="row" runat="server" id="rbdivAvailable" visible="false">
+                                    <div class="col-sm-12">
+                                        Bom exist for this level&nbsp;
+                       <asp:RadioButtonList ID="rbAvailable" runat="server" RepeatDirection="Horizontal">
+                           <asp:ListItem>Yes</asp:ListItem>
+                           <asp:ListItem Selected="True">No</asp:ListItem>
+                       </asp:RadioButtonList>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </div>

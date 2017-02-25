@@ -665,6 +665,11 @@ namespace DashboardProject.Modules.Master
                             QM.Visible = true;
                             MRP.Visible = true;
                             Account.Visible = true;
+                            txtSMC.Enabled = false;
+                            lblSap.Visible = true;
+                            txtSMC.Visible = true;
+                            dvLock.Visible = true;
+                            chkLock.Enabled = false;
                             dvBillofMaterialsDisplay.Visible = true;
                             btnApprover.Visible = false;
                             btnSubmitStiching.Visible = false;
@@ -3912,7 +3917,7 @@ namespace DashboardProject.Modules.Master
                     int aa = cmd.ExecuteNonQuery();
                     if (aa > 0)
                     {
-                        lblmessage.Text = "Record updated sucessfully!";
+                        lblmessage.Text = "Record updated sucessfully you are now required to approve the form!";
                         lblmessage.Focus();
                         sucess.Visible = true;
                         error.Visible = false;
@@ -5557,7 +5562,7 @@ namespace DashboardProject.Modules.Master
                             if (txtRemarksReview.Text == "")
                             {
                                 lblmessage.Text = "";
-                                lblUpError.Text = "If Available Check Yes then Remarks should not be left blank!.";
+                                lblUpError.Text = "If Bom already exist then please update the Remarks at the bottom of this form!.";
                                 sucess.Visible = false;
                                 error.Visible = true;
                                 lblmessage.Focus();
@@ -5574,7 +5579,12 @@ namespace DashboardProject.Modules.Master
                                 ApplicationStatus();
                                 BindsysApplicationStatus();
                                 GetStatusHierachyCategoryControls();
+                                lblmessage.Focus();
+                                error.Visible = false;
+                                sucess.Visible = false;
+                                txtRemarksReview.BackColor = System.Drawing.Color.AliceBlue;
                                 Page.MaintainScrollPositionOnPostBack = true;
+                                Page.MaintainScrollPositionOnPostBack = false;
                                 lblEmail.Focus();
                                 return;
                             }
@@ -5596,7 +5606,10 @@ namespace DashboardProject.Modules.Master
                         ApplicationStatus();
                         BindsysApplicationStatus();
                         GetStatusHierachyCategoryControls();
-                        Page.MaintainScrollPositionOnPostBack = true;
+                        lblmessage.Focus();
+                        error.Visible = false;
+                        sucess.Visible = true;
+                        Page.MaintainScrollPositionOnPostBack = false;
                         lblEmail.Focus();
 
                     }
