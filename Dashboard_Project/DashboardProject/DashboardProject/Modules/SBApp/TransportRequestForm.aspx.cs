@@ -1866,7 +1866,7 @@ namespace ITLDashboard.Modules.SBApp
                     {
                         //string SplitString = "";
                         //string input = EmailBody.ToString(); ;
-                        //SplitString = input.Substring(input.IndexOf(',') + 1);
+                        //SplitString = input.Substring(input.IndexOf(',') + 1);get
                         connection.Open();
                         cmdInsertEmail.Parameters.AddWithValue("@TransactionID", TransactionID.ToString());
                         cmdInsertEmail.Parameters.AddWithValue("@FormCode", FormID.ToString());

@@ -120,10 +120,10 @@
                 });
             });
         };
-
+        
         /////////////////////////////////////////////////////////////////////////////////////////////////
         function pageLoad() {
-            $('[id*=txtStandardPrice],[id*=txtCustomerNo],[id*=txtBaseQuantity],[id$=txtMaterial],[id*=txtNumerator],[id*=txtDenominator],[id*=txtVolume],[id*=txtLenght],[id*=txtWidth],[id*=txtheight],[id*=txtGROSSWEIGHT] ,[id*=txtNETWEIGHT],[id*=txtVolume],[id*=txtNumeratorValue],[id*=txtDenominatorValue],[id*=txtReoderPoint],[id*=txtPlannedDeliveryTimeInDays],[id*=txtInHouseProductionTimeInDays],[id*=txtGRPROCESSINGTIMEINDAYS],[id*=txtSafetyStock],[id*=txtOverDeliveryTollerance],[id*=txtExcessWeightTolerance],[id*=txtUnderDeliveryTollerance],[id*=txtExcessVolumeTolerance],[id*=txtSMC]').keyup(function () {
+            $('[id*=txtStandardPrice],[id*=txtCustomerNo],[id*=txtBaseQuantity],[id$=txtQuantity],[id*=txtNumerator],[id*=txtDenominator],[id*=txtVolume],[id*=txtLenght],[id*=txtWidth],[id*=txtheight],[id*=txtGROSSWEIGHT] ,[id*=txtNETWEIGHT],[id*=txtVolume],[id*=txtNumeratorValue],[id*=txtDenominatorValue],[id*=txtReoderPoint],[id*=txtPlannedDeliveryTimeInDays],[id*=txtInHouseProductionTimeInDays],[id*=txtGRPROCESSINGTIMEINDAYS],[id*=txtSafetyStock],[id*=txtOverDeliveryTollerance],[id*=txtExcessWeightTolerance],[id*=txtUnderDeliveryTollerance],[id*=txtExcessVolumeTolerance],[id*=txtSMC]').keyup(function () {
                 if (this.value.match(/[^,.0-9 ]/g)) {
                     this.value = this.value.replace(/[^,.0-9 ]/g, '');
                 }
@@ -1179,7 +1179,7 @@
                             <span class="help-block"></span>
                                 <div id="Div8" class="row" runat="server">
                                     <div class="col-sm-10">
-                                        <a target="_blank" href="CreateMaterialMaster.aspx">Note: If Component Material does not exist in SAP then click here to move a new form, Writte down new material field to complete this form</a>
+                                        <a target="_blank" href="CreateMaterialMaster.aspx">Note: If Component Material does not exist in SAP then click here to move a new form, Writte down "new" in material field below to complete this form</a>
                                     </div>
                                 </div>
                             <span class="help-block"></span>
