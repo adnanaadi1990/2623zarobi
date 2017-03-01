@@ -1427,7 +1427,7 @@ namespace DashboardProject.Modules.Master
                 cmd.Parameters.AddWithValue("@TransID", lblMaxTransactionID.Text);
                 conn.Open();
                 int a = cmd.ExecuteNonQuery();
-                if (a == 1)
+                if (a > 1)
                 {
                     EmailWorkFirstHaracheyMDA();
                     ApplicationStatus();
