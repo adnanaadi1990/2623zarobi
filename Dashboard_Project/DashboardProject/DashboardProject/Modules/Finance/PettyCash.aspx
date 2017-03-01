@@ -220,7 +220,7 @@
                                        </asp:DropDownList>
                                 </div>
                                 <div class="col-sm-4">
-                                    C.A
+                                    C.F.O
                                        <asp:DropDownList ID="ddlEmailApproval3rd" CssClass="form-control" runat="server">
                                        </asp:DropDownList>
                                 </div>

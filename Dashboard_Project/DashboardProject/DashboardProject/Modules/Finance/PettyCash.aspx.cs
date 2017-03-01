@@ -499,7 +499,7 @@ namespace ITLDashboard.Modules.Finance
 
                 conn.Close();
 
-                cmd.CommandText = "SELECT * FROM tbluser where Designation = 'Cheif Accountant'";
+                cmd.CommandText = "SELECT * FROM tbluser where Designation like '%Cheif Financial Officer%'";
                 //   cmd.CommandText = "SELECT * FROM tbluser where user_name = 'test.two'";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
@@ -525,7 +525,7 @@ namespace ITLDashboard.Modules.Finance
                 conn.Close();
                 //  ddlEmailMDA.Items.Insert(0, new ListItem("------Select------", "0"));
 
-                cmd.CommandText = " SELECT user_name,DisplayName FROM tbl_EmailToSpecificPerson where FormID = '201'";
+                cmd.CommandText = "SELECT user_name,DisplayName FROM tbl_EmailToSpecificPerson where FormID = '201'";
                 //cmd.CommandText = "SELECT * FROM tbluser where user_name = 'abdul.qadir'";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conn;
