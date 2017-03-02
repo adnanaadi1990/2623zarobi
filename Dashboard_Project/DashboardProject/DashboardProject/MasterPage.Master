@@ -1,4 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="ITLDashboard.MasterPage" %>
+
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 
 
@@ -6,15 +7,17 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    
-        <meta charset="utf-8" />
+
+    <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge " />
     <meta name="viewport" content="width=device-width, initial-scale=1 " />
     <meta name="description" content=" " />
     <meta name="author" content=" " />
 
     <title>ITL (DASHBOARD)</title>
-   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+    <script src=" https://raw.githubusercontent.com/juancgarcia/screenshotify/master/Downloadify-652377f/js/jquery.plugin.html2canvas.js"></script>
+
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet " />
 
     <link href=".bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet " />
@@ -23,90 +26,116 @@
 
     <!-- Custom Fonts -->
     <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css " />
-  <script type="text/javascript">
-      $('#lnkMain').click(function () {
-          alert("sadasd");
-          window.location = "../../Main.aspx";
-          // $( '#div_welcome_text' ).hide();
-          // $( '#div_about' ).show();
-          //  $( '#div_library' ).hide();
-          $('#div_contact').hide();
-      });
-  </script>
-    <asp:ContentPlaceHolder id="head" runat="server">
+    <script type="text/javascript">
+        $('#lnkMain').click(function () {
+            alert("sadasd");
+            window.location = "../../Main.aspx";
+            // $( '#div_welcome_text' ).hide();
+            // $( '#div_about' ).show();
+            //  $( '#div_library' ).hide();
+            $('#div_contact').hide();
+        });
+    </script>
+    <script>
+        function Capture() {
+            html2canvas(document.body, {
+                onrendered: function(canvas) {
+                    var img = canvas.toDataURL()
+                    window.open(img);
+                },
+                width: 1349,
+                height: 3500
+            });
+        };
+    </script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
+
     <form id="form1" runat="server">
-    <div id="wrapper">
 
-      
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-          
 
- <ul class="nav navbar-top-links navbar-left">
-           <img id="Img1" src="~/img/portfolio/paper-planes7.png" width="73" runat="server" />
-            </ul>
-              <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">INTERNATIONAL TEXTILE LTD</a>
-            </div>
-           
-            <ul class="nav navbar-top-links navbar-right">
-                <asp:Label runat="server" ID="lblUSerName" Font-Bold="True" Font-Names="Arial Narrow" Font-Size="Medium" ForeColor="Black"></asp:Label>
-                 <li><a style="font-weight:bold; text-decoration:underline;" href='javascript:history.go(-2)'>Go Back</a> </li>
-                     
-                     <asp:LinkButton ID="lnkMain" runat="server" OnClick="lnkMain_Click" Visible="false"><i class="fa fa fa-home"></i>Main Page</asp:LinkButton>
-                       
-                 <li><asp:LinkButton ID="lnklogout" runat="server" OnClick="lnklogout_Click"><i class="fa fa-sign-out fa-fw"></i>Logout</asp:LinkButton>
-                        </li>
-                    
+
+        <div id="wrapper">
+
+
+
+            <%-- The screen shot will be displayed inside div canvas --%>
+            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+
+
+                <ul class="nav navbar-top-links navbar-left">
+                    <img id="Img1" src="~/img/portfolio/paper-planes7.png" width="73" runat="server" />
+                </ul>
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">INTERNATIONAL TEXTILE LTD</a>
+                </div>
+
+                <ul class="nav navbar-top-links navbar-right">
+
+                    <asp:Label runat="server" ID="lblUSerName" Font-Bold="True" Font-Names="Arial Narrow" Font-Size="Medium" ForeColor="Black"></asp:Label>
+                    <li><a style="font-weight: bold; text-decoration: underline;" href='javascript:history.go(-2)'>Go Back</a> </li>
+
+                    <li>
+                        <asp:LinkButton ID="lnkMain" runat="server" OnClick="lnkMain_Click" Visible="false"><i class="fa fa fa-home"></i>Main Page</asp:LinkButton>
+                    </li>
+                    <li>
+                        <button class="btn btn-default btn-sm" id="btnGet" type="button" onclick="Capture()"><span class="glyphicon glyphicon-modal-window"></span>GetPicture</button>
+                        <%--<input id="btnGet" type="button" value="GetPicture" onclick='Capture()' />--%></li>
+                    <li>
+                        <asp:LinkButton ID="lnklogout" runat="server" OnClick="lnklogout_Click"><i class="fa fa-sign-out fa-fw"></i>Logout</asp:LinkButton>
+                    </li>
+
                     <!-- /.dropdown-user -->
-              
-                <!-- /.dropdown -->
-            </ul>
-            <!-- /.navbar-top-links -->
 
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li class="sidebar-search" style="background-image:url(/Images/logo.png)">
-                            
-                            <div class="input-group custom-search-form" id="dvSearchbtn" runat="server">
-                               
-                               
-                                <asp:TextBox ID="txtSearch" runat="server" placeholder="Search..." CssClass="form-control" />
-                                <span class="input-group-btn">
-                                    <asp:LinkButton ID="btnTcodeSearch" CssClass="btn btn-default" runat="server" OnClick="btnTcodeSearch_Click">
+                    <!-- /.dropdown -->
+                </ul>
+                <!-- /.navbar-top-links -->
+
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <li class="sidebar-search" style="background-image: url(/Images/logo.png)">
+
+                                <div class="input-group custom-search-form" id="dvSearchbtn" runat="server">
+
+
+                                    <asp:TextBox ID="txtSearch" runat="server" placeholder="Search..." CssClass="form-control" />
+                                    <span class="input-group-btn">
+                                        <asp:LinkButton ID="btnTcodeSearch" CssClass="btn btn-default" runat="server" OnClick="btnTcodeSearch_Click">
                                         <i class="fa fa-search"></i>
-                                    </asp:LinkButton>
-                                </span>
-                            </div>
-                            <!-- /input-group -->
-                            
-                        </li>
-                        
-                       
-                          
+                                        </asp:LinkButton>
+                                    </span>
+                                </div>
+                                <!-- /input-group -->
+
+                            </li>
+
+
+
                             <ul class="nav nav-second-level">
                                 <li>
                                     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
-                       
-                    </ul> <telerik:RadTreeView ID="RadTreeView1" runat="server" OnNodeClick="RadTreeView1_NodeClick">
-                                               <DataBindings>
-                    <telerik:RadTreeNodeBinding Expanded="True"></telerik:RadTreeNodeBinding>
-                </DataBindings>
 
-                           </telerik:RadTreeView>
-  <%--<ul class="nav nav-pills nav-stacked">
+                        </ul>
+                        <telerik:RadTreeView ID="RadTreeView1" runat="server" OnNodeClick="RadTreeView1_NodeClick">
+                            <DataBindings>
+                                <telerik:RadTreeNodeBinding Expanded="True"></telerik:RadTreeNodeBinding>
+                            </DataBindings>
+
+                        </telerik:RadTreeView>
+                        <%--<ul class="nav nav-pills nav-stacked">
         <li class="active"><a href="#">Home</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">New Form <span class="caret"></span></a>
@@ -122,40 +151,45 @@
      
        
       </ul>--%>
+                    </div>
+
+                    <!-- /.sidebar-collapse -->
                 </div>
-              
-                <!-- /.sidebar-collapse -->
-            </div>
-            <!-- /.navbar-static-side -->
-        </nav>
+                <!-- /.navbar-static-side -->
+            </nav>
 
-        <!-- Page Content -->
-        <div id="page-wrapper">
-            <div class="container-fluid">
-               <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
-        
-        </asp:ContentPlaceHolder>
-                <!-- /.row -->
+            <!-- Page Content -->
+            <div id="page-wrapper">
+                <div class="container-fluid">
+
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                      
+                        <div id="canvas">
+                        </div>
+                    </asp:ContentPlaceHolder>
+
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
             </div>
-            <!-- /.container-fluid -->
+            <!-- /#page-wrapper -->
+
         </div>
-        <!-- /#page-wrapper -->
+        <!-- /#wrapper -->
 
-    </div>
-    <!-- /#wrapper -->
+        <!-- jQuery -->
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
 
-    <!-- jQuery -->
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-    <!-- Custom Theme JavaScript -->
+        <!-- Custom Theme JavaScript -->
 
         <script src="dist/js/sb-admin-2.js"></script>
+
     </form>
 </body>
 </html>
