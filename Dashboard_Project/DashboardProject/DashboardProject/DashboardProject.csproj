@@ -751,6 +751,7 @@
     <Content Include="Modules\SBApp\TransportRequestForm.aspx" />
     <Content Include="Modules\SBApp\UserAuthorizationRequest.aspx" />
     <Content Include="NoRightsUser.aspx" />
+    <Content Include="PowerLogin.aspx" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1440,6 +1441,13 @@
     </Compile>
     <Compile Include="NoRightsUser.aspx.designer.cs">
       <DependentUpon>NoRightsUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PowerLogin.aspx.cs">
+      <DependentUpon>PowerLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PowerLogin.aspx.designer.cs">
+      <DependentUpon>PowerLogin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequiredField.cs" />
