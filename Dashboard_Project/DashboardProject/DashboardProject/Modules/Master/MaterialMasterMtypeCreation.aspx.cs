@@ -1024,6 +1024,7 @@ namespace ITLDashboard.Modules.Master
                             string ac = lines[2].Trim();
                             ddlProdCatg.SelectedValue = aa.ToString();
                             ddlProdCatgsub1.SelectedValue = ab.ToString();
+                            ProductCatgSub();
                             ddlProdCatgsub2.SelectedValue = ac.ToString();
                             ddlDistributionChannel.SelectedValue = reader["DistributionChannel"].ToString();
                             ddlSalesOrg.SelectedValue = reader["SalesOrg"].ToString();
@@ -2528,6 +2529,11 @@ namespace ITLDashboard.Modules.Master
         }
 
         protected void ddlProdCatgsub1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ProductCatgSub();
+        }
+
+        protected void ProductCatgSub()
         {
             try
             {
