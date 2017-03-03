@@ -641,7 +641,7 @@ namespace ITLDashboard.Modules.Master
 
         protected void ddlProdCatg_SelectedIndexChanged(object sender, EventArgs e)
         {
-            String strQuery = "SELECT Distinct  [H2ID],[H2ID]+ ' ' + H2Desc as H2Desc  FROM [dbo].[TBL_ProductHierarchy] where H1ID = @H1ID";
+            String strQuery = @"SELECT Distinct  [H2ID],[H2ID]+ ' ' + H2Desc as H2Desc  FROM [dbo].[TBL_ProductHierarchy] where H1ID = @H1ID";
             using (SqlCommand cmd = new SqlCommand())
             {
                 ds.Clear();
@@ -667,7 +667,7 @@ namespace ITLDashboard.Modules.Master
 
         protected void ddlProdCatgsub1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            String strQuery = "SELECT Distinct  [H3ID] ,[H3ID]+ ' ' + H3Desc as H3Desc  FROM [dbo].[TBL_ProductHierarchy] where H1ID = @H1ID and H2ID =@H2ID";
+            String strQuery = @"SELECT Distinct  [H3ID] ,[H3ID]+ ' ' + H3Desc as H3Desc  FROM [dbo].[TBL_ProductHierarchy] where H1ID = @H1ID and H2ID =@H2ID";
             using (SqlCommand cmd = new SqlCommand())
             {
                 ds.Clear();
@@ -789,26 +789,33 @@ namespace ITLDashboard.Modules.Master
 
         protected void bindMSGfromMG()
         {
-            // string value1 = MG.SelectedValue;
-            string value1 = ddlMG.SelectedValue;
-            ViewState["q"] = value1.ToString().Trim();
-            String strQuery = "SELECT [MaterialSubGroupcode],[MaterialGroupcode],[MaterialSubGroupcode]+ ' ' + Description as Description FROM [dbo].[tblMaterialSubGroup]  where MaterialGroupcode = '" + value1.ToString().Trim() + "'";
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ITLConnection"].ConnectionString))
+            {
+                using (SqlCommand cmdgetMGroup = new SqlCommand())
+                {
+                    // string value1 = MG.SelectedValue;
+                    string value1 = ddlMG.SelectedValue;
+                    ViewState["q"] = value1.ToString().Trim();
+                    String strQuery = "SELECT [MaterialSubGroupcode],[MaterialGroupcode],[MaterialSubGroupcode]+ ' ' + Description as Description FROM [dbo].[tblMaterialSubGroup]  where MaterialGroupcode = @MaterialGroupcode";
 
 
-            ds.Clear();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = strQuery;
-            cmd.Connection = conn;
-            conn.Open();
-            adp.SelectCommand = cmd;
-            ds.Clear();
-            adp.Fill(ds, "MaterialSubGroup");
-            ddlMSG.DataTextField = ds.Tables["MaterialSubGroup"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
-            ddlMSG.DataValueField = ds.Tables["MaterialSubGroup"].Columns["MaterialSubGroupcode"].ToString();             // to retrive specific  textfield name 
-            ddlMSG.DataSource = ds.Tables["MaterialSubGroup"];      //assigning datasource to the dropdownlist
-            ddlMSG.DataBind();  //binding dropdownlist
-            ddlMSG.Items.Insert(0, new ListItem("------Select------", "0"));
-            conn.Close();
+                    ds.Clear();
+                    cmdgetMGroup.CommandType = CommandType.Text;
+                    cmdgetMGroup.Parameters.AddWithValue("@MaterialGroupcode", value1.ToString().Trim());
+                    cmdgetMGroup.CommandText = strQuery;
+                    cmdgetMGroup.Connection = connection;
+                    conn.Open();
+                    adp.SelectCommand = cmdgetMGroup;
+                    ds.Clear();
+                    adp.Fill(ds, "MaterialSubGroup");
+                    ddlMSG.DataTextField = ds.Tables["MaterialSubGroup"].Columns["Description"].ToString(); // text field name of table dispalyed in dropdown
+                    ddlMSG.DataValueField = ds.Tables["MaterialSubGroup"].Columns["MaterialSubGroupcode"].ToString();             // to retrive specific  textfield name 
+                    ddlMSG.DataSource = ds.Tables["MaterialSubGroup"];      //assigning datasource to the dropdownlist
+                    ddlMSG.DataBind();  //binding dropdownlist
+                    ddlMSG.Items.Insert(0, new ListItem("------Select------", "0"));
+                    conn.Close();
+                }
+            }
         }
 
         //-------------------------------------END DROPDOWN EVENTS-------------------------------------------
@@ -1095,10 +1102,10 @@ namespace ITLDashboard.Modules.Master
                     cmdData.CommandText = @"Select a.*,b.MaterialGroupcode +' '+ b.Description as SUBDescription  from tbl_SYS_MaterialMaster as a
                     left outer join [dbo].[tblMaterialSubGroup] as b
                     on CONVERT(char(10), (a.MaterialSubGroup)) = b.MaterialSubGroupcode
-                     where TransactionMain = '" + a.ToString() + "'";
+                     where TransactionMain = @TransactionMain";
                     cmdData.CommandType = CommandType.Text;
                     cmdData.Connection = connection;
-
+                    cmdData.Parameters.AddWithValue("@TransactionMain", a.ToString());
                     adp.SelectCommand = cmdData;
                     dt.Clear();
                     adp.Fill(dt);
@@ -1357,52 +1364,8 @@ namespace ITLDashboard.Modules.Master
             while (reader.Read())
             {
                 reader.Read();
-
-
-                //for (int i = 0; i < ddlPlant.Items.Count; i++)
-                //{
-                //    foreach (string category in reader[4].ToString().Split(','))
-                //    {
-                //        if (category != ddlPlant.Items[i].Value) continue;
-                //        ddlPlant.Items[i].Selected = true;
-                //        break;
-                //    }
-                //}  
                 ddlMG.SelectedValue = reader["MaterialGroup"].ToString();
                 bindMSGfromMG();
-                //  ddlMSG.SelectedValue = reader["MaterialSubGroup"].ToString();
-                //     ddlPurchasingGroup.SelectedValue = reader["Purchasing_Group"].ToString();
-                //string PH = reader[19].ToString();
-                //string[] lines = PH.Split(',');
-                //string aa = lines[0].Trim();
-                //string ab = lines[1].Trim();
-                //string ac = lines[2].Trim();
-                //ddlProdCatg.SelectedValue = aa.ToString().Trim();
-                //ddlProdCatgsub1.SelectedValue = ab.ToString().Trim();
-                //ddlProdCatgsub2.SelectedValue = ac.ToString().Trim();
-
-
-                //    ddlMrpType.SelectedValue = reader["MRPType"].ToString();
-                //   ddlMRPGroup.SelectedValue = reader["MRP_Group"].ToString();
-                //   ddlValuationClass.SelectedValue = reader["ValuationClass"].ToString();
-                //   ddlValuationCategory.SelectedValue = reader["ValuationCategory"].ToString();
-
-
-                //bindSLfromPlant();
-                //for (int i = 0; i < ddlStorageLocation.Items.Count; i++)
-                //{
-                //    foreach (string StorageLocation in reader[53].ToString().Split(','))
-                //    {
-                //        if (StorageLocation != ddlStorageLocation.Items[i].Value) continue;
-                //        ddlStorageLocation.Items[i].Selected = true;
-                //        break;
-                //    }
-                //}
-
-
-
-
-
             }
             reader.Close();
         }
