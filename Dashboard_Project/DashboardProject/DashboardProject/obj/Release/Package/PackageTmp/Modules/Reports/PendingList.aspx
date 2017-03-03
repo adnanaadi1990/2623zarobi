@@ -30,7 +30,16 @@
 
 
         }
+        function pageLoad() {
+            $('[id*=txtfromID],[id*=txtToID]').keyup(function () {
+                if (this.value.match(/[^,.0-9. ]/g)) {
+                    this.value = this.value.replace(/[^.,.0-9. ]/g, '');
+                }
+            });
+        }
     </script>
+
+
     <script type="text/javascript">
         $(function () {
 
@@ -70,7 +79,8 @@
         <div class="panel-group" id="dvPD" runat="server">
             <div id="dvAtt" class="panel panel-default">
                 <div class="panel-heading">
-                    Pending Users List</div>
+                    Pending Users List
+                </div>
                 <div class="panel-collapse collapse in" role="tabpanel">
                     <div class="panel-body">
 
@@ -92,10 +102,10 @@
                             </div>
                         </div>
                     </div>
-                    </div>
                 </div>
             </div>
-       
+        </div>
+
 
 
 
@@ -107,7 +117,7 @@
 
                     <asp:Label ID="lblError" runat="server" Font-Bold="False" ForeColor="Red" Font-Names="Berlin Sans FB"></asp:Label>
                     <asp:Label ID="lblProgress" runat="server" Font-Bold="False" ForeColor="Black" Font-Names="Berlin Sans FB"></asp:Label>
-                    
+
                 </div>
             </div>
             <span class="help-block"></span>

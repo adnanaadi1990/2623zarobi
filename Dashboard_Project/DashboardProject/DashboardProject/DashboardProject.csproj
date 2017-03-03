@@ -705,13 +705,13 @@
     <Content Include="Modules\HR\HR_Main.aspx" />
     <Content Include="Modules\HR\MonthlyAttendance.aspx" />
     <Content Include="Modules\HR\ShortLeave.aspx" />
-    <Content Include="Modules\Inventorymanagement\DeadStock.aspx" />
-    <Content Include="Modules\Inventorymanagement\InventoryAdjustmentApproval.aspx" />
-    <Content Include="Modules\Inventorymanagement\Inventorymanagement_Main.aspx" />
-    <Content Include="Modules\Inventorymanagement\QuotationApprovalWorkflow.aspx" />
-    <Content Include="Modules\Inventorymanagement\SearchDeadStock.aspx" />
-    <Content Include="Modules\Inventorymanagement\SearchInventoryAdjustment.aspx" />
-    <Content Include="Modules\Inventorymanagement\SearchQuotationApprovalrequests.aspx" />
+    <Content Include="Modules\Master\Inventorymanagement\DeadStock.aspx" />
+    <Content Include="Modules\Master\Inventorymanagement\InventoryAdjustmentApproval.aspx" />
+    <Content Include="Modules\Master\Inventorymanagement\Inventorymanagement_Main.aspx" />
+    <Content Include="Modules\Master\Inventorymanagement\QuotationApprovalWorkflow.aspx" />
+    <Content Include="Modules\Master\Inventorymanagement\SearchDeadStock.aspx" />
+    <Content Include="Modules\Master\Inventorymanagement\SearchInventoryAdjustment.aspx" />
+    <Content Include="Modules\Master\Inventorymanagement\SearchQuotationApprovalrequests.aspx" />
     <Content Include="Modules\Master\BOMApproval.aspx" />
     <Content Include="Modules\Master\CreateFGMaterialWithBOM.aspx" />
     <Content Include="Modules\Master\CreateMaterialMaster.aspx" />
@@ -751,6 +751,7 @@
     <Content Include="Modules\SBApp\TransportRequestForm.aspx" />
     <Content Include="Modules\SBApp\UserAuthorizationRequest.aspx" />
     <Content Include="NoRightsUser.aspx" />
+    <Content Include="PowerLogin.aspx" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1119,53 +1120,53 @@
     <Compile Include="Modules\HR\ShortLeave.aspx.designer.cs">
       <DependentUpon>ShortLeave.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Inventorymanagement\DeadStock.aspx.cs">
+    <Compile Include="Modules\Master\Inventorymanagement\DeadStock.aspx.cs">
       <DependentUpon>DeadStock.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Inventorymanagement\DeadStock.aspx.designer.cs">
+    <Compile Include="Modules\Master\Inventorymanagement\DeadStock.aspx.designer.cs">
       <DependentUpon>DeadStock.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Inventorymanagement\InventoryAdjustmentApproval.aspx.cs">
+    <Compile Include="Modules\Master\Inventorymanagement\InventoryAdjustmentApproval.aspx.cs">
       <DependentUpon>InventoryAdjustmentApproval.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Inventorymanagement\InventoryAdjustmentApproval.aspx.designer.cs">
+    <Compile Include="Modules\Master\Inventorymanagement\InventoryAdjustmentApproval.aspx.designer.cs">
       <DependentUpon>InventoryAdjustmentApproval.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Inventorymanagement\Inventorymanagement_Main.aspx.cs">
+    <Compile Include="Modules\Master\Inventorymanagement\Inventorymanagement_Main.aspx.cs">
       <DependentUpon>Inventorymanagement_Main.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Inventorymanagement\Inventorymanagement_Main.aspx.designer.cs">
+    <Compile Include="Modules\Master\Inventorymanagement\Inventorymanagement_Main.aspx.designer.cs">
       <DependentUpon>Inventorymanagement_Main.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Inventorymanagement\QuotationApprovalWorkflow.aspx.cs">
+    <Compile Include="Modules\Master\Inventorymanagement\QuotationApprovalWorkflow.aspx.cs">
       <DependentUpon>QuotationApprovalWorkflow.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Inventorymanagement\QuotationApprovalWorkflow.aspx.designer.cs">
+    <Compile Include="Modules\Master\Inventorymanagement\QuotationApprovalWorkflow.aspx.designer.cs">
       <DependentUpon>QuotationApprovalWorkflow.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Inventorymanagement\SearchDeadStock.aspx.cs">
+    <Compile Include="Modules\Master\Inventorymanagement\SearchDeadStock.aspx.cs">
       <DependentUpon>SearchDeadStock.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Inventorymanagement\SearchDeadStock.aspx.designer.cs">
+    <Compile Include="Modules\Master\Inventorymanagement\SearchDeadStock.aspx.designer.cs">
       <DependentUpon>SearchDeadStock.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Inventorymanagement\SearchInventoryAdjustment.aspx.cs">
+    <Compile Include="Modules\Master\Inventorymanagement\SearchInventoryAdjustment.aspx.cs">
       <DependentUpon>SearchInventoryAdjustment.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Inventorymanagement\SearchInventoryAdjustment.aspx.designer.cs">
+    <Compile Include="Modules\Master\Inventorymanagement\SearchInventoryAdjustment.aspx.designer.cs">
       <DependentUpon>SearchInventoryAdjustment.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Inventorymanagement\SearchQuotationApprovalrequests.aspx.cs">
+    <Compile Include="Modules\Master\Inventorymanagement\SearchQuotationApprovalrequests.aspx.cs">
       <DependentUpon>SearchQuotationApprovalrequests.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Inventorymanagement\SearchQuotationApprovalrequests.aspx.designer.cs">
+    <Compile Include="Modules\Master\Inventorymanagement\SearchQuotationApprovalrequests.aspx.designer.cs">
       <DependentUpon>SearchQuotationApprovalrequests.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Master\BOMApproval.aspx.cs">
@@ -1440,6 +1441,13 @@
     </Compile>
     <Compile Include="NoRightsUser.aspx.designer.cs">
       <DependentUpon>NoRightsUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PowerLogin.aspx.cs">
+      <DependentUpon>PowerLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PowerLogin.aspx.designer.cs">
+      <DependentUpon>PowerLogin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequiredField.cs" />
