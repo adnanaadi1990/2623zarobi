@@ -77,8 +77,11 @@ namespace ITLDashboard
                 {
                     if (user.StartsWith("ITL"))
                     {
-                        Session["User_Name"] = Environment.UserName.ToString();
+                        //Session["User_Name"] = Environment.UserName.ToString();
 
+                        Session["User_Name"] = Environment.UserName.ToString();
+                           // Session["User_Name"] = Environment..ToString();
+                        
                         Response.Redirect("Main.aspx");
                     }
 
