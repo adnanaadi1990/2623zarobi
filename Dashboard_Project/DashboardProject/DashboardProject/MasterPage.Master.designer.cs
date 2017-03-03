@@ -49,6 +49,15 @@ namespace ITLDashboard {
         protected global::System.Web.UI.HtmlControls.HtmlImage Img1;
         
         /// <summary>
+        /// navbr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl navbr;
+        
+        /// <summary>
         /// lblUSerName control.
         /// </summary>
         /// <remarks>
