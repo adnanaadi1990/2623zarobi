@@ -43,8 +43,8 @@
                     var img = canvas.toDataURL()
                     window.open(img);
                 },
-                width: 1349,
-                height: 3500
+                width: 1349
+                //height: auto,
             });
         };
     </script>
@@ -79,7 +79,7 @@
                     <a class="navbar-brand" href="#">INTERNATIONAL TEXTILE LTD</a>
                 </div>
 
-                <ul class="nav navbar-top-links navbar-right">
+                <ul class="nav navbar-top-links navbar-right" runat="server" id="navbr">
 
                     <asp:Label runat="server" ID="lblUSerName" Font-Bold="True" Font-Names="Arial Narrow" Font-Size="Medium" ForeColor="Black"></asp:Label>
                     <li><a style="font-weight: bold; text-decoration: underline;" href='javascript:history.go(-2)'>Go Back</a> </li>
