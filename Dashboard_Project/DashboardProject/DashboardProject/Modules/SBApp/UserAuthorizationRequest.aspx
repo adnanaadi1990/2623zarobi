@@ -255,7 +255,7 @@
                                        <asp:DropDownList ID="ddlReviewer" runat="server" CssClass="form-control" CausesValidation="True"></asp:DropDownList>
                             </div>
                             <div class="col-sm-3">
-                                Function Consultant
+                                Functional Consultant
                                        <asp:DropDownList ID="ddlFC" SelectionMode="Multiple" CssClass="form-control" runat="server"></asp:DropDownList>
                             </div>
                             <div class="col-sm-3">
