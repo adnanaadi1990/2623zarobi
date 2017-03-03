@@ -757,7 +757,7 @@ namespace ITLDashboard.Modules.Master
             dvSMC.Visible = false;
             sucess.Visible = false;
             error.Visible = false;
-            
+
             int aa;
             int ab;
             ab = 0;
@@ -2935,7 +2935,7 @@ namespace ITLDashboard.Modules.Master
                     {
                         dtCurrentTable.Rows[i]["TransactionID"] = lblMaxTransactionID.Text;
                         dtCurrentTable.AcceptChanges();
-                        
+
                         int ResultSequance = 0;
 
                         int Value = Convert.ToInt32(dtCurrentTable.Rows[i]["sno"]);
@@ -3182,44 +3182,14 @@ namespace ITLDashboard.Modules.Master
         {
             try
             {
-            string HierachyCategoryStatus = "02";
-            ds = obj.MailForwardFormApprover(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
-            string Value = ds.Tables["MailForwardFormApprover"].Rows[0]["HierachyCategory"].ToString();
-            DataTableReader reader = ds.Tables["MailForwardFormApprover"].CreateDataReader();
-            if (ds.Tables["MailForwardFormApprover"].Rows.Count > 0 && Value == "2")
-            {
-                while (reader.Read())
-                {
-                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local");
-                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110");
-                    TransactionID = reader["TransactionID"].ToString();
-                    FormCode = reader["FormID"].ToString();
-                    UserName = reader["user_name"].ToString();
-                    UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
-                    EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new material creation request against Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are kind approval is required for the information on the following URL: <br>  <br>" +
-                    "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
-                    "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
-                    "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                    "<br>Material Master Application <br> Information Systems Dashboard";
-                    SessionUser = Session["User_Name"].ToString();
-                    DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-                    InsertEmail();
-                    lblEmail.Text = "*New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
-                    ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
-                    lblEmail.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    Page.MaintainScrollPositionOnPostBack = true;
-                    lblEmail.Focus();
-                }
-            }
-            else
-            {
-                if (ds.Tables["MailForwardFormApprover"].Rows.Count > 0)
+                string HierachyCategoryStatus = "02";
+                ds = obj.MailForwardFormApprover(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
+                string Value = ds.Tables["MailForwardFormApprover"].Rows[0]["HierachyCategory"].ToString();
+                DataTableReader reader = ds.Tables["MailForwardFormApprover"].CreateDataReader();
+                if (ds.Tables["MailForwardFormApprover"].Rows.Count > 0 && Value == "2")
                 {
                     while (reader.Read())
                     {
-
                         url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local");
                         urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110");
                         TransactionID = reader["TransactionID"].ToString();
@@ -3227,7 +3197,7 @@ namespace ITLDashboard.Modules.Master
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                         EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new material creation request against Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to create a material code on the following URL: <br>  <br>" +
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new material creation request against Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are kind approval is required for the information on the following URL: <br>  <br>" +
                         "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
                         "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
                         "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
@@ -3235,15 +3205,45 @@ namespace ITLDashboard.Modules.Master
                         SessionUser = Session["User_Name"].ToString();
                         DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                         InsertEmail();
-                        ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
                         lblEmail.Text = "*New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
+                        ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
                         lblEmail.Focus();
                         Page.MaintainScrollPositionOnPostBack = false;
                         Page.MaintainScrollPositionOnPostBack = true;
                         lblEmail.Focus();
                     }
                 }
-            }
+                else
+                {
+                    if (ds.Tables["MailForwardFormApprover"].Rows.Count > 0)
+                    {
+                        while (reader.Read())
+                        {
+
+                            url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local");
+                            urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110");
+                            TransactionID = reader["TransactionID"].ToString();
+                            FormCode = reader["FormID"].ToString();
+                            UserName = reader["user_name"].ToString();
+                            UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
+                            EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
+                            EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new material creation request against Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to create a material code on the following URL: <br>  <br>" +
+                            "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
+                            "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
+                            "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                            "<br>Material Master Application <br> Information Systems Dashboard";
+                            SessionUser = Session["User_Name"].ToString();
+                            DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                            InsertEmail();
+                            ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
+                            lblEmail.Text = "*New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
+                            lblEmail.Focus();
+                            Page.MaintainScrollPositionOnPostBack = false;
+                            Page.MaintainScrollPositionOnPostBack = true;
+                            lblEmail.Focus();
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -3256,63 +3256,63 @@ namespace ITLDashboard.Modules.Master
         {
             try
             {
-            string HierachyCategoryStatus = "06";
-            ds = obj.MailForwardFormApprover(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
-            string Value = ds.Tables["MailForwardFormApprover"].Rows[0]["HierachyCategory"].ToString();
-            DataTableReader reader = ds.Tables["MailForwardFormApprover"].CreateDataReader();
-            if (ds.Tables["MailForwardFormApprover"].Rows.Count > 0 && Value == "2")
-            {
-                while (reader.Read())
-                {
-                    url = Request.Url.ToString();
-                    TransactionID = reader["TransactionID"].ToString();
-                    FormCode = reader["FormID"].ToString();
-                    UserName = reader["user_name"].ToString();
-                    UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
-                    EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new material creation request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been forward by by " + ViewState["SessionUser"].ToString() + " <br> <br> You are kind approval is required for the information on the following URL: <br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                        "<br>Material Master Application <br> Information Systems Dashboard";
-                    SessionUser = Session["User_Name"].ToString();
-                    DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-                    InsertEmail();
-
-                    lblEmail.Text = "*New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
-                    ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
-                    lblEmail.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    Page.MaintainScrollPositionOnPostBack = true;
-                    lblEmail.Focus();
-                }
-
-
-            }
-            else
-            {
-                if (ds.Tables["MailForwardFormApprover"].Rows.Count > 0)
+                string HierachyCategoryStatus = "06";
+                ds = obj.MailForwardFormApprover(Session["User_Name"].ToString(), lblMaxTransactionID.Text, FormID.ToString());
+                string Value = ds.Tables["MailForwardFormApprover"].Rows[0]["HierachyCategory"].ToString();
+                DataTableReader reader = ds.Tables["MailForwardFormApprover"].CreateDataReader();
+                if (ds.Tables["MailForwardFormApprover"].Rows.Count > 0 && Value == "2")
                 {
                     while (reader.Read())
                     {
-
                         url = Request.Url.ToString();
                         TransactionID = reader["TransactionID"].ToString();
                         FormCode = reader["FormID"].ToString();
                         UserName = reader["user_name"].ToString();
                         UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
                         EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new material creation request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br><br> You are requested to create a material code information on the following URL:<br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message.<br>" +
-                             "Material Master Application <br> Information Systems Dashboard";
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new material creation request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been forward by by " + ViewState["SessionUser"].ToString() + " <br> <br> You are kind approval is required for the information on the following URL: <br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
+                            "<br>Material Master Application <br> Information Systems Dashboard";
                         SessionUser = Session["User_Name"].ToString();
                         DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                         InsertEmail();
-                        ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
+
                         lblEmail.Text = "*New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
+                        ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
                         lblEmail.Focus();
                         Page.MaintainScrollPositionOnPostBack = false;
                         Page.MaintainScrollPositionOnPostBack = true;
                         lblEmail.Focus();
                     }
+
+
                 }
-            }
+                else
+                {
+                    if (ds.Tables["MailForwardFormApprover"].Rows.Count > 0)
+                    {
+                        while (reader.Read())
+                        {
+
+                            url = Request.Url.ToString();
+                            TransactionID = reader["TransactionID"].ToString();
+                            FormCode = reader["FormID"].ToString();
+                            UserName = reader["user_name"].ToString();
+                            UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
+                            EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
+                            EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new material creation request against  Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been approved by " + ViewState["SessionUser"].ToString() + " <br><br> You are requested to create a material code information on the following URL:<br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br> This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message.<br>" +
+                                 "Material Master Application <br> Information Systems Dashboard";
+                            SessionUser = Session["User_Name"].ToString();
+                            DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                            InsertEmail();
+                            ViewState["Status"] = HierachyCategoryStatus.ToString(); // For Status Approved
+                            lblEmail.Text = "*New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been approved by you";
+                            lblEmail.Focus();
+                            Page.MaintainScrollPositionOnPostBack = false;
+                            Page.MaintainScrollPositionOnPostBack = true;
+                            lblEmail.Focus();
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -3325,37 +3325,35 @@ namespace ITLDashboard.Modules.Master
         {
             try
             {
-            ds = obj.MailForwardToUserOnRejection(lblMaxTransactionID.Text, FormID.ToString());
+                ds = obj.MailForwardToUserOnRejection(lblMaxTransactionID.Text, FormID.ToString());
 
-            if (ds.Tables["MailForwardToUserOnRejection"].Rows.Count > 0)
-            {
-                DataTableReader reader = ds.Tables["MailForwardToUserOnRejection"].CreateDataReader();
-                while (reader.Read())
+                if (ds.Tables["MailForwardToUserOnRejection"].Rows.Count > 0)
                 {
+                    DataTableReader reader = ds.Tables["MailForwardToUserOnRejection"].CreateDataReader();
+                    while (reader.Read())
+                    {
 
-                    url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local");
-                    urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110");
-                    TransactionID = reader["TransactionID"].ToString();
-                    FormCode = reader["FormID"].ToString();
-                    UserName = reader["user_name"].ToString();
-                    UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
-                    EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
-                    EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br> A new material creation request against Form ID #  " + lblMaxTransactionID.Text.ToString() + " has been disapproved by " + ViewState["SessionUser"].ToString() + " <br> <br> You are requested to create a material code on the following URL: <br>  <br>" +
-                    "The form can be reviewed at the following URL within ITL Network:<br><a href =" + url.ToString() + ">" + url.ToString() + "</a> <br> <br>" +
-                    "To access the form outside ITL network, please use the following URL:<br><a href =" + urlMobile.ToString() + ">" + urlMobile.ToString() + "</a> <br> <br> " +
-                    "<br> <br> <br><b>Reject Remarks: " + txtRemarksReview.Text + "</b> " +
-                    "This is an auto-generated email from IS Dashboard,<br> you do not need to reply to this message." +
-                    "<br>Material Master Application <br> Information Systems Dashboard";
-                    SessionUser = Session["User_Name"].ToString();
-                    DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-                    InsertEmail();
-                    ViewState["Status"] = "00"; // For Status Reject
-                    lblEmail.Text = "*New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been rejected by you";
-                    lblEmail.Focus();
-                    Page.MaintainScrollPositionOnPostBack = false;
-                    Page.MaintainScrollPositionOnPostBack = true;
+                        url = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "dashboard.itl.local");
+                        urlMobile = Request.Url.ToString().Replace(HttpContext.Current.Request.Url.Authority, "125.209.88.218:3110");
+                        TransactionID = reader["TransactionID"].ToString();
+                        FormCode = reader["FormID"].ToString();
+                        UserName = reader["user_name"].ToString();
+                        UserEmail = reader["user_email"].ToString(); //ViewState["SessionUser"].ToString();
+                        EmailSubject = "New Material Creation Request – Form ID # " + lblMaxTransactionID.Text.ToString() + "";
+                        EmailBody = "Dear Mr " + "" + UserName.ToString() + ",<br> <br>  Your new material creation request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been disapproved by  " + ViewState["SessionUser"].ToString() + " <br><br> The reason of rejection is given below you can review your form on following url:<br><br>  <a href =" + url.ToString() + ">" + url.ToString() + "</a>" +
+                                      "<br> <br> <br><b>Reject Remarks: " + txtRemarksReview.Text + "</b> " +
+                                    " <br> <br> This is an auto-generated email from IS Dashboard, you do not need to reply to this message.<br>" +
+                                  "<br>Material Master Application <br> Information Systems Dashboard";
+                        SessionUser = Session["User_Name"].ToString();
+                        DateTimeNow = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                        InsertEmail();
+                        ViewState["Status"] = "00"; // For Status Reject
+                        lblEmail.Text = "*New Material Creation Request against  Form ID # " + lblMaxTransactionID.Text.ToString() + " has been rejected by you";
+                        lblEmail.Focus();
+                        Page.MaintainScrollPositionOnPostBack = false;
+                        Page.MaintainScrollPositionOnPostBack = true;
+                    }
                 }
-            }
             }
             catch (Exception ex)
             {
