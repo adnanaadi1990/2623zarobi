@@ -701,6 +701,7 @@
     <Content Include="Modules\Finance\SearchVendorMaster.aspx" />
     <Content Include="Modules\Finance\ServiceMasterRequestForm.aspx" />
     <Content Include="Modules\Finance\VendorMaster.aspx" />
+    <Content Include="Modules\HR\CRBooking.aspx" />
     <Content Include="Modules\HR\FindEmployee.aspx" />
     <Content Include="Modules\HR\HR_Main.aspx" />
     <Content Include="Modules\HR\MonthlyAttendance.aspx" />
@@ -1091,6 +1092,13 @@
     </Compile>
     <Compile Include="Modules\Finance\VendorMaster.aspx.designer.cs">
       <DependentUpon>VendorMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\HR\CRBooking.aspx.cs">
+      <DependentUpon>CRBooking.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\HR\CRBooking.aspx.designer.cs">
+      <DependentUpon>CRBooking.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\HR\FindEmployee.aspx.cs">
       <DependentUpon>FindEmployee.aspx</DependentUpon>
