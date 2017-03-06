@@ -215,12 +215,10 @@ namespace DashboardProject.Modules.Master
                 lblMaxTransactionID.Text = reader["TransactionID"].ToString();
                 txtBillOfMaterial.Text = reader["BOM"].ToString();
                 ddlPlant.SelectedValue = reader["Plant"].ToString();
-
                 ddlStorageLocation.DataSource = GetData("SP_StorageLocationPlantWise");
                 ddlStorageLocation.DataTextField = "Description";
                 ddlStorageLocation.DataValueField = "StorageLocationcode";
                 ddlStorageLocation.DataBind();
-
                 ddlStorageLocation.SelectedValue = reader["StorageLocation"].ToString();
                 txtMaterial.Text = reader["MaterialNo"].ToString();
                 txtDescription.Text = reader["MaterialDesc"].ToString();
